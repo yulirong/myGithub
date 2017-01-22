@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"       
+          "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="crelecpay" extends="icinfo-default" namespace="/crelecpay" >
+
+		<action name="doReadCrElecPayList" class="crElecPayAction" method="doReadCrElecPayListAction">
+			<result name="success">/jsp/biz/crelecpay/crelecpayList.jsp</result>
+		</action>
+		
+		<action name="doReadCrElecPayListJSON" class="crElecPayAction" method="doReadCrElecPayListJSONAction">
+		</action>
+	
+		<action name="doEnAddAndEditCrElecPay" class="crElecPayAction" method="doEnAddAndEditCrElecPayAction">
+			<result name="success">/jsp/biz/crelecpay/crelecpayAddAndEdit.jsp</result>
+		</action>
+		
+		<action name="doAddAndEditCrElecPay" class="crElecPayAction" method="doAddAndEditCrElecPayAction">
+		</action>
+		
+		<action name="doDelCrElecPay" class="crElecPayAction" method="doDelCrElecPayAction">
+		</action>
+
+	</package>
+	
+</struts>

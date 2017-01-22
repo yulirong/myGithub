@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This file need no modification -->
+<!DOCTYPE struts PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"       
+          "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<constant name="struts.multipart.maxSize" value="20971520000" />
+
+	<constant name="struts.i18n.encoding" value="utf-8" />
+
+	<constant name="struts.devMode" value="true" />
+
+	<constant name="struts.action.extension" value="do" />
+
+	<constant name="struts.objectFactory" value="spring" />
+	
+	<constant name="struts.ognl.allowStaticMethodAccess" value="true" />
+
+	<package name="icinfo-default" extends="json-default" abstract="true">
+	
+		<interceptors>
+			<interceptor name="permission" class="permissionInterceptor" />
+			   <!-- 用户session拦截器  -->
+			<interceptor name="sysUserSessionInterceptor" class="sysUserSessionInterceptor" />
+			
+		
+			<!--无需验证session安全拦截器  -->
+			<interceptor-stack name="SecurityInterceptorStack">
+			   <interceptor-ref name="defaultStack" />
+			</interceptor-stack>
+			
+			<!-- JSTL 拦截器 -->
+			<interceptor name="jstlInterceptor" class="com.icinfo.plugin.interceptor.JstlResultInterceptor"/>
+			<!-- 默认拦截器  -->
+			<interceptor-stack name="hxDefaultStack">
+				<interceptor-ref name="defaultStack" />
+				<interceptor-ref name="jstlInterceptor"/>
+			</interceptor-stack>
+		</interceptors>
+		
+		<!-- 系统默认拦截器  -->
+        <default-interceptor-ref name="hxDefaultStack" />
+		
+        <default-action-ref name="nonExistUrl"></default-action-ref>
+        
+		<global-results>
+            <result name="errHxException">/jsp/exception/errException.jsp</result>
+            <result name="errException">/jsp/exception/errException.jsp</result>
+            <result name="login">/jsp/server/login.jsp</result>
+            <result name="ajax" type="json"><param name="root">ajaxResults</param></result>
+        </global-results>
+        
+        <global-exception-mappings>
+            <exception-mapping result="errHxException" exception="com.icinfo.plugin.exception.HxException" />
+            <exception-mapping result="errException" exception="java.lang.Exception" />
+        </global-exception-mappings>
+        
+	    <action name="nonExistUrl" class="com.icinfo.creditinfo.action.HxBaseAction">
+	       <result>/jsp/exception/errException.jsp</result>
+	    </action>
+	    
+	</package>
+	
+</struts>

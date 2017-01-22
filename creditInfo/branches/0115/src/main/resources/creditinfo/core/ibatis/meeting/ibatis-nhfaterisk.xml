@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd"> 
+
+<sqlMap namespace="ibatis-nhfaterisk">
+
+	<typeAlias alias="NhFateRisk" type="com.icinfo.creditinfo.bean.meeting.NhFateRisk" />
+
+	<resultMap id="nhFateRiskRlt" class="NhFateRisk">
+		<result property="id" column="id" />
+		<result property="fateObja" column="fate_obja" />
+		<result property="fateObjb" column="fate_objb" />
+		<result property="fateRisk" column="fate_risk" />
+	</resultMap>
+	
+	<sql id="nhFateRisk_where">
+	    <dynamic prepend="where">
+			<isNotEmpty prepend="and" property="id">  
+				id = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="fateObja">  
+				fate_obja = #fateObja#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="fateObjb">  
+				fate_objb = #fateObjb#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="fateRisk">  
+				fate_risk = #fateRisk#
+			</isNotEmpty>
+	    </dynamic>
+	</sql>
+	
+	<select id="selectNhFateRiskList" resultMap="nhFateRiskRlt" parameterClass="java.util.HashMap">
+		select
+			id,fate_obja,fate_objb,fate_risk
+		from 
+			NH_FATE_RISK
+		where fate_obja = #firname# and fate_objb = #secname#
+		or fate_obja = #secname# and fate_objb = #firname#
+	</select>
+	
+</sqlMap>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>汇信科技年会节目</title>
+<link href="<s:url value='/css/bootstrap/bootstrap.min.css'/>" rel="stylesheet">
+<script type="text/javascript" src="<s:url value='/js/base/jquery-1.11.1.min.js'/>"></script>
+<script src="<s:url value='/js/echart/dist/echarts.js'/>" ></script>
+</head>
+<body>
+<div style="width: 100%;height: 100px;background-color:#4781D3; text-align: center;"  >
+<div style="font-size: 50px;color: white;padding-top: 20px;font-family:Microsoft Yahei; ">缘 分 大 揭 秘</div>
+</div>
+<div id="main"></div>
+<div class="alert alert-success" style="height: 140px;font-size: 28px;">
+   温馨提示:<br/>
+     1、点击条状图有详情哦!<br/>
+     2、我们不生产缘分，我们只是缘分的搬运工!
+</div>
+<script type="text/javascript">
+
+require.config({
+	paths : {
+		echarts : "<s:url value='/js/echart/dist'/>"
+	}
+});
+require([ 
+		  'echarts',
+		  "echarts/chart/bar" 
+		],
+		function(ec){
+	$("#main").height($(window).height()-250);
+	var myChart = ec.init(document.getElementById('main'));
+	
+option = {
+	    title : {
+	        text: '',
+	        textStyle:{
+	            fontSize: 60,
+	            fontWeight: 'bolder',
+	            color: 'blue'
+	        }  
+	    },
+	    legend: {
+	        data:[ '缘分指数'],
+	        textStyle:{
+	            fontSize: 30,
+	            fontWeight: 'bolder',
+	            color: 'black'
+	        },
+	        padding:25
+	    },
+	    tooltip : {
+	        trigger: 'axis',
+	        textStyle : {
+	            color: 'yellow',
+	            decoration: 'none',
+	            fontFamily: 'Verdana, sans-serif',
+	            fontSize: 30,
+	            fontStyle: 'italic',
+	            fontWeight: 'bold'
+	        },
+	        formatter: function (params,ticket,callback) {
+	            if(params[0].name=='潘安晨\n吴雪英'){
+	               var res ="缘分指数："+"90";	
+	            }else if(params[0].name=='丁大泽\n疏会会'){
+	               var res ="缘分指数："+"93";
+	            }else if(params[0].name=='吴娅敏\n姚婷婷'){
+	               var res ="缘分指数："+"97";
+	            }else{
+	            	var res ="缘分指数："+"85"+'<br/>'+'缘分原因：'+'这是广告！';
+	            }
+	            setTimeout(function (){
+	                // 仅为了模拟异步回调
+	                callback(ticket, res);
+	            }, 300)
+	            return 'loading';
+	        }
+	    },
+	    toolbox: {
+	        show : false,
+	        feature : {
+	            mark : {show: true},
+	            dataView : {show: true, readOnly: false},
+	            magicType: {show: true, type: ['line', 'bar']},
+	            restore : {show: true},
+	            saveAsImage : {show: true}
+	        }
+	    },
+	    calculable : false,
+	    grid:{
+	    	x:130,
+	    	x2:60,
+	    	y:80,
+	    	height:'70%'
+	    },
+	    xAxis : [
+	        {
+	            type : 'value',
+	            boundaryGap : [0, 0.01],
+	            max:100,
+	            axisLabel : {
+                    show:true,
+                    formatter: '{value}',
+                    textStyle: {
+                       color:'purple',
+                       fontSize: '28'
+                    }
+                }
+	        }
+	    ],
+	    yAxis : [
+	        {
+	            type : 'category',
+// 	            data : ['朱　勇\n张雯嫣','潘安晨\n吴雪英','丁大泽\n疏会会','吴娅敏\n姚婷婷'],
+
+       data : [{value : '朱勇\n张雯嫣',
+                    textStyle:{             
+                    	color : '#6B8E23',
+                        fontSize: '34'
+                     }},{value : '潘安晨\n吴雪英',
+                         textStyle:{   
+                        	 color : 'blue',
+                             fontSize: '34'
+                          }},
+                     {value : '丁大泽\n疏会会',
+                         textStyle:{             
+                             color : '#00FFFF',
+                             fontSize: '34'
+                          }},{value : '吴娅敏\n姚婷婷',
+                              textStyle:{ 
+                              color : '#912CEE',
+                              fontSize: '34'
+                           }}],
+	            axisLabel : {
+                    show:true,
+                    formatter: '{value}'
+//                     textStyle: {
+//                        color:'purple',
+//                        fontSize: '32'
+//                     }
+                }
+
+	        }
+	    ],
+	    series : [
+	        {
+	            name:'缘分指数',
+	            barCategoryGap:'35%',
+	            type:'bar',
+	            data:[85,90, 93, 97]
+	        }
+	      ] 
+      };          
+        	myChart.setOption(option);
+});	    
+
+</script>
+</body>
+</html>

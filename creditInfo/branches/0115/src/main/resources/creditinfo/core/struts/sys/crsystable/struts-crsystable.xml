@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"       
+          "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="crsystable" extends="icinfo-default" namespace="/crsystable" >
+
+		<action name="doReadCrSysTableList" class="crSysTableAction" method="doReadCrSysTableListAction">
+			<result name="success">/jsp/server/sys/crsystable/crsystableList.jsp</result>
+		</action>
+		
+		<action name="doReadCrSysTableListJSON" class="crSysTableAction" method="doReadCrSysTableListJSONAction">
+		</action>
+	
+		<action name="doEnAddAndEditCrSysTable" class="crSysTableAction" method="doEnAddAndEditCrSysTableAction">
+			<result name="success">/jsp/server/sys/crsystable/crsystableAddAndEdit.jsp</result>
+		</action>
+		
+		<action name="doAddAndEditCrSysTable" class="crSysTableAction" method="doAddAndEditCrSysTableAction">
+		</action>
+		
+		<action name="doDelCrSysTable" class="crSysTableAction" method="doDelCrSysTableAction">
+		</action>
+		
+		<action name="doEnScopeTree" class="crSysTableAction" method="doSkipAction">
+			<result name="success">/jsp/server/sys/crsystable/scopeTree.jsp</result>
+		</action>
+		
+		<action name="doGetScopeTree" class="crSysTableAction" method="doGetScopeTreeAction">
+		</action>
+		
+	</package>
+	
+</struts>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd"> 
+
+<sqlMap namespace="ibatis-nhlog">
+
+	<typeAlias alias="NhLog" type="com.icinfo.creditinfo.bean.meeting.NhLog" />
+
+	<resultMap id="nhLogRlt" class="NhLog">
+		<result property="id" column="id" />
+		<result property="logObja" column="log_obja" />
+		<result property="logObjb" column="log_objb" />
+		<result property="logType" column="log_type" />
+		<result property="logDate" column="log_date" />
+		<result property="logRemark" column="log_remark" />
+	</resultMap>
+	
+	<sql id="nhLog_where">
+	    <dynamic prepend="where">
+			<isNotEmpty prepend="and" property="id">  
+				id = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="logObja">  
+				log_obja = #logObja#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="logObjb">  
+				log_objb = #logObjb#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="logType">  
+				log_type = #logType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="logDate">  
+				log_date = #logDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="logRemark">  
+				log_remark = #logRemark#
+			</isNotEmpty>
+	    </dynamic>
+	</sql>
+	
+	<select id="selectNhLogList" resultMap="nhLogRlt" parameterClass="java.util.HashMap">
+		select
+			id,log_obja,log_objb,log_type,log_date,log_remark
+		from 
+			NH_LOG
+		where log_remark = '匹配成功'
+		ORDER BY log_date
+	</select>
+	
+	<insert id="insertNhLog" parameterClass="NhLog">
+       	INSERT INTO NH_LOG 
+			(id,log_obja,log_objb,log_type,log_date,log_remark)
+		VALUES 
+			(#id#,#logObja#,#logObjb#,#logType#,#logDate#,#logRemark#)
+	    <selectKey resultClass="java.lang.String" keyProperty="id" >
+          <![CDATA[ 
+            select #id# as id from dual
+       	  ]]>    
+       	</selectKey> 
+    </insert> 
+	
+</sqlMap>

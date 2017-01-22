@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd"> 
+
+<sqlMap namespace="ibatis-templicense">
+
+	<typeAlias alias="TempLicense" type="com.icinfo.creditinfo.bean.upload.templicense.TempLicense" />
+
+	<resultMap id="templicenseRlt" class="TempLicense">
+		<result property="id" column="id" />
+		<result property="entName" column="ent_name" />
+		<result property="regNo" column="reg_no" />
+		<result property="licOrgName" column="lic_org_name" />
+		<result property="licDocNo" column="lic_doc_no" />
+		<result property="licDocName" column="lic_doc_name" />
+		<result property="licValidFrom" column="lic_valid_from" />
+		<result property="licValidTo" column="lic_valid_to" />
+		<result property="licContent" column="lic_content" />
+		<result property="state" column="state" />
+		<result property="importFrom" column="import_from" />
+		<result property="importDate" column="import_date" />
+		<result property="corpid" column="corpid" />
+		<result property="orgCode" column="ORG_CODE" />
+		<result property="unscCode" column="UNSC_CODE" />
+	</resultMap>
+	
+	<select id="selectTempLicenseById" resultMap="templicenseRlt" parameterClass="java.lang.String">
+		select
+			id,ent_name,reg_no,lic_org_name,lic_doc_no,lic_doc_name,lic_valid_from,lic_valid_to,lic_content,state,import_from,import_date,corpid,ORG_CODE,UNSC_CODE
+		from 
+			TEMP_LICENSE
+		where 
+		    ID = #id#
+	</select>
+	
+	<sql id="templicense_where">
+	    <dynamic prepend="where">
+			<isNotEmpty prepend="and" property="id">  
+				id = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="entName">  
+				ent_name = #entName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="regNo">  
+				reg_no = #regNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="licOrgName">  
+				lic_org_name = #licOrgName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="licDocNo">  
+				lic_doc_no = #licDocNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="licDocName">  
+				lic_doc_name = #licDocName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="licValidFrom">  
+				lic_valid_from = #licValidFrom#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="licValidTo">  
+				lic_valid_to = #licValidTo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="licContent">  
+				lic_content = #licContent#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="state">  
+				state = #state#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="importFrom">  
+				import_from = #importFrom#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="importDate">  
+				import_date = #importDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="corpid">  
+				corpid = #corpid#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="orgCode">  
+				ORG_CODE = #orgCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="unscCode">  
+				UNSC_CODE = #unscCode#
+			</isNotEmpty>
+	    </dynamic>
+	</sql>
+	
+	<select id="selectTempLicenseList" resultMap="templicenseRlt" parameterClass="java.util.HashMap">
+		select
+			id,ent_name,reg_no,lic_org_name,lic_doc_no,lic_doc_name,lic_valid_from,lic_valid_to,lic_content,state,import_from,import_date,corpid,ORG_CODE,UNSC_CODE
+		from 
+			TEMP_LICENSE
+		<include refid="templicense_where" />
+		<include refid="ibatis-global.mysql_page" />
+	</select>
+	
+	<select id="selectTempLicenseTotal" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" >
+		select 
+		    count(ID) 
+		from 
+		    TEMP_LICENSE
+	    <include refid="templicense_where" />
+	</select>
+	
+	<insert id="insertTempLicense" parameterClass="TempLicense">
+       	INSERT INTO TEMP_LICENSE 
+			(id,ent_name,reg_no,lic_org_name,lic_doc_no,lic_doc_name,lic_valid_from,lic_valid_to,lic_content,state,import_from,import_date,corpid,ORG_CODE,UNSC_CODE)
+		VALUES 
+			(#id#,#entName#,#regNo#,#licOrgName#,#licDocNo#,#licDocName#,#licValidFrom#,#licValidTo#,#licContent#,#state#,#importFrom#,#importDate#,#corpid#,#orgCode#,#unscCode#)
+	    <selectKey resultClass="java.lang.String" keyProperty="id" >
+          <![CDATA[ 
+            select #id# as id from dual 
+       	  ]]>    
+       	</selectKey> 
+    </insert> 
+	
+    <update id="updateTempLicense" parameterClass="TempLicense">
+     UPDATE TEMP_LICENSE
+	     <dynamic prepend="set">
+			<isNotEmpty prepend="," property="id">  
+				id = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="entName">  
+				ent_name = #entName#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="regNo">  
+				reg_no = #regNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="licOrgName">  
+				lic_org_name = #licOrgName#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="licDocNo">  
+				lic_doc_no = #licDocNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="licDocName">  
+				lic_doc_name = #licDocName#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="licValidFrom">  
+				lic_valid_from = #licValidFrom#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="licValidTo">  
+				lic_valid_to = #licValidTo#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="licContent">  
+				lic_content = #licContent#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="state">  
+				state = #state#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="importFrom">  
+				import_from = #importFrom#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="importDate">  
+				import_date = #importDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="corpid">  
+				corpid = #corpid#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="orgCode">  
+				ORG_CODE = #orgCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="unscCode">  
+				UNSC_CODE = #unscCode#
+			</isNotEmpty>	
+		</dynamic>
+	    where ID = #id# 
+    </update>
+    
+     <delete id="deleteTempLicense" parameterClass="java.lang.String">
+         DELETE FROM TEMP_LICENSE WHERE ID = #id# 
+     </delete>
+     
+</sqlMap>

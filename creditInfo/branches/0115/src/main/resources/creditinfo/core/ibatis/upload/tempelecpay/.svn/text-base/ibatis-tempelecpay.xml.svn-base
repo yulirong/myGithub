@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd"> 
+
+<sqlMap namespace="ibatis-tempelecpay">
+
+	<typeAlias alias="TempElecPay" type="com.icinfo.creditinfo.bean.upload.tempelecpay.TempElecPay" />
+
+	<resultMap id="tempelecpayRlt" class="TempElecPay">
+		<result property="id" column="id" />
+		<result property="entName" column="ent_name" />
+		<result property="regNo" column="reg_no" />
+		<result property="entLoc" column="ent_loc" />
+		<result property="elecNo" column="elec_no" />
+		<result property="userType" column="user_type" />
+		<result property="recordDate" column="record_date" />
+		<result property="elecPeriod" column="elec_period" />
+		<result property="elecConsumption" column="elec_consumption" />
+		<result property="elecPayAmount" column="elec_pay_amount" />
+		<result property="payDate" column="pay_date" />
+		<result property="payAmount" column="pay_amount" />
+		<result property="importFrom" column="import_from" />
+		<result property="importDate" column="import_date" />
+		<result property="corpid" column="corpid" />
+		<result property="orgCode" column="ORG_CODE" />
+		<result property="unscCode" column="UNSC_CODE" />
+	</resultMap>
+	
+	<select id="selectTempElecPayById" resultMap="tempelecpayRlt" parameterClass="java.lang.String">
+		select
+			id,ent_name,reg_no,ent_loc,elec_no,user_type,record_date,elec_period,elec_consumption,elec_pay_amount,pay_date,pay_amount,import_from,import_date,corpid,ORG_CODE,UNSC_CODE
+		from 
+			TEMP_ELEC_PAY
+		where 
+		    ID = #id#
+	</select>
+	
+	<sql id="tempelecpay_where">
+	    <dynamic prepend="where">
+			<isNotEmpty prepend="and" property="id">  
+				id = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="entName">  
+				ent_name = #entName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="regNo">  
+				reg_no = #regNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="entLoc">  
+				ent_loc = #entLoc#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="elecNo">  
+				elec_no = #elecNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="userType">  
+				user_type = #userType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="recordDate">  
+				record_date = #recordDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="elecPeriod">  
+				elec_period = #elecPeriod#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="elecConsumption">  
+				elec_consumption = #elecConsumption#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="elecPayAmount">  
+				elec_pay_amount = #elecPayAmount#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="payDate">  
+				pay_date = #payDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="payAmount">  
+				pay_amount = #payAmount#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="importFrom">  
+				import_from = #importFrom#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="importDate">  
+				import_date = #importDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="corpid">  
+				corpid = #corpid#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="orgCode">  
+				ORG_CODE = #orgCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="unscCode">  
+				UNSC_CODE = #unscCode#
+			</isNotEmpty>
+	    </dynamic>
+	</sql>
+	
+	<select id="selectTempElecPayList" resultMap="tempelecpayRlt" parameterClass="java.util.HashMap">
+		select
+			id,ent_name,reg_no,ent_loc,elec_no,user_type,record_date,elec_period,elec_consumption,elec_pay_amount,pay_date,pay_amount,import_from,import_date,corpid,ORG_CODE,UNSC_CODE
+		from 
+			TEMP_ELEC_PAY
+		<include refid="tempelecpay_where" />
+		<include refid="ibatis-global.mysql_page" />
+	</select>
+	
+	<select id="selectTempElecPayTotal" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" >
+		select 
+		    count(ID) 
+		from 
+		    TEMP_ELEC_PAY
+	    <include refid="tempelecpay_where" />
+	</select>
+	
+	<insert id="insertTempElecPay" parameterClass="TempElecPay">
+       	INSERT INTO TEMP_ELEC_PAY 
+			(id,ent_name,reg_no,ent_loc,elec_no,user_type,record_date,elec_period,elec_consumption,elec_pay_amount,pay_date,pay_amount,import_from,import_date,corpid,ORG_CODE,UNSC_CODE)
+		VALUES 
+			(#id#,#entName#,#regNo#,#entLoc#,#elecNo#,#userType#,#recordDate#,#elecPeriod#,#elecConsumption#,#elecPayAmount#,#payDate#,#payAmount#,#importFrom#,#importDate#,#corpid#,#orgCode#,#unscCode#)
+	    <selectKey resultClass="java.lang.String" keyProperty="id" >
+          <![CDATA[ 
+            select #id# as id from dual 
+       	  ]]>    
+       	</selectKey> 
+    </insert> 
+	
+    <update id="updateTempElecPay" parameterClass="TempElecPay">
+     UPDATE TEMP_ELEC_PAY
+	     <dynamic prepend="set">
+			<isNotEmpty prepend="," property="id">  
+				id = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="entName">  
+				ent_name = #entName#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="regNo">  
+				reg_no = #regNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="entLoc">  
+				ent_loc = #entLoc#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="elecNo">  
+				elec_no = #elecNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="userType">  
+				user_type = #userType#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="recordDate">  
+				record_date = #recordDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="elecPeriod">  
+				elec_period = #elecPeriod#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="elecConsumption">  
+				elec_consumption = #elecConsumption#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="elecPayAmount">  
+				elec_pay_amount = #elecPayAmount#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="payDate">  
+				pay_date = #payDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="payAmount">  
+				pay_amount = #payAmount#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="importFrom">  
+				import_from = #importFrom#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="importDate">  
+				import_date = #importDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="corpid">  
+				corpid = #corpid#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="orgCode">  
+				ORG_CODE = #orgCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="unscCode">  
+				UNSC_CODE = #unscCode#
+			</isNotEmpty>	
+		</dynamic>
+	    where ID = #id# 
+    </update>
+    
+     <delete id="deleteTempElecPay" parameterClass="java.lang.String">
+         DELETE FROM TEMP_ELEC_PAY WHERE ID = #id# 
+     </delete>
+     
+</sqlMap>

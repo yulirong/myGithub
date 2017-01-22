@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd"> 
+
+<sqlMap namespace="ibatis-crarrearinfo">
+
+	<typeAlias alias="CrArrearInfo" type="com.icinfo.creditinfo.bean.biz.crarrearinfo.CrArrearInfo" />
+
+	<resultMap id="crarrearinfoRlt" class="CrArrearInfo">
+		<result property="entName" column="ent_name" />
+		<result property="corpid" column="corpid" />
+		<result property="arrearBalance" column="arrear_balance" />
+		<result property="importFrom" column="import_from" />
+		<result property="arrearType" column="arrear_type" />
+		<result property="fromTable" column="from_table" />
+		<result property="arrearPeriod" column="arrear_period" />
+		<result property="taxarrearPeriodTo" column="taxarrear_period_to" />
+		<result property="taxType" column="tax_type" />
+	</resultMap>
+	
+	<select id="selectCrArrearInfoById" resultMap="crarrearinfoRlt" parameterClass="java.lang.String">
+		select
+			ent_name,corpid,arrear_balance,import_from,arrear_type,from_table,arrear_period,taxarrear_period_to,tax_type
+		from 
+			CR_ARREAR_INFO
+		where 
+		    ID = #id#
+	</select>
+	
+	<sql id="crarrearinfo_where">
+	    <dynamic prepend="where">
+			<isNotEmpty prepend="and" property="entName">  
+				ent_name = #entName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="corpid">  
+				corpid = #corpid#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="arrearBalance">  
+				arrear_balance = #arrearBalance#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="importFrom">  
+				import_from = #importFrom#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="arrearType">  
+				arrear_type = #arrearType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="fromTable">  
+				from_table = #fromTable#
+			</isNotEmpty>
+	    </dynamic>
+	</sql>
+	
+	
+	<!-- 获取水电汽税务欠费信息 -->
+	<select id="selectAllArrearList" resultMap="crarrearinfoRlt" parameterClass="java.util.HashMap">
+		select
+			ent_name,corpid,arrear_balance,import_from,arrear_type,from_table,arrear_period,taxarrear_period_to,tax_type
+		from 
+			CR_ARREAR_INFO
+		<include refid="crarrearinfo_where" />
+	</select>
+	
+	<select id="selectCrArrearInfoList" resultMap="crarrearinfoRlt" parameterClass="java.util.HashMap">
+		select
+			ent_name,corpid,arrear_balance,import_from,arrear_type,from_table,arrear_period,taxarrear_period_to,tax_type
+		from 
+			CR_ARREAR_INFO
+		<include refid="crarrearinfo_where" />
+		GROUP BY from_table,arrear_type
+	</select>
+	
+	<select id="selectCrArrearInfoTotal" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" >
+		select 
+		    count(ID) 
+		from 
+		    CR_ARREAR_INFO
+	    <include refid="crarrearinfo_where" />
+	</select>
+	
+</sqlMap>

@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd"> 
+
+<sqlMap namespace="ibatis-sysuser">
+	<typeAlias alias="SysUser" type="com.icinfo.creditinfo.bean.sys.sysuser.SysUser" />
+
+	<resultMap id="sysuserRlt" class="SysUser">
+		<result property="id" column="ID" />
+		<result property="loginName" column="LOGIN_NAME" />
+		<result property="loginPass" column="LOGIN_PASS" />
+		<result property="realName" column="REAL_NAME" />
+		<result property="mobile" column="MOBILE" />
+		<result property="telephone" column="TELEPHONE" />
+		<result property="email" column="EMAIL" />
+		<result property="userStatus" column="USER_STATUS" />
+		<result property="createTime" column="CREATE_TIME" />
+		<result property="depCode" column="DEP_CODE" />
+		<result property="depName" column="DEP_NAME" />
+		<result property="keySeries" column="KEY_SERIES"/>
+		<result property="userType" column="USER_TYPE"/>
+		<result property="userId" column="USER_ID"/>
+		<result property="userQq" column="USER_QQ"/>
+	</resultMap>
+	
+	<select id="selectSysUserById" resultMap="sysuserRlt" parameterClass="java.lang.String">
+		select
+			U.ID,LOGIN_NAME,LOGIN_PASS,REAL_NAME,MOBILE,TELEPHONE,EMAIL,USER_STATUS,CREATE_TIME,U.DEP_CODE,D.DEP_NAME DEP_NAME,KEY_SERIES,USER_TYPE,USER_ID,USER_QQ     
+		from 
+			CR_SYS_USER U
+		left join CR_SYS_DEPART D on U.DEP_CODE = D.DEP_CODE
+		where U.ID = #id#
+	</select>
+	
+	<select id="selectSysUserForLogin"  resultMap="sysuserRlt"  parameterClass="SysUser">
+		select
+			U.ID,LOGIN_NAME,LOGIN_PASS,REAL_NAME,MOBILE,TELEPHONE,EMAIL,USER_STATUS,CREATE_TIME,U.DEP_CODE,D.DEP_NAME DEP_NAME,KEY_SERIES,USER_TYPE,USER_ID,USER_QQ 
+		from 
+			CR_SYS_USER U
+		left join CR_SYS_DEPART D on U.DEP_CODE = D.DEP_CODE
+		where 
+		    LOGIN_NAME = #loginName#  
+		    <isNotEmpty prepend="and" property="loginPass">  
+				LOGIN_PASS=#loginPass# 
+			</isNotEmpty>
+	</select>
+	
+	<select id="selectSysUserForCheckLoginName" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" >
+		select 
+			count(ID) 
+		from 
+			CR_SYS_USER 
+		where 
+		    LOGIN_NAME = #loginName# 
+           <isNotEmpty prepend="and" property="id">  
+               <![CDATA[ ID  <> #id# ]]> 
+           </isNotEmpty> 
+	</select>
+	
+	<sql id="sysuser_where">
+	    <dynamic prepend="where">
+			<isNotEmpty prepend="and" property="id">  
+				ID = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="loginName">  
+				LOGIN_NAME like  CONCAT('%', #loginName#, '%') 
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="realName">  
+				REAL_NAME like   CONCAT('%', #realName#, '%') 
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="userStatus">
+				USER_STATUS = #userStatus#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="keyUserLoginName">
+				LOGIN_NAME = #keyUserLoginName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="keySeries">
+				KEY_SERIES = #keySeries#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="depCode">
+				DEP_CODE in
+				<iterate property="depCode" open="(" close=")" conjunction=",">
+				#depCode[]#
+				</iterate>
+			</isNotEmpty>
+			
+	    </dynamic>
+	</sql>
+	
+	<select id="selectSysUserList" resultMap="sysuserRlt" parameterClass="java.util.HashMap">
+		select
+			ID,LOGIN_NAME,LOGIN_PASS,REAL_NAME,MOBILE,TELEPHONE,EMAIL,USER_STATUS,CREATE_TIME,DEP_CODE,'' DEP_NAME,KEY_SERIES,USER_TYPE,USER_ID,USER_QQ   
+		from 
+			CR_SYS_USER
+		<include refid="sysuser_where" />
+		<include refid="ibatis-global.mysql_page" />
+	</select>
+
+	<select id="selectSysUserTotal" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" >
+		select 
+		    count(ID) 
+		from 
+		    CR_SYS_USER
+	    <include refid="sysuser_where" />
+	</select>
+	
+	<insert id="insertSysUser" parameterClass="SysUser">
+       	INSERT INTO CR_SYS_USER 
+			(ID,LOGIN_NAME,LOGIN_PASS,REAL_NAME,MOBILE,TELEPHONE,EMAIL,USER_STATUS,CREATE_TIME,DEP_CODE,KEY_SERIES,USER_TYPE,USER_ID,USER_QQ)
+		VALUES 
+			(#id#,#loginName#,#loginPass#,#realName#,#mobile#,#telephone#,#email#,#userStatus#,now(),#depCode#,#keySeries#,#userType#,#userId#,#userQq#)
+	    <selectKey resultClass="java.lang.String" keyProperty="id">  
+        <![CDATA[ 
+            select #id# as id from dual 
+        ]]>     
+        </selectKey> 
+    </insert> 
+	
+    <update id="updateSysUser" parameterClass="SysUser">
+     UPDATE CR_SYS_USER
+	     <dynamic prepend="set">
+			<isNotEmpty prepend="," property="loginName">  
+				LOGIN_NAME = #loginName#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="loginPass">  
+				LOGIN_PASS = #loginPass#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="realName">  
+				REAL_NAME = #realName#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="mobile">
+				MOBILE = #mobile#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="telephone">
+				TELEPHONE = #telephone#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="email">
+				EMAIL = #email#
+			</isNotEmpty>	
+			<isNotEmpty prepend="," property="keySeries">
+				KEY_SERIES = #keySeries#
+			</isNotEmpty>		
+			<isNotEmpty prepend="," property="userStatus">
+				USER_STATUS = #userStatus#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="depCode">
+				DEP_CODE = #depCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="userType">
+				USER_TYPE = #userType#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="userId">
+				USER_ID = #userId#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="userQq">
+				USER_QQ = #userQq#
+			</isNotEmpty>
+			
+		</dynamic>
+	    where ID = #id# 
+    </update>
+    
+     <delete id="deleteSysUser" parameterClass="java.lang.String">
+         DELETE FROM CR_SYS_USER WHERE ID = #id# 
+     </delete>
+     
+</sqlMap>

@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd"> 
+
+<sqlMap namespace="ibatis-crtradesuminfo">
+
+	<typeAlias alias="CrTradeSumInfo" type="com.icinfo.creditinfo.bean.biz.crtradesuminfo.CrTradeSumInfo" />
+
+	<resultMap id="crtradesuminfoRlt" class="CrTradeSumInfo">
+		<result property="corpid" column="corpid" />
+		<result property="id" column="ID" />
+		<result property="traEntName" column="TRA_ENT_NAME" />
+		<result property="traRegNo" column="TRA_REG_NO" />
+		<result property="traFinanceSum" column="TRA_FINANCE_SUM" />
+		<result property="tarCerInst" column="TAR_CER_INST" />
+		<result property="tarGradeType" column="TAR_GRADE_TYPE" />
+		<result property="tarCurrency" column="TAR_CURRENCY" />
+		<result property="tarBizType" column="TAR_BIZ_TYPE" />
+		<result property="traFinanceAmount" column="TRA_FINANCE_AMOUNT" />
+		<result property="tarLoadDate" column="TAR_LOAD_DATE" />
+		<result property="tarGuarantee" column="TAR_GUARANTEE" />
+		<result property="traFinanceBalance" column="TRA_FINANCE_BALANCE" />
+		<result property="traDeadlineDate" column="TRA_DEADLINE_DATE" />
+		<result property="tarExtension" column="TAR_EXTENSION" />
+		<result property="tarUserid" column="TAR_USERID" />
+		<result property="tarOptTime" column="TAR_OPT_TIME" />
+	</resultMap>
+	
+	<select id="selectCrTradeSumInfoById" resultMap="crtradesuminfoRlt" parameterClass="java.lang.String">
+		select
+			corpid,ID,TRA_ENT_NAME,TRA_REG_NO,TRA_FINANCE_SUM,TAR_CER_INST,TAR_GRADE_TYPE,TAR_CURRENCY,TAR_BIZ_TYPE,TRA_FINANCE_AMOUNT,TAR_LOAD_DATE,TAR_GUARANTEE,TRA_FINANCE_BALANCE,TRA_DEADLINE_DATE,TAR_EXTENSION,TAR_USERID,TAR_OPT_TIME
+		from 
+			CR_TRADE_SUM_INFO
+		where 
+		    ID = #id#
+	</select>
+	
+	<sql id="crtradesuminfo_where">
+	    <dynamic prepend="where">
+			<isNotEmpty prepend="and" property="corpid">  
+				corpid = #corpid#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="id">  
+				ID = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="traEntName">  
+				TRA_ENT_NAME = #traEntName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="traRegNo">  
+				TRA_REG_NO = #traRegNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="traFinanceSum">  
+				TRA_FINANCE_SUM = #traFinanceSum#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="tarCerInst">  
+				TAR_CER_INST = #tarCerInst#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="tarGradeType">  
+				TAR_GRADE_TYPE = #tarGradeType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="tarCurrency">  
+				TAR_CURRENCY = #tarCurrency#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="tarBizType">  
+				TAR_BIZ_TYPE = #tarBizType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="traFinanceAmount">  
+				TRA_FINANCE_AMOUNT = #traFinanceAmount#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="tarLoadDate">  
+				TAR_LOAD_DATE = #tarLoadDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="tarGuarantee">  
+				TAR_GUARANTEE = #tarGuarantee#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="traFinanceBalance">  
+				TRA_FINANCE_BALANCE = #traFinanceBalance#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="traDeadlineDate">  
+				TRA_DEADLINE_DATE = #traDeadlineDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="tarExtension">  
+				TAR_EXTENSION = #tarExtension#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="tarUserid">  
+				TAR_USERID = #tarUserid#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="tarOptTime">  
+				TAR_OPT_TIME = #tarOptTime#
+			</isNotEmpty>
+	    </dynamic>
+	</sql>
+	
+	<select id="selectCrTradeSumInfoList" resultMap="crtradesuminfoRlt" parameterClass="java.util.HashMap">
+		select
+			corpid,ID,TRA_ENT_NAME,TRA_REG_NO,TRA_FINANCE_SUM,TAR_CER_INST,TAR_GRADE_TYPE,TAR_CURRENCY,TAR_BIZ_TYPE,TRA_FINANCE_AMOUNT,TAR_LOAD_DATE,TAR_GUARANTEE,TRA_FINANCE_BALANCE,TRA_DEADLINE_DATE,TAR_EXTENSION,TAR_USERID,TAR_OPT_TIME
+		from 
+			CR_TRADE_SUM_INFO
+		<include refid="crtradesuminfo_where" />
+		ORDER BY TAR_OPT_TIME DESC
+		<include refid="ibatis-global.mysql_page" />
+	</select>
+	
+	<select id="selectCrTradeSumInfoTotal" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" >
+		select 
+		    count(ID) 
+		from 
+		    CR_TRADE_SUM_INFO
+	    <include refid="crtradesuminfo_where" />
+	</select>
+	
+	<insert id="insertCrTradeSumInfo" parameterClass="CrTradeSumInfo">
+       	INSERT INTO CR_TRADE_SUM_INFO 
+			(corpid,ID,TRA_ENT_NAME,TRA_REG_NO,TRA_FINANCE_SUM,TAR_CER_INST,TAR_GRADE_TYPE,TAR_CURRENCY,TAR_BIZ_TYPE,TRA_FINANCE_AMOUNT,TAR_LOAD_DATE,TAR_GUARANTEE,TRA_FINANCE_BALANCE,TRA_DEADLINE_DATE,TAR_EXTENSION,TAR_USERID,TAR_OPT_TIME)
+		VALUES 
+			(#corpid#,#id#,#traEntName#,#traRegNo#,#traFinanceSum#,#tarCerInst#,#tarGradeType#,#tarCurrency#,#tarBizType#,#traFinanceAmount#,#tarLoadDate#,#tarGuarantee#,#traFinanceBalance#,#traDeadlineDate#,#tarExtension#,#tarUserid#,#tarOptTime#)
+	    <selectKey resultClass="java.lang.String" keyProperty="id" >
+          <![CDATA[ 
+            select #id# as id from dual 
+       	  ]]>    
+       	</selectKey> 
+    </insert> 
+	
+    <update id="updateCrTradeSumInfo" parameterClass="CrTradeSumInfo">
+     UPDATE CR_TRADE_SUM_INFO
+	     <dynamic prepend="set">
+			<isNotEmpty prepend="," property="corpid">  
+				corpid = #corpid#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="traEntName">  
+				TRA_ENT_NAME = #traEntName#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="traRegNo">  
+				TRA_REG_NO = #traRegNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="traFinanceSum">  
+				TRA_FINANCE_SUM = #traFinanceSum#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="tarCerInst">  
+				TAR_CER_INST = #tarCerInst#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="tarGradeType">  
+				TAR_GRADE_TYPE = #tarGradeType#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="tarCurrency">  
+				TAR_CURRENCY = #tarCurrency#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="tarBizType">  
+				TAR_BIZ_TYPE = #tarBizType#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="traFinanceAmount">  
+				TRA_FINANCE_AMOUNT = #traFinanceAmount#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="tarLoadDate">  
+				TAR_LOAD_DATE = #tarLoadDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="tarGuarantee">  
+				TAR_GUARANTEE = #tarGuarantee#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="traFinanceBalance">  
+				TRA_FINANCE_BALANCE = #traFinanceBalance#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="traDeadlineDate">  
+				TRA_DEADLINE_DATE = #traDeadlineDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="tarExtension">  
+				TAR_EXTENSION = #tarExtension#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="tarUserid">  
+				TAR_USERID = #tarUserid#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="tarOptTime">  
+				TAR_OPT_TIME = #tarOptTime#
+			</isNotEmpty>
+		</dynamic>
+	    where ID = #id# 
+    </update>
+    
+     <delete id="deleteCrTradeSumInfo" parameterClass="java.lang.String">
+         DELETE FROM CR_TRADE_SUM_INFO WHERE ID = #id# 
+     </delete>
+     
+</sqlMap>

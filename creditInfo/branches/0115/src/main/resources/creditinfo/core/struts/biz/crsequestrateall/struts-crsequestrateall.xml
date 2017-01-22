@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"       
+          "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="crsequestrateall" extends="icinfo-default" namespace="/crsequestrateall" >
+
+		<action name="doReadCrSequestrateAllList" class="crSequestrateAllAction" method="doReadCrSequestrateAllListAction">
+			<result name="success">/jsp/biz/crsequestrateall/crsequestrateallList.jsp</result>
+		</action>
+		
+		<!-- 房产查封 -->
+		<action name="doReadCrSequestrateAllListJSON" class="crSequestrateAllAction" method="doReadPermissionCrSequestrateAllListJSON">
+		</action>
+		<!-- 土地查封 -->
+		<action name="doReadLandCrSequestrateAllListJSON" class="crSequestrateAllAction" method="doReadPermissionLandCrSequestrateAllListJSON">
+		</action>
+	
+		<action name="doEnAddAndEditCrSequestrateAll" class="crSequestrateAllAction" method="doEnAddAndEditCrSequestrateAllAction">
+			<result name="success">/jsp/biz/crsequestrateall/crsequestrateallAddAndEdit.jsp</result>
+		</action>
+		
+		<action name="doAddAndEditCrSequestrateAll" class="crSequestrateAllAction" method="doAddAndEditCrSequestrateAllAction">
+		</action>
+		
+		<action name="doDelCrSequestrateAll" class="crSequestrateAllAction" method="doDelCrSequestrateAllAction">
+		</action>
+
+	</package>
+	
+</struts>

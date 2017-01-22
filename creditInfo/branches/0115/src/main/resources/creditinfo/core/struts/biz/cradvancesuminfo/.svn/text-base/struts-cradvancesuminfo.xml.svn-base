@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"       
+          "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="cradvancesuminfo" extends="icinfo-default" namespace="/cradvancesuminfo" >
+
+		<action name="doReadCrAdvanceSumInfoList" class="crAdvanceSumInfoAction" method="doReadCrAdvanceSumInfoListAction">
+			<result name="success">/jsp/server/biz/cradvancesuminfo/cradvancesuminfoList.jsp</result>
+		</action>
+		
+		<action name="doReadCrAdvanceSumInfoListJSON" class="crAdvanceSumInfoAction" method="doReadCrAdvanceSumInfoListJSONAction">
+		</action>
+	
+		<action name="doEnAddAndEditCrAdvanceSumInfo" class="crAdvanceSumInfoAction" method="doEnAddAndEditCrAdvanceSumInfoAction">
+			<result name="success">/jsp/server/biz/cradvancesuminfo/cradvancesuminfoAddAndEdit.jsp</result>
+		</action>
+		
+		<action name="doAddAndEditCrAdvanceSumInfo" class="crAdvanceSumInfoAction" method="doAddAndEditCrAdvanceSumInfoAction">
+		</action>
+		
+		<action name="doDelCrAdvanceSumInfo" class="crAdvanceSumInfoAction" method="doDelCrAdvanceSumInfoAction">
+		</action>
+
+	</package>
+	
+</struts>

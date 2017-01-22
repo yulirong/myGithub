@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd"> 
+
+<sqlMap namespace="ibatis-cranalymacidxtrade">
+
+	<typeAlias alias="CrAnalyMacIdxTrade" type="com.icinfo.creditinfo.bean.analy.cranalymacidxtrade.CrAnalyMacIdxTrade" />
+
+	<resultMap id="cranalymacidxtradeRlt" class="CrAnalyMacIdxTrade">
+		<result property="id" column="id" />
+		<result property="idxTradeCode" column="idx_trade_code" />
+		<result property="idxTradeSupcode" column="idx_trade_supcode" />
+		<result property="idxEcomcIdx" column="idx_ecomc_idx" />
+		<result property="idxRistValue" column="idx_rist_value" />
+		<result property="idxCreateDate" column="idx_create_date" />
+		<result property="idxStatus" column="idx_status" />
+	</resultMap>
+	
+	<resultMap id="cranalymacidxtradeRlt2" class="CrAnalyMacIdxTrade">
+		<result property="idxTradeSupcode" column="idx_trade_supcode" />
+		<result property="idxEcomcIdx" column="idx_ecomc_idx" />
+		<result property="idxRistValue" column="idx_rist_value" />
+	</resultMap>
+	
+	<resultMap id="cranalymacidxtradeRlt3" class="CrAnalyMacIdxTrade">
+		<result property="idxCreateDate" column="idx_create_date" />
+		<result property="idxEcomcIdx" column="idx_ecomc_idx" />
+		<result property="idxRistValue" column="idx_rist_value" />
+	</resultMap>
+	
+	<select id="selectCrAnalyMacIdxTradeById" resultMap="cranalymacidxtradeRlt" parameterClass="java.lang.String">
+		select
+			id,idx_trade_code,idx_trade_supcode,idx_ecomc_idx,idx_rist_value,idx_create_date,idx_status
+		from 
+			CR_ANALY_MAC_IDX_TRADE
+		where 
+		    ID = #id#
+	</select>
+	
+	<sql id="cranalymacidxtrade_where">
+	    <dynamic prepend="where">
+			<isNotEmpty prepend="and" property="id">  
+				id = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="idxTradeCode">  
+				idx_trade_code = #idxTradeCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="idxTradeSupcode">  
+				idx_trade_supcode = #idxTradeSupcode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="idxEcomcIdx">  
+				idx_ecomc_idx = #idxEcomcIdx#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="idxRistValue">  
+				idx_rist_value = #idxRistValue#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="idxCreateDate">  
+				idx_create_date = #idxCreateDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="idxStatus">  
+				idx_status = #idxStatus#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="hydata"> 
+				idx_trade_supcode IN
+				<iterate property="hydata" open="(" close=")" conjunction=",">  
+				    #hydata[]#  
+				</iterate> 
+			</isNotEmpty>
+	    </dynamic>
+	</sql>
+	
+	<!-- 获取行业经济景气指数信贷风险指数 -->
+	<select id="selectEconomicIndexList" resultMap="cranalymacidxtradeRlt2" parameterClass="java.util.HashMap">
+		SELECT '房地产与建筑业' idx_trade_supcode,SUM(A.idx_ecomc_idx) idx_ecomc_idx,SUM(A.idx_rist_value) idx_rist_value from (select idx_trade_supcode,idx_ecomc_idx,idx_rist_value,idx_create_date FROM CR_ANALY_MAC_IDX_TRADE WHERE idx_id IN(SELECT MAX(id) FROM CR_ANALY_MAC_IDX))A WHERE A.idx_trade_supcode IN('E','k') UNION ALL
+		SELECT '工业' idx_trade_supcode,SUM(A.idx_ecomc_idx) idx_ecomc_idx,SUM(A.idx_rist_value) idx_rist_value from (select idx_trade_supcode,idx_ecomc_idx,idx_rist_value,idx_create_date FROM CR_ANALY_MAC_IDX_TRADE WHERE idx_id IN(SELECT MAX(id) FROM CR_ANALY_MAC_IDX))A WHERE A.idx_trade_supcode IN('A','B','C','D') UNION ALL
+		SELECT '批发零售业' idx_trade_supcode,SUM(A.idx_ecomc_idx) idx_ecomc_idx,SUM(A.idx_rist_value) idx_rist_value from (select idx_trade_supcode,idx_ecomc_idx,idx_rist_value,idx_create_date FROM CR_ANALY_MAC_IDX_TRADE WHERE idx_id IN(SELECT MAX(id) FROM CR_ANALY_MAC_IDX))A WHERE A.idx_trade_supcode IN('F') UNION ALL
+		SELECT '社会服务及商业服务业' idx_trade_supcode,SUM(A.idx_ecomc_idx) idx_ecomc_idx,SUM(A.idx_rist_value) idx_rist_value from (select idx_trade_supcode,idx_ecomc_idx,idx_rist_value,idx_create_date FROM CR_ANALY_MAC_IDX_TRADE WHERE idx_id IN(SELECT MAX(id) FROM CR_ANALY_MAC_IDX))A WHERE A.idx_trade_supcode IN('G','H','I','J','L','M','N','O','P','Q','R','S') 
+	</select>
+	
+	<!-- 获取行业经济景气指数信贷风险指数趋势 -->
+	<select id="selectEconomicTrendIndexList" resultMap="cranalymacidxtradeRlt3" parameterClass="java.util.HashMap">
+		SELECT idx_create_date,SUM(idx_ecomc_idx)idx_ecomc_idx,SUM(idx_rist_value)idx_rist_value 
+		FROM CR_ANALY_MAC_IDX_TRADE 
+		<include refid="cranalymacidxtrade_where" />
+		GROUP BY idx_id
+		ORDER BY idx_create_date
+	</select>
+	
+	<select id="selectCrAnalyMacIdxTradeList" resultMap="cranalymacidxtradeRlt" parameterClass="java.util.HashMap">
+		select
+			id,idx_trade_code,idx_trade_supcode,idx_ecomc_idx,idx_rist_value,idx_create_date,idx_status
+		from 
+			CR_ANALY_MAC_IDX_TRADE
+		<include refid="cranalymacidxtrade_where" />
+		<include refid="ibatis-global.mysql_page" /> 
+	</select>
+	
+	<select id="selectCrAnalyMacIdxTradeTotal" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" >
+		select 
+		    count(ID) 
+		from 
+		    CR_ANALY_MAC_IDX_TRADE
+	    <include refid="cranalymacidxtrade_where" />
+	</select>
+	
+</sqlMap>

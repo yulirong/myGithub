@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd"> 
+
+<sqlMap namespace="ibatis-cranalyentlife">
+
+	<typeAlias alias="CrAnalyEntLife" type="com.icinfo.creditinfo.bean.analy.cranalyentlife.CrAnalyEntLife" />
+	<typeAlias alias="CrAnalyBigEntLife" type="com.icinfo.creditinfo.bean.analy.cranalyentlife.CrAnalyEntLife" />
+
+	<resultMap id="cranalyentlifeRlt" class="CrAnalyEntLife">
+		<result property="entTrade" column="ent_trade" />
+		<result property="entSupTrade" column="ent_sup_trade" />
+		<result property="entCheckDate" column="ent_check_date" />
+		<result property="entFlag" column="ent_flag" />
+		<result property="entCount" column="ent_count" />
+	</resultMap>
+	
+	<resultMap id="cranalyentlifeRlt2" class="CrAnalyEntLife">
+		<result property="entAnalyDate" column="ent_analy_date" />
+		<result property="entAnalyCount" column="ent_analy_count" />
+	</resultMap>
+	
+	<resultMap id="cranalyentlifeRlt3" class="CrAnalyEntLife">
+		<result property="entSupTrade" column="ent_sup_trade" />
+		<result property="entAnalyDate" column="ent_analy_date" />
+		<result property="entAnalyCount" column="ent_analy_count" />
+	</resultMap>
+	
+	<resultMap id="cranalybigentlifeRlt" class="CrAnalyEntLife">
+		<result property="entSupTrade" column="ent_sup_trade" />
+		<result property="entCount" column="ent_count" />
+	</resultMap>
+	
+	<select id="selectCrAnalyEntLifeById" resultMap="cranalyentlifeRlt" parameterClass="java.lang.String">
+		select
+			ent_trade,ent_sup_trade,ent_check_date,ent_flag,ent_count
+		from 
+			CR_ANALY_ENT_LIFE
+		where 
+		    ID = #id#
+	</select>
+	
+	<sql id="cranalyentlife_where">
+	    <dynamic prepend="where">
+			<isNotEmpty prepend="and" property="entTrade">  
+				ent_trade = #entTrade#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="entSupTrade">  
+				ent_sup_trade = #entSupTrade#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="entCheckDate">  
+				ent_check_date = #entCheckDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="entFlag">  
+				ent_flag = #entFlag#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="entCount">  
+				ent_count = #entCount#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="entAnalyDate">  
+				ent_analy_date = #entAnalyDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="entAnalyCount">  
+				ent_analy_count = #entAnalyCount#
+			</isNotEmpty>
+	    </dynamic>
+	</sql>
+	
+	<!-- 获得行业新生或消亡集合以及数量 -->
+	<select id="selectEntLifeList" resultMap="cranalyentlifeRlt2" parameterClass="java.util.HashMap">
+		select
+			DATE_FORMAT(ent_check_date,'%Y-%m') ent_analy_date,SUM(ent_count) ent_analy_count
+		from 
+			CR_ANALY_ENT_LIFE WHERE ent_check_date IS NOT NULL and ent_count is not null
+		<isNotEmpty prepend="and" property="entFlag">  
+			ent_flag = #entFlag# 
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="entSupTrade">  
+			ent_sup_trade = #entSupTrade#
+		</isNotEmpty>
+		GROUP BY DATE_FORMAT(ent_check_date,'%Y-%m')
+		ORDER BY DATE_FORMAT(ent_check_date,'%Y-%m') ASC
+	</select>
+	
+	<!-- 获得 年、行业类型、企业数的集合 -->
+	<select id="selectEntLifeListForCharts" resultMap="cranalyentlifeRlt3" parameterClass="java.util.HashMap">
+		select
+			ent_sup_trade,DATE_FORMAT(ent_check_date,'%Y') ent_analy_date,SUM(ent_count) ent_analy_count
+		from 
+			CR_ANALY_ENT_LIFE 
+		WHERE 
+			ent_check_date IS NOT NULL AND ent_sup_trade IS NOT NULL  and ent_count is not null
+		<![CDATA[
+			and ent_sup_trade <> ''
+		]]>
+		<isNotEmpty prepend="and" property="entFlag">
+			ent_flag = #entFlag# 
+		</isNotEmpty>
+		GROUP BY DATE_FORMAT(ent_check_date,'%Y'),ent_sup_trade
+		ORDER BY DATE_FORMAT(ent_check_date,'%Y') ASC
+	</select>
+	
+	<!-- 获取最新的一条 -->
+	<select id="selectLastEntLife" resultMap="cranalyentlifeRlt">
+		select
+			ent_trade,ent_sup_trade,ent_check_date,ent_flag,ent_count
+		from 
+			CR_ANALY_ENT_LIFE
+		where ent_check_date IS NOT NULL
+		ORDER BY ent_check_date DESC 
+		LIMIT 0,1
+	</select>
+	
+	
+	<select id="selectCrAnalyEntLifeList" resultMap="cranalyentlifeRlt" parameterClass="java.util.HashMap">
+		select
+			ent_trade,ent_sup_trade,ent_check_date,ent_flag,ent_count
+		from 
+			CR_ANALY_ENT_LIFE where ent_check_date is not null 
+			<isNotEmpty prepend="and" property="entTrade">  
+				ent_trade = #entTrade#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="entSupTrade">  
+				ent_sup_trade = #entSupTrade#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="entCheckDate">  
+				ent_check_date = #entCheckDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="entFlag">  
+				ent_flag = #entFlag#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="entCount">  
+				ent_count = #entCount#
+			</isNotEmpty>
+			ORDER BY ent_check_date DESC
+		<include refid="ibatis-global.mysql_page" />
+	</select>
+	
+	<!-- 获得行业新生或消亡数量 -->
+	<select id="selectEntLifeTotal" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" >
+		select 
+		    sum(ent_count)
+		from 
+		    CR_ANALY_ENT_LIFE
+		    
+		where ent_flag = #entFlag# 
+		<isNotEmpty prepend="and" property="entSupTrade">  
+				ent_sup_trade = #entSupTrade#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="startDate">  
+			<![CDATA[
+				 ent_check_date >= #startDate#
+			]]>
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="endDate"> 
+			<![CDATA[
+				ent_check_date < #endDate#
+			]]>
+		</isNotEmpty>
+	</select>
+	
+	<!-- 统计第一产业、第二产业、第三产业总量数据 -->
+	<select id="selectBigEntLifeList" resultMap="cranalybigentlifeRlt" parameterClass="java.util.HashMap">
+		SELECT '第一产业' ent_sup_trade, COUNT(*) ent_count FROM CR_ANALY_ENT_LIFE WHERE ent_sup_trade = 'A' AND ent_flag = '1'  UNION ALL
+		SELECT '第二产业' ent_sup_trade, COUNT(*) ent_count FROM CR_ANALY_ENT_LIFE WHERE ent_sup_trade IN('B','C','D','E') AND ent_flag = '1'  UNION ALL 
+		SELECT '第三产业' ent_sup_trade, COUNT(*) ent_count FROM CR_ANALY_ENT_LIFE WHERE ent_sup_trade IN('F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T') AND ent_flag = '1'   
+	</select>
+	
+	
+	<select id="selectCrAnalyEntLifeTotal" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" >
+		select 
+		    count(ID) 
+		from 
+		    CR_ANALY_ENT_LIFE
+	    <include refid="cranalyentlife_where" />
+	</select>
+	
+	<insert id="insertCrAnalyEntLife" parameterClass="CrAnalyEntLife">
+       	INSERT INTO CR_ANALY_ENT_LIFE 
+			(ent_trade,ent_sup_trade,ent_check_date,ent_flag,ent_count)
+		VALUES 
+			(#entTrade#,#entSupTrade#,#entCheckDate#,#entFlag#,#entCount#)
+	    <selectKey resultClass="java.lang.String" keyProperty="id" >
+          <![CDATA[ 
+            select #id# as id from dual 
+       	  ]]>    
+       	</selectKey> 
+    </insert> 
+	
+    <update id="updateCrAnalyEntLife" parameterClass="CrAnalyEntLife">
+     UPDATE CR_ANALY_ENT_LIFE
+	     <dynamic prepend="set">
+			<isNotEmpty prepend="," property="entTrade">  
+				ent_trade = #entTrade#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="entSupTrade">  
+				ent_sup_trade = #entSupTrade#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="entCheckDate">  
+				ent_check_date = #entCheckDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="entFlag">  
+				ent_flag = #entFlag#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="entCount">  
+				ent_count = #entCount#
+			</isNotEmpty>
+		</dynamic>
+	    where ID = #id# 
+    </update>
+    
+     <delete id="deleteCrAnalyEntLife" parameterClass="java.lang.String">
+         DELETE FROM CR_ANALY_ENT_LIFE WHERE ID = #id# 
+     </delete>
+     
+</sqlMap>

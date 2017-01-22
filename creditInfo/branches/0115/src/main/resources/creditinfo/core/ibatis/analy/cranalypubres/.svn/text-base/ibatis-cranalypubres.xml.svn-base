@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd"> 
+
+<sqlMap namespace="ibatis-cranalypubres">
+
+	<typeAlias alias="CrAnalyPubRes" type="com.icinfo.creditinfo.bean.analy.cranalypubres.CrAnalyPubRes" />
+
+	<resultMap id="cranalypubresRlt" class="CrAnalyPubRes">
+		<result property="id" column="id" />
+		<result property="zoneCode" column="zone_code" />
+		<result property="balancePeriod" column="balance_period" />
+		<result property="presentAmount" column="present_amount" />
+		<result property="importTable" column="import_table" />
+		<result property="createDate" column="create_date" />
+	</resultMap>
+	
+	<resultMap id="cranalypubresRlt2" class="CrAnalyPubRes">
+		<result property="balancePeriod" column="balance_period" />
+		<result property="presentAmountTotal" column="present_amount_total" />
+	</resultMap>
+	
+	<resultMap id="cranalypubresRlt3" class="CrAnalyPubRes">
+		<result property="zoneCode" column="zone_code" />
+		<result property="balancePeriod" column="balance_period" />
+		<result property="presentAmountTotal" column="present_amount_total" />
+		<result property="analyZoneName" column="analy_zone_name" />
+	</resultMap>
+	
+	<select id="selectCrAnalyPubResById" resultMap="cranalypubresRlt" parameterClass="java.lang.String">
+		select
+			id,zone_code,balance_period,present_amount,import_table,create_date
+		from 
+			CR_ANALY_PUB_RES
+		where 
+		    ID = #id#
+	</select>
+	
+	<sql id="cranalypubres_where">
+	    <dynamic prepend="where">
+			<isNotEmpty prepend="and" property="id">  
+				id = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="zoneCode">  
+				zone_code = #zoneCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="balancePeriod">  
+				balance_period = #balancePeriod#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="presentAmount">  
+				present_amount = #presentAmount#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="importTable">  
+				import_table = #importTable#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="createDate">  
+				create_date = #createDate#
+			</isNotEmpty>
+	    </dynamic>
+	</sql>
+	
+	<!-- 根据资源类型获取资源统计信息 -->
+	<select id="selectAnalyPubResByType" resultMap="cranalypubresRlt2" parameterClass="java.util.HashMap">
+		select
+			balance_period, SUM(present_amount) present_amount_total
+		from 
+			CR_ANALY_PUB_RES
+		where balance_period is not null and present_amount is not null
+		<isNotEmpty prepend="and" property="publicSourceType">  
+				import_table = #publicSourceType#
+		</isNotEmpty>
+		GROUP BY balance_period
+		ORDER BY balance_period ASC
+	</select>
+	
+	<!-- 根据按区域和时间统计 -->
+	<select id="selectAnalyPubResZoneByType" resultMap="cranalypubresRlt3" parameterClass="java.util.HashMap">
+		select
+			zone_code,DATE_FORMAT(STR_TO_DATE(balance_period,'%Y%m'),'%Y') balance_period, SUM(present_amount) present_amount_total,
+			(SELECT zone.zone_name FROM CR_CODE_ZONE zone WHERE zone.zone_code = ps.zone_code ) analy_zone_name
+		from 
+			CR_ANALY_PUB_RES ps
+		WHERE balance_period IS NOT NULL and NOT ps.zone_code ='' and zone_code IS NOT NULL and present_amount is not null
+		<isNotEmpty prepend="and" property="publicSourceType">  
+				import_table = #publicSourceType#
+		</isNotEmpty>
+		GROUP BY DATE_FORMAT(STR_TO_DATE(balance_period,'%Y%m'),'%Y'),ps.zone_code
+		ORDER BY DATE_FORMAT(STR_TO_DATE(balance_period,'%Y%m'),'%Y') ASC
+	</select>
+	
+	<select id="selectCrAnalyPubResList" resultMap="cranalypubresRlt" parameterClass="java.util.HashMap">
+		select
+			id,zone_code,balance_period,present_amount,import_table,create_date,present_amount_total
+		from 
+			CR_ANALY_PUB_RES
+		<include refid="cranalypubres_where" />
+		<include refid="ibatis-global.mysql_page" />
+	</select>
+	
+	<select id="selectCrAnalyPubResTotal" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" >
+		select 
+		    count(ID) 
+		from 
+		    CR_ANALY_PUB_RES
+	    <include refid="cranalypubres_where" />
+	</select>
+	
+	<insert id="insertCrAnalyPubRes" parameterClass="CrAnalyPubRes">
+       	INSERT INTO CR_ANALY_PUB_RES 
+			(id,zone_code,balance_period,present_amount,import_table,create_date)
+		VALUES 
+			(#id#,#zoneCode#,#balancePeriod#,#presentAmount#,#importTable#,#createDate#)
+	    <selectKey resultClass="java.lang.String" keyProperty="id" >
+          <![CDATA[ 
+            select #id# as id from dual 
+       	  ]]>    
+       	</selectKey> 
+    </insert> 
+	
+    <update id="updateCrAnalyPubRes" parameterClass="CrAnalyPubRes">
+     UPDATE CR_ANALY_PUB_RES
+	     <dynamic prepend="set">
+			<isNotEmpty prepend="," property="id">  
+				id = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="zoneCode">  
+				zone_code = #zoneCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="balancePeriod">  
+				balance_period = #balancePeriod#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="presentAmount">  
+				present_amount = #presentAmount#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="importTable">  
+				import_table = #importTable#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="createDate">  
+				create_date = #createDate#
+			</isNotEmpty>
+		</dynamic>
+	    where ID = #id# 
+    </update>
+    
+     <delete id="deleteCrAnalyPubRes" parameterClass="java.lang.String">
+         DELETE FROM CR_ANALY_PUB_RES WHERE ID = #id# 
+     </delete>
+     
+</sqlMap>

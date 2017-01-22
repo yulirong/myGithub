@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd"> 
+
+<sqlMap namespace="ibatis-tempbaseinfozhijian">
+
+	<typeAlias alias="TempBaseInfoZhijian" type="com.icinfo.creditinfo.bean.upload.tempbaseinfozhijian.TempBaseInfoZhijian" />
+
+	<resultMap id="tempbaseinfozhijianRlt" class="TempBaseInfoZhijian">
+		<result property="id" column="id" />
+		<result property="entName" column="ent_name" />
+		<result property="regNo" column="reg_no" />
+		<result property="orgRegNo" column="org_reg_no" />
+		<result property="estDate" column="est_date" />
+		<result property="entLoc" column="ent_loc" />
+		<result property="legRep" column="leg_rep" />
+		<result property="certType" column="cert_type" />
+		<result property="certNo" column="cert_no" />
+		<result property="regCap" column="reg_cap" />
+		<result property="currency" column="currency" />
+		<result property="importFrom" column="import_from" />
+		<result property="importDate" column="import_date" />
+		<result property="corpid" column="corpid" />
+		<result property="unscCode" column="UNSC_CODE" />
+	</resultMap>
+	
+	<select id="selectTempBaseInfoZhijianById" resultMap="tempbaseinfozhijianRlt" parameterClass="java.lang.String">
+		select
+			id,ent_name,reg_no,org_reg_no,est_date,ent_loc,leg_rep,cert_type,cert_no,reg_cap,currency,import_from,import_date,corpid,UNSC_CODE
+		from 
+			TEMP_BASE_INFO_ZHIJIAN
+		where 
+		    ID = #id#
+	</select>
+	
+	<sql id="tempbaseinfozhijian_where">
+	    <dynamic prepend="where">
+			<isNotEmpty prepend="and" property="id">  
+				id = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="entName">  
+				ent_name = #entName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="regNo">  
+				reg_no = #regNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="orgRegNo">  
+				org_reg_no = #orgRegNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="estDate">  
+				est_date = #estDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="entLoc">  
+				ent_loc = #entLoc#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="legRep">  
+				leg_rep = #legRep#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="certType">  
+				cert_type = #certType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="certNo">  
+				cert_no = #certNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="regCap">  
+				reg_cap = #regCap#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="currency">  
+				currency = #currency#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="importFrom">  
+				import_from = #importFrom#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="importDate">  
+				import_date = #importDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="corpid">  
+				corpid = #corpid#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="unscCode">  
+				UNSC_CODE = #unscCode#
+			</isNotEmpty>
+	    </dynamic>
+	</sql>
+	
+	<select id="selectTempBaseInfoZhijianList" resultMap="tempbaseinfozhijianRlt" parameterClass="java.util.HashMap">
+		select
+			id,ent_name,reg_no,org_reg_no,est_date,ent_loc,leg_rep,cert_type,cert_no,reg_cap,currency,import_from,import_date,corpid,UNSC_CODE
+		from 
+			TEMP_BASE_INFO_ZHIJIAN
+		<include refid="tempbaseinfozhijian_where" />
+		<include refid="ibatis-global.mysql_page" />
+	</select>
+	
+	<select id="selectTempBaseInfoZhijianTotal" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" >
+		select 
+		    count(ID) 
+		from 
+		    TEMP_BASE_INFO_ZHIJIAN
+	    <include refid="tempbaseinfozhijian_where" />
+	</select>
+	
+	<insert id="insertTempBaseInfoZhijian" parameterClass="TempBaseInfoZhijian">
+       	INSERT INTO TEMP_BASE_INFO_ZHIJIAN 
+			(id,ent_name,reg_no,org_reg_no,est_date,ent_loc,leg_rep,cert_type,cert_no,reg_cap,currency,import_from,import_date,corpid,UNSC_CODE)
+		VALUES 
+			(#id#,#entName#,#regNo#,#orgRegNo#,#estDate#,#entLoc#,#legRep#,#certType#,#certNo#,#regCap#,#currency#,#importFrom#,#importDate#,#corpid#,#unscCode#)
+	    <selectKey resultClass="java.lang.String" keyProperty="id" >
+          <![CDATA[ 
+            select #id# as id from dual 
+       	  ]]>    
+       	</selectKey> 
+    </insert> 
+	
+    <update id="updateTempBaseInfoZhijian" parameterClass="TempBaseInfoZhijian">
+     UPDATE TEMP_BASE_INFO_ZHIJIAN
+	     <dynamic prepend="set">
+			<isNotEmpty prepend="," property="id">  
+				id = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="entName">  
+				ent_name = #entName#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="regNo">  
+				reg_no = #regNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="orgRegNo">  
+				org_reg_no = #orgRegNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="estDate">  
+				est_date = #estDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="entLoc">  
+				ent_loc = #entLoc#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="legRep">  
+				leg_rep = #legRep#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="certType">  
+				cert_type = #certType#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="certNo">  
+				cert_no = #certNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="regCap">  
+				reg_cap = #regCap#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="currency">  
+				currency = #currency#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="importFrom">  
+				import_from = #importFrom#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="importDate">  
+				import_date = #importDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="corpid">  
+				corpid = #corpid#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="unscCode">  
+				UNSC_CODE = #unscCode#
+			</isNotEmpty>
+		</dynamic>
+	    where ID = #id# 
+    </update>
+    
+     <delete id="deleteTempBaseInfoZhijian" parameterClass="java.lang.String">
+         DELETE FROM TEMP_BASE_INFO_ZHIJIAN WHERE ID = #id# 
+     </delete>
+     
+</sqlMap>

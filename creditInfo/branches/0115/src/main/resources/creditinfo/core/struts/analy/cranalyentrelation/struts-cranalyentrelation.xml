@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"       
+          "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="cranalyentrelation" extends="icinfo-default" namespace="/cranalyentrelation" >
+
+		<action name="doEnCrAnalyEntRelationList" class="crAnalyEntRelationAction" method="doEnCrAnalyEntRelationListAction">
+			<result name="success">/jsp/server/analy/cranalyentrelation/cranalyentrelationList.jsp</result>
+		</action>
+		
+		<action name="doReadCrAnalyEntRelationListJSON" class="crAnalyEntRelationAction" method="doReadCrAnalyEntRelationListJSONAction">
+		</action>
+		<!-- 匹配查询路径 -->
+		<action name="doGetSearchNodePathJSONAction" class="crAnalyEntRelationAction" method="doGetSeachNodePathJSON">
+		</action>
+		
+		<!-- 匹配查询路径 -->
+		<action name="doGetTwoNodePathJSON" class="crAnalyEntRelationAction" method="doGetTwoNodePathJSONAction">
+		</action>
+
+	</package>
+	
+</struts>

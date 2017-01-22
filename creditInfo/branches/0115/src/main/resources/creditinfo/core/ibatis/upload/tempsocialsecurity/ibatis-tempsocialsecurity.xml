@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd"> 
+
+<sqlMap namespace="ibatis-tempsocialsecurity">
+
+	<typeAlias alias="TempSocialSecurity" type="com.icinfo.creditinfo.bean.upload.tempsocialsecurity.TempSocialSecurity" />
+
+	<resultMap id="tempsocialsecurityRlt" class="TempSocialSecurity">
+		<result property="id" column="id" />
+		<result property="entName" column="ent_name" />
+		<result property="siNo" column="si_no" />
+		<result property="taxRegNo" column="tax_reg_no" />
+		<result property="siType" column="si_type" />
+		<result property="siNumber" column="si_number" />
+		<result property="siMoney" column="si_money" />
+		<result property="statisticDate" column="statistic_date" />
+		<result property="remark" column="remark" />
+		<result property="importFrom" column="import_from" />
+		<result property="importDate" column="import_date" />
+		<result property="corpid" column="corpid" />
+		<result property="orgCode" column="ORG_CODE" />
+		<result property="unscCode" column="UNSC_CODE" />
+		
+	</resultMap>
+	
+	<select id="selectTempSocialSecurityById" resultMap="tempsocialsecurityRlt" parameterClass="java.lang.String">
+		select
+			id,ent_name,si_no,tax_reg_no,si_type,si_number,si_money,statistic_date,remark,import_from,import_date,corpid,ORG_CODE,UNSC_CODE
+		from 
+			TEMP_SOCIAL_SECURITY
+		where 
+		    ID = #id#
+	</select>
+	
+	<sql id="tempsocialsecurity_where">
+	    <dynamic prepend="where">
+			<isNotEmpty prepend="and" property="id">  
+				id = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="entName">  
+				ent_name = #entName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="siNo">  
+				si_no = #siNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="taxRegNo">  
+				tax_reg_no = #taxRegNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="siType">  
+				si_type = #siType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="siNumber">  
+				si_number = #siNumber#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="siMoney">  
+				si_money = #siMoney#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="statisticDate">  
+				statistic_date = #statisticDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="remark">  
+				remark = #remark#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="importFrom">  
+				import_from = #importFrom#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="importDate">  
+				import_date = #importDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="corpid">  
+				corpid = #corpid#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="orgCode">  
+				ORG_CODE = #orgCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="unscCode">  
+				UNSC_CODE = #unscCode#
+			</isNotEmpty>
+	    </dynamic>
+	</sql>
+	
+	<select id="selectTempSocialSecurityList" resultMap="tempsocialsecurityRlt" parameterClass="java.util.HashMap">
+		select
+			id,ent_name,si_no,tax_reg_no,si_type,si_number,si_money,statistic_date,remark,import_from,import_date,corpid,ORG_CODE,UNSC_CODE
+		from 
+			TEMP_SOCIAL_SECURITY
+		<include refid="tempsocialsecurity_where" />
+		<include refid="ibatis-global.mysql_page" />
+	</select>
+	
+	<select id="selectTempSocialSecurityTotal" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" >
+		select 
+		    count(ID) 
+		from 
+		    TEMP_SOCIAL_SECURITY
+	    <include refid="tempsocialsecurity_where" />
+	</select>
+	
+	<insert id="insertTempSocialSecurity" parameterClass="TempSocialSecurity">
+       	INSERT INTO TEMP_SOCIAL_SECURITY 
+			(id,ent_name,si_no,tax_reg_no,si_type,si_number,si_money,statistic_date,remark,import_from,import_date,corpid,ORG_CODE,UNSC_CODE)
+		VALUES 
+			(#id#,#entName#,#siNo#,#taxRegNo#,#siType#,#siNumber#,#siMoney#,#statisticDate#,#remark#,#importFrom#,#importDate#,#corpid#,#orgCode#,#unscCode#)
+	     <selectKey resultClass="java.lang.String" keyProperty="id" >
+          <![CDATA[ 
+            select #id# as id from dual 
+       	  ]]>    
+       	</selectKey>  
+    </insert> 
+	
+    <update id="updateTempSocialSecurity" parameterClass="TempSocialSecurity">
+     UPDATE TEMP_SOCIAL_SECURITY
+	     <dynamic prepend="set">
+			<isNotEmpty prepend="," property="id">  
+				id = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="entName">  
+				ent_name = #entName#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="siNo">  
+				si_no = #siNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="taxRegNo">  
+				tax_reg_no = #taxRegNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="siType">  
+				si_type = #siType#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="siNumber">  
+				si_number = #siNumber#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="siMoney">  
+				si_money = #siMoney#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="statisticDate">  
+				statistic_date = #statisticDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="remark">  
+				remark = #remark#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="importFrom">  
+				import_from = #importFrom#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="importDate">  
+				import_date = #importDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="corpid">  
+				corpid = #corpid#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="orgCode">  
+				ORG_CODE = #orgCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="unscCode">  
+				UNSC_CODE = #unscCode#
+			</isNotEmpty>
+		</dynamic>
+	    where ID = #id# 
+    </update>
+    
+     <delete id="deleteTempSocialSecurity" parameterClass="java.lang.String">
+         DELETE FROM TEMP_SOCIAL_SECURITY WHERE ID = #id# 
+     </delete>
+     
+</sqlMap>

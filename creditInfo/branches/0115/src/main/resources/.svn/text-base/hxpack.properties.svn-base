@@ -1,0 +1,12 @@
+#\u9879\u76ee\u540d\u79f0(\u6253\u5305\u7684\u6587\u4ef6\u540d)
+projectName = creditInfo
+#\u9879\u76ee\u76ee\u5f55
+projectRoot = D:\\workspace\\creditInfo\\trunk
+#svn\u7248\u672c\u5dee\u5f02\u5bfc\u51fa\u76ee\u5f55
+svnOutputRoot = E:\\package\\creditInfo\\svnout
+#\u751f\u6210\u7684\u6253\u5305\u6587\u4ef6\u76ee\u5f55
+copyToRoot = E:\\package\\creditInfo\\zip
+#\u662f\u5426\u91cd\u65b0\u7f16\u8bd1\u9879\u76eeY/N
+compileProject = N
+#\u6253\u5305\u6587\u4ef6\u751f\u6210\u4e4b\u540e\u5220\u9664\u5bfc\u51fa\u6587\u4ef6 Y/N
+deleteSvnOutputFile = N

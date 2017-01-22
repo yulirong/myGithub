@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"       
+          "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="crdcdyapplyinfo" extends="icinfo-default" namespace="/crdcdyapplyinfo" >
+
+		<action name="doReadCrDcdyApplyinfoList" class="crDcdyApplyinfoAction" method="doReadCrDcdyApplyinfoListAction">
+			<result name="success">/jsp/biz/crdcdyapplyinfo/crdcdyapplyinfoList.jsp</result>
+		</action>
+		
+		<action name="doEnAddAndEditCrDcdyApplyinfo" class="crDcdyApplyinfoAction" method="doEnAddAndEditCrDcdyApplyinfoAction">
+			<result name="success">/jsp/biz/crdcdyapplyinfo/crdcdyapplyinfoAddAndEdit.jsp</result>
+		</action>
+		
+		
+		<!-- 动产抵押 -->
+		<action name="doReadCrDcdyApplyinfoListJSON" class="crDcdyApplyinfoAction" method="doReadPermissionCrDcdyApplyinfoListJSON">
+		</action>
+		<!-- 个人详情关联动产抵押 -->
+		<action name="doReadPeopleCrDcdyApplyinfoListJSON" class="crDcdyApplyinfoAction" method="doReadPermissionPeopleCrDcdyApplyinfoListJSON">
+		</action>
+	</package>
+	
+</struts>

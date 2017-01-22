@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd"> 
+
+<sqlMap namespace="ibatis-crcreditdms">
+
+	<typeAlias alias="CrCreditDms" type="com.icinfo.creditinfo.bean.biz.crcreditdms.CrCreditDms" />
+
+	<resultMap id="crcreditdmsRlt" class="CrCreditDms">
+		<result property="id" column="id" />
+		<result property="corpid" column="corpid" />
+		<result property="entName" column="ent_name" />
+		<result property="dmsDim1Score" column="dms_dim1_score" />
+		<result property="dmsDim1Comments" column="dms_dim1_comments" />
+		<result property="dmsDim2Score" column="dms_dim2_score" />
+		<result property="dmsDim2Comments" column="dms_dim2_comments" />
+		<result property="dmsDim3Score" column="dms_dim3_score" />
+		<result property="dmsDim3Comments" column="dms_dim3_comments" />
+		<result property="dmsDim4Score" column="dms_dim4_score" />
+		<result property="dmsDim4Comments" column="dms_dim4_comments" />
+		<result property="dmsDim5Score" column="dms_dim5_score" />
+		<result property="dmsDim5Comments" column="dms_dim5_comments" />
+		<result property="dmsScore" column="dms_score" />
+		<result property="dmsComments" column="dms_comments" />
+		<result property="dmsDate" column="dms_date" />
+		<result property="dmsEntTrade" column="dms_ent_trade" />
+		<result property="reportNum" column="report_num" />
+		<result property="dmsRegCap" column="dms_reg_cap" />
+	</resultMap>
+	
+	<resultMap id="crcreditdmsRlt_avg" class="CrCreditDms" >
+		<result property="avgDmsDim1Score" column="avgDmsDim1Score" />
+		<result property="avgDmsDim2Score" column="avgDmsDim2Score" />
+		<result property="avgDmsDim3Score" column="avgDmsDim3Score" />
+		<result property="avgDmsDim4Score" column="avgDmsDim4Score" />
+		<result property="avgDmsDim5Score" column="avgDmsDim5Score" />
+		<result property="avgDmsScore" column="avgDmsScore" />
+	</resultMap>
+	
+	<select id="selectCrCreditDmsById" resultMap="crcreditdmsRlt" parameterClass="java.lang.String">
+		select
+			id,corpid,ent_name,dms_dim1_score,dms_dim1_comments,dms_dim2_score,dms_dim2_comments,dms_dim3_score,dms_dim3_comments,dms_dim4_score,dms_dim4_comments,dms_dim5_score,dms_dim5_comments,dms_score,dms_comments,dms_date,dms_ent_trade,report_num,dms_reg_cap
+		from 
+			CR_CREDIT_DMS
+		where 
+		    corpid=#corpid#
+	</select>
+	<select id="selectAvgScoreListByTrade" resultMap="crcreditdmsRlt_avg" parameterClass="java.util.HashMap">
+		select   
+	    sum(dms_dim1_score*dms_reg_cap)/sum(dms_reg_cap)  avgDmsDim1Score,sum(dms_dim2_score*dms_reg_cap)/sum(dms_reg_cap) avgDmsDim2Score,sum(dms_dim3_score*dms_reg_cap)/sum(dms_reg_cap) avgDmsDim3Score,sum(dms_dim4_score*dms_reg_cap)/sum(dms_reg_cap) avgDmsDim4Score,sum(dms_dim5_score*dms_reg_cap)/sum(dms_reg_cap) avgDmsDim5Score,
+		 sum(dms_score*dms_reg_cap)/sum(dms_reg_cap)  avgDmsScore
+		from  CR_CREDIT_DMS  
+		where 
+		<isNotEmpty prepend="" property="dmsEntTrade">  
+				dms_ent_trade = #dmsEntTrade#
+		</isNotEmpty>
+	</select>
+	
+	<select id="selectCrCreditDmsList" resultMap="crcreditdmsRlt" parameterClass="java.util.HashMap">
+		select
+			id,corpid,ent_name,dms_dim1_score,dms_dim1_comments,dms_dim2_score,dms_dim2_comments,dms_dim3_score,dms_dim3_comments,dms_dim4_score,dms_dim4_comments,dms_dim5_score,dms_dim5_comments,dms_score,dms_comments,dms_date,dms_ent_trade,report_num,dms_reg_cap
+		from 
+			CR_CREDIT_DMS
+		where 
+		    corpid=#corpid#
+	</select>
+</sqlMap>

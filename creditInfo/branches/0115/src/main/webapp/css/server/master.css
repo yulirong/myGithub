@@ -1,0 +1,54 @@
+@charset "utf-8";
+/* CSS Document */
+
+body{font-family:SimSun,"Microsoft YaHei";margin:0; padding:0; border:0; font-size:12px; line-height:28px; background: url(../../images/server/master/bg.gif) repeat-y;}
+a{text-decoration:none; color:#0751a2; border:0;}
+a:hover{color:#f60;}
+input{font-family:SimSun; color:#000; font-size:14px;}
+input[type="text"]{border:1px solid #979797; height:31px; line-height:31px; font-size:14px; padding-left:5px;}
+.clr{clear:both;}
+
+/* webtop */
+.webtop{background: url(../../images/server/master/top_bg.jpg) repeat-x;height:80px;display:block; overflow:hidden;}
+.logo{ float:left; background:url(../../images/server/master/logo.jpg) no-repeat; width:624px; height:80px;}
+.topbox{ float:right; padding-right:20px;padding-top:53px;}
+.topbox a,.topbox span{ color:#9badd3;}
+.topbox a:hover{color:#fff;}
+a.home{background: url(../../images/server/master/icon_3.jpg) no-repeat;padding-left:17px;}
+a.password{background: url(../../images/server/master/icon_1.jpg) no-repeat;padding-left:17px;}
+a.close{background: url(../../images/server/master/icon_2.jpg) no-repeat;padding-left:17px;}
+
+/* menu */
+.menu_x{ background:#5f92fb; height:30px;}
+.menu_x ul{list-style:none; overflow:hidden; margin:0; padding:0;}
+.menu_x li{float:left; width:120px; text-align:center; font-size:14px; font-weight:bold; color:#fff;}
+a.menu_x1{background:url(../../images/server/master/menu_xbg.gif) no-repeat;cursor:hand; border:none; display:block; color:#fff;}
+a:hover.menu_x1{ background:url(../../images/server/master/menu_xbg.gif) 0 -30px no-repeat; color:#022f8c; height:30px;}
+.bodyOne a.menu_x1{ background:url(../../images/server/master/menu_xbg.gif) 0 -30px no-repeat; color:#022f8c;cursor:hand; border:none;display:block; height:30px;}
+
+.menu_y{ width:180px; float:left;}
+.menu_y a{ color:#434648;}
+.menu_y a:hover{color:#02308d;}
+.menu_y ul{list-style:none; overflow:hidden; margin:0; padding:0; color:#434648; padding-top:10px;}
+.menu_y li{}
+a.menu_y{ display:block; padding-left:30px; height:25px; }
+a:hover.menu_y{ background: url(../../images/server/master/menu_bg.jpg) no-repeat; color:#022f8c;width:180px;}
+.bodyOne a.menu_y{background: url(../../images/server/master/menu_bg.jpg) no-repeat; color:#022f8c; height:25px; width:180px;cursor:hand; border:none;display:block;}
+.menu_tle{ padding-left:30px; background:url(../../images/server/master/menu.jpg) no-repeat; height:30px; font-weight:bold;display:block;}
+
+
+/* main */
+.main{overflow:hidden;}
+.mainbox{ margin:20px; overflow:hidden;}
+
+
+
+
+
+
+
+
+
+
+
+

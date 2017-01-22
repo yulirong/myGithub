@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>汇信科技年会节目</title>
+    <!-- Bootstrap core CSS -->
+    <link href="<s:url value='/css/bootstrap/bootstrap.min.css'/>" rel="stylesheet">
+    <script type="text/javascript" src="<s:url value='/js/base/jquery-1.11.1.min.js'/>"></script>
+    <style type="text/css">
+    .refesh_div:HOVER {	cursor: pointer;}
+    </style>
+  </head>
+  <body>
+    <div style="width: 100%;height: 50px;background-color:#4781D3; text-align: center;padding-top: 10px;font-size: 20px;font-family: Microsoft Yahei;color: white;" >
+    	匹配成功记录
+		<div style="border: 1px solid white;padding:0px 2px 0px 2px;float: right; font-size: 15px; margin:4px 3px 0px 0px; position: relative;" class="refesh_div">
+			<a style="color: white;" class="clickme" id="reflesh" onclick="location.reload();">刷新</a>
+		</div>
+</div>
+<table class="table">
+   <thead>
+      <tr style="width: 100%;height: 45px;background-color:#D1EEEE;padding-top: 1px;font-size: 17px;font-family: Microsoft Yahei;color: #1A1A1A;">
+         <th>序号</th>
+         <th>姓名A</th>
+         <th>姓名B</th>
+         <th>匹配时间</th>
+<!--          <th>匹配状态</th> -->
+      </tr>
+   </thead>
+   <tbody>
+	   <s:iterator value="nhLogList" id="list" status="status">
+			<s:if test="(#status.index+1)%2==0"><tr class="active"></s:if>
+			<s:else><tr class="success"></s:else>		   	
+			         <td><s:property  value="(#status.index+1)" /></td>
+			         <td><s:property  value="logObja" /></td>
+			         <td><s:property  value="logObjb" /></td>
+			         <td>
+			         	<fmt:formatDate value="${logDate}" pattern="MM-dd HH:mm:ss"/>
+			         </td>
+<%-- 			         <td><s:property  value="logRemark" /></td> --%>
+			     </tr>
+   	  </s:iterator>
+	</tbody>  
+	
+</table>
+ </body>
+</html>
+

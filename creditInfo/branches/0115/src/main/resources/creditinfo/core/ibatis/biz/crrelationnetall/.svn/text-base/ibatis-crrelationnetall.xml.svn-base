@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd"> 
+
+<sqlMap namespace="ibatis-crrelationnetall">
+
+	<typeAlias alias="CrRelationNetAll" type="com.icinfo.creditinfo.bean.biz.crrelationnetall.CrRelationNetAll" />
+
+	<resultMap id="crrelationnetallRlt" class="CrRelationNetAll">
+		<result property="fromCorpid" column="from_corpid" />
+		<result property="fromName" column="from_name" />
+		<result property="toName" column="to_name" />
+		<result property="toCorpid" column="to_corpid" />
+		<result property="relateName" column="relate_name" />
+		<result property="toType" column="to_type" />
+		<result property="relateCondtion" column="relate_condtion" />
+		<result property="relateDetail" column="relate_detail" />
+	</resultMap>
+	
+	<resultMap id="crrelationnetallRlt2" class="CrRelationNetAll">
+		<result property="fddbrName" column="fddbrName" />
+		<result property="frgdNum" column="frgdNum" />
+		<result property="zrrgdNum" column="zrrgdNum" />
+		<result property="ggNum" column="ggNum" />
+		<result property="dbNum" column="dbNum" />
+	</resultMap>
+	
+	<select id="selectCrRelationNetAllById" resultMap="crrelationnetallRlt" parameterClass="java.lang.String">
+		select
+			from_corpid,from_name,to_name,to_corpid,relate_name,to_type,relate_condtion,relate_detail
+		from 
+			CR_RELATION_NET_ALL
+		where 
+		    ID = #id#
+	</select>
+	
+	<sql id="crrelationnetall_where">
+	    <dynamic prepend="where">
+			<isNotEmpty prepend="and" property="fromCorpid">  
+				from_corpid = #fromCorpid#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="fromName">  
+				from_name = #fromName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="toName">  
+				to_name = #toName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="toCorpid">  
+				to_corpid = #toCorpid#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="relateName">  
+				relate_name = #relateName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="toType">  
+				to_type = #toType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="relateCondtion">  
+				relate_condtion = #relateCondtion#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="stake">  
+				relate_condtion >= #stake#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="zwrel">
+			    relate_condtion in  
+			    <iterate property="zwrel" open="(" close=")" conjunction=",">  
+			        #zwrel[]#  
+			    </iterate>
+   			</isNotEmpty>
+			<isNotEmpty prepend="and" property="relateDetail">  
+				relate_detail = #relateDetail#
+			</isNotEmpty>
+	    </dynamic>
+	</sql>
+	
+	<select id="selectCrRelationNetAllList" resultMap="crrelationnetallRlt" parameterClass="java.util.HashMap">
+		select
+			from_corpid,from_name,to_name,to_corpid,relate_name,to_type,relate_condtion,relate_detail
+		from 
+			CR_RELATION_NET_ALL
+		<include refid="crrelationnetall_where" />
+	</select>
+	
+	<select id="selectCrRelationNetAllTotal" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" >
+		select 
+		    count(ID) 
+		from 
+		    CR_RELATION_NET_ALL
+	    <include refid="crrelationnetall_where" />
+	</select>
+	
+	
+	<select id="selectRelationSummary" resultMap="crrelationnetallRlt2" parameterClass="java.util.HashMap">
+		 SELECT 
+			 (SELECT to_name FROM CR_RELATION_NET_ALL WHERE from_corpid = #fromCorpid# AND relate_name = 'HZ_QYFDDBR' LIMIT 1) fddbrName,
+			 (SELECT COUNT(*) FROM CR_RELATION_NET_ALL WHERE from_corpid = #fromCorpid# AND relate_name = 'HZ_QYTZF' AND to_type = '1') frgdNum,
+			 (SELECT COUNT(*) FROM CR_RELATION_NET_ALL WHERE from_corpid = #fromCorpid# AND relate_name = 'HZ_QYTZF' AND to_type = '2') zrrgdNum,
+			 (SELECT COUNT(DISTINCT(to_corpid)) FROM CR_RELATION_NET_ALL WHERE from_corpid = #fromCorpid# AND relate_name = 'HZ_QYDSJLRY'  ) ggNum,
+			 (SELECT COUNT(*) FROM CR_RELATION_NET_ALL WHERE from_corpid = #fromCorpid# AND relate_name = 'CR_ANALY_GU'  ) dbNum 
+		 FROM CR_RELATION_NET_ALL LIMIT 1
+	</select>
+	
+	
+	
+     
+</sqlMap>

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd"> 
+
+<sqlMap namespace="ibatis-crsystable">
+
+	<typeAlias alias="CrSysTable" type="com.icinfo.creditinfo.bean.sys.crsystable.CrSysTable" />
+
+	<resultMap id="crsystableRlt" class="CrSysTable">
+		<result property="id" column="id" />
+		<result property="tabCode" column="tab_code" />
+		<result property="tabItem" column="tab_item" />
+		<result property="tabSupCode" column="tab_sup_code" />
+		<result property="tabStatus" column="tab_status" />
+		<result property="tabName" column="tab_name" />
+		<result property="tabOrderNo" column="tab_order_no" />
+	</resultMap>
+	
+	<select id="selectCrSysTableById" resultMap="crsystableRlt" parameterClass="java.lang.String">
+		select
+			id,tab_code,tab_item,tab_sup_code,tab_status,tab_name,tab_order_no
+		from 
+			CR_SYS_TABLE
+		where 
+		    ID = #id#
+	</select>
+	
+	<sql id="crsystable_where">
+	    <dynamic prepend="where">
+			<isNotEmpty prepend="and" property="id">  
+				id = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="tabCode">  
+				tab_code = #tabCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="tabItem">  
+				tab_item = #tabItem#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="tabSupCode">  
+				tab_sup_code = #tabSupCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="tabStatus">  
+				tab_status = #tabStatus#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="tabName">  
+				tab_name = #tabName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="tabOrderNo">  
+				tab_order_no = #tabOrderNo#
+			</isNotEmpty>
+	    </dynamic>
+	</sql>
+	
+	<select id="selectCrSysTableList" resultMap="crsystableRlt" parameterClass="java.util.HashMap">
+		select
+			id,tab_code,tab_item,tab_sup_code,tab_status,tab_name,tab_order_no
+		from 
+			CR_SYS_TABLE
+		<include refid="crsystable_where" />
+	</select>
+	
+	<select id="selectCrSysTableTotal" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" >
+		select 
+		    count(ID) 
+		from 
+		    CR_SYS_TABLE
+	    <include refid="crsystable_where" />
+	</select>
+	
+	<insert id="insertCrSysTable" parameterClass="CrSysTable">
+       	INSERT INTO CR_SYS_TABLE 
+			(id,tab_code,tab_item,tab_sup_code,tab_status,tab_name,tab_order_no)
+		VALUES 
+			(#id#,#tabCode#,#tabItem#,#tabSupCode#,#tabStatus#,#tabName#,#tabOrderNo#)
+	    <selectKey resultClass="java.lang.String" keyProperty="id" >
+          <![CDATA[ 
+            select #id# as id from dual 
+       	  ]]>    
+       	</selectKey> 
+    </insert> 
+	
+    <update id="updateCrSysTable" parameterClass="CrSysTable">
+     UPDATE CR_SYS_TABLE
+	     <dynamic prepend="set">
+			<isNotEmpty prepend="," property="id">  
+				id = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="tabCode">  
+				tab_code = #tabCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="tabItem">  
+				tab_item = #tabItem#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="tabSupCode">  
+				tab_sup_code = #tabSupCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="tabStatus">  
+				tab_status = #tabStatus#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="tabName">  
+				tab_name = #tabName#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="tabOrderNo">  
+				tab_order_no = #tabOrderNo#
+			</isNotEmpty>
+		</dynamic>
+	    where ID = #id# 
+    </update>
+    
+     <delete id="deleteCrSysTable" parameterClass="java.lang.String">
+         DELETE FROM CR_SYS_TABLE WHERE ID = #id# 
+     </delete>
+     
+     <delete id="doDelCrSysTableByUserId" parameterClass="java.lang.String">
+         DELETE FROM CR_SYS_TABLE WHERE ID = #id# 
+     </delete>
+     
+</sqlMap>

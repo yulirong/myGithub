@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd"> 
+
+<sqlMap namespace="ibatis-cranalymacidx">
+
+	<typeAlias alias="CrAnalyMacIdx" type="com.icinfo.creditinfo.bean.analy.cranalymacidx.CrAnalyMacIdx" />
+
+	<resultMap id="cranalymacidxRlt" class="CrAnalyMacIdx">
+		<result property="id" column="id" />
+		<result property="idxEcomcValue" column="idx_ecomc_value" />
+		<result property="idxRistValue" column="idx_rist_value" />
+		<result property="idxCreateDate" column="idx_create_date" />
+		<result property="idxStatus" column="idx_status" />
+	</resultMap>
+	
+	<select id="selectCrAnalyMacIdxById" resultMap="cranalymacidxRlt" parameterClass="java.lang.String">
+		select
+			id,idx_ecomc_value,idx_rist_value,idx_create_date,idx_status
+		from 
+			CR_ANALY_MAC_IDX
+		where 
+		    ID = #id#
+	</select>
+	
+	<sql id="cranalymacidx_where">
+	    <dynamic prepend="where">
+			<isNotEmpty prepend="and" property="id">  
+				id = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="idxEcomcValue">  
+				idx_ecomc_value = #idxEcomcValue#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="idxRistValue">  
+				idx_rist_value = #idxRistValue#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="idxCreateDate">  
+				idx_create_date = #idxCreateDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="idxStatus">  
+				idx_status = #idxStatus#
+			</isNotEmpty>
+	    </dynamic>
+	</sql>
+	
+	<!-- 获得最新的经济指数与信贷风险指数 -->
+	<select id="selectLateMacIdx" resultMap="cranalymacidxRlt" parameterClass="java.util.HashMap">
+		select
+			id,idx_ecomc_value,idx_rist_value,idx_create_date,idx_status
+		from 
+			CR_ANALY_MAC_IDX where 1 = 1
+		<isNotEmpty prepend="and" property="idxStatus">  
+				idx_status = #idxStatus#
+		</isNotEmpty>
+		ORDER BY idx_create_date DESC LIMIT 0,1
+	</select>
+	
+	
+	<select id="selectCrAnalyMacIdxList" resultMap="cranalymacidxRlt" parameterClass="java.util.HashMap">
+		select
+			id,idx_ecomc_value,idx_rist_value,idx_create_date,idx_status
+		from 
+			CR_ANALY_MAC_IDX
+		<include refid="cranalymacidx_where" />
+		<include refid="ibatis-global.mysql_page" />
+	</select>
+	
+	<select id="selectCrAnalyMacIdxTotal" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" >
+		select 
+		    count(ID) 
+		from 
+		    CR_ANALY_MAC_IDX
+	    <include refid="cranalymacidx_where" />
+	</select>
+	
+	<insert id="insertCrAnalyMacIdx" parameterClass="CrAnalyMacIdx">
+       	INSERT INTO CR_ANALY_MAC_IDX 
+			(id,idx_ecomc_value,idx_rist_value,idx_create_date,idx_status)
+		VALUES 
+			(#id#,#idxEcomcValue#,#idxRistValue#,#idxCreateDate#,#idxStatus#)
+	    <selectKey resultClass="java.lang.String" keyProperty="id" >
+          <![CDATA[ 
+            select #id# as id from dual 
+       	  ]]>    
+       	</selectKey> 
+    </insert> 
+	
+    <update id="updateCrAnalyMacIdx" parameterClass="CrAnalyMacIdx">
+     UPDATE CR_ANALY_MAC_IDX
+	     <dynamic prepend="set">
+			<isNotEmpty prepend="," property="id">  
+				id = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="idxEcomcValue">  
+				idx_ecomc_value = #idxEcomcValue#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="idxRistValue">  
+				idx_rist_value = #idxRistValue#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="idxCreateDate">  
+				idx_create_date = #idxCreateDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="idxStatus">  
+				idx_status = #idxStatus#
+			</isNotEmpty>
+		</dynamic>
+	    where ID = #id# 
+    </update>
+    
+     <delete id="deleteCrAnalyMacIdx" parameterClass="java.lang.String">
+         DELETE FROM CR_ANALY_MAC_IDX WHERE ID = #id# 
+     </delete>
+     
+</sqlMap>

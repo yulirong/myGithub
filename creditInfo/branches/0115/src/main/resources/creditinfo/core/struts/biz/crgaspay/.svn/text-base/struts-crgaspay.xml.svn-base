@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"       
+          "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="crgaspay" extends="icinfo-default" namespace="/crgaspay" >
+
+		<action name="doReadCrGasPayList" class="crGasPayAction" method="doReadCrGasPayListAction">
+			<result name="success">/jsp/biz/crgaspay/crgaspayList.jsp</result>
+		</action>
+		
+		<action name="doReadCrGasPayListJSON" class="crGasPayAction" method="doReadCrGasPayListJSONAction">
+		</action>
+	
+		<action name="doEnAddAndEditCrGasPay" class="crGasPayAction" method="doEnAddAndEditCrGasPayAction">
+			<result name="success">/jsp/biz/crgaspay/crgaspayAddAndEdit.jsp</result>
+		</action>
+		
+		<action name="doAddAndEditCrGasPay" class="crGasPayAction" method="doAddAndEditCrGasPayAction">
+		</action>
+		
+		<action name="doDelCrGasPay" class="crGasPayAction" method="doDelCrGasPayAction">
+		</action>
+
+	</package>
+	
+</struts>

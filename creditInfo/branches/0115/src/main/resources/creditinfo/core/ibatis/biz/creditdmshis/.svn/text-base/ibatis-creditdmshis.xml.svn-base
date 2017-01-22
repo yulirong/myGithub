@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd"> 
+
+<sqlMap namespace="ibatis-creditdmshis">
+
+	<typeAlias alias="CreditDmsHis" type="com.icinfo.creditinfo.bean.biz.creditdmshis.CreditDmsHis" />
+
+	<resultMap id="creditdmshisRlt" class="CreditDmsHis">
+		<result property="id" column="id" />
+		<result property="corpid" column="corpid" />
+		<result property="entName" column="ent_name" />
+		<result property="dmsDim1Score" column="dms_dim1_score" />
+		<result property="dmsDim1Comments" column="dms_dim1_comments" />
+		<result property="dmsDim2Score" column="dms_dim2_score" />
+		<result property="dmsDim2Comments" column="dms_dim2_comments" />
+		<result property="dmsDim3Score" column="dms_dim3_score" />
+		<result property="dmsDim3Comments" column="dms_dim3_comments" />
+		<result property="dmsDim4Score" column="dms_dim4_score" />
+		<result property="dmsDim4Comments" column="dms_dim4_comments" />
+		<result property="dmsDim5Score" column="dms_dim5_score" />
+		<result property="dmsDim5Comments" column="dms_dim5_comments" />
+		<result property="dmsScore" column="dms_score" />
+		<result property="dmsComments" column="dms_comments" />
+		<result property="dmsDate" column="dms_date" />
+		<result property="dmsEntTrade" column="dms_ent_trade" />
+		<result property="reportNum" column="report_num" />
+		<result property="dmsRegCap" column="dms_reg_cap" />
+	</resultMap>
+	<resultMap id="creditdmshisRlt_avg" class="CreditDmsHis">
+	    <result property="avg1" column="avg1" />
+	    <result property="avg2" column="avg2" />
+	    <result property="avg3" column="avg3" />
+	    <result property="avg4" column="avg4" />
+	    <result property="avg5" column="avg5" />
+	    <result property="dmsDate" column="dms_date" />
+	    <result property="dmsDim1Score" column="dim1score" />
+	    <result property="dmsDim2Score" column="dim2score" />
+	    <result property="dmsDim3Score" column="dim3score" />
+	    <result property="dmsDim4Score" column="dim4score" />
+	    <result property="dmsDim5Score" column="dim5score" />
+	</resultMap>
+	<select id="selectCreditDmsHisById" resultMap="creditdmshisRlt" parameterClass="java.lang.String">
+		select
+			id,corpid,ent_name,dms_dim1_score,dms_dim1_comments,dms_dim2_score,dms_dim2_comments,dms_dim3_score,dms_dim3_comments,dms_dim4_score,dms_dim4_comments,dms_dim5_score,dms_dim5_comments,dms_score,dms_comments,dms_date,dms_ent_trade,report_num,dms_reg_cap
+		from 
+			CR_CREDIT_DMS_HIS
+		where 
+		    ID = #id#
+	</select>
+	<!--查询本期与上期的信用评分  -->
+	<select id="selectScoreList" resultClass="java.math.BigDecimal" parameterClass="java.util.HashMap">
+		select
+			dms_score
+		from 
+			CR_CREDIT_DMS_HIS
+		where 
+		    corpid= #corpid# order by  dms_date desc  limit 0,2
+	</select>
+	<select id="selectDateListAndAvgScoreListAndScoreList" resultMap="creditdmshisRlt_avg" parameterClass="java.util.HashMap">
+		select sum(dms_dim1_score*dms_reg_cap)/sum(dms_reg_cap) avg1, sum(dms_dim2_score*dms_reg_cap)/sum(dms_reg_cap) avg2 , sum(dms_dim3_score*dms_reg_cap)/sum(dms_reg_cap) avg3 , sum(dms_dim4_score*dms_reg_cap)/sum(dms_reg_cap) 
+             avg4 , sum(dms_dim5_score*dms_reg_cap)/sum(dms_reg_cap) avg5 , dms_date,
+             IFNULL((  select  max(dms_dim1_score) dms_dim1_score  from CR_CREDIT_DMS_HIS where corpid=#corpid# and  DATE_FORMAT(dms_date,'%Y-%m-%d') =DATE_FORMAT(t.dms_date,'%Y-%m-%d') ),0)  dim1score,
+             IFNULL((  select  max(dms_dim2_score) dms_dim2_score  from CR_CREDIT_DMS_HIS where corpid=#corpid# and  DATE_FORMAT(dms_date,'%Y-%m-%d') =DATE_FORMAT(t.dms_date,'%Y-%m-%d') ),0) dim2score, 
+             IFNULL((  select  max(dms_dim3_score) dms_dim3_score  from CR_CREDIT_DMS_HIS where corpid=#corpid# and  DATE_FORMAT(dms_date,'%Y-%m-%d') =DATE_FORMAT(t.dms_date,'%Y-%m-%d') ),0) dim3score ,
+             IFNULL((  select  max(dms_dim4_score) dms_dim4_score  from CR_CREDIT_DMS_HIS where corpid=#corpid# and  DATE_FORMAT(dms_date,'%Y-%m-%d') =DATE_FORMAT(t.dms_date,'%Y-%m-%d') ),0) dim4score,
+             IFNULL((  select  max(dms_dim5_score) dms_dim6_score  from CR_CREDIT_DMS_HIS where corpid=#corpid# and  DATE_FORMAT(dms_date,'%Y-%m-%d') =DATE_FORMAT(t.dms_date,'%Y-%m-%d') ),0) dim5score
+         from CR_CREDIT_DMS_HIS  t
+         where dms_ent_trade =#dmsEntTrade# group by dms_date ;
+	</select>
+	
+	<sql id="creditdmshis_where">
+	    <dynamic prepend="where">
+			<isNotEmpty prepend="and" property="id">  
+				id = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="corpid">  
+				corpid = #corpid#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="entName">  
+				ent_name = #entName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="dmsDim1Score">  
+				dms_dim1_score = #dmsDim1Score#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="dmsDim1Comments">  
+				dms_dim1_comments = #dmsDim1Comments#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="dmsDim2Score">  
+				dms_dim2_score = #dmsDim2Score#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="dmsDim2Comments">  
+				dms_dim2_comments = #dmsDim2Comments#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="dmsDim3Score">  
+				dms_dim3_score = #dmsDim3Score#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="dmsDim3Comments">  
+				dms_dim3_comments = #dmsDim3Comments#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="dmsDim4Score">  
+				dms_dim4_score = #dmsDim4Score#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="dmsDim4Comments">  
+				dms_dim4_comments = #dmsDim4Comments#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="dmsDim5Score">  
+				dms_dim5_score = #dmsDim5Score#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="dmsDim5Comments">  
+				dms_dim5_comments = #dmsDim5Comments#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="dmsDim6Score">  
+				dms_dim6_score = #dmsDim6Score#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="dmsDim6Comments">  
+				dms_dim6_comments = #dmsDim6Comments#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="dmsDate">  
+				dms_date = #dmsDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="dmsEntTrade">  
+				dms_ent_trade = #dmsEntTrade#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="reportNum">  
+				report_num = #reportNum#
+			</isNotEmpty>
+	    </dynamic>
+	</sql>
+	
+	<select id="selectCreditDmsHisList" resultMap="creditdmshisRlt" parameterClass="java.util.HashMap">
+		select
+			id,corpid,ent_name,dms_dim1_score,dms_dim1_comments,dms_dim2_score,dms_dim2_comments,dms_dim3_score,dms_dim3_comments,dms_dim4_score,dms_dim4_comments,dms_dim5_score,dms_dim5_comments,dms_score,dms_comments,dms_date,dms_ent_trade,report_num,dms_reg_cap
+		from 
+			CR_CREDIT_DMS_HIS
+		<include refid="creditdmshis_where" />
+		<isNotEmpty prepend="" property="orderByClause">
+			ORDER BY $orderByClause$
+		</isNotEmpty>
+		<include refid="ibatis-global.mysql_page" />
+	</select>
+	<!-- <select id="selectCreditDmsHisAvgList" resultMap="creditdmshisRlt_avg" parameterClass="java.util.HashMap">
+		select avg(dms_dim1_score)  avg1, avg(dms_dim2_score)  avg2 , avg(dms_dim3_score)  avg3 ,  avg(dms_dim4_score) avg4 , avg(dms_dim5_score) avg5 , dms_date  
+		from  CR_CREDIT_DMS_HIS  
+		<include refid="creditdmshis_where" />
+		  group  by  dms_date
+		<isNotEmpty prepend="" property="orderByClause">
+			ORDER BY $orderByClause$
+		</isNotEmpty>
+		<include refid="ibatis-global.mysql_page" />
+	</select> -->
+	
+	<select id="selectCreditDmsHisTotal" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" >
+		select 
+		    count(ID) 
+		from 
+		    CR_CREDIT_DMS_HIS
+	    <include refid="creditdmshis_where" />
+	</select>
+	
+</sqlMap>

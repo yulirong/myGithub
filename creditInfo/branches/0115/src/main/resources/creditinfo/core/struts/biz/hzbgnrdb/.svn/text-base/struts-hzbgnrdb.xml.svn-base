@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"       
+          "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="hzbgnrdb" extends="icinfo-default" namespace="/hzbgnrdb" >
+
+		<action name="doEnEntAnalyRegCap" class="hzBgnrdbAction">
+			<result name="success">/jsp/server/analy/entanalyregcap/entanalyregcap.jsp</result>
+		</action>
+		
+		<action name="doReadEntAnalyRegCapJSON" class="hzBgnrdbAction" method="doReadEntAnalyRegCapJSONAction">
+		</action>
+		
+		<action name="doReadRegCapHistoryListJSON" class="hzBgnrdbAction" method="doReadRegCapHistoryListJSONAction">
+			<result name="success">/jsp/server/analy/entanalyregcap/entregcaphistorylist.jsp</result>
+		</action>
+	
+	</package>
+	
+</struts>

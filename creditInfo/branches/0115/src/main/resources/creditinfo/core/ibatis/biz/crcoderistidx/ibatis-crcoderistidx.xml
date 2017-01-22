@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd"> 
+
+<sqlMap namespace="ibatis-crcoderistidx">
+
+	<typeAlias alias="CrCodeRistIdx" type="com.icinfo.creditinfo.bean.biz.crcoderistidx.CrCodeRistIdx" />
+
+	<resultMap id="crcoderistidxRlt" class="CrCodeRistIdx">
+		<result property="id" column="id" />
+		<result property="idxCode" column="idx_code" />
+		<result property="idxName" column="idx_name" />
+		<result property="idxSupCode" column="idx_sup_code" />
+		<result property="idxLevel" column="idx_level" />
+		<result property="idxWeight" column="idx_weight" />
+		<result property="idxSupName" column="idx_sup_name" />
+		<result property="idxRootCode" column="idx_root_code" />
+		<result property="idxRootName" column="idx_root_name" />
+		<result property="idxRule" column="idx_rule" />
+		<result property="idxRemark" column="idx_remark" />
+	</resultMap>
+	
+	<select id="selectCrCodeRistIdxById" resultMap="crcoderistidxRlt" parameterClass="java.lang.Integer">
+		select
+			id,idx_code,idx_name,idx_sup_code,idx_level,idx_weight,idx_sup_name,idx_root_code,idx_root_name,idx_rule,idx_remark
+		from 
+			CR_CODE_RIST_IDX
+		where 
+		    ID = #id#
+	</select>
+	
+	<sql id="crcoderistidx_where">
+	    <dynamic prepend="where">
+			<isNotEmpty prepend="and" property="id">  
+				id = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="idxCode">  
+				idx_code = #idxCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="idxName">  
+				idx_name = #idxName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="idxSupCode">  
+				idx_sup_code = #idxSupCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="idxLevel">  
+				idx_level = #idxLevel#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="idxWeight">  
+				idx_weight = #idxWeight#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="idxSupName">  
+				idx_sup_name = #idxSupName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="idxRootCode">  
+				idx_root_code = #idxRootCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="idxRootName">  
+				idx_root_name = #idxRootName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="idxRule">  
+				idx_rule = #idxRule#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="idxRemark">  
+				idx_remark = #idxRemark#
+			</isNotEmpty>
+	    </dynamic>
+	</sql>
+	
+	<select id="selectCrCodeRistIdxList" resultMap="crcoderistidxRlt" parameterClass="java.util.HashMap">
+		select
+			id,idx_code,idx_name,idx_sup_code,idx_level,idx_weight,idx_sup_name,idx_root_code,idx_root_name,idx_rule,idx_remark
+		from 
+			CR_CODE_RIST_IDX
+		<include refid="crcoderistidx_where" />
+		<include refid="ibatis-global.mysql_page" />
+	</select>
+	
+	<select id="selectCrCodeRistIdxTotal" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" >
+		select 
+		    count(ID) 
+		from 
+		    CR_CODE_RIST_IDX
+	    <include refid="crcoderistidx_where" />
+	</select>
+	
+	<insert id="insertCrCodeRistIdx" parameterClass="CrCodeRistIdx">
+       	INSERT INTO CR_CODE_RIST_IDX 
+			(id,idx_code,idx_name,idx_sup_code,idx_level,idx_weight,idx_sup_name,idx_root_code,idx_root_name,idx_rule,idx_remark)
+		VALUES 
+			(#id#,#idxCode#,#idxName#,#idxSupCode#,#idxLevel#,#idxWeight#,#idxSupName#,#idxRootCode#,#idxRootName#,#idxRule#,#idxRemark#)
+	    <selectKey resultClass="int" keyProperty="id" >
+          <![CDATA[ 
+            SELECT @@IDENTITY AS id 
+       	  ]]>    
+       	</selectKey> 
+    </insert> 
+	
+    <update id="updateCrCodeRistIdx" parameterClass="CrCodeRistIdx">
+     UPDATE CR_CODE_RIST_IDX
+	     <dynamic prepend="set">
+			<isNotEmpty prepend="," property="id">  
+				id = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="idxCode">  
+				idx_code = #idxCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="idxName">  
+				idx_name = #idxName#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="idxSupCode">  
+				idx_sup_code = #idxSupCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="idxLevel">  
+				idx_level = #idxLevel#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="idxWeight">  
+				idx_weight = #idxWeight#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="idxSupName">  
+				idx_sup_name = #idxSupName#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="idxRootCode">  
+				idx_root_code = #idxRootCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="idxRootName">  
+				idx_root_name = #idxRootName#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="idxRule">  
+				idx_rule = #idxRule#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="idxRemark">  
+				idx_remark = #idxRemark#
+			</isNotEmpty>
+		</dynamic>
+	    where ID = #id# 
+    </update>
+    
+     <delete id="deleteCrCodeRistIdx" parameterClass="java.lang.Integer">
+         DELETE FROM CR_CODE_RIST_IDX WHERE ID = #id# 
+     </delete>
+     
+</sqlMap>

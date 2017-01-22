@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd"> 
+
+<sqlMap namespace="ibatis-temptaxpay">
+
+	<typeAlias alias="TempTaxPay" type="com.icinfo.creditinfo.bean.upload.temptaxpay.TempTaxPay" />
+
+	<resultMap id="temptaxpayRlt" class="TempTaxPay">
+		<result property="id" column="id" />
+		<result property="entName" column="ent_name" />
+		<result property="taxRegNo" column="tax_reg_no" />
+		<result property="taxType" column="tax_type" />
+		<result property="taxAmount" column="tax_amount" />
+		<result property="taxPeriod" column="tax_period" />
+		<result property="taxPayDate" column="tax_pay_date" />
+		<result property="taxEndPeriod" column="tax_end_period" />
+		<result property="importFrom" column="import_from" />
+		<result property="importDate" column="import_date" />
+		<result property="corpid" column="corpid" />
+	</resultMap>
+	
+	<select id="selectTempTaxPayById" resultMap="temptaxpayRlt" parameterClass="java.lang.String">
+		select
+			id,ent_name,tax_reg_no,tax_type,tax_amount,tax_period,tax_pay_date,tax_end_period,import_from,import_date,corpid
+		from 
+			TEMP_TAX_PAY_LOCAL
+		where 
+		    ID = #id#
+	</select>
+	
+	<sql id="temptaxpay_where">
+	    <dynamic prepend="where">
+			<isNotEmpty prepend="and" property="id">  
+				id = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="entName">  
+				ent_name = #entName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="taxRegNo">  
+				tax_reg_no = #taxRegNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="taxType">  
+				tax_type = #taxType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="taxAmount">  
+				tax_amount = #taxAmount#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="taxPeriod">  
+				tax_period = #taxPeriod#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="taxPayDate">  
+				tax_pay_date = #taxPayDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="taxEndPeriod">  
+				tax_end_period = #taxEndPeriod#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="importFrom">  
+				import_from = #importFrom#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="importDate">  
+				import_date = #importDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="corpid">  
+				corpid = #corpid#
+			</isNotEmpty>
+	    </dynamic>
+	</sql>
+	
+	<select id="selectTempTaxPayList" resultMap="temptaxpayRlt" parameterClass="java.util.HashMap">
+		select
+			id,ent_name,tax_reg_no,tax_type,tax_amount,tax_period,tax_pay_date,tax_end_period,import_from,import_date,corpid
+		from 
+			TEMP_TAX_PAY_LOCAL
+		<include refid="temptaxpay_where" />
+		<include refid="ibatis-global.mysql_page" />
+	</select>
+	
+	<select id="selectTempTaxPayTotal" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" >
+		select 
+		    count(ID) 
+		from 
+		    TEMP_TAX_PAY_LOCAL
+	    <include refid="temptaxpay_where" />
+	</select>
+	
+	<insert id="insertTempTaxPay" parameterClass="TempTaxPay">
+       	INSERT INTO TEMP_TAX_PAY_LOCAL 
+			(id,ent_name,tax_reg_no,tax_type,tax_amount,tax_period,tax_pay_date,tax_end_period,import_from,import_date,corpid)
+		VALUES 
+			(#id#,#entName#,#taxRegNo#,#taxType#,#taxAmount#,#taxPeriod#,#taxPayDate#,#taxEndPeriod#,#importFrom#,#importDate#,#corpid#)
+	    <selectKey resultClass="java.lang.String" keyProperty="id" >
+          <![CDATA[ 
+            select #id# as id from dual 
+       	  ]]>    
+       	</selectKey> 
+    </insert> 
+	
+    <update id="updateTempTaxPay" parameterClass="TempTaxPay">
+     UPDATE TEMP_TAX_PAY_LOCAL
+	     <dynamic prepend="set">
+			<isNotEmpty prepend="," property="id">  
+				id = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="entName">  
+				ent_name = #entName#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="taxRegNo">  
+				tax_reg_no = #taxRegNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="taxType">  
+				tax_type = #taxType#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="taxAmount">  
+				tax_amount = #taxAmount#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="taxPeriod">  
+				tax_period = #taxPeriod#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="taxPayDate">  
+				tax_pay_date = #taxPayDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="taxEndPeriod">  
+				tax_end_period = #taxEndPeriod#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="importFrom">  
+				import_from = #importFrom#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="importDate">  
+				import_date = #importDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="corpid">  
+				corpid = #corpid#
+			</isNotEmpty>
+		</dynamic>
+	    where ID = #id# 
+    </update>
+    
+     <delete id="deleteTempTaxPay" parameterClass="java.lang.String">
+         DELETE FROM TEMP_TAX_PAY_LOCAL WHERE ID = #id# 
+     </delete>
+     
+</sqlMap>

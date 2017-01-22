@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"       
+          "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="/creditsearch" extends="icinfo-default" namespace="/creditsearch" >
+		
+		<!-- 企业信用报告搜索页面 -->
+		<action name="doEnCreditSearch" class="appSearchAction">
+			<result name="success">/jsp/server/search/creditSearch.jsp</result>
+		</action>
+		<action name="doGetCreditSearchList" class="appSearchAction" method="doGetAppSearchListAction">
+			<result name="success">/jsp/server/search/creditSearchList.jsp</result>
+		</action>
+		
+		<!-- 进入信用报告页面 -->
+		<action name="doEnCreditReport" class="appSearchAction" method="doEnCreditReportAction">
+			<result name="success">/jsp/server/biz/creditreport/creditReport.jsp</result>
+			<result name="none">/jsp/server/biz/creditreport/noReport.jsp</result>
+		</action>
+	</package>
+	
+</struts>

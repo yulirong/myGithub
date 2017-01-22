@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd"> 
+
+<sqlMap namespace="ibatis-temphousesequestrate">
+
+	<typeAlias alias="TempHouseSequestrate" type="com.icinfo.creditinfo.bean.upload.temphousesequestrate.TempHouseSequestrate" />
+
+	<resultMap id="temphousesequestrateRlt" class="TempHouseSequestrate">
+		<result property="id" column="id" />
+		<result property="sequestrateNo" column="sequestrate_no" />
+		<result property="sequestrateApplyDate" column="sequestrate_apply_date" />
+		<result property="sequestrateLoc" column="sequestrate_loc" />
+		<result property="sequestrateApplyName" column="sequestrate_apply_name" />
+		<result property="state" column="state" />
+		<result property="propertyOwnerCertNo" column="property_owner_cert_no" />
+		<result property="propertyOwner" column="property_owner" />
+		<result property="cancelDate" column="cancel_date" />
+		<result property="houseNo" column="house_no" />
+		<result property="importFrom" column="import_from" />
+		<result property="importDate" column="import_date" />
+		<result property="corpid" column="corpid" />
+		<result property="orgCode" column="ORG_CODE" />
+	</resultMap>
+	
+	<select id="selectTempHouseSequestrateById" resultMap="temphousesequestrateRlt" parameterClass="java.lang.String">
+		select
+			id,sequestrate_no,sequestrate_apply_date,sequestrate_loc,sequestrate_apply_name,state,property_owner_cert_no,property_owner,cancel_date,house_no,import_from,import_date,corpid,ORG_CODE
+		from 
+			TEMP_HOUSE_SEQUESTRATE
+		where 
+		    ID = #id#
+	</select>
+	
+	<sql id="temphousesequestrate_where">
+	    <dynamic prepend="where">
+			<isNotEmpty prepend="and" property="id">  
+				id = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="sequestrateNo">  
+				sequestrate_no = #sequestrateNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="sequestrateApplyDate">  
+				sequestrate_apply_date = #sequestrateApplyDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="sequestrateLoc">  
+				sequestrate_loc = #sequestrateLoc#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="sequestrateApplyName">  
+				sequestrate_apply_name = #sequestrateApplyName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="state">  
+				state = #state#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="propertyOwnerCertNo">  
+				property_owner_cert_no = #propertyOwnerCertNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="propertyOwner">  
+				property_owner = #propertyOwner#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="cancelDate">  
+				cancel_date = #cancelDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="houseNo">  
+				house_no = #houseNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="importFrom">  
+				import_from = #importFrom#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="importDate">  
+				import_date = #importDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="corpid">  
+				corpid = #corpid#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="orgCode">  
+				ORG_CODE = #orgCode#
+			</isNotEmpty>
+	    </dynamic>
+	</sql>
+	
+	<select id="selectTempHouseSequestrateList" resultMap="temphousesequestrateRlt" parameterClass="java.util.HashMap">
+		select
+			id,sequestrate_no,sequestrate_apply_date,sequestrate_loc,sequestrate_apply_name,state,property_owner_cert_no,property_owner,cancel_date,house_no,import_from,import_date,corpid,ORG_CODE
+		from 
+			TEMP_HOUSE_SEQUESTRATE
+		<include refid="temphousesequestrate_where" />
+		<include refid="ibatis-global.mysql_page" />
+	</select>
+	
+	<select id="selectTempHouseSequestrateTotal" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" >
+		select 
+		    count(ID) 
+		from 
+		    TEMP_HOUSE_SEQUESTRATE
+	    <include refid="temphousesequestrate_where" />
+	</select>
+	
+	<insert id="insertTempHouseSequestrate" parameterClass="TempHouseSequestrate">
+       	INSERT INTO TEMP_HOUSE_SEQUESTRATE 
+			(id,sequestrate_no,sequestrate_apply_date,sequestrate_loc,sequestrate_apply_name,state,property_owner_cert_no,property_owner,cancel_date,house_no,import_from,import_date,corpid,ORG_CODE)
+		VALUES 
+			(#id#,#sequestrateNo#,#sequestrateApplyDate#,#sequestrateLoc#,#sequestrateApplyName#,#state#,#propertyOwnerCertNo#,#propertyOwner#,#cancelDate#,#houseNo#,#importFrom#,#importDate#,#corpid#,#orgCode#)
+	    <selectKey resultClass="java.lang.String" keyProperty="id" >
+          <![CDATA[ 
+            select #id# as id from dual 
+       	  ]]>    
+       	</selectKey> 
+    </insert> 
+	
+    <update id="updateTempHouseSequestrate" parameterClass="TempHouseSequestrate">
+     UPDATE TEMP_HOUSE_SEQUESTRATE
+	     <dynamic prepend="set">
+			<isNotEmpty prepend="," property="id">  
+				id = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="sequestrateNo">  
+				sequestrate_no = #sequestrateNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="sequestrateApplyDate">  
+				sequestrate_apply_date = #sequestrateApplyDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="sequestrateLoc">  
+				sequestrate_loc = #sequestrateLoc#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="sequestrateApplyName">  
+				sequestrate_apply_name = #sequestrateApplyName#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="state">  
+				state = #state#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="propertyOwnerCertNo">  
+				property_owner_cert_no = #propertyOwnerCertNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="propertyOwner">  
+				property_owner = #propertyOwner#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="cancelDate">  
+				cancel_date = #cancelDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="houseNo">  
+				house_no = #houseNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="importFrom">  
+				import_from = #importFrom#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="importDate">  
+				import_date = #importDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="corpid">  
+				corpid = #corpid#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="orgCode">  
+				ORG_CODE = #orgCode#
+			</isNotEmpty>
+			
+		</dynamic>
+	    where ID = #id# 
+    </update>
+    
+     <delete id="deleteTempHouseSequestrate" parameterClass="java.lang.String">
+         DELETE FROM TEMP_HOUSE_SEQUESTRATE WHERE ID = #id# 
+     </delete>
+     
+</sqlMap>

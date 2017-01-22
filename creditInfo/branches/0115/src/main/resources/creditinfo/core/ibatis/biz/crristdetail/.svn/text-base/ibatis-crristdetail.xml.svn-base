@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd"> 
+
+<sqlMap namespace="ibatis-crristdetail">
+
+	<typeAlias alias="CrRistDetail" type="com.icinfo.creditinfo.bean.biz.crristdetail.CrRistDetail" />
+<!-- 生成的   开始 -->
+	<resultMap id="crristdetailRlt" class="CrRistDetail">
+		<result property="id" column="id" />
+		<result property="corpid" column="corpid" />
+		<result property="dtIdxId" column="dt_idx_id" />
+		<result property="dtCode" column="dt_code" />
+		<result property="dtCreateDate" column="dt_create_date" />
+		<result property="dtState" column="dt_state" />
+	</resultMap>
+	
+	<resultMap id="crristdetailRlt2" class="CrRistDetail">
+		<result property="id" column="id" />
+		<result property="corpid" column="corpid" />
+		<result property="dtIdxId" column="dt_idx_id" />
+		<result property="dtCode" column="dt_code" />
+		<result property="dtCreateDate" column="dt_create_date" />
+		<result property="dtState" column="dt_state" />
+		<result property="idxName" column="idx_name" />
+		<result property="idxLevel" column="idxLevel" />
+	</resultMap>
+	
+	<sql id="crristdetail_where">
+	    <dynamic prepend="where">
+			<isNotEmpty prepend="and" property="id">  
+				id = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="corpid">  
+				corpid = #corpid#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="dtIdxId">  
+				dt_idx_id = #dtIdxId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="dtCode">  
+				dt_code = #dtCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="dtCreateDate">  
+				dt_create_date = #dtCreateDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="dtState">  
+				dt_state = #dtState#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="theStartTime">  
+				<![CDATA[
+					dt_create_date >= #theStartTime#
+				]]>			
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="theEndTime">  
+				<![CDATA[
+					dt_create_date <= #theEndTime#
+				]]>			
+			</isNotEmpty>
+	    </dynamic>
+	</sql>
+	<select id="selectCrRistDetailById" resultMap="crristdetailRlt" parameterClass="java.lang.String">
+		select
+			id,corpid,dt_idx_id,dt_code,dt_create_date,dt_state
+		from 
+			CR_RIST_DETAIL
+		where 
+		    ID = #id#
+	</select>
+	<select id="selectCrRistDetailList" resultMap="crristdetailRlt2" parameterClass="java.util.HashMap">
+		select
+			A.id,corpid,dt_idx_id,dt_code,dt_create_date,dt_state,B.idx_name idx_name,B.idx_level idxLevel
+		from 
+			CR_RIST_DETAIL A
+		LEFT JOIN CR_CODE_RIST_IDX B ON A.dt_code = B.idx_code
+		<include refid="crristdetail_where" />
+		<include refid="ibatis-global.mysql_page" />
+	</select>
+	<select id="selectCrRistDetailTotal" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" >
+		select 
+		    count(ID) 
+		from 
+		    CR_RIST_DETAIL
+	    <include refid="crristdetail_where" />
+	</select>
+<!-- 生成的   结束 -->
+	<!-- 风险指数详细信息 -->
+	<resultMap id="ristIndexRecordsRlt" class="CrRistDetail">
+	   <result property="idxName" column="idxName" />
+	   <result property="idxLevel" column="idxLevel" />
+	   <result property="dtCreateDate" column="dtCreateDate" />
+	</resultMap>
+	<!-- 查询风险指数详细信息 -->
+	<select id="selectRistIndexRecords" resultMap="ristIndexRecordsRlt" parameterClass="java.util.HashMap">
+		SELECT 
+			R.idx_name idxName ,R.idx_level idxLevel,D.dt_create_date  dtCreateDate
+		FROM
+			CR_RIST_DETAIL D
+		LEFT JOIN 
+			CR_CODE_RIST_IDX R ON D.dt_code = R.idx_code
+		<dynamic prepend="where">
+			<isNotEmpty prepend="and" property="corpid">  
+				D.corpid = #corpid#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="dtState">
+				D.dt_state = #dtState#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="idxLevelList"> 
+				R.idx_level in  
+				<iterate property="idxLevelList" open="(" close=")" conjunction=",">  
+				    #idxLevelList[]#  
+				</iterate> 
+			</isNotEmpty>
+		</dynamic>
+		order by D.dt_create_date desc 
+		<include refid="ibatis-global.mysql_page" />
+	</select>	
+	<select id="selectRistIndexRecordsTotal" resultClass="java.lang.Integer" parameterClass="java.util.HashMap">
+		SELECT 
+			count(R.idx_name)
+		FROM
+			CR_RIST_DETAIL D
+		LEFT JOIN 
+			CR_CODE_RIST_IDX R ON D.dt_code = R.idx_code
+		<dynamic prepend="where">
+			<isNotEmpty prepend="and" property="corpid">  
+				D.corpid = #corpid#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="dtState">
+				D.dt_state = #dtState#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="idxLevelList"> 
+				R.idx_level in  
+				<iterate property="idxLevelList" open="(" close=")" conjunction=",">  
+				    #idxLevelList[]#  
+				</iterate> 
+			</isNotEmpty>
+		</dynamic>
+	</select>
+<!-- 风险预警 -->
+	<resultMap id="crristCountAndNameRlt" class="CrRistDetail">
+		<result property="dtCode" column="dt_code" />
+	   <result property="count" column="count" />
+	   <result property="name" column="idx_name" />
+	</resultMap>
+		<resultMap id="crristCountAndNameRlt_ExtendCrRist" class="CrRistDetail">
+		<result property="idxSupCode" column="idx_sup_code" />
+	    <result property="count" column="count" />
+	    <result property="name" column="idx_sup_name" />
+	</resultMap>
+	<resultMap id="extendCrRistDetailRlt" class="CrRistDetail">
+	   <result property="content" column="idx_name" />
+	   <result property="entName" column="ent_name" />
+	   <result property="name" column="idx_sup_name" />
+	   <result property="dtCreateDate" column="dt_create_date" />
+	</resultMap>
+	<sql id="extendCrRistDetail_where">
+	        <isNotEmpty prepend="and" property="idxSupCode">  
+				idx_sup_code= #idxSupCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="entName">  
+				ent_name LIKE '%$entName$%' 
+			</isNotEmpty>
+	        <isNotEmpty prepend="and" property="theStartTime">  
+				<![CDATA[
+					dt_create_date >= #theStartTime#
+					
+				]]>			
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="theEndTime">  
+				<![CDATA[
+					dt_create_date <= #theEndTime#
+				]]>	
+			</isNotEmpty>			
+	</sql>
+	<select id="selectCountAndNameList" resultMap="crristCountAndNameRlt_ExtendCrRist" parameterClass="java.util.HashMap">
+		select count(*) count, idx_sup_name,idx_sup_code 
+		from (select  *  from CR_RIST_DETAIL 
+		<include refid="crristdetail_where" />) a,CR_CODE_RIST_IDX b
+		where a.dt_code=b.idx_code
+		 and b.idx_level=#idxLevel#
+		 GROUP BY idx_sup_code
+	</select>
+	<select id="selectExtendCrRistDetailList" resultMap="extendCrRistDetailRlt" parameterClass="java.util.HashMap">
+		select idx_sup_name ,a.ent_name, b.idx_name ,a.dt_create_date 
+		from   (SELECT cd.*,ce.ent_name FROM CR_RIST_DETAIL  cd LEFT JOIN  CR_ENT_BASE_INFO ce ON cd.corpid=ce.corpid) a,CR_CODE_RIST_IDX b
+		where  a.dt_code=b.idx_code and b.idx_level=#idxLevel# 
+		<include refid="extendCrRistDetail_where" />
+		<include refid="ibatis-global.mysql_page" />
+	</select>
+	<select id="selectExtendCrRistDetailTotal" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" >
+		select count(*)
+		from   (SELECT cd.*,ce.ent_name FROM CR_RIST_DETAIL  cd LEFT JOIN  CR_ENT_BASE_INFO ce ON cd.corpid=ce.corpid) a,CR_CODE_RIST_IDX b
+		where  a.dt_code=b.idx_code and b.idx_level=#idxLevel# 
+		<include refid="extendCrRistDetail_where" />
+	</select>
+	
+	<!-- 获取值得关注的风险类型  start-->
+	<select id="selectRistTypeList" resultMap="crristCountAndNameRlt" parameterClass="java.util.HashMap">
+		SELECT 
+			T.dtcode dt_code,T.amount COUNT ,R.idx_name idx_name
+		FROM 
+			(SELECT
+				COUNT(id)  amount,dt_code dtcode 
+			 FROM CR_RIST_DETAIL
+			 GROUP BY dt_code 
+			 ORDER BY amount DESC LIMIT 10
+			)
+		T
+		LEFT JOIN CR_CODE_RIST_IDX R ON T.dtcode = R.idx_code
+		
+	</select>
+	<!-- 获取值得关注的风险类型  end-->
+</sqlMap>

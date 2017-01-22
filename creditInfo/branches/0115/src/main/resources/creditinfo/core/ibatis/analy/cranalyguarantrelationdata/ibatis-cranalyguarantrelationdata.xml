@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd"> 
+
+<sqlMap namespace="ibatis-cranalyguarantrelationdata">
+
+	<typeAlias alias="CrAnalyGuarantRelationData" type="com.icinfo.creditinfo.bean.analy.cranalyguarantrelationdata.CrAnalyGuarantRelationData" />
+
+	<resultMap id="cranalyguarantrelationdataRlt" class="CrAnalyGuarantRelationData">
+		<result property="id" column="id" />
+		<result property="corpid" column="corpid" />
+		<result property="relGuaranteeName" column="rel_guarantee_name" />
+		<result property="relGuaNo" column="rel_gua_no"/>
+		<result property="relGuarantorName" column="rel_guarantor_name" />
+		<result property="relAmout" column="rel_amout" />
+		<result property="relCreateDate" column="rel_create_date" />
+		<result property="relType" column="rel_type"/>
+	</resultMap>
+	
+	<resultMap id="cranalyguarantrelationdataRlt2" class="CrAnalyGuarantRelationData">
+		<result property="entNum" column="entNum" />
+		<result property="perNum" column="perNum" />
+	</resultMap>
+	
+	
+	
+	<sql id="cranalyguarantrelationdata_where">
+	    <dynamic prepend="where">
+			<isNotEmpty prepend="and" property="id">  
+				id = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="corpid">  
+				corpid = #corpid#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="relGuaranteeName">  
+				rel_guarantee_name = #relGuaranteeName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="relGuaNo">  
+				rel_gua_no = #relGuaNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="relGuarantorName">  
+				rel_guarantor_name = #relGuarantorName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="relAmout">  
+				rel_amout = #relAmout#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="relCreateDate">  
+				rel_create_date = #relCreateDate#
+			</isNotEmpty>
+	    </dynamic>
+	</sql>
+	
+	<select id="selectCrAnalyGuarantRelationDataList" resultMap="cranalyguarantrelationdataRlt" parameterClass="java.util.HashMap">
+		select
+			id,corpid,rel_guarantee_name,rel_gua_no,rel_guarantor_name,rel_amout,rel_create_date,rel_type
+		from 
+			CR_ANALY_GUARANT_RELATION_DATA
+		<include refid="cranalyguarantrelationdata_where" />
+	</select>
+	
+	<select id="selectCrAnalyGuarantRelationDataTotal" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" >
+		select 
+		    count(ID) 
+		from 
+		    CR_ANALY_GUARANT_RELATION_DATA
+	    <include refid="cranalyguarantrelationdata_where" />
+	</select>
+	
+	<select id="selectCrAnalyGuarantEntryTotal" resultMap="cranalyguarantrelationdataRlt2" parameterClass="java.util.HashMap">
+		<![CDATA[  
+			SELECT COUNT(entname) entNum,COUNT(xm) perNum FROM (
+				SELECT CASE WHEN CHARACTER_LENGTH(rel_guarantee_name)>4 THEN rel_guarantee_name END  entname ,CASE WHEN  CHARACTER_LENGTH(rel_guarantee_name)<=4 THEN rel_guarantee_name END xm FROM CR_ANALY_GUARANT_RELATION_DATA 
+				UNION  
+				SELECT CASE WHEN CHARACTER_LENGTH(rel_guarantor_name)>4 THEN rel_guarantor_name END  entname ,CASE WHEN  CHARACTER_LENGTH(rel_guarantor_name)<=4 THEN rel_guarantor_name END xm FROM CR_ANALY_GUARANT_RELATION_DATA 
+			) T 
+		]]>
+	</select>
+	
+	<select id="selectGuarantGroupTotal" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" >
+ 		SELECT COUNT(DISTINCT(rel_gua_no)) FROM CR_ANALY_GUARANT_RELATION_DATA
+	</select>
+	
+	
+	<select id="selectDoubleGuarantList" resultMap="cranalyguarantrelationdataRlt" parameterClass="java.util.HashMap">
+		<![CDATA[ 
+			SELECT a.id id ,a.corpid corpid,a.rel_gua_no rel_gua_no,a.rel_guarantee_name rel_guarantee_name,
+				   a.rel_guarantor_name rel_guarantor_name,a.rel_amout rel_amout,a.rel_create_date rel_create_date,a.rel_type rel_type  
+				FROM CR_ANALY_GUARANT_RELATION_DATA a , CR_ANALY_GUARANT_RELATION_DATA b 
+			WHERE 
+				a.rel_guarantee_name = b.rel_guarantor_name 
+			AND 
+				a.rel_guarantee_name <>a.rel_guarantor_name
+			AND
+				a.rel_guarantor_name = b.rel_guarantee_name 
+		]]> 
+	</select>
+	
+	<select id="selectNoReturnGuarantTotal" resultClass="java.lang.Integer" parameterClass="java.util.HashMap">
+		SELECT COUNT(DISTINCT T.entname) FROM
+		(
+			 SELECT  
+			 	a.rel_guarantee_name entname 
+			 FROM
+			    CR_ANALY_GUARANT_RELATION_DATA a 
+			 WHERE 
+			 	a.rel_guarantee_name 
+			 NOT IN (SELECT b.rel_guarantor_name FROM  CR_ANALY_GUARANT_RELATION_DATA  b)
+		) T  
+	</select>
+	
+	
+			
+ 
+ 
+	
+</sqlMap>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"       
+          "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="crentbaseinfo" extends="icinfo-default" namespace="/crentbaseinfo" >
+
+		<action name="doReadCrEntBaseInfoList" class="crEntBaseInfoAction" method="doReadCrEntBaseInfoListAction">
+			<result name="success">/jsp/biz/crentbaseinfo/crentbaseinfoList.jsp</result>
+		</action>
+		
+		<action name="doReadCrEntBaseInfoListJSON" class="crEntBaseInfoAction" method="doReadCrEntBaseInfoListJSONAction">
+		</action>
+	
+		<action name="doEnAddAndEditCrEntBaseInfo" class="crEntBaseInfoAction" method="doEnAddAndEditCrEntBaseInfoAction">
+			<result name="success">/jsp/biz/crentbaseinfo/crentbaseinfoAddAndEdit.jsp</result>
+		</action>
+		
+		<action name="doAddAndEditCrEntBaseInfo" class="crEntBaseInfoAction" method="doAddAndEditCrEntBaseInfoAction">
+		</action>
+		
+		<!-- 测试股权变更股权冻结 -->
+		<action name="doDelCrEntBaseInfo" class="crEntBaseInfoAction" method="doDelCrEntBaseInfoAction">
+		</action>
+		
+		<!-- 进入企业资本信息 -->
+		<action name="doEnCrReportConInfo" class="crReportConInfoAction">
+			<result name="success">/jsp/server/entappcon/crreportconinfo.jsp</result>
+		</action>
+		
+		<!-- 进入企业资质信息 -->
+		<action name="doEnCrLicense" class="crReportConInfoAction">
+			<result name="success">/jsp/server/entappcon/crlicenseList.jsp</result>
+		</action>
+		
+		<!-- 进入行政处罚页面-->
+		<action name="doEnCrPunish" class="crReportConInfoAction" >
+			<result name="success">/jsp/server/entappcon/crpunishList.jsp</result>
+		</action>
+		
+		<!-- 进入高管信息页面-->
+		<action name="doEnHzQydsjlry" class="crReportConInfoAction" >
+			<result name="success">/jsp/server/entappcon/hzqydsjlryList.jsp</result>
+		</action>
+		
+		<!-- 进入逾期或欠费信息页面-->
+		<action name="doEnCrArrearInfo" class="crReportConInfoAction" >
+			<result name="success">/jsp/server/entappcon/crarrearinfoList.jsp</result>
+		</action> 
+		
+		<!-- 进入房产抵押信息页面-->
+		<action name="doEnHomeMortgage" class="crReportConInfoAction" >
+			<result name="success">/jsp/server/entappcon/homeMortgageList.jsp</result>
+		</action>
+
+		<!-- 进入动产抵押信息页面-->
+		<action name="doEnCrDcdyApplyinfo" class="crReportConInfoAction" >
+			<result name="success">/jsp/server/entappcon/crdcdyapplyinfoList.jsp</result>
+		</action>
+		
+		<!-- 进入土地抵押信息页面-->
+		<action name="doEnLandMortgage" class="crReportConInfoAction" >
+			<result name="success">/jsp/server/entappcon/landMortgageList.jsp</result>
+		</action>
+		
+		<!-- 进入出质信息页面-->
+		<action name="doEnCrEquityAll" class="crReportConInfoAction" >
+			<result name="success">/jsp/server/entappcon/crequityAllList.jsp</result>
+		</action>
+		
+		<!-- 进入排污权抵押页面-->
+		<action name="doEnCrMortgageSewageDischargeRight" class="crReportConInfoAction" >
+			<result name="success">/jsp/server/entappcon/crmortgagesewagedischargerightList.jsp</result>
+		</action>
+
+		<!-- 进入房产查封信息页面-->
+		<action name="doEnCrSequestrateAll" class="crReportConInfoAction" >
+			<result name="success">/jsp/server/entappcon/crsequestrateallList.jsp</result>
+		</action>
+		
+		<!-- 进入土地查封信息页面-->
+		<action name="doEnLandCrSequestrateAll" class="crReportConInfoAction" >
+			<result name="success">/jsp/server/entappcon/landcrsequestrateallList.jsp</result>
+		</action>
+		
+	</package>
+	
+</struts>

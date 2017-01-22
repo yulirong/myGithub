@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"       
+          "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="cranalymacidx" extends="icinfo-default" namespace="/cranalymacidx" >
+
+		<action name="doReadCrAnalyMacIdxList" class="crAnalyMacIdxAction" method="doReadCrAnalyMacIdxListAction">
+			<result name="success">/jsp/analy/cranalymacidx/cranalymacidxList.jsp</result>
+		</action>
+		
+		<action name="doReadCrAnalyMacIdxListJSON" class="crAnalyMacIdxAction" method="doReadCrAnalyMacIdxListJSONAction">
+		</action>
+	
+		<action name="doEnAddAndEditCrAnalyMacIdx" class="crAnalyMacIdxAction" method="doEnAddAndEditCrAnalyMacIdxAction">
+			<result name="success">/jsp/analy/cranalymacidx/cranalymacidxAddAndEdit.jsp</result>
+		</action>
+		
+		<action name="doAddAndEditCrAnalyMacIdx" class="crAnalyMacIdxAction" method="doAddAndEditCrAnalyMacIdxAction">
+		</action>
+		
+		<action name="doDelCrAnalyMacIdx" class="crAnalyMacIdxAction" method="doDelCrAnalyMacIdxAction">
+		</action>
+
+	</package>
+	
+</struts>

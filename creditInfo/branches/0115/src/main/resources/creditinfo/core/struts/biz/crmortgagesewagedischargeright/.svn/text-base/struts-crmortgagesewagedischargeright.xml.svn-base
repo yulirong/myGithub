@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"       
+          "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="crmortgagesewagedischargeright" extends="icinfo-default" namespace="/crmortgagesewagedischargeright" >
+
+		<action name="doReadCrMortgageSewageDischargeRightList" class="crMortgageSewageDischargeRightAction" method="doReadCrMortgageSewageDischargeRightListAction">
+			<result name="success">/jsp/biz/crmortgagesewagedischargeright/crmortgagesewagedischargerightList.jsp</result>
+		</action>
+		
+		<!-- 排污权抵押 -->
+		<action name="doReadCrMortgageSewageDischargeRightListJSON" class="crMortgageSewageDischargeRightAction" method="doReadPermissionCrMortgageSewageDischargeRightListJSON">
+		</action>
+	
+		<action name="doEnAddAndEditCrMortgageSewageDischargeRight" class="crMortgageSewageDischargeRightAction" method="doEnAddAndEditCrMortgageSewageDischargeRightAction">
+			<result name="success">/jsp/biz/crmortgagesewagedischargeright/crmortgagesewagedischargerightAddAndEdit.jsp</result>
+		</action>
+		
+		<action name="doAddAndEditCrMortgageSewageDischargeRight" class="crMortgageSewageDischargeRightAction" method="doAddAndEditCrMortgageSewageDischargeRightAction">
+		</action>
+		
+		<action name="doDelCrMortgageSewageDischargeRight" class="crMortgageSewageDischargeRightAction" method="doDelCrMortgageSewageDischargeRightAction">
+		</action>
+
+	</package>
+	
+</struts>

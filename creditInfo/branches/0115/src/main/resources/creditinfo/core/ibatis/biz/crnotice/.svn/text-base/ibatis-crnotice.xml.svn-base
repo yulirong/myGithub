@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd"> 
+
+<sqlMap namespace="ibatis-crnotice">
+
+	<typeAlias alias="CrNotice" type="com.icinfo.creditinfo.bean.biz.crnotice.CrNotice" />
+
+	<resultMap id="crnoticeRlt" class="CrNotice">
+		<result property="id" column="id" />
+		<result property="ticTitle" column="tic_title" />
+		<result property="ticContent" column="tic_content" />
+		<result property="ticMan" column="tic_man" />
+		<result property="ticDepart" column="tic_depart" />
+		<result property="ticDate" column="tic_date" />
+		<result property="ticStatus" column="tic_status" />
+	</resultMap>
+	
+	<select id="selectCrNoticeById" resultMap="crnoticeRlt" parameterClass="java.lang.String">
+		select
+			id,tic_title,tic_content,tic_man,tic_depart,tic_date,tic_status
+		from 
+			CR_NOTICE
+		where 
+		    ID = #id#
+	</select>
+	
+	<sql id="crnotice_where">
+	    <dynamic prepend="where">
+			<isNotEmpty prepend="and" property="id">  
+				id = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ticTitle">  
+				tic_title like  CONCAT('%', #ticTitle#, '%')  
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ticContent">  
+				tic_content = #ticContent#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ticManMe">  
+				tic_man = #ticManMe#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ticMan">  
+				tic_man like  CONCAT('%', #ticMan#, '%') 
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ticDepart">  
+				tic_depart like  CONCAT('%', #ticDepart#, '%')
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ticDate">  
+				tic_date = #ticDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="startTicTime">  
+				<![CDATA[
+				tic_date >= #startTicTime#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="endTicTime">  
+				<![CDATA[
+				tic_date <= #endTicTime#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ticStatus">  
+				tic_status = #ticStatus#
+			</isNotEmpty>
+	    </dynamic>
+	</sql>
+	
+	<select id="selectCrNoticeList" resultMap="crnoticeRlt" parameterClass="java.util.HashMap">
+		select
+			id,tic_title,tic_content,tic_man,tic_depart,tic_date,tic_status
+		from 
+			CR_NOTICE
+		<include refid="crnotice_where" />
+		ORDER BY tic_date DESC
+		<include refid="ibatis-global.mysql_page" />
+	</select>
+	
+	<select id="selectCrNoticeTotal" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" >
+		select 
+		    count(ID) 
+		from 
+		    CR_NOTICE
+	    <include refid="crnotice_where" />
+	</select>
+	
+	<insert id="insertCrNotice" parameterClass="CrNotice">
+       	INSERT INTO CR_NOTICE 
+			(id,tic_title,tic_content,tic_man,tic_depart,tic_date,tic_status)
+		VALUES 
+			(#id#,#ticTitle#,#ticContent#,#ticMan#,#ticDepart#,#ticDate#,#ticStatus#)
+	    <selectKey resultClass="java.lang.String" keyProperty="id" >
+          <![CDATA[ 
+            select #id# as id from dual 
+       	  ]]>    
+       	</selectKey> 
+    </insert> 
+	
+    <update id="updateCrNotice" parameterClass="CrNotice">
+     UPDATE CR_NOTICE
+	     <dynamic prepend="set">
+			<isNotEmpty prepend="," property="id">  
+				id = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="ticTitle">  
+				tic_title = #ticTitle#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="ticContent">  
+				tic_content = #ticContent#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="ticMan">  
+				tic_man = #ticMan#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="ticDepart">  
+				tic_depart = #ticDepart#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="ticDate">  
+				tic_date = #ticDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="ticStatus">  
+				tic_status = #ticStatus#
+			</isNotEmpty>
+		</dynamic>
+	    where ID = #id# 
+    </update>
+    
+     <delete id="deleteCrNotice" parameterClass="java.lang.String">
+         DELETE FROM CR_NOTICE WHERE ID = #id# 
+     </delete>
+     
+</sqlMap>

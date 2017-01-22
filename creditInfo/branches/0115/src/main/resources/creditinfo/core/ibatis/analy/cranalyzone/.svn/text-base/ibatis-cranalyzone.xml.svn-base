@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd"> 
+
+<sqlMap namespace="ibatis-cranalyzone">
+
+	<typeAlias alias="CrAnalyZone" type="com.icinfo.creditinfo.bean.analy.cranalyzone.CrAnalyZone" />
+
+	<resultMap id="cranalyzoneRlt" class="CrAnalyZone">
+		<result property="id" column="id" />
+		<result property="zoneCode" column="zone_code" />
+		<result property="zoneCorpCount" column="zone_corp_count" />
+		<result property="zoneManCount" column="zone_man_count" />
+		<result property="zoneEcmcIdx" column="zone_ecmc_idx" />
+		<result property="zoneRiskIdx" column="zone_risk_idx" />
+		<result property="zoneCreateDate" column="zone_create_date" />
+		<result property="zoneName" column="zone_name" />
+	</resultMap>
+	
+	
+	<sql id="cranalyzone_where">
+	    <dynamic prepend="where">
+			<isNotEmpty prepend="and" property="id">  
+				id = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="zoneCode">  
+				zone_code = #zoneCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="zoneCorpCount">  
+				zone_corp_count = #zoneCorpCount#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="zoneManCount">  
+				zone_man_count = #zoneManCount#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="zoneEcmcIdx">  
+				zone_ecmc_idx = #zoneEcmcIdx#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="zoneRiskIdx">  
+				zone_risk_idx = #zoneRiskIdx#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="zoneCreateDate">  
+				zone_create_date = #zoneCreateDate#
+			</isNotEmpty>
+	    </dynamic>
+	</sql>
+	
+	<select id="selectCrAnalyZoneList" resultMap="cranalyzoneRlt" parameterClass="java.util.HashMap">
+		SELECT
+			Z.id,Z.zone_code,Z.zone_corp_count,Z.zone_man_count,Z.zone_ecmc_idx,Z.zone_risk_idx,Z.zone_create_date,C.zone_name zone_name
+		FROM 
+			CR_ANALY_ZONE Z
+		LEFT JOIN CR_CODE_ZONE C ON Z.zone_code = C.zone_code
+		<include refid="cranalyzone_where" />
+	</select>
+	
+</sqlMap>

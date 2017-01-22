@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd"> 
+
+<sqlMap namespace="ibatis-crentbaseinfo">
+
+	<typeAlias alias="CrEntBaseInfo" type="com.icinfo.creditinfo.bean.biz.crentbaseinfo.CrEntBaseInfo" />
+
+	<resultMap id="crentbaseinfoRlt" class="CrEntBaseInfo">
+		<result property="id" column="id" />
+		<result property="corpid" column="corpid" />
+		<result property="entName" column="ent_name" />
+		<result property="entRegNo" column="ent_reg_no" />
+		<result property="entRegLoc" column="ent_reg_loc" />
+		<result property="entRunLoc" column="ent_run_loc" />
+		<result property="entPost" column="ent_post" />
+		<result property="entTel" column="ent_tel" />
+		<result property="entLepRep" column="ent_lep_rep" />
+		<result property="entCertCode" column="ent_cert_code" />
+		<result property="entType" column="ent_type" />
+		<result property="entTypeCatg" column="ent_type_catg" />
+		<result property="entTrade" column="ent_trade" />
+		<result property="entRegCap" column="ent_reg_cap" />
+		<result property="entCurrency" column="ent_currency" />
+		<result property="entMgrScope" column="ent_mgr_scope" />
+		<result property="entCheckDate" column="ent_check_date" />
+		<result property="entRegOrg" column="ent_reg_org" />
+		<result property="entJur" column="ent_jur" />
+		<result property="entState" column="ent_state" />
+		<result property="entInCap" column="ent_in_cap" />
+		<result property="entBusItem" column="ent_bus_item" />
+		<result property="entEstDate" column="ent_est_date" />
+		<result property="entMgrBegin" column="ent_mgr_begin" />
+		<result property="entMgrEnd" column="ent_mgr_end" />
+		<result property="entUnscId" column="ent_unsc_id" />
+		<result property="entOrgRegNo" column="ent_org_reg_no" />
+		<result property="entTaxRegNo" column="ent_tax_reg_no" />
+	    <result property="entManCount" column="ent_man_count"/>
+	    <result property="entRealTrade" column="entRealTrade"/>
+	</resultMap>
+	
+	<select id="selectCrEntBaseInfoById" resultMap="crentbaseinfoRlt" parameterClass="java.lang.String">
+		select
+			b.id,b.corpid,ent_name,ent_reg_no,ent_reg_loc,ent_run_loc,ent_post,ent_tel,ent_lep_rep,ent_cert_code,c.CONTENT ent_type,ent_type_catg,d.mlcontent ent_trade,b.ent_trade entRealTrade,ent_reg_cap,ent_currency,
+			ent_mgr_scope,ent_check_date,r.CONTENT ent_reg_org,ent_jur,ent_state,ent_in_cap,ent_bus_item,ent_est_date,ent_mgr_begin,ent_mgr_end,ent_unsc_id,ent_org_reg_no,ent_tax_reg_no,b.ent_man_count
+		from 
+			CR_ENT_BASE_INFO b
+		LEFT JOIN CR_CODE_ENT_TYPE c ON c.CODE = b.ent_type
+		LEFT JOIN CR_CODE_REG_ORG r ON r.CODE = b.ent_reg_org
+		LEFT JOIN CR_CODE_INDUSTRY d ON d.CODE = b.ent_trade
+		where 
+		    b.corpid = #corpid#
+	</select>
+	
+	<sql id="crentbaseinfo_where">
+	    <dynamic prepend="where">
+			<isNotEmpty prepend="and" property="id">  
+				id = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="corpid">  
+				corpid = #corpid#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="entName">  
+				ent_name = #entName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="entRegNo">  
+				ent_reg_no = #entRegNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="entRegLoc">  
+				ent_reg_loc = #entRegLoc#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="entRunLoc">  
+				ent_run_loc = #entRunLoc#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="entPost">  
+				ent_post = #entPost#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="entTel">  
+				ent_tel = #entTel#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="entLepRep">  
+				ent_lep_rep = #entLepRep#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="entCertCode">  
+				ent_cert_code = #entCertCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="entType">  
+				ent_type = #entType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="entTypeCatg">  
+				ent_type_catg = #entTypeCatg#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="entTrade">  
+				ent_trade = #entTrade#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="entRegCap">  
+				ent_reg_cap = #entRegCap#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="entCurrency">  
+				ent_currency = #entCurrency#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="entMgrScope">  
+				ent_mgr_scope = #entMgrScope#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="entCheckDate">  
+				ent_check_date = #entCheckDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="entRegOrg">  
+				ent_reg_org = #entRegOrg#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="entJur">  
+				ent_jur = #entJur#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="entState">  
+				ent_state = #entState#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="entInCap">  
+				ent_in_cap = #entInCap#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="entBusItem">  
+				ent_bus_item = #entBusItem#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="entEstDate">  
+				ent_est_date = #entEstDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="newDate">  
+			<![CDATA[
+                ent_est_date >= STR_TO_DATE(#newDate#,'%Y-%m-%d %H:%i:%s')
+                ]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="entMgrBegin">  
+				ent_mgr_begin = #entMgrBegin#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="entMgrEnd">  
+				ent_mgr_end = #entMgrEnd#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="entUnscId">  
+				ent_unsc_id = #entUnscId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="entOrgRegNo">  
+				ent_org_reg_no = #entOrgRegNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="entTaxRegNo">  
+				ent_tax_reg_no = #entTaxRegNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="orQymc">
+	         ( ent_name=#orQymc# 
+	          <isNotEmpty prepend="or" property="orZch">
+	            ent_reg_no=#orZch# 
+	          </isNotEmpty>
+	         )
+	       </isNotEmpty>
+	    </dynamic>
+	</sql>
+	
+	<select id="selectCrEntBaseInfoList" resultMap="crentbaseinfoRlt" parameterClass="java.util.HashMap">
+		select
+			id,corpid,ent_name,ent_reg_no,ent_reg_loc,ent_run_loc,ent_post,ent_tel,ent_lep_rep,ent_cert_code,ent_type,
+			ent_type_catg,ent_trade,'' entRealTrade,ent_reg_cap,ent_currency,ent_mgr_scope,ent_check_date,ent_reg_org,ent_jur,ent_state,ent_in_cap,ent_bus_item,ent_est_date,ent_mgr_begin,ent_mgr_end,ent_unsc_id,ent_org_reg_no,ent_tax_reg_no,ent_man_count
+		from 
+			CR_ENT_BASE_INFO
+		<include refid="crentbaseinfo_where" />
+		<include refid="ibatis-global.mysql_page" />
+	</select>
+	
+	<select id="selectCrEntBaseInfoTotal" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" >
+		select 
+		    count(ID) 
+		from 
+		    CR_ENT_BASE_INFO
+	    <include refid="crentbaseinfo_where" />
+	</select>
+	
+	<insert id="insertCrEntBaseInfo" parameterClass="CrEntBaseInfo">
+       	INSERT INTO CR_ENT_BASE_INFO 
+			(id,corpid,ent_name,ent_reg_no,ent_reg_loc,ent_run_loc,ent_post,ent_tel,ent_lep_rep,ent_cert_code,ent_type,ent_type_catg,ent_trade,ent_reg_cap,ent_currency,ent_mgr_scope,ent_check_date,ent_reg_org,ent_jur,ent_state,ent_in_cap,ent_bus_item,ent_est_date,ent_mgr_begin,ent_mgr_end,ent_unsc_id,ent_org_reg_no,ent_tax_reg_no,ent_man_count)
+		VALUES 
+			(#id#,#corpid#,#entName#,#entRegNo#,#entRegLoc#,#entRunLoc#,#entPost#,#entTel#,#entLepRep#,#entCertCode#,#entType#,#entTypeCatg#,#entTrade#,#entRegCap#,#entCurrency#,#entMgrScope#,#entCheckDate#,#entRegOrg#,#entJur#,#entState#,#entInCap#,#entBusItem#,#entEstDate#,#entMgrBegin#,#entMgrEnd#,#entUnscId#,#entOrgRegNo#,#entTaxRegNo#,#entManCount#)
+	    <selectKey resultClass="java.lang.String" keyProperty="id" >
+          <![CDATA[ 
+            select #id# as id from dual 
+       	  ]]>    
+       	</selectKey> 
+    </insert> 
+	
+    <update id="updateCrEntBaseInfo" parameterClass="CrEntBaseInfo">
+     UPDATE CR_ENT_BASE_INFO
+	     <dynamic prepend="set">
+			<isNotEmpty prepend="," property="id">  
+				id = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="corpid">  
+				corpid = #corpid#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="entName">  
+				ent_name = #entName#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="entRegNo">  
+				ent_reg_no = #entRegNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="entRegLoc">  
+				ent_reg_loc = #entRegLoc#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="entRunLoc">  
+				ent_run_loc = #entRunLoc#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="entPost">  
+				ent_post = #entPost#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="entTel">  
+				ent_tel = #entTel#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="entLepRep">  
+				ent_lep_rep = #entLepRep#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="entCertCode">  
+				ent_cert_code = #entCertCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="entType">  
+				ent_type = #entType#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="entTypeCatg">  
+				ent_type_catg = #entTypeCatg#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="entTrade">  
+				ent_trade = #entTrade#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="entRegCap">  
+				ent_reg_cap = #entRegCap#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="entCurrency">  
+				ent_currency = #entCurrency#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="entMgrScope">  
+				ent_mgr_scope = #entMgrScope#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="entCheckDate">  
+				ent_check_date = #entCheckDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="entRegOrg">  
+				ent_reg_org = #entRegOrg#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="entJur">  
+				ent_jur = #entJur#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="entState">  
+				ent_state = #entState#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="entInCap">  
+				ent_in_cap = #entInCap#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="entBusItem">  
+				ent_bus_item = #entBusItem#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="entEstDate">  
+				ent_est_date = #entEstDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="entMgrBegin">  
+				ent_mgr_begin = #entMgrBegin#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="entMgrEnd">  
+				ent_mgr_end = #entMgrEnd#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="entUnscId">  
+				ent_unsc_id = #entUnscId#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="entOrgRegNo">  
+				ent_org_reg_no = #entOrgRegNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="entTaxRegNo">  
+				ent_tax_reg_no = #entTaxRegNo#
+			</isNotEmpty>
+		</dynamic>
+	    where ID = #id# 
+    </update>
+    
+     <delete id="deleteCrEntBaseInfo" parameterClass="java.lang.String">
+         DELETE FROM CR_ENT_BASE_INFO WHERE ID = #id# 
+     </delete>
+     
+</sqlMap>

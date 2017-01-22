@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd"> 
+
+<sqlMap namespace="ibatis-cranaylguarantnodedata">
+
+	<typeAlias alias="CrAnaylGuarantNodeData" type="com.icinfo.creditinfo.bean.analy.cranaylguarantnodedata.CrAnaylGuarantNodeData" />
+
+	<resultMap id="cranaylguarantnodedataRlt" class="CrAnaylGuarantNodeData">
+		<result property="nodeName" column="node_name" />
+		<result property="nodeGuaranteedNum" column="node_guaranteed_num" />
+		<result property="nodeExterGuaranteeNum" column="node_exter_guarantee_num" />
+		<result property="nodeTotalRelation" column="node_total_relation" />
+		<result property="nodeGuaranteedAmount" column="node_guaranteed_amount" />
+		<result property="nodeExterGuaranteeAmount" column="node_exter_guarantee_amount" />
+		<result property="nodeHappenAmount" column="node_happen_amount" />
+	</resultMap>
+	
+	<sql id="cranaylguarantnodedata_where">
+	    <dynamic prepend="where">
+			<isNotEmpty prepend="and" property="nodeName">  
+				node_name = #nodeName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="nodeGuaranteedNum">  
+				node_guaranteed_num = #nodeGuaranteedNum#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="nodeExterGuaranteeNum">  
+				node_exter_guarantee_num = #nodeExterGuaranteeNum#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="nodeTotalRelation">  
+				node_total_relation = #nodeTotalRelation#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="nodeGuaranteedAmount">  
+				node_guaranteed_amount = #nodeGuaranteedAmount#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="nodeExterGuaranteeAmount">  
+				node_exter_guarantee_amount = #nodeExterGuaranteeAmount#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="nodeHappenAmount">  
+				node_happen_amount = #nodeHappenAmount#
+			</isNotEmpty>
+	    </dynamic>
+	    <isNotEmpty prepend="order by" property="guaType">
+	    	$guaType$ desc 
+	    </isNotEmpty>
+	</sql>
+	
+	<select id="selectCrAnaylGuarantNodeDataList" resultMap="cranaylguarantnodedataRlt" parameterClass="java.util.HashMap">
+		select
+			node_name,node_guaranteed_num,node_exter_guarantee_num,node_total_relation,node_guaranteed_amount,node_exter_guarantee_amount,node_happen_amount
+		from 
+			CR_ANAYL_GUARANT_NODE_DATA
+		<include refid="cranaylguarantnodedata_where" />
+		limit 10
+	</select>
+	
+	
+</sqlMap>

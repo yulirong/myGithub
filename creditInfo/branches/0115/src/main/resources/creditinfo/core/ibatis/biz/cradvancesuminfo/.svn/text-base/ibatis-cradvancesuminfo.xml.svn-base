@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd"> 
+
+<sqlMap namespace="ibatis-cradvancesuminfo">
+
+	<typeAlias alias="CrAdvanceSumInfo" type="com.icinfo.creditinfo.bean.biz.cradvancesuminfo.CrAdvanceSumInfo" />
+
+	<resultMap id="cradvancesuminfoRlt" class="CrAdvanceSumInfo">
+		<result property="id" column="ID" />
+		<result property="advEntName" column="ADV_ENT_NAME" />
+		<result property="advRegNo" column="ADV_REG_NO" />
+		<result property="advSum" column="ADV_SUM" />
+		<result property="advCerInst" column="ADV_CER_INST" />
+		<result property="advCurrency" column="ADV_CURRENCY" />
+		<result property="advAmount" column="ADV_AMOUNT" />
+		<result property="advBalance" column="ADV_BALANCE" />
+		<result property="advDate" column="ADV_DATE" />
+		<result property="advGradeType" column="ADV_GRADE_TYPE" />
+		<result property="advOrgBiz" column="ADV_ORG_BIZ" />
+		<result property="corpid" column="corpid" />
+		<result property="advUserid" column="ADV_USERID" />
+		<result property="advOptTime" column="ADV_OPT_TIME" />
+	</resultMap>
+	
+	<select id="selectCrAdvanceSumInfoById" resultMap="cradvancesuminfoRlt" parameterClass="java.lang.String">
+		select
+			ID,ADV_ENT_NAME,ADV_REG_NO,ADV_SUM,ADV_CER_INST,ADV_CURRENCY,ADV_AMOUNT,ADV_BALANCE,ADV_DATE,ADV_GRADE_TYPE,ADV_ORG_BIZ,corpid,ADV_USERID,ADV_OPT_TIME
+		from 
+			CR_ADVANCE_SUM_INFO
+		where 
+		    ID = #id#
+	</select>
+	
+	<sql id="cradvancesuminfo_where">
+	    <dynamic prepend="where">
+			<isNotEmpty prepend="and" property="id">  
+				ID = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="advEntName">  
+				ADV_ENT_NAME = #advEntName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="advRegNo">  
+				ADV_REG_NO = #advRegNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="advSum">  
+				ADV_SUM = #advSum#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="advCerInst">  
+				ADV_CER_INST = #advCerInst#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="advCurrency">  
+				ADV_CURRENCY = #advCurrency#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="advAmount">  
+				ADV_AMOUNT = #advAmount#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="advBalance">  
+				ADV_BALANCE = #advBalance#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="advDate">  
+				ADV_DATE = #advDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="advGradeType">  
+				ADV_GRADE_TYPE = #advGradeType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="advOrgBiz">  
+				ADV_ORG_BIZ = #advOrgBiz#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="corpid">  
+				corpid = #corpid#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="advUserid">  
+				ADV_USERID = #advUserid#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="advOptTime">  
+				ADV_OPT_TIME = #advOptTime#
+			</isNotEmpty>
+	    </dynamic>
+	</sql>
+	
+	<select id="selectCrAdvanceSumInfoList" resultMap="cradvancesuminfoRlt" parameterClass="java.util.HashMap">
+		select
+			ID,ADV_ENT_NAME,ADV_REG_NO,ADV_SUM,ADV_CER_INST,ADV_CURRENCY,ADV_AMOUNT,ADV_BALANCE,ADV_DATE,ADV_GRADE_TYPE,ADV_ORG_BIZ,corpid,ADV_USERID,ADV_OPT_TIME
+		from 
+			CR_ADVANCE_SUM_INFO
+		<include refid="cradvancesuminfo_where" />
+		ORDER BY ADV_OPT_TIME DESC
+		<include refid="ibatis-global.mysql_page" />
+	</select>
+	
+	<select id="selectCrAdvanceSumInfoTotal" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" >
+		select 
+		    count(ID) 
+		from 
+		    CR_ADVANCE_SUM_INFO
+	    <include refid="cradvancesuminfo_where" />
+	</select>
+	
+	<insert id="insertCrAdvanceSumInfo" parameterClass="CrAdvanceSumInfo">
+       	INSERT INTO CR_ADVANCE_SUM_INFO 
+			(ID,ADV_ENT_NAME,ADV_REG_NO,ADV_SUM,ADV_CER_INST,ADV_CURRENCY,ADV_AMOUNT,ADV_BALANCE,ADV_DATE,ADV_GRADE_TYPE,ADV_ORG_BIZ,corpid,ADV_USERID,ADV_OPT_TIME)
+		VALUES 
+			(#id#,#advEntName#,#advRegNo#,#advSum#,#advCerInst#,#advCurrency#,#advAmount#,#advBalance#,#advDate#,#advGradeType#,#advOrgBiz#,#corpid#,#advUserid#,#advOptTime#)
+	    <selectKey resultClass="java.lang.String" keyProperty="id" >
+          <![CDATA[ 
+            select #id# as id from dual 
+       	  ]]>    
+       	</selectKey> 
+    </insert> 
+	
+    <update id="updateCrAdvanceSumInfo" parameterClass="CrAdvanceSumInfo">
+     UPDATE CR_ADVANCE_SUM_INFO
+	     <dynamic prepend="set">
+			<isNotEmpty prepend="," property="advEntName">  
+				ADV_ENT_NAME = #advEntName#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="advRegNo">  
+				ADV_REG_NO = #advRegNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="advSum">  
+				ADV_SUM = #advSum#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="advCerInst">  
+				ADV_CER_INST = #advCerInst#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="advCurrency">  
+				ADV_CURRENCY = #advCurrency#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="advAmount">  
+				ADV_AMOUNT = #advAmount#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="advBalance">  
+				ADV_BALANCE = #advBalance#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="advDate">  
+				ADV_DATE = #advDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="advGradeType">  
+				ADV_GRADE_TYPE = #advGradeType#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="advOrgBiz">  
+				ADV_ORG_BIZ = #advOrgBiz#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="corpid">  
+				corpid = #corpid#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="advUserid">  
+				ADV_USERID = #advUserid#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="advOptTime">  
+				ADV_OPT_TIME = #advOptTime#
+			</isNotEmpty>
+		</dynamic>
+	    where ID = #id# 
+    </update>
+    
+     <delete id="deleteCrAdvanceSumInfo" parameterClass="java.lang.String">
+         DELETE FROM CR_ADVANCE_SUM_INFO WHERE ID = #id# 
+     </delete>
+     
+</sqlMap>

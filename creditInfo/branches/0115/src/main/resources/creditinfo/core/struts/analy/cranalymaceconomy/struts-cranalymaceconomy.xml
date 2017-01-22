@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"       
+          "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="cranalymaceconomy" extends="icinfo-default" namespace="/cranalymaceconomy" >
+
+		<!-- 进入宏观经济数据趋势页面 -->
+		<action name="doEnCrAnalyMacEconomyTrendList" class="crAnalyMacEconomyAction" method="doEnCrAnalyMacEconomyTrendListAction">
+			<result name="success">/jsp/server/analy/cranalymaceconomy/cranalymaceconomytrendList.jsp</result>
+		</action>
+		
+		<!-- 获取宏观经济数据趋势信息 -->
+		<action name="doGetCrAnalyMacEconomyTrendList" class="crAnalyMacEconomyAction" method="doGetCrAnalyMacEconomyTrendListAction">
+		</action>
+		
+		
+
+	</package>
+	
+</struts>

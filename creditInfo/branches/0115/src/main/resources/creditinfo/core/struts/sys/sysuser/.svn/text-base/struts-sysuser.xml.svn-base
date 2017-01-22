@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"       
+          "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="sysuser" extends="icinfo-default" namespace="/sysuser" >
+	    
+	    <!-- 进入登录页面 -->
+	    <action name="doEnSysUserLogin" class="sysUserAction" >
+			<result name="success">/jsp/server/login.jsp</result>
+		</action>
+		
+		<!-- 进行登录操作 -->
+		<action name="doSysUserLoginAction" class="sysUserAction" method="doSysUserLoginAction">
+			<result name="input">/jsp/server/login.jsp</result>
+			<result name="success" type="redirect">doSysUserLoginSuccess.do</result>
+		</action>
+		
+		<!-- key用户登陆操作 -->
+		<action name="doKeyUserLogin" class="sysUserAction" method="doKeyUserLoginAction">
+			<result name="input">/jsp/server/login.jsp</result>
+			<result name="success" type="redirect">doSysUserLoginSuccess.do</result>
+		</action>
+		
+		<!-- 退出 -->
+		<action name="doLoginOut" class="sysUserAction" method="doLoginOutAction">
+			<result name="success">/jsp/server/login.jsp</result>
+			<result name="input">/jsp/server/login.jsp</result>
+			<result name="exception">/jsp/server/login.jsp</result>
+		</action>
+		
+		<!-- 进入登录成功成功页面 -->
+		<action name="doSysUserLoginSuccess" class="sysUserAction">
+			<result name="success">/jsp/server/index.jsp</result>
+		</action>
+		
+		<action name="doReadSysUserList" class="sysUserAction" method="doSkipAction">
+			<result name="success">/jsp/server/sys/sysuser/sysuserList.jsp</result>
+		</action>
+		
+		<action name="doReadSysUserListJSON" class="sysUserAction" method="doReadSysUserListJSONAction">
+		</action>
+	
+		<!-- 进入添加修改用户信息页面 -->
+		<action name="doEnAddAndEditSysUser" class="sysUserAction" method="doEnAddAndEditSysUserAction">
+			<result name="success">/jsp/server/sys/sysuser/sysuserAddAndEdit.jsp</result>
+		</action>
+		
+		<!-- 添加修改用户信息 -->
+		<action name="doAddAndEditSysUser" class="sysUserAction" method="doAddAndEditSysUserAction">
+		</action>
+		
+		<!-- 删除用户信息 -->
+		<action name="doDelSysUser" class="sysUserAction" method="doDelSysUserAction">
+		</action>
+		
+		<!-- 进入密码修改页面 -->
+		<action name="doEnSysUserPswEdit" class="sysUserAction" method="doSkipAction">
+			<result name="success">/jsp/server/sys/sysuser/sysuserPswEdit.jsp</result>
+		</action>
+		
+		<!-- 修改密码 -->
+		<action name="doEditSysUserPsw" class="sysUserAction" method="doEditSysUserPswAction">
+		</action>
+		
+	</package>
+</struts>

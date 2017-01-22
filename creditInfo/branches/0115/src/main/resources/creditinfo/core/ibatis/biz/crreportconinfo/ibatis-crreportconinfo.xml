@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd"> 
+
+<sqlMap namespace="ibatis-crreportconinfo">
+
+	<typeAlias alias="CrReportConInfo" type="com.icinfo.creditinfo.bean.biz.crreportconinfo.CrReportConInfo" />
+	
+	<resultMap id="crreportconinfoRlt" class="CrReportConInfo">
+		<result property="id" column="ID" />
+		<result property="conNo" column="CON_NO" />
+		<result property="corpid" column="CORPID" />
+		<result property="year" column="YEAR" />
+		<result property="conInfoSeq" column="CON_INFO_SEQ" />
+		<result property="conInfoName" column="CON_INFO_NAME" />
+		<result property="conInfoRegNo" column="CON_INFO_REG_NO" />
+		<result property="conInfoInvForm" column="CON_INFO_INV_FORM" />
+		<result property="conInfoPayConAmount" column="CON_INFO_PAY_CON_AMOUNT" />
+		<result property="conInfoActConAmount" column="CON_INFO_ACT_CON_AMOUNT" />
+		<result property="conInfoShareNum" column="CON_INFO_SHARE_NUM" />
+		<result property="conInfoPercent" column="CON_INFO_PERCENT" />
+		<result property="conInfoInvalidFld" column="CON_INFO_INVALID_FLD" />
+		<result property="conInfoCountry" column="CON_INFO_COUNTRY" />
+		<result property="conInfoLiaForm" column="CON_INFO_LIA_FORM" />
+		<result property="conInfoAffairPart" column="CON_INFO_AFFAIR_PART" />
+		<result property="conInfoPayDate" column="CON_INFO_PAY_DATE" />
+		<result property="conInfoActDate" column="CON_INFO_ACT_DATE" />
+		<result property="conInfoActForm" column="CON_INFO_ACT_FORM" />
+		<result property="conReportNo" column="CON_REPORT_NO" />
+		<result property="conId" column="CON_ID" />
+	</resultMap>
+	
+	<resultMap id="crreportconinfoRlt1" class="CrReportConInfo">
+		<result property="corpid" column="CORPID" />
+		<result property="payCon" column="payCon" />
+		<result property="actCon" column="actCon" />
+	</resultMap>
+	
+	<select id="selectCrReportConInfoById" resultMap="crreportconinfoRlt1" parameterClass="java.lang.String">
+		select 
+			CORPID,SUM(CON_INFO_PAY_CON_AMOUNT) payCon,SUM(CON_INFO_ACT_CON_AMOUNT) actCon 
+		from 
+			CR_REPORT_CON_INFO 
+		WHERE 
+			CORPID = #corpid#
+	</select>
+	
+	<sql id="crreportconinfo_where">
+	    <dynamic prepend="where">
+			<isNotEmpty prepend="and" property="id">  
+				ID = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="conNo">  
+				CON_NO = #conNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="corpid">  
+				CORPID = #corpid#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="year">  
+				YEAR = #year#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="conInfoSeq">  
+				CON_INFO_SEQ = #conInfoSeq#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="conInfoName">  
+				CON_INFO_NAME = #conInfoName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="conInfoRegNo">  
+				CON_INFO_REG_NO = #conInfoRegNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="conInfoInvForm">  
+				CON_INFO_INV_FORM = #conInfoInvForm#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="conInfoPayConAmount">  
+				CON_INFO_PAY_CON_AMOUNT = #conInfoPayConAmount#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="conInfoActConAmount">  
+				CON_INFO_ACT_CON_AMOUNT = #conInfoActConAmount#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="conInfoShareNum">  
+				CON_INFO_SHARE_NUM = #conInfoShareNum#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="conInfoPercent">  
+				CON_INFO_PERCENT = #conInfoPercent#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="conInfoInvalidFld">  
+				CON_INFO_INVALID_FLD = #conInfoInvalidFld#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="conInfoCountry">  
+				CON_INFO_COUNTRY = #conInfoCountry#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="conInfoLiaForm">  
+				CON_INFO_LIA_FORM = #conInfoLiaForm#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="conInfoAffairPart">  
+				CON_INFO_AFFAIR_PART = #conInfoAffairPart#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="conInfoPayDate">  
+				CON_INFO_PAY_DATE = #conInfoPayDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="conInfoActDate">  
+				CON_INFO_ACT_DATE = #conInfoActDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="conInfoActForm">  
+				CON_INFO_ACT_FORM = #conInfoActForm#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="conReportNo">  
+				CON_REPORT_NO = #conReportNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="conId">  
+				CON_ID = #conId#
+			</isNotEmpty>
+	    </dynamic>
+	</sql>
+	
+	<select id="selectCrReportConInfoList" resultMap="crreportconinfoRlt" parameterClass="java.util.HashMap">
+		select
+			ID,CON_NO,CORPID,YEAR,CON_INFO_SEQ,CON_INFO_NAME,CON_INFO_REG_NO,CON_INFO_INV_FORM,CON_INFO_PAY_CON_AMOUNT,CON_INFO_ACT_CON_AMOUNT,CON_INFO_SHARE_NUM,CON_INFO_PERCENT,CON_INFO_INVALID_FLD,CON_INFO_COUNTRY,CON_INFO_LIA_FORM,CON_INFO_AFFAIR_PART,CON_INFO_PAY_DATE,CON_INFO_ACT_DATE,CON_INFO_ACT_FORM,CON_REPORT_NO,CON_ID
+		from 
+			CR_REPORT_CON_INFO
+		<include refid="crreportconinfo_where" />
+		ORDER BY CON_INFO_PERCENT+0 DESC
+		<include refid="ibatis-global.mysql_page" />
+	</select>
+	
+	<select id="selectCrReportConInfoTotal" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" >
+		select 
+		    count(ID) 
+		from 
+		    CR_REPORT_CON_INFO
+	    <include refid="crreportconinfo_where" />
+	</select>
+	
+	<insert id="insertCrReportConInfo" parameterClass="CrReportConInfo">
+       	INSERT INTO CR_REPORT_CON_INFO 
+			(ID,CON_NO,CORPID,YEAR,CON_INFO_SEQ,CON_INFO_NAME,CON_INFO_REG_NO,CON_INFO_INV_FORM,CON_INFO_PAY_CON_AMOUNT,CON_INFO_ACT_CON_AMOUNT,CON_INFO_SHARE_NUM,CON_INFO_PERCENT,CON_INFO_INVALID_FLD,CON_INFO_COUNTRY,CON_INFO_LIA_FORM,CON_INFO_AFFAIR_PART,CON_INFO_PAY_DATE,CON_INFO_ACT_DATE,CON_INFO_ACT_FORM,CON_REPORT_NO,CON_ID)
+		VALUES 
+			(#id#,#conNo#,#corpid#,#year#,#conInfoSeq#,#conInfoName#,#conInfoRegNo#,#conInfoInvForm#,#conInfoPayConAmount#,#conInfoActConAmount#,#conInfoShareNum#,#conInfoPercent#,#conInfoInvalidFld#,#conInfoCountry#,#conInfoLiaForm#,#conInfoAffairPart#,#conInfoPayDate#,#conInfoActDate#,#conInfoActForm#,#conReportNo#,#conId#)
+	    <selectKey resultClass="java.lang.String" keyProperty="id" >
+          <![CDATA[ 
+            select #id# as id from dual 
+       	  ]]>    
+       	</selectKey> 
+    </insert> 
+	
+    <update id="updateCrReportConInfo" parameterClass="CrReportConInfo">
+     UPDATE CR_REPORT_CON_INFO
+	     <dynamic prepend="set">
+			<isNotEmpty prepend="," property="conNo">  
+				CON_NO = #conNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="corpid">  
+				CORPID = #corpid#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="year">  
+				YEAR = #year#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="conInfoSeq">  
+				CON_INFO_SEQ = #conInfoSeq#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="conInfoName">  
+				CON_INFO_NAME = #conInfoName#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="conInfoRegNo">  
+				CON_INFO_REG_NO = #conInfoRegNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="conInfoInvForm">  
+				CON_INFO_INV_FORM = #conInfoInvForm#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="conInfoPayConAmount">  
+				CON_INFO_PAY_CON_AMOUNT = #conInfoPayConAmount#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="conInfoActConAmount">  
+				CON_INFO_ACT_CON_AMOUNT = #conInfoActConAmount#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="conInfoShareNum">  
+				CON_INFO_SHARE_NUM = #conInfoShareNum#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="conInfoPercent">  
+				CON_INFO_PERCENT = #conInfoPercent#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="conInfoInvalidFld">  
+				CON_INFO_INVALID_FLD = #conInfoInvalidFld#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="conInfoCountry">  
+				CON_INFO_COUNTRY = #conInfoCountry#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="conInfoLiaForm">  
+				CON_INFO_LIA_FORM = #conInfoLiaForm#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="conInfoAffairPart">  
+				CON_INFO_AFFAIR_PART = #conInfoAffairPart#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="conInfoPayDate">  
+				CON_INFO_PAY_DATE = #conInfoPayDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="conInfoActDate">  
+				CON_INFO_ACT_DATE = #conInfoActDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="conInfoActForm">  
+				CON_INFO_ACT_FORM = #conInfoActForm#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="conReportNo">  
+				CON_REPORT_NO = #conReportNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="conId">  
+				CON_ID = #conId#
+			</isNotEmpty>
+		</dynamic>
+	    where ID = #id# 
+    </update>
+    
+     <delete id="deleteCrReportConInfo" parameterClass="java.lang.String">
+         DELETE FROM CR_REPORT_CON_INFO WHERE ID = #id# 
+     </delete>
+     
+</sqlMap>

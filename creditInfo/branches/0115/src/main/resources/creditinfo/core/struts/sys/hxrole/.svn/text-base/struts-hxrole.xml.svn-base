@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"       
+          "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="hxrole" extends="icinfo-default" namespace="/hxrole" >
+
+		<action name="doReadHxRoleList" class="hxRoleAction" method="doSkipAction">
+			<result name="success">/jsp/server/sys/hxrole/hxroleList.jsp</result>
+		</action>
+		
+		<action name="doReadHxRoleListJSON" class="hxRoleAction" method="doReadHxRoleListJSONAction">
+		</action>
+	
+		<action name="doEnAddAndEditHxRole" class="hxRoleAction" method="doEnAddAndEditHxRoleAction">
+			<result name="success">/jsp/server/sys/hxrole/hxroleAddAndEdit.jsp</result>
+		</action>
+		
+		<action name="doAddAndEditHxRole" class="hxRoleAction" method="doAddAndEditHxRoleAction">
+		</action>
+		
+		<action name="doDelHxRole" class="hxRoleAction" method="doDelHxRoleAction">
+		</action>
+		
+		<action name="doGetRoleResourceByRoleId" class="hxRoleAction" method="doGetRoleResourceByRoleIdAction">
+			 <result type="json" name="ajax" />
+		</action>
+		
+		<!-- 进入岗位权限页面 -->
+		<action name="doReadRoleList" class="hxRoleAction" method="doReadRoleListAction">
+			<result name="success">/jsp/server/sys/hxuserrole/hxuserroleList.jsp</result>
+		</action>
+
+	</package>
+	
+</struts>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"       
+          "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="crreportconinfo" extends="icinfo-default" namespace="/crreportconinfo" >
+
+		<action name="doReadCrReportConInfoList" class="crReportConInfoAction" method="doReadCrReportConInfoListAction">
+			<result name="success">/jsp/biz/crreportconinfo/crreportconinfoList.jsp</result>
+		</action>
+		
+		<action name="doReadCrReportConInfoListJSON" class="crReportConInfoAction" method="doReadPermissionCrReportConInfoListJSON">
+		</action>
+	
+		<!-- 获取高管信息 -->
+		<action name="doReadHzQydsjlryListJSON" class="hzQydsjlryAction" method="doReadPermissionHzQydsjlryListJSON">
+		</action>
+
+	</package>
+	
+</struts>

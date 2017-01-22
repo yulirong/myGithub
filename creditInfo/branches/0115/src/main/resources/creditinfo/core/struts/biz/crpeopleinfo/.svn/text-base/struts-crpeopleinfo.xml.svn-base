@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"       
+          "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="crpeopleinfo" extends="icinfo-default" namespace="/crpeopleinfo" >
+		
+		<action name="doReadCrEntInfoListJSON" class="crPeopleInfoAction" method="doReadCrEntInfoListJSONAction">
+		</action>
+	
+		<!-- 进入个人详情页面 -->
+		<action name="doEnCrPeopleInfo" class="crPeopleInfoAction" method="doReadCrPeopleInfo">
+			<result name="success">/jsp/server/crpeopleinfo/crPeopleInfo.jsp</result>
+			<result name="none">/jsp/server/crpeopleinfo/noPeopleInfo.jsp</result>
+		</action>
+
+	
+		<!-- 进入关联企业页面 -->
+		<action name="doEnCrEntInfo" class="crPeopleInfoAction">
+			<result name="success">/jsp/server/crpeopleinfo/crEntInfo.jsp</result>
+		</action>
+		
+		<!-- 进入关联处罚信息页面 -->
+		<action name="doEnCrPunish" class="crPeopleInfoAction">
+			<result name="success">/jsp/server/crpeopleinfo/crPunish.jsp</result>
+		</action>
+
+		<!-- 进入关联房产抵押页面 -->
+		<action name="doEnMortgageRegHouse" class="crPeopleInfoAction">
+			<result name="success">/jsp/server/crpeopleinfo/mortgageRegHouse.jsp</result>
+		</action>
+		<!-- 进入关联动产抵押页面 -->
+		<action name="doEnCrDcdyApplyinfo" class="crPeopleInfoAction">
+			<result name="success">/jsp/server/crpeopleinfo/crDcdyApplyinfo.jsp</result>
+		</action>
+		<!-- 进入关联土地抵押页面 -->
+		<action name="doEnMortgageRegLand" class="crPeopleInfoAction">
+			<result name="success">/jsp/server/crpeopleinfo/mortgageRegLand.jsp</result>
+		</action> 
+		<!-- 进入关联出质信息页面 -->
+		<action name="doEnCrEquityAll" class="crPeopleInfoAction">
+			<result name="success">/jsp/server/crpeopleinfo/crEquityAll.jsp</result>
+		</action> 
+	</package>
+	
+</struts>

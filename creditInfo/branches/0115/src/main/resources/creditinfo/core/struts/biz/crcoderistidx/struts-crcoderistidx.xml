@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"       
+          "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="crcoderistidx" extends="icinfo-default" namespace="/crcoderistidx" >
+
+		<action name="doReadCrCodeRistIdxList" class="crCodeRistIdxAction" method="doReadCrCodeRistIdxListAction">
+			<result name="success">/jsp/server/biz/crcoderistidx/crcoderistidxList.jsp</result>
+		</action>
+		
+		<action name="doReadCrCodeRistIdxListJSON" class="crCodeRistIdxAction" method="doReadCrCodeRistIdxListJSONAction">
+		</action>
+	
+		<action name="doEnAddAndEditCrCodeRistIdx" class="crCodeRistIdxAction" method="doEnAddAndEditCrCodeRistIdxAction">
+			<result name="success">/jsp/server/biz/crcoderistidx/crcoderistidxAddAndEdit.jsp</result>
+		</action>
+		
+		<action name="doAddAndEditCrCodeRistIdx" class="crCodeRistIdxAction" method="doAddAndEditCrCodeRistIdxAction">
+		</action>
+		
+		<action name="doDelCrCodeRistIdxById" class="crCodeRistIdxAction" method="doDelCrCodeRistIdxByIdAction">
+		</action>
+     
+	</package>
+	
+</struts>

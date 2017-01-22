@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd"> 
+
+<sqlMap namespace="ibatis-tempbaseinfocourt">
+
+	<typeAlias alias="TempBaseInfoCourt" type="com.icinfo.creditinfo.bean.upload.tempbaseinfocourt.TempBaseInfoCourt" />
+
+	<resultMap id="tempbaseinfocourtRlt" class="TempBaseInfoCourt">
+		<result property="id" column="id" />
+		<result property="caseNo" column="case_no" />
+		<result property="partyType" column="party_type" />
+		<result property="legStatus" column="leg_status" />
+		<result property="partyName" column="party_name" />
+		<result property="certType" column="cert_type" />
+		<result property="certNo" column="cert_no" />
+		<result property="entType" column="ent_type" />
+		<result property="addr" column="addr" />
+		<result property="tel" column="tel" />
+		<result property="gender" column="gender" />
+		<result property="birth" column="birth" />
+		<result property="nationality" column="nationality" />
+		<result property="nation" column="nation" />
+		<result property="edu" column="edu" />
+		<result property="profession" column="profession" />
+		<result property="legRepName" column="leg_rep_name" />
+		<result property="legRepCertType" column="leg_rep_cert_type" />
+		<result property="legRepCertNo" column="leg_rep_cert_no" />
+		<result property="zipCode" column="zip_code" />
+		<result property="orgCode" column="org_code" />
+		<result property="importFrom" column="import_from" />
+		<result property="importDate" column="import_date" />
+	</resultMap>
+	
+	<select id="selectTempBaseInfoCourtById" resultMap="tempbaseinfocourtRlt" parameterClass="java.lang.String">
+		select
+			id,case_no,party_type,leg_status,party_name,cert_type,cert_no,ent_type,addr,tel,gender,birth,nationality,nation,edu,profession,leg_rep_name,leg_rep_cert_type,leg_rep_cert_no,zip_code,org_code,import_from,import_date
+		from 
+			TEMP_BASE_INFO_COURT
+		where 
+		    ID = #id#
+	</select>
+	
+	<sql id="tempbaseinfocourt_where">
+	    <dynamic prepend="where">
+			<isNotEmpty prepend="and" property="id">  
+				id = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="caseNo">  
+				case_no = #caseNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="partyType">  
+				party_type = #partyType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="legStatus">  
+				leg_status = #legStatus#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="partyName">  
+				party_name = #partyName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="certType">  
+				cert_type = #certType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="certNo">  
+				cert_no = #certNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="entType">  
+				ent_type = #entType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="addr">  
+				addr = #addr#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="tel">  
+				tel = #tel#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="gender">  
+				gender = #gender#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="birth">  
+				birth = #birth#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="nationality">  
+				nationality = #nationality#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="nation">  
+				nation = #nation#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="edu">  
+				edu = #edu#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="profession">  
+				profession = #profession#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="legRepName">  
+				leg_rep_name = #legRepName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="legRepCertType">  
+				leg_rep_cert_type = #legRepCertType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="legRepCertNo">  
+				leg_rep_cert_no = #legRepCertNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="zipCode">  
+				zip_code = #zipCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="orgCode">  
+				org_code = #orgCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="importFrom">  
+				import_from = #importFrom#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="importDate">  
+				import_date = #importDate#
+			</isNotEmpty>
+	    </dynamic>
+	</sql>
+	
+	<select id="selectTempBaseInfoCourtList" resultMap="tempbaseinfocourtRlt" parameterClass="java.util.HashMap">
+		select
+			id,case_no,party_type,leg_status,party_name,cert_type,cert_no,ent_type,addr,tel,gender,birth,nationality,nation,edu,profession,leg_rep_name,leg_rep_cert_type,leg_rep_cert_no,zip_code,org_code,import_from,import_date
+		from 
+			TEMP_BASE_INFO_COURT
+		<include refid="tempbaseinfocourt_where" />
+		<include refid="ibatis-global.mysql_page" />
+	</select>
+	
+	<select id="selectTempBaseInfoCourtTotal" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" >
+		select 
+		    count(ID) 
+		from 
+		    TEMP_BASE_INFO_COURT
+	    <include refid="tempbaseinfocourt_where" />
+	</select>
+	
+	<insert id="insertTempBaseInfoCourt" parameterClass="TempBaseInfoCourt">
+       	INSERT INTO TEMP_BASE_INFO_COURT 
+			(id,case_no,party_type,leg_status,party_name,cert_type,cert_no,ent_type,addr,tel,gender,birth,nationality,nation,edu,profession,leg_rep_name,leg_rep_cert_type,leg_rep_cert_no,zip_code,org_code,import_from,import_date)
+		VALUES 
+			(#id#,#caseNo#,#partyType#,#legStatus#,#partyName#,#certType#,#certNo#,#entType#,#addr#,#tel#,#gender#,#birth#,#nationality#,#nation#,#edu#,#profession#,#legRepName#,#legRepCertType#,#legRepCertNo#,#zipCode#,#orgCode#,#importFrom#,#importDate#)
+	    <selectKey resultClass="java.lang.String" keyProperty="id" >
+          <![CDATA[ 
+            select #id# as id from dual 
+       	  ]]>    
+       	</selectKey> 
+    </insert> 
+	
+    <update id="updateTempBaseInfoCourt" parameterClass="TempBaseInfoCourt">
+     UPDATE TEMP_BASE_INFO_COURT
+	     <dynamic prepend="set">
+			<isNotEmpty prepend="," property="id">  
+				id = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="caseNo">  
+				case_no = #caseNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="partyType">  
+				party_type = #partyType#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="legStatus">  
+				leg_status = #legStatus#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="partyName">  
+				party_name = #partyName#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="certType">  
+				cert_type = #certType#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="certNo">  
+				cert_no = #certNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="entType">  
+				ent_type = #entType#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="addr">  
+				addr = #addr#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="tel">  
+				tel = #tel#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="gender">  
+				gender = #gender#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="birth">  
+				birth = #birth#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="nationality">  
+				nationality = #nationality#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="nation">  
+				nation = #nation#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="edu">  
+				edu = #edu#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="profession">  
+				profession = #profession#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="legRepName">  
+				leg_rep_name = #legRepName#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="legRepCertType">  
+				leg_rep_cert_type = #legRepCertType#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="legRepCertNo">  
+				leg_rep_cert_no = #legRepCertNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="zipCode">  
+				zip_code = #zipCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="orgCode">  
+				org_code = #orgCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="importFrom">  
+				import_from = #importFrom#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="importDate">  
+				import_date = #importDate#
+			</isNotEmpty>
+		</dynamic>
+	    where ID = #id# 
+    </update>
+    
+     <delete id="deleteTempBaseInfoCourt" parameterClass="java.lang.String">
+         DELETE FROM TEMP_BASE_INFO_COURT WHERE ID = #id# 
+     </delete>
+     
+</sqlMap>

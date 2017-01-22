@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd"> 
+
+<sqlMap namespace="ibatis-crequityall">
+
+	<typeAlias alias="CrEquityAll" type="com.icinfo.creditinfo.bean.biz.crequityall.CrEquityAll" />
+
+	<resultMap id="crequityallRlt" class="CrEquityAll">
+		<result property="id" column="id" />
+		<result property="nbxh" column="nbxh" />
+		<result property="xh" column="xh" />
+		<result property="zqdjbh" column="zqdjbh" />
+		<result property="czrxm" column="czrxm" />
+		<result property="czrzzhm" column="czrzzhm" />
+		<result property="czgqse" column="czgqse" />
+		<result property="zqrxm" column="zqrxm" />
+		<result property="zqrzzhm" column="zqrzzhm" />
+		<result property="barq" column="barq" />
+		<result property="zt" column="zt" />
+		<result property="slrq" column="slrq" />
+		<result property="zxyy" column="zxyy" />
+		<result property="equitySource" column="equity_source" />
+	</resultMap>
+	
+	<select id="selectCrEquityAllById" resultMap="crequityallRlt" parameterClass="java.lang.String">
+		select
+			id,nbxh,xh,zqdjbh,czrxm,czrzzhm,czgqse,zqrxm,zqrzzhm,barq,zt,slrq,zxyy,equity_source
+		from 
+			CR_EQUITY_ALL
+		where 
+		    ID = #id#
+	</select>
+	
+	<sql id="crequityall_where">
+	    <dynamic prepend="where">
+			<isNotEmpty prepend="and" property="id">  
+				id = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="nbxh">  
+				nbxh = #nbxh#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="xh">  
+				xh = #xh#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="zqdjbh">  
+				zqdjbh = #zqdjbh#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="czrxm">  
+				czrxm = #czrxm#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="czrzzhm">  
+				czrzzhm = #czrzzhm#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="czgqse">  
+				czgqse = #czgqse#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="zqrxm">  
+				zqrxm = #zqrxm#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="zqrzzhm">  
+				zqrzzhm = #zqrzzhm#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="barq">  
+				barq = #barq#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="zt">  
+				zt = #zt#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="slrq">  
+				slrq = #slrq#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="zxyy">  
+				zxyy = #zxyy#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="equitySource">  
+				equity_source = #equitySource#
+			</isNotEmpty>
+			
+			<isNotEmpty prepend="and" property="sfzjhm">  
+				czrzzhm = #sfzjhm#
+			</isNotEmpty>
+	    </dynamic>
+	</sql>
+	
+	<select id="selectCrEquityAllList" resultMap="crequityallRlt" parameterClass="java.util.HashMap">
+		select
+			id,nbxh,xh,zqdjbh,czrxm,czrzzhm,czgqse,zqrxm,zqrzzhm,barq,zt,slrq,zxyy,equity_source
+		from 
+			CR_EQUITY_ALL
+		<include refid="crequityall_where" />
+		<include refid="ibatis-global.mysql_page" />
+	</select>
+	
+	<select id="selectCrEquityAllTotal" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" >
+		select 
+		    count(ID) 
+		from 
+		    CR_EQUITY_ALL
+	    <include refid="crequityall_where" />
+	</select>
+	
+</sqlMap>

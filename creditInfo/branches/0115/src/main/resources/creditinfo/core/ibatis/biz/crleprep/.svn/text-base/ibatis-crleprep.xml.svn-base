@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd"> 
+
+<sqlMap namespace="ibatis-crleprep">
+
+	<typeAlias alias="CrLepRep" type="com.icinfo.creditinfo.bean.biz.crleprep.CrLepRep" />
+
+	<resultMap id="crleprepRlt" class="CrLepRep">
+		<result property="id" column="id" />
+		<result property="corpid" column="corpid" />
+		<result property="lepName" column="lep_name" />
+		<result property="lepSex" column="lep_sex" />
+		<result property="lepCertNo" column="lep_cert_no" />
+		<result property="lepCertType" column="lep_cert_type" />
+		<result property="lepAddress" column="lep_address" />
+		<result property="lepCountry" column="lep_country" />
+		<result property="lepTel" column="lep_tel" />
+		<result property="entName" column="ent_name" />
+	</resultMap>
+	
+	<select id="selectCrLepRepById" resultMap="crleprepRlt" parameterClass="java.lang.String">
+		select
+			id,corpid,lep_name,lep_sex,lep_cert_no,lep_cert_type,lep_address,lep_country,lep_tel,"" ent_name
+		from 
+			CR_LEP_REP
+		where 
+		    ID = #id#
+	</select>
+	
+	<sql id="crleprep_where">
+	    <dynamic prepend="where">
+			<isNotEmpty prepend="and" property="id">  
+				id = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="corpid">  
+				corpid = #corpid#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="lepName">  
+				lep_name = #lepName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="lepSex">  
+				lep_sex = #lepSex#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="lepCertNo">  
+				lep_cert_no = #lepCertNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="lepCertType">  
+				lep_cert_type = #lepCertType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="lepAddress">  
+				lep_address = #lepAddress#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="lepCountry">  
+				lep_country = #lepCountry#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="lepTel">  
+				lep_tel = #lepTel#
+			</isNotEmpty>
+			
+			<isNotEmpty prepend="and" property="sfzjhm">  
+				lep_cert_no = #sfzjhm#
+			</isNotEmpty>
+	    </dynamic>
+	</sql>
+	
+	<select id="selectCrLepRepList" resultMap="crleprepRlt" parameterClass="java.util.HashMap">
+		select
+			id,corpid,lep_name,lep_sex,lep_cert_no,lep_cert_type,lep_address,lep_country,lep_tel,"" ent_name
+		from 
+			CR_LEP_REP
+		<include refid="crleprep_where" />
+		<include refid="ibatis-global.mysql_page" />
+	</select>
+	
+	<select id="selectCrLepRepTotal" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" >
+		select 
+		    count(ID) 
+		from 
+		    CR_LEP_REP
+	    <include refid="crleprep_where" />
+	</select>
+	
+	<!--法人查询 -->
+	<select id="selectCrLepRepSearchList" resultMap="crleprepRlt" parameterClass="java.util.HashMap">
+		select
+			id,corpid,lep_name,lep_sex,lep_cert_no,lep_cert_type,lep_address,lep_country,lep_tel,(SELECT ent.ent_name FROM CR_ENT_BASE_INFO ent where ent.corpid=lep.corpid) ent_name
+		from 
+			CR_LEP_REP lep where lep_name like '%$searchParam$%'
+		<isNotEmpty prepend="or" property="searchParam">
+			lep_cert_no = #searchParam#
+		</isNotEmpty>
+		<include refid="ibatis-global.mysql_page" />
+	</select>
+	
+	<!--法人查询总数 -->
+	<select id="selectCrLepRepSearchTotal" parameterClass="java.util.HashMap" resultClass="java.lang.Integer">
+		select
+			count(id)
+		from 
+			CR_LEP_REP where lep_name like '%$searchParam$%'
+		<isNotEmpty prepend="or" property="searchParam">  
+			lep_cert_no = #searchParam#
+		</isNotEmpty>
+	</select>
+	
+	
+	<insert id="insertCrLepRep" parameterClass="CrLepRep">
+       	INSERT INTO CR_LEP_REP 
+			(id,corpid,lep_name,lep_sex,lep_cert_no,lep_cert_type,lep_address,lep_country,lep_tel)
+		VALUES 
+			(#id#,#corpid#,#lepName#,#lepSex#,#lepCertNo#,#lepCertType#,#lepAddress#,#lepCountry#,#lepTel#)
+	    <selectKey resultClass="java.lang.String" keyProperty="id" >
+          <![CDATA[ 
+            select #id# as id from dual 
+       	  ]]>    
+       	</selectKey> 
+    </insert> 
+	
+    <update id="updateCrLepRep" parameterClass="CrLepRep">
+     UPDATE CR_LEP_REP
+	     <dynamic prepend="set">
+			<isNotEmpty prepend="," property="id">  
+				id = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="corpid">  
+				corpid = #corpid#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="lepName">  
+				lep_name = #lepName#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="lepSex">  
+				lep_sex = #lepSex#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="lepCertNo">  
+				lep_cert_no = #lepCertNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="lepCertType">  
+				lep_cert_type = #lepCertType#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="lepAddress">  
+				lep_address = #lepAddress#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="lepCountry">  
+				lep_country = #lepCountry#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="lepTel">  
+				lep_tel = #lepTel#
+			</isNotEmpty>
+		</dynamic>
+	    where ID = #id# 
+    </update>
+    
+     <delete id="deleteCrLepRep" parameterClass="java.lang.String">
+         DELETE FROM CR_LEP_REP WHERE ID = #id# 
+     </delete>
+     
+</sqlMap>

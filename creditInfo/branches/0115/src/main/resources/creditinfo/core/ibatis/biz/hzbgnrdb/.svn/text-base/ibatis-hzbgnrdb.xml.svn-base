@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd"> 
+
+<sqlMap namespace="ibatis-hzbgnrdb">
+
+	<typeAlias alias="HzBgnrdb" type="com.icinfo.creditinfo.bean.biz.hzbgnrdb.HzBgnrdb" />
+
+	<resultMap id="hzbgnrdbRlt" class="HzBgnrdb">
+		<result property="nbxh" column="nbxh" />
+		<result property="seqXh" column="seq_xh" />
+		<result property="bgsx" column="bgsx" />
+		<result property="bgnr" column="bgnr" />
+		<result property="bghnr" column="bghnr" />
+		<result property="bgcs" column="bgcs" />
+		<result property="hzrq" column="hzrq" />
+		<result property="wzgf" column="wzgf" />
+		<result property="nzgf" column="nzgf" />
+		<result property="centralsoftArea" column="centralsoft_area" />
+	</resultMap>
+	
+	
+	<sql id="hzbgnrdb_where">
+	    <dynamic prepend="where">
+			<isNotEmpty prepend="and" property="nbxh">  
+				nbxh = #nbxh#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="seqXh">  
+				seq_xh = #seqXh#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="bgsx">  
+				bgsx = #bgsx#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="bgnr">  
+				bgnr = #bgnr#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="bghnr">  
+				bghnr = #bghnr#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="bgcs">  
+				bgcs = #bgcs#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="hzrq">  
+				hzrq = #hzrq#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="wzgf">  
+				wzgf = #wzgf#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="nzgf">  
+				nzgf = #nzgf#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="centralsoftArea">  
+				centralsoft_area = #centralsoftArea#
+			</isNotEmpty>
+	    </dynamic>
+	</sql>
+	
+	<select id="selectHzBgnrdbList" resultMap="hzbgnrdbRlt" parameterClass="java.util.HashMap">
+		select
+			nbxh,seq_xh,bgsx,bgnr,bghnr,bgcs,hzrq,wzgf,nzgf,centralsoft_area
+		from 
+			HZ_BGNRDB
+		<include refid="hzbgnrdb_where" />
+		order by hzrq 
+	</select>
+	
+	<select id="selectRegCapHisList" resultMap="hzbgnrdbRlt" parameterClass="java.util.HashMap">
+		select
+			nbxh,seq_xh,bgsx,bgnr,bghnr,bgcs,hzrq,wzgf,nzgf,centralsoft_area
+		from 
+			HZ_BGNRDB
+		<include refid="hzbgnrdb_where" />
+		and bgsx in ('05','10') 
+		order by hzrq desc 
+		<include refid="ibatis-global.mysql_page" />
+	</select>
+	
+	<select id="selectRegCapHisTotal" resultClass="java.lang.Integer" parameterClass="java.util.HashMap">
+		select
+			count(nbxh)
+		from 
+			HZ_BGNRDB
+		<include refid="hzbgnrdb_where" />
+		and bgsx in ('05','10') 
+	</select>
+	
+     
+</sqlMap>

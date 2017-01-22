@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"       
+          "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="cranalyguarantrelationdata" extends="icinfo-default" namespace="/cranalyguarantrelationdata" >
+
+		<action name="doReadCrAnalyGuarantRelationDataList" class="crAnalyGuarantRelationDataAction">
+			<result name="success">/jsp/server/analy/cranalyguarantrelationdata/cranalyguarantrelationdataList.jsp</result>
+		</action>
+		
+		<action name="doReadCrAnalyGuarantRelationDataListJSON" class="crAnalyGuarantRelationDataAction" method="doReadCrAnalyGuarantRelationDataListJSONAction">
+		</action>
+		
+		<!-- 进入全屏页面 -->
+		<action name="doEnFullScreen" class="crAnalyGuarantRelationDataAction" method="doEnFullScreenAction">
+			<result name="success">/jsp/server/analy/cranalyguarantrelationdata/guarantrelationdatafullscreen.jsp</result>
+		</action>
+		
+		<action name="doReadGuarantRelationFullScreenJSON" class="crAnalyGuarantRelationDataAction" method="doReadGuarantRelationFullScreenJSONAction">
+		</action>
+
+	</package>
+	
+</struts>

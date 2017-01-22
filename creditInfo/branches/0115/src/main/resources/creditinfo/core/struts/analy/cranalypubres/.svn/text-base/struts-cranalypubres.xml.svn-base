@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"       
+          "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="cranalypubres" extends="icinfo-default" namespace="/cranalypubres" >
+
+		<action name="doReadCrAnalyPubResList" class="crAnalyPubResAction" method="doReadCrAnalyPubResListAction">
+			<result name="success">/jsp/server/analy/cranalypubres/cranalypubres.jsp</result>
+		</action>
+		
+		<action name="doReadCrAnalyPubResListJSON" class="crAnalyPubResAction" method="doReadCrAnalyPubResListJSONAction">
+		</action>
+	
+	</package>
+	
+</struts>

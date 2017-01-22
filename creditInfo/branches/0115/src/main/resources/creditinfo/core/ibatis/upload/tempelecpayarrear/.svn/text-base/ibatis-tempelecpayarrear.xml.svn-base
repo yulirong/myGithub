@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd"> 
+
+<sqlMap namespace="ibatis-tempelecpayarrear">
+
+	<typeAlias alias="TempElecPayArrear" type="com.icinfo.creditinfo.bean.upload.tempelecpayarrear.TempElecPayArrear" />
+
+	<resultMap id="tempelecpayarrearRlt" class="TempElecPayArrear">
+		<result property="id" column="id" />
+		<result property="entName" column="ent_name" />
+		<result property="regNo" column="reg_no" />
+		<result property="entLoc" column="ent_loc" />
+		<result property="elecNo" column="elec_no" />
+		<result property="userType" column="user_type" />
+		<result property="arrearPeriod" column="arrear_period" />
+		<result property="arrearBalance" column="arrear_balance" />
+		<result property="importFrom" column="import_from" />
+		<result property="importDate" column="import_date" />
+		<result property="corpid" column="corpid" />
+		<result property="orgCode" column="ORG_CODE" />
+		<result property="unscCode" column="UNSC_CODE" />
+	</resultMap>
+	
+	<select id="selectTempElecPayArrearById" resultMap="tempelecpayarrearRlt" parameterClass="java.lang.String">
+		select
+			id,ent_name,reg_no,ent_loc,elec_no,user_type,arrear_period,arrear_balance,import_from,import_date,corpid,ORG_CODE,UNSC_CODE
+		from 
+			TEMP_ELEC_PAY_ARREAR
+		where 
+		    ID = #id#
+	</select>
+	
+	<sql id="tempelecpayarrear_where">
+	    <dynamic prepend="where">
+			<isNotEmpty prepend="and" property="id">  
+				id = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="entName">  
+				ent_name = #entName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="regNo">  
+				reg_no = #regNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="entLoc">  
+				ent_loc = #entLoc#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="elecNo">  
+				elec_no = #elecNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="userType">  
+				user_type = #userType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="arrearPeriod">  
+				arrear_period = #arrearPeriod#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="arrearBalance">  
+				arrear_balance = #arrearBalance#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="importFrom">  
+				import_from = #importFrom#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="importDate">  
+				import_date = #importDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="corpid">  
+				corpid = #corpid#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="orgCode">  
+				ORG_CODE = #orgCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="unscCode">  
+				UNSC_CODE = #unscCode#
+			</isNotEmpty>
+	    </dynamic>
+	</sql>
+	
+	<select id="selectTempElecPayArrearList" resultMap="tempelecpayarrearRlt" parameterClass="java.util.HashMap">
+		select
+			id,ent_name,reg_no,ent_loc,elec_no,user_type,arrear_period,arrear_balance,import_from,import_date,corpid,ORG_CODE,UNSC_CODE
+		from 
+			TEMP_ELEC_PAY_ARREAR
+		<include refid="tempelecpayarrear_where" />
+		<include refid="ibatis-global.mysql_page" />
+	</select>
+	
+	<select id="selectTempElecPayArrearTotal" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" >
+		select 
+		    count(ID) 
+		from 
+		    TEMP_ELEC_PAY_ARREAR
+	    <include refid="tempelecpayarrear_where" />
+	</select>
+	
+	<insert id="insertTempElecPayArrear" parameterClass="TempElecPayArrear">
+       	INSERT INTO TEMP_ELEC_PAY_ARREAR 
+			(id,ent_name,reg_no,ent_loc,elec_no,user_type,arrear_period,arrear_balance,import_from,import_date,corpid,ORG_CODE,UNSC_CODE)
+		VALUES 
+			(#id#,#entName#,#regNo#,#entLoc#,#elecNo#,#userType#,#arrearPeriod#,#arrearBalance#,#importFrom#,#importDate#,#corpid#,#orgCode#,#unscCode#)
+	    <selectKey resultClass="java.lang.String" keyProperty="id" >
+          <![CDATA[ 
+            select #id# as id from dual 
+       	  ]]>    
+       	</selectKey> 
+    </insert> 
+	
+    <update id="updateTempElecPayArrear" parameterClass="TempElecPayArrear">
+     UPDATE TEMP_ELEC_PAY_ARREAR
+	     <dynamic prepend="set">
+			<isNotEmpty prepend="," property="id">  
+				id = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="entName">  
+				ent_name = #entName#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="regNo">  
+				reg_no = #regNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="entLoc">  
+				ent_loc = #entLoc#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="elecNo">  
+				elec_no = #elecNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="userType">  
+				user_type = #userType#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="arrearPeriod">  
+				arrear_period = #arrearPeriod#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="arrearBalance">  
+				arrear_balance = #arrearBalance#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="importFrom">  
+				import_from = #importFrom#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="importDate">  
+				import_date = #importDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="corpid">  
+				corpid = #corpid#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="orgCode">  
+				ORG_CODE = #orgCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="unscCode">  
+				UNSC_CODE = #unscCode#
+			</isNotEmpty>	
+		</dynamic>
+	    where ID = #id# 
+    </update>
+    
+     <delete id="deleteTempElecPayArrear" parameterClass="java.lang.String">
+         DELETE FROM TEMP_ELEC_PAY_ARREAR WHERE ID = #id# 
+     </delete>
+     
+</sqlMap>

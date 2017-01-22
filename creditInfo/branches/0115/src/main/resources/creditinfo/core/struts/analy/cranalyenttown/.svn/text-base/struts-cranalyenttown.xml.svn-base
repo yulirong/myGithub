@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"       
+          "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="cranalyenttown" extends="icinfo-default" namespace="/cranalyenttown" >
+
+		<action name="doEnCrAnalyEntTown" class="crAnalyEntTownAction" method="doEnCrAnalyEntTownAction">
+			<result name="success">/jsp/server/analy/cranalyenttown/cranalyenttownList.jsp</result>
+		</action>
+		
+		<action name="doGetCrAnalyEntTownJson" class="crAnalyEntTownAction" method="doGetCrAnalyEntTownJsonAction">
+		</action>
+		
+		<!-- 产业特点 -->
+		<action name="doGetIndustryCharacter" class="crAnalyEntTownAction" method="doGetIndustryCharacterAction">
+		</action>
+		
+		<!-- 资产总额 -->
+		<action name="doGetTotalAsset" class="crAnalyEntTownAction" method="doGetTotalAssetAction">
+		</action>
+		<!-- 运营状况 -->
+		<action name="doGetOperationStatus" class="crAnalyEntTownAction" method="doGetOperationStatusAction">
+		</action>
+		<!-- 盈利状况 -->
+		<action name="doGetProfitStatus" class="crAnalyEntTownAction" method="doGetProfitStatusAction">
+		</action>
+		<!-- 对周边经济影响程度 -->
+		<action name="doGetLocalEconomy" class="crAnalyEntTownAction" method="doGetLocalEconomyAction">
+		</action>
+		<!-- 对行业影响程度 -->
+		<action name="doGetLocalIndustry" class="crAnalyEntTownAction" method="doGetLocalIndustryAction">
+		</action>
+		<!-- 就业贡献 -->
+		<action name="doGetEmploymentContribution" class="crAnalyEntTownAction" method="doGetEmploymentContributionAction">
+		</action>
+		<!-- 纳税贡献 -->
+		<action name="doGetTaxContribution" class="crAnalyEntTownAction" method="doGetTaxContributionAction">
+		</action>
+		<action name="doReadCrAnalyEntTownListJSON" class="crAnalyEntTownAction" method="doReadCrAnalyEntTownListJSONAction">
+		</action>
+		
+		<action name="doGetQyScaleJSON" class="crAnalyEntTownAction" method="doGetQyScaleJSONAction">
+		</action>
+		
+	</package>
+	
+</struts>

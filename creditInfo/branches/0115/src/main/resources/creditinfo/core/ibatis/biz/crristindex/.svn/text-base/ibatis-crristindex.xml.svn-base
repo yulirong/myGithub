@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd"> 
+
+<sqlMap namespace="ibatis-crristindex">
+
+	<typeAlias alias="CrRistIndex" type="com.icinfo.creditinfo.bean.biz.crristindex.CrRistIndex" />
+
+	<resultMap id="crristindexRlt" class="CrRistIndex">
+		<result property="id" column="id" />
+		<result property="corpid" column="corpid" />
+		<result property="entName" column="ent_name" />
+		<result property="ristIndex" column="rist_index" />
+		<result property="ristTrade" column="rist_trade" />
+		<result property="ristDate" column="rist_date" />
+		<result property="ristState" column="rist_state" />
+		<result property="ristRegCap" column="rist_reg_cap" />
+	</resultMap>
+	<resultMap id="crristindexRlt_All" class="CrRistIndex">
+		<result property="ristIndex" column="ristIndex" />
+		<result property="ristDate" column="rist_date" />
+		<result property="avgRistIndex" column="avgRistIndex" />
+	</resultMap>
+	<sql id="crristindex_where">
+	    <dynamic prepend="where">
+			<isNotEmpty prepend="and" property="id">  
+				id = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="corpid">  
+				corpid = #corpid#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="entName">  
+				ent_name = #entName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ristIndex">  
+				rist_index = #ristIndex#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ristTrade">  
+				rist_trade = #ristTrade#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ristDate">  
+				rist_date = #ristDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ristState">  
+				rist_state = #ristState#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ristRegCap">  
+				rist_reg_cap = #ristRegCap#
+			</isNotEmpty>
+	    </dynamic>
+	</sql>
+	<!-- 通过corpid查询 -->
+	<select id="selectCrRistIndexById" resultMap="crristindexRlt" parameterClass="java.lang.String">
+		select
+			id,corpid,ent_name,rist_index,rist_trade,rist_date,rist_state,rist_reg_cap
+		from 
+			CR_RIST_INDEX
+		where 
+		    corpid = #corpid#
+		ORDER BY rist_date DESC
+		LIMIT 1
+	</select>
+	
+	<select id="selectCrRistIndexList" resultMap="crristindexRlt" parameterClass="java.util.HashMap">
+		select
+			id,corpid,ent_name,rist_index,rist_trade,rist_date,rist_state,rist_reg_cap
+		from 
+			CR_RIST_INDEX
+		<include refid="crristindex_where" />
+		order by rist_date 
+		<include refid="ibatis-global.mysql_page" />
+	</select>
+	<!-- 获取风险日期，指数，行业平均指数 -->
+	<select id="selectCrRistIndexAllList" resultMap="crristindexRlt_All" parameterClass="java.util.HashMap">
+		SELECT 
+		  sum(rist_index*rist_reg_cap)/sum(rist_reg_cap) avgRistIndex,rist_date,IFNULL(( select max(rist_index) 
+          rist_index from CR_RIST_INDEX where corpid=#corpid# and DATE_FORMAT(rist_date,'%Y-%m-%d') 
+          =DATE_FORMAT(t.rist_date,'%Y-%m-%d') ),0) ristIndex FROM CR_RIST_INDEX t where rist_trade=#trade# GROUP BY rist_date
+	</select>
+	<!-- 获取值得关注的高风险企业（top10）数据 -->
+	<select id="selectCrRistIndexToptList" resultMap="crristindexRlt" parameterClass="java.util.HashMap">
+		select
+			id,corpid,ent_name,rist_index,rist_trade,rist_date,rist_state,rist_reg_cap
+		from 
+			CR_RIST_INDEX
+		<include refid="crristindex_where" />
+		ORDER BY rist_index DESC
+		LIMIT 10
+	</select>
+	
+</sqlMap>

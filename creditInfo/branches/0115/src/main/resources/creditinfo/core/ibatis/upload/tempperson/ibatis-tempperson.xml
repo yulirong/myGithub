@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd"> 
+
+<sqlMap namespace="ibatis-tempperson">
+
+	<typeAlias alias="TempPerson" type="com.icinfo.creditinfo.bean.upload.tempperson.TempPerson" />
+
+	<resultMap id="temppersonRlt" class="TempPerson">
+		<result property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="certType" column="cert_type" />
+		<result property="certNo" column="cert_no" />
+		<result property="tel" column="tel" />
+		<result property="addr" column="addr" />
+		<result property="spouseName" column="spouse_name" />
+		<result property="spouseCertType" column="spouse_cert_type" />
+		<result property="spouseCertNo" column="spouse_cert_no" />
+		<result property="importFrom" column="import_from" />
+		<result property="importDate" column="import_date" />
+	</resultMap>
+	
+	<select id="selectTempPersonById" resultMap="temppersonRlt" parameterClass="java.lang.String">
+		select
+			id,name,cert_type,cert_no,tel,addr,spouse_name,spouse_cert_type,spouse_cert_no,import_from,import_date
+		from 
+			TEMP_PERSON
+		where 
+		    ID = #id#
+	</select>
+	
+	<sql id="tempperson_where">
+	    <dynamic prepend="where">
+			<isNotEmpty prepend="and" property="id">  
+				id = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="name">  
+				name = #name#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="certType">  
+				cert_type = #certType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="certNo">  
+				cert_no = #certNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="tel">  
+				tel = #tel#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="addr">  
+				addr = #addr#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="spouseName">  
+				spouse_name = #spouseName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="spouseCertType">  
+				spouse_cert_type = #spouseCertType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="spouseCertNo">  
+				spouse_cert_no = #spouseCertNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="importFrom">  
+				import_from = #importFrom#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="importDate">  
+				import_date = #importDate#
+			</isNotEmpty>
+	    </dynamic>
+	</sql>
+	
+	<select id="selectTempPersonList" resultMap="temppersonRlt" parameterClass="java.util.HashMap">
+		select
+			id,name,cert_type,cert_no,tel,addr,spouse_name,spouse_cert_type,spouse_cert_no,import_from,import_date
+		from 
+			TEMP_PERSON
+		<include refid="tempperson_where" />
+		<include refid="ibatis-global.mysql_page" />
+	</select>
+	
+	<select id="selectTempPersonTotal" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" >
+		select 
+		    count(ID) 
+		from 
+		    TEMP_PERSON
+	    <include refid="tempperson_where" />
+	</select>
+	
+	<insert id="insertTempPerson" parameterClass="TempPerson">
+       	INSERT INTO TEMP_PERSON 
+			(id,name,cert_type,cert_no,tel,addr,spouse_name,spouse_cert_type,spouse_cert_no,import_from,import_date)
+		VALUES 
+			(#id#,#name#,#certType#,#certNo#,#tel#,#addr#,#spouseName#,#spouseCertType#,#spouseCertNo#,#importFrom#,#importDate#)
+	    <selectKey resultClass="java.lang.String" keyProperty="id" >
+          <![CDATA[ 
+            select #id# as id from dual 
+       	  ]]>    
+       	</selectKey> 
+    </insert> 
+	
+    <update id="updateTempPerson" parameterClass="TempPerson">
+     UPDATE TEMP_PERSON
+	     <dynamic prepend="set">
+			<isNotEmpty prepend="," property="id">  
+				id = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="name">  
+				name = #name#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="certType">  
+				cert_type = #certType#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="certNo">  
+				cert_no = #certNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="tel">  
+				tel = #tel#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="addr">  
+				addr = #addr#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="spouseName">  
+				spouse_name = #spouseName#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="spouseCertType">  
+				spouse_cert_type = #spouseCertType#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="spouseCertNo">  
+				spouse_cert_no = #spouseCertNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="importFrom">  
+				import_from = #importFrom#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="importDate">  
+				import_date = #importDate#
+			</isNotEmpty>
+		</dynamic>
+	    where ID = #id# 
+    </update>
+    
+     <delete id="deleteTempPerson" parameterClass="java.lang.String">
+         DELETE FROM TEMP_PERSON WHERE ID = #id# 
+     </delete>
+     
+</sqlMap>

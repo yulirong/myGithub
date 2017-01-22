@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd"> 
+
+<sqlMap namespace="ibatis-cranalytrade">
+
+	<typeAlias alias="CrAnalyTrade" type="com.icinfo.creditinfo.bean.analy.cranalytrade.CrAnalyTrade" />
+
+	<resultMap id="cranalytradeRlt" class="CrAnalyTrade">
+		<result property="id" column="id" />
+		<result property="tradeCode" column="trade_code" />
+		<result property="tradeSupCode" column="trade_sup_code" />
+		<result property="tradeCorpCount" column="trade_corp_count" />
+		<result property="tradeManCount" column="trade_man_count" />
+		<result property="tradeEcmcIdx" column="trade_ecmc_idx" />
+		<result property="tradeRiskIdx" column="trade_risk_idx" />
+		<result property="tradeCreateDate" column="trade_create_date" />
+	</resultMap>
+	<resultMap id="cranalytradeRlt2" class="CrAnalyTrade">
+		<result property="tradeCorpCount" column="trade_corp_count" />
+		<result property="tradeSupCode" column="trade_sup_code" />
+	</resultMap>
+	<resultMap id="cranalytradeRlt3" class="CrAnalyTrade">
+		<result property="tradeManCount" column="trade_man_count" />
+		<result property="tradeSupCode" column="trade_sup_code" />
+	</resultMap>
+	
+	<select id="selectCrAnalyTradeById" resultMap="cranalytradeRlt" parameterClass="java.lang.String">
+		select
+			id,trade_code,trade_sup_code,trade_corp_count,trade_man_count,trade_ecmc_idx,trade_risk_idx,trade_create_date
+		from 
+			CR_ANALY_TRADE
+		where 
+		    ID = #id#
+	</select>
+	
+	<sql id="cranalytrade_where">
+	    <dynamic prepend="where">
+			<isNotEmpty prepend="and" property="id">  
+				id = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="tradeCode">  
+				trade_code = #tradeCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="tradeSupCode">  
+				trade_sup_code = #tradeSupCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="tradeCorpCount">  
+				trade_corp_count = #tradeCorpCount#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="tradeManCount">  
+				trade_man_count = #tradeManCount#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="tradeEcmcIdx">  
+				trade_ecmc_idx = #tradeEcmcIdx#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="tradeRiskIdx">  
+				trade_risk_idx = #tradeRiskIdx#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="tradeCreateDate">  
+				trade_create_date = #tradeCreateDate#
+			</isNotEmpty>
+	    </dynamic>
+	</sql>
+	
+	<select id="selectCrEntNumList" resultMap="cranalytradeRlt2" parameterClass="java.util.HashMap">
+	select 
+		SUM(trade_corp_count) trade_corp_count,B.CONTENT trade_sup_code
+	FROM 
+		CR_ANALY_TRADE A 
+	LEFT JOIN CR_CODE_INDUSTRY_TYPE B ON A.trade_sup_code = B.CODE
+	GROUP BY trade_sup_code
+	ORDER BY trade_corp_count
+	</select>
+	<select id="selectCrEmpNumList" resultMap="cranalytradeRlt3" parameterClass="java.util.HashMap">
+	select 
+		SUM(trade_man_count) trade_man_count,B.CONTENT trade_sup_code
+	FROM 
+		CR_ANALY_TRADE A 
+	LEFT JOIN CR_CODE_INDUSTRY_TYPE B ON A.trade_sup_code = B.CODE
+	GROUP BY trade_sup_code
+	ORDER BY trade_man_count
+	</select>
+	<select id="selectCrAnalyTradeList" resultMap="cranalytradeRlt" parameterClass="java.util.HashMap">
+		select
+			id,trade_code,trade_sup_code,trade_corp_count,trade_man_count,trade_ecmc_idx,trade_risk_idx,trade_create_date
+		from 
+			CR_ANALY_TRADE
+		<include refid="cranalytrade_where" />
+		<include refid="ibatis-global.mysql_page" />
+	</select>
+	
+	<select id="selectCrAnalyTradeTotal" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" >
+		select 
+		    count(ID) 
+		from 
+		    CR_ANALY_TRADE
+	    <include refid="cranalytrade_where" />
+	</select>
+	
+</sqlMap>

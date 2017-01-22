@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd"> 
+
+<sqlMap namespace="ibatis-crpunish">
+
+	<typeAlias alias="CrPunish" type="com.icinfo.creditinfo.bean.biz.crpunish.CrPunish" />
+
+	<resultMap id="crpunishRlt" class="CrPunish">
+		<result property="id" column="id" />
+		<result property="areaCode" column="area_code" />
+		<result property="punRegionName" column="pun_region_name" />
+		<result property="punOrgName" column="pun_org_name" />
+		<result property="punOrgId" column="pun_org_id" />
+		<result property="punDocno" column="pun_docno" />
+		<result property="punCaseName" column="pun_case_name" />
+		<result property="punishedType" column="punished_type" />
+		<result property="punishedName" column="punished_name" />
+		<result property="punishedCertType" column="punished_cert_type" />
+		<result property="punishedCertNo" column="punished_cert_no" />
+		<result property="punishedLegRep" column="punished_leg_rep" />
+		<result property="punishedLegRepCertType" column="punished_leg_rep_cert_type" />
+		<result property="punishedLegRepCertno" column="punished_leg_rep_certno" />
+		<result property="punItemName" column="pun_item_name" />
+		<result property="punItemId" column="pun_item_id" />
+		<result property="punAbstract" column="pun_abstract" />
+		<result property="punDate" column="pun_date" />
+		<result property="punState" column="pun_state" />
+		<result property="punCancel" column="pun_cancel" />
+		<result property="importFrom" column="import_from" />
+		<result property="importDate" column="import_date" />
+		<result property="corpid" column="corpid" />
+	</resultMap>
+	
+	<select id="selectCrPunishById" resultMap="crpunishRlt" parameterClass="java.lang.String">
+		select
+			id,area_code,pun_region_name,pun_org_name,pun_org_id,pun_docno,pun_case_name,punished_type,punished_name,punished_cert_type,punished_cert_no,punished_leg_rep,punished_leg_rep_cert_type,punished_leg_rep_certno,pun_item_name,pun_item_id,pun_abstract,pun_date,pun_state,pun_cancel,import_from,import_date,corpid
+		from 
+			CR_PUNISH
+		where 
+		    ID = #id#
+	</select>
+	
+	<sql id="crpunish_where">
+	    <dynamic prepend="where">
+			<isNotEmpty prepend="and" property="id">  
+				id = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="areaCode">  
+				area_code = #areaCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="punRegionName">  
+				pun_region_name = #punRegionName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="punOrgName">  
+				pun_org_name = #punOrgName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="punOrgId">  
+				pun_org_id = #punOrgId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="punDocno">  
+				pun_docno = #punDocno#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="punCaseName">  
+				pun_case_name = #punCaseName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="punishedType">  
+				punished_type = #punishedType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="punishedName">  
+				punished_name = #punishedName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="punishedCertType">  
+				punished_cert_type = #punishedCertType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="punishedCertNo">  
+				punished_cert_no = #punishedCertNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="punishedLegRep">  
+				punished_leg_rep = #punishedLegRep#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="punishedLegRepCertType">  
+				punished_leg_rep_cert_type = #punishedLegRepCertType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="punishedLegRepCertno">  
+				punished_leg_rep_certno = #punishedLegRepCertno#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="punItemName">  
+				pun_item_name = #punItemName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="punItemId">  
+				pun_item_id = #punItemId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="punAbstract">  
+				pun_abstract = #punAbstract#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="punDate">  
+				pun_date = #punDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="punState">  
+				pun_state = #punState#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="punCancel">  
+				pun_cancel = #punCancel#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="importFrom">  
+				import_from = #importFrom#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="importDate">  
+				import_date = #importDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="corpid">  
+				corpid = #corpid#
+			</isNotEmpty>
+			
+			<isNotEmpty prepend="and" property="sfzjhm">  
+				punished_cert_no = #sfzjhm#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="notePublicSecurity">
+				<![CDATA[
+					import_from <> #notePublicSecurity#
+				]]>			
+			</isNotEmpty>
+	    </dynamic>
+	</sql>
+	
+	<select id="selectCrPunishList" resultMap="crpunishRlt" parameterClass="java.util.HashMap">
+		select
+			id,area_code,pun_region_name,pun_org_name,pun_org_id,pun_docno,pun_case_name,punished_type,punished_name,punished_cert_type,punished_cert_no,punished_leg_rep,punished_leg_rep_cert_type,punished_leg_rep_certno,pun_item_name,pun_item_id,pun_abstract,pun_date,pun_state,pun_cancel,import_from,import_date,corpid
+		from 
+			CR_PUNISH
+		<include refid="crpunish_where" />
+		<include refid="ibatis-global.mysql_page" />
+	</select>
+	
+	<select id="selectCrPunishTotal" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" >
+		select 
+		    count(ID) 
+		from 
+		    CR_PUNISH
+	    <include refid="crpunish_where" />
+	</select>
+	
+</sqlMap>

@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd"> 
+
+<sqlMap namespace="ibatis-tempexecutecase">
+
+	<typeAlias alias="TempExecuteCase" type="com.icinfo.creditinfo.bean.upload.tempexecutecase.TempExecuteCase" />
+
+	<resultMap id="tempexecutecaseRlt" class="TempExecuteCase">
+		<result property="id" column="id" />
+		<result property="caseNatrue" column="case_natrue" />
+		<result property="caseSource" column="case_source" />
+		<result property="object" column="object" />
+		<result property="executeFee" column="execute_fee" />
+		<result property="preTrialCourt" column="pre_trial_court" />
+		<result property="effectiveJudgmentNo" column="effective_judgment_no" />
+		<result property="trialJudge" column="trial_judge" />
+		<result property="caseState" column="case_state" />
+		<result property="executeApplyName" column="execute_apply_name" />
+		<result property="executedName" column="executed_name" />
+		<result property="undertakeDepart" column="undertake_depart" />
+		<result property="undertaker" column="undertaker" />
+		<result property="divisionalDate" column="divisional_date" />
+		<result property="divisionalPeople" column="divisional_people" />
+		<result property="bulletinClosingDate" column="bulletin_closing_date" />
+		<result property="closingDate" column="closing_date" />
+		<result property="closingType" column="closing_type" />
+		<result property="detailedClosingType" column="detailed_closing_type" />
+		<result property="shouldExecuteObject" column="should_execute_object" />
+		<result property="executedObject" column="executed_object" />
+		<result property="limitDays" column="limit_days" />
+		<result property="executeDays" column="execute_days" />
+		<result property="fileDate" column="file_date" />
+		<result property="filePeople" column="file_people" />
+		<result property="caseNo" column="case_no" />
+		<result property="firstCaseNo" column="first_case_no" />
+		<result property="register" column="register" />
+		<result property="caseStartDate" column="case_start_date" />
+		<result property="receiptDate" column="receipt_date" />
+		<result property="executeBasis" column="execute_basis" />
+		<result property="caseCause" column="case_cause" />
+		<result property="realCaseCause" column="real_case_cause" />
+		<result property="fileSignedPeople" column="file_signed_people" />
+		<result property="retentionTime" column="retention_time" />
+		<result property="fileItems" column="file_items" />
+		<result property="recoverResult" column="recover_result" />
+		<result property="partyName" column="party_name" />
+		<result property="executeStatus" column="execute_status" />
+		<result property="idNo" column="id_no" />
+		<result property="entCode" column="ent_code" />
+		<result property="legRep" column="leg_rep" />
+		<result property="loc" column="loc" />
+		<result property="tel" column="tel" />
+		<result property="documentNo" column="document_no" />
+		<result property="importFrom" column="import_from" />
+		<result property="importDate" column="import_date" />
+		<result property="corpid" column="corpid" />
+	</resultMap>
+	
+	<select id="selectTempExecuteCaseById" resultMap="tempexecutecaseRlt" parameterClass="java.lang.String">
+		select
+			id,case_natrue,case_source,object,execute_fee,pre_trial_court,effective_judgment_no,trial_judge,case_state,execute_apply_name,executed_name,undertake_depart,undertaker,divisional_date,divisional_people,bulletin_closing_date,closing_date,closing_type,detailed_closing_type,should_execute_object,executed_object,limit_days,execute_days,file_date,file_people,case_no,first_case_no,register,case_start_date,receipt_date,execute_basis,case_cause,real_case_cause,file_signed_people,retention_time,file_items,recover_result,party_name,execute_status,id_no,ent_code,leg_rep,loc,tel,document_no,import_from,import_date,corpid
+		from 
+			TEMP_EXECUTE_CASE
+		where 
+		    ID = #id#
+	</select>
+	
+	<sql id="tempexecutecase_where">
+	    <dynamic prepend="where">
+			<isNotEmpty prepend="and" property="id">  
+				id = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="caseNatrue">  
+				case_natrue = #caseNatrue#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="caseSource">  
+				case_source = #caseSource#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="object">  
+				object = #object#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="executeFee">  
+				execute_fee = #executeFee#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="preTrialCourt">  
+				pre_trial_court = #preTrialCourt#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="effectiveJudgmentNo">  
+				effective_judgment_no = #effectiveJudgmentNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="trialJudge">  
+				trial_judge = #trialJudge#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="caseState">  
+				case_state = #caseState#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="executeApplyName">  
+				execute_apply_name = #executeApplyName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="executedName">  
+				executed_name = #executedName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="undertakeDepart">  
+				undertake_depart = #undertakeDepart#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="undertaker">  
+				undertaker = #undertaker#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="divisionalDate">  
+				divisional_date = #divisionalDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="divisionalPeople">  
+				divisional_people = #divisionalPeople#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="bulletinClosingDate">  
+				bulletin_closing_date = #bulletinClosingDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="closingDate">  
+				closing_date = #closingDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="closingType">  
+				closing_type = #closingType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="detailedClosingType">  
+				detailed_closing_type = #detailedClosingType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="shouldExecuteObject">  
+				should_execute_object = #shouldExecuteObject#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="executedObject">  
+				executed_object = #executedObject#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="limitDays">  
+				limit_days = #limitDays#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="executeDays">  
+				execute_days = #executeDays#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="fileDate">  
+				file_date = #fileDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="filePeople">  
+				file_people = #filePeople#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="caseNo">  
+				case_no = #caseNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="firstCaseNo">  
+				first_case_no = #firstCaseNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="register">  
+				register = #register#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="caseStartDate">  
+				case_start_date = #caseStartDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="receiptDate">  
+				receipt_date = #receiptDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="executeBasis">  
+				execute_basis = #executeBasis#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="caseCause">  
+				case_cause = #caseCause#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="realCaseCause">  
+				real_case_cause = #realCaseCause#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="fileSignedPeople">  
+				file_signed_people = #fileSignedPeople#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="retentionTime">  
+				retention_time = #retentionTime#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="fileItems">  
+				file_items = #fileItems#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="recoverResult">  
+				recover_result = #recoverResult#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="partyName">  
+				party_name = #partyName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="executeStatus">  
+				execute_status = #executeStatus#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="idNo">  
+				id_no = #idNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="entCode">  
+				ent_code = #entCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="legRep">  
+				leg_rep = #legRep#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="loc">  
+				loc = #loc#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="tel">  
+				tel = #tel#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="documentNo">  
+				document_no = #documentNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="importFrom">  
+				import_from = #importFrom#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="importDate">  
+				import_date = #importDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="corpid">  
+				corpid = #corpid#
+			</isNotEmpty>
+	    </dynamic>
+	</sql>
+	
+	<select id="selectTempExecuteCaseList" resultMap="tempexecutecaseRlt" parameterClass="java.util.HashMap">
+		select
+			id,case_natrue,case_source,object,execute_fee,pre_trial_court,effective_judgment_no,trial_judge,case_state,execute_apply_name,executed_name,undertake_depart,undertaker,divisional_date,divisional_people,bulletin_closing_date,closing_date,closing_type,detailed_closing_type,should_execute_object,executed_object,limit_days,execute_days,file_date,file_people,case_no,first_case_no,register,case_start_date,receipt_date,execute_basis,case_cause,real_case_cause,file_signed_people,retention_time,file_items,recover_result,party_name,execute_status,id_no,ent_code,leg_rep,loc,tel,document_no,import_from,import_date,corpid
+		from 
+			TEMP_EXECUTE_CASE
+		<include refid="tempexecutecase_where" />
+		<include refid="ibatis-global.mysql_page" />
+	</select>
+	
+	<select id="selectTempExecuteCaseTotal" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" >
+		select 
+		    count(ID) 
+		from 
+		    TEMP_EXECUTE_CASE
+	    <include refid="tempexecutecase_where" />
+	</select>
+	
+	<insert id="insertTempExecuteCase" parameterClass="TempExecuteCase">
+       	INSERT INTO TEMP_EXECUTE_CASE 
+			(id,case_natrue,case_source,object,execute_fee,pre_trial_court,effective_judgment_no,trial_judge,case_state,execute_apply_name,executed_name,undertake_depart,undertaker,divisional_date,divisional_people,bulletin_closing_date,closing_date,closing_type,detailed_closing_type,should_execute_object,executed_object,limit_days,execute_days,file_date,file_people,case_no,first_case_no,register,case_start_date,receipt_date,execute_basis,case_cause,real_case_cause,file_signed_people,retention_time,file_items,recover_result,party_name,execute_status,id_no,ent_code,leg_rep,loc,tel,document_no,import_from,import_date,corpid)
+		VALUES 
+			(#id#,#caseNatrue#,#caseSource#,#object#,#executeFee#,#preTrialCourt#,#effectiveJudgmentNo#,#trialJudge#,#caseState#,#executeApplyName#,#executedName#,#undertakeDepart#,#undertaker#,#divisionalDate#,#divisionalPeople#,#bulletinClosingDate#,#closingDate#,#closingType#,#detailedClosingType#,#shouldExecuteObject#,#executedObject#,#limitDays#,#executeDays#,#fileDate#,#filePeople#,#caseNo#,#firstCaseNo#,#register#,#caseStartDate#,#receiptDate#,#executeBasis#,#caseCause#,#realCaseCause#,#fileSignedPeople#,#retentionTime#,#fileItems#,#recoverResult#,#partyName#,#executeStatus#,#idNo#,#entCode#,#legRep#,#loc#,#tel#,#documentNo#,#importFrom#,#importDate#,#corpid#)
+	    <selectKey resultClass="java.lang.String" keyProperty="id" >
+          <![CDATA[ 
+            select #id# as id from dual 
+       	  ]]>    
+       	</selectKey> 
+    </insert> 
+	
+    <update id="updateTempExecuteCase" parameterClass="TempExecuteCase">
+     UPDATE TEMP_EXECUTE_CASE
+	     <dynamic prepend="set">
+			<isNotEmpty prepend="," property="id">  
+				id = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="caseNatrue">  
+				case_natrue = #caseNatrue#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="caseSource">  
+				case_source = #caseSource#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="object">  
+				object = #object#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="executeFee">  
+				execute_fee = #executeFee#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="preTrialCourt">  
+				pre_trial_court = #preTrialCourt#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="effectiveJudgmentNo">  
+				effective_judgment_no = #effectiveJudgmentNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="trialJudge">  
+				trial_judge = #trialJudge#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="caseState">  
+				case_state = #caseState#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="executeApplyName">  
+				execute_apply_name = #executeApplyName#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="executedName">  
+				executed_name = #executedName#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="undertakeDepart">  
+				undertake_depart = #undertakeDepart#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="undertaker">  
+				undertaker = #undertaker#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="divisionalDate">  
+				divisional_date = #divisionalDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="divisionalPeople">  
+				divisional_people = #divisionalPeople#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="bulletinClosingDate">  
+				bulletin_closing_date = #bulletinClosingDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="closingDate">  
+				closing_date = #closingDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="closingType">  
+				closing_type = #closingType#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="detailedClosingType">  
+				detailed_closing_type = #detailedClosingType#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="shouldExecuteObject">  
+				should_execute_object = #shouldExecuteObject#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="executedObject">  
+				executed_object = #executedObject#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="limitDays">  
+				limit_days = #limitDays#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="executeDays">  
+				execute_days = #executeDays#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="fileDate">  
+				file_date = #fileDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="filePeople">  
+				file_people = #filePeople#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="caseNo">  
+				case_no = #caseNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="firstCaseNo">  
+				first_case_no = #firstCaseNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="register">  
+				register = #register#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="caseStartDate">  
+				case_start_date = #caseStartDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="receiptDate">  
+				receipt_date = #receiptDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="executeBasis">  
+				execute_basis = #executeBasis#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="caseCause">  
+				case_cause = #caseCause#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="realCaseCause">  
+				real_case_cause = #realCaseCause#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="fileSignedPeople">  
+				file_signed_people = #fileSignedPeople#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="retentionTime">  
+				retention_time = #retentionTime#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="fileItems">  
+				file_items = #fileItems#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="recoverResult">  
+				recover_result = #recoverResult#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="partyName">  
+				party_name = #partyName#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="executeStatus">  
+				execute_status = #executeStatus#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="idNo">  
+				id_no = #idNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="entCode">  
+				ent_code = #entCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="legRep">  
+				leg_rep = #legRep#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="loc">  
+				loc = #loc#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="tel">  
+				tel = #tel#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="documentNo">  
+				document_no = #documentNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="importFrom">  
+				import_from = #importFrom#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="importDate">  
+				import_date = #importDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="corpid">  
+				corpid = #corpid#
+			</isNotEmpty>
+		</dynamic>
+	    where ID = #id# 
+    </update>
+    
+     <delete id="deleteTempExecuteCase" parameterClass="java.lang.String">
+         DELETE FROM TEMP_EXECUTE_CASE WHERE ID = #id# 
+     </delete>
+     
+</sqlMap>

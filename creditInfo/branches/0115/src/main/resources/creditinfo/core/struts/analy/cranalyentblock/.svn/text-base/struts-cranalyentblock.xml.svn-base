@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"       
+          "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="cranalyentblock" extends="icinfo-default" namespace="/cranalyentblock" >
+
+		<action name="doReadCrAnalyEntBlockList" class="crAnalyEntBlockAction" method="doReadCrAnalyEntBlockListAction">
+			<result name="success">/jsp/server/analy/cranalyentblock/cranalyentblock.jsp</result>
+		</action>
+		
+		<action name="doReadCrAnalyEntBlockListJSON" class="crAnalyEntBlockAction" method="doReadCrAnalyEntBlockListJSONAction">
+		</action>
+		
+		<!-- 产业类型数量 -->
+		<action name="doReadEachTradeDataJSONForChart1" class="crAnalyEntBlockAction" method="doReadEachTradeDataJSONForChart1Action">
+		</action>
+		
+		<action name="doReadEachTradeDataJSONForChart2" class="crAnalyEntBlockAction" method="doReadEachTradeDataJSONForChart2Action">
+		</action>
+		<action name="doReadEachTradeDataJSONForChart3" class="crAnalyEntBlockAction" method="doReadEachTradeDataJSONForChart3Action">
+		</action>
+		<action name="doReadEachTradeDataJSONForChart4" class="crAnalyEntBlockAction" method="doReadEachTradeDataJSONForChart4Action">
+		</action>
+		<action name="doReadEachTradeDataJSONForChart42" class="crAnalyEntBlockAction" method="doReadEachTradeDataJSONForChart42Action">
+		</action>
+		<action name="doReadEachTradeDataJSONForChart32" class="crAnalyEntBlockAction" method="doReadEachTradeDataJSONForChart32Action">
+		</action>
+		
+		
+	
+	</package>
+	
+</struts>

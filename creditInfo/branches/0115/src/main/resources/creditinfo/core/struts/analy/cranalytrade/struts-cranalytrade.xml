@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"       
+          "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="cranalytrade" extends="icinfo-default" namespace="/cranalytrade" >
+
+		<action name="doReadCrAnalyTradeList" class="crAnalyTradeAction" method="doReadCrAnalyTradeListAction">
+			<result name="success">/jsp/biz/cranalytrade/cranalytradeList.jsp</result>
+		</action>
+		
+		<action name="doReadCrAnalyTradeListJSON" class="crAnalyTradeAction" method="doReadCrAnalyTradeListJSONAction">
+		</action>
+		
+		<!-- 获取企业数量就业人数信息 -->
+		<action name="doGetCrEntEmpNumList" class="crAnalyTradeAction" method="doGetCrEntEmpNumListAction">
+		</action>
+	</package>
+	
+</struts>

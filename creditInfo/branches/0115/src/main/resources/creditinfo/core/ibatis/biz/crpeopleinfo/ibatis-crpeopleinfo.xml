@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd"> 
+
+<sqlMap namespace="ibatis-crpeopleinfo">
+	<typeAlias alias="CrEntInfo" type="com.icinfo.creditinfo.bean.biz.crpeopleinfo.CrEntInfo" />
+	<resultMap id="crEntinfoRlt" class="CrEntInfo">
+		<result property="corpid" column="corpid" />
+		<result property="entName" column="ent_name" />
+		<result property="entRegNo" column="ent_reg_no" />
+		<result property="relation" column="relation" />
+		<result property="source" column="source" />
+	</resultMap>
+	<select id="selectCrPeopleInfoList" resultMap="crEntinfoRlt" parameterClass="java.util.HashMap">
+	<![CDATA[
+		SELECT  B.corpid,B.ent_name,B.ent_reg_no,GROUP_CONCAT(T.RELATION) RELATION,T.source from (
+		select NBXH,B.CONTENT RELATION ,'高管' source  from HZ_QYDSJLRY A  , CR_CODE_POSITION B WHERE A.ZW = B.CODE AND A.SFZJHM =#sfzjhm#
+		UNION ALL
+		SELECT NBXH ,CONCAT(ZBFB,'%的持股股东')  RELATION , '股东' source from HZ_QYTZF A WHERE  A.SFZJHM =#sfzjhm#
+		UNION ALL 
+		SELECT NBXH ,'法定代表人' RELATION , '法定代表人' SOURCE from HZ_QYFDDBR A WHERE  A.SFZJHM =#sfzjhm#
+		)T INNER JOIN CR_ENT_BASE_INFO B ON T.nbxh = B.corpid GROUP BY B.corpid
+	]]>	
+		<include refid="ibatis-global.mysql_page" />
+	</select>
+	<select id="selectCrPeopleInfoTotal" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" >
+		SELECT  count(DISTINCT B.ent_name) from (
+		select NBXH,B.CONTENT RELATION ,'高管' source  from HZ_QYDSJLRY A  , CR_CODE_POSITION B WHERE A.ZW = B.CODE AND A.SFZJHM =#sfzjhm#
+		UNION ALL
+		SELECT NBXH ,CONCAT(ZBFB,'%的持股股东')  RELATION , '股东' source from HZ_QYTZF A WHERE  A.SFZJHM =#sfzjhm#
+		UNION ALL 
+		SELECT NBXH ,'法定代表人' RELATION , '法定代表人' SOURCE from HZ_QYFDDBR A WHERE  A.SFZJHM =#sfzjhm#
+		)T INNER JOIN CR_ENT_BASE_INFO B ON T.nbxh = B.corpid 
+	</select>
+		<select id="selectCrEntTotal" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" >
+		SELECT  count(DISTINCT B.ent_name) from (
+		select NBXH,B.CONTENT RELATION ,'高管' source  from HZ_QYDSJLRY A  , CR_CODE_POSITION B WHERE A.ZW = B.CODE AND A.SFZJHM =#sfzjhm#
+		UNION ALL
+		SELECT NBXH ,CONCAT(ZBFB,'%的持股股东')  RELATION , '股东' source from HZ_QYTZF A WHERE  A.SFZJHM =#sfzjhm#
+		UNION ALL 
+		SELECT NBXH ,'法定代表人' RELATION , '法定代表人' SOURCE from HZ_QYFDDBR A WHERE  A.SFZJHM =#sfzjhm#
+		)T INNER JOIN CR_ENT_BASE_INFO B ON T.nbxh = B.corpid 
+	</select>
+</sqlMap>

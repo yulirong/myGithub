@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"       
+          "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="crhistoryrecords" extends="icinfo-default" namespace="/crhistoryrecords" >
+
+		<action name="doReadCrHistoryRecordsList" class="crHistoryRecordsAction" method="doReadCrHistoryRecordsListAction">
+			<result name="success">/jsp/server/biz/crhistoryrecords/crhistoryrecordsList.jsp</result>
+		</action>
+		
+		<action name="doReadCrHistoryRecordsListJSON" class="crHistoryRecordsAction" method="doReadCrHistoryRecordsListJSONAction">
+		</action>
+	
+		<action name="doEnAddAndEditCrHistoryRecords" class="crHistoryRecordsAction" method="doEnAddAndEditCrHistoryRecordsAction">
+			<result name="success">/jsp/server/biz/crhistoryrecords/crhistoryrecordsAddAndEdit.jsp</result>
+		</action>
+		
+		<action name="doAddAndEditCrHistoryRecords" class="crHistoryRecordsAction" method="doAddAndEditCrHistoryRecordsAction">
+		</action>
+		
+		<action name="doDelCrHistoryRecords" class="crHistoryRecordsAction" method="doDelCrHistoryRecordsAction">
+		</action>
+		
+		<!-- 清空所有浏览记录  -->
+		<action name="doDelAllCrHistoryRecords" class="crHistoryRecordsAction" method="doDelAllCrHistoryRecordsAction">
+		</action>
+
+	</package>
+	
+</struts>

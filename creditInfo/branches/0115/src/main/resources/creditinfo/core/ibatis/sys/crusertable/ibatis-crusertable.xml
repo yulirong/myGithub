@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd"> 
+
+<sqlMap namespace="ibatis-crusertable">
+
+	<typeAlias alias="CrUserTable" type="com.icinfo.creditinfo.bean.sys.crusertable.CrUserTable" />
+
+	<resultMap id="crusertableRlt" class="CrUserTable">
+		<result property="id" column="id" />
+		<result property="userId" column="user_id" />
+		<result property="tabCode" column="tab_code" />
+		<result property="tabName" column="tab_name" />
+		<result property="tabItem" column="tab_item"/>
+	</resultMap>
+	
+	<select id="selectCrUserTableById" resultMap="crusertableRlt" parameterClass="java.lang.String">
+		select
+			id,user_id,tab_code,'' tab_name,tab_item
+		from 
+			CR_USER_TABLE U
+		where 
+		    ID = #id#
+	</select>
+	
+	<sql id="crusertable_where">
+	    <dynamic prepend="where">
+			<isNotEmpty prepend="and" property="id">  
+				U.id = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="userId">  
+				U.user_id = #userId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="tabCode">  
+				U.tab_code = #tabCode#
+			</isNotEmpty>
+	    </dynamic>
+	</sql>
+	
+	<select id="selectCrUserTableList" resultMap="crusertableRlt" parameterClass="java.util.HashMap">
+		select
+			U.id,U.user_id,U.tab_code,S.tab_name tab_name,S.tab_item
+		from 
+			CR_USER_TABLE U
+		left join CR_SYS_TABLE S on U.tab_code = S.tab_code 
+		<include refid="crusertable_where" />
+	</select>
+	
+	<select id="selectCrUserTableTotal" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" >
+		select 
+		    count(ID) 
+		from 
+		    CR_USER_TABLE
+	    <include refid="crusertable_where" />
+	</select>
+	
+	<insert id="insertCrUserTable" parameterClass="CrUserTable">
+       	INSERT INTO CR_USER_TABLE 
+			(id,user_id,tab_code)
+		VALUES 
+			(#id#,#userId#,#tabCode#)
+	    <selectKey resultClass="java.lang.String" keyProperty="id" >
+          <![CDATA[ 
+            select #id# as id from dual 
+       	  ]]>    
+       	</selectKey> 
+    </insert> 
+	
+    <update id="updateCrUserTable" parameterClass="CrUserTable">
+     UPDATE CR_USER_TABLE
+	     <dynamic prepend="set">
+			<isNotEmpty prepend="," property="id">  
+				id = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="userId">  
+				user_id = #userId#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="tabCode">  
+				tab_code = #tabCode#
+			</isNotEmpty>
+		</dynamic>
+	    where ID = #id# 
+    </update>
+    
+     <delete id="deleteCrUserTable" parameterClass="java.lang.String">
+         DELETE FROM CR_USER_TABLE WHERE ID = #id# 
+     </delete>
+     
+     <delete id="deleteCrUserTableByUserId" parameterClass="java.lang.String">
+    	 DELETE FROM CR_USER_TABLE WHERE user_id = #userid#
+     </delete>
+     
+</sqlMap>

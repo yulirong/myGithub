@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd"> 
+
+<sqlMap namespace="ibatis-cranalyguarantindustryrelation">
+
+	<typeAlias alias="CrAnalyGuarantIndustryRelation" type="com.icinfo.creditinfo.bean.analy.cranalyguarantindustryrelation.CrAnalyGuarantIndustryRelation" />
+
+	<resultMap id="cranalyguarantindustryrelationRlt" class="CrAnalyGuarantIndustryRelation">
+		<result property="indGuarantee" column="ind_guarantee" />
+		<result property="indGuarantor" column="ind_guarantor" />
+		<result property="indNumber" column="ind_number" />
+	</resultMap>
+	
+	<select id="selectCrAnalyGuarantIndustryRelationById" resultMap="cranalyguarantindustryrelationRlt" parameterClass="java.lang.String">
+		select
+			ind_guarantee,ind_guarantor,ind_number
+		from 
+			CR_ANALY_GUARANT_INDUSTRY_RELATION
+		where 
+		    ID = #id#
+	</select>
+	
+	<sql id="cranalyguarantindustryrelation_where">
+	    <dynamic prepend="where">
+			<isNotEmpty prepend="and" property="indGuarantee">  
+				ind_guarantee = #indGuarantee#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="indGuarantor">  
+				ind_guarantor = #indGuarantor#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="indNumber">  
+				ind_number = #indNumber#
+			</isNotEmpty>
+	    </dynamic>
+	</sql>
+	
+	<select id="selectCrAnalyGuarantIndustryRelationList" resultMap="cranalyguarantindustryrelationRlt" parameterClass="java.util.HashMap">
+		select
+			ind_guarantee,ind_guarantor,ind_number
+		from 
+			CR_ANALY_GUARANT_INDUSTRY_RELATION
+		<include refid="cranalyguarantindustryrelation_where" />
+	</select>
+	
+	<select id="selectCrAnalyGuarantIndustryRelationTotal" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" >
+		select 
+		    count(ID) 
+		from 
+		    CR_ANALY_GUARANT_INDUSTRY_RELATION
+	    <include refid="cranalyguarantindustryrelation_where" />
+	</select>
+	
+	<select id="selectIndustryTypeList" parameterClass="java.util.HashMap" resultClass="java.lang.String" >
+		SELECT DISTINCT(ind_guarantee) FROM CR_ANALY_GUARANT_INDUSTRY_RELATION 
+		UNION 
+		SELECT DISTINCT(ind_guarantor) FROM CR_ANALY_GUARANT_INDUSTRY_RELATION
+	</select>
+	
+	
+	<select id="selectCrAnalyGuarantRelationRank" resultMap="cranalyguarantindustryrelationRlt" parameterClass="java.util.HashMap">
+		SELECT 
+			ind_guarantee,'' ind_guarantor,SUM(ind_number) ind_number 
+		FROM
+			CR_ANALY_GUARANT_INDUSTRY_RELATION
+		GROUP BY ind_guarantee 
+		ORDER BY ind_number
+		DESC
+	</select>
+     
+</sqlMap>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"       
+          "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="crcreditdms" extends="icinfo-default" namespace="/crcreditdms" >
+		<action name="doReadCrCreditDmsList" class="crCreditDmsAction" method="doReadCrCreditDmsListAction">
+			<result name="success">/jsp/biz/crcreditdms/crcreditdmsList.jsp</result>
+		</action>
+		<action name="doReadCrCreditDmsListJSON" class="crCreditDmsAction" method="doReadCrCreditDmsListJSONAction">
+		</action>
+		<action name="doReadCrCreditDmsByIdJSON" class="crCreditDmsAction" method="doReadCrCreditResultByIdJSONAction">
+		</action>
+	</package>
+	
+</struts>

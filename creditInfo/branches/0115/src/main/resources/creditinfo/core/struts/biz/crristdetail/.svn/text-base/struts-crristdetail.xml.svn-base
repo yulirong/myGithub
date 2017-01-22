@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"       
+          "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="crristdetail" extends="icinfo-default" namespace="/crristdetail" >
+		<!-- 从菜单-进入限制类风险预警-->
+		<action name="doEnRestrictedWarning" class="crRistDetailAction" method="doEnRestrictedWarningAction">
+			<result name="success">/jsp/server/biz/warning/warning.jsp</result>
+		</action>
+		<!-- 从菜单-进入关注类风险预警-->
+		<action name="doEnEntRiskAtt" class="crRistDetailAction" method="doEnAttWarningAction">
+			<result name="success">/jsp/server/biz/warning/attWarning.jsp</result>
+		</action>
+		<!-- 从菜单-进入警示类风险预警-->
+		<action name="doEnEarlyWarning" class="crRistDetailAction" method="doEnEarlyWarningAction">
+			<result name="success">/jsp/server/biz/warning/warning.jsp</result>
+		</action>
+		
+		<!-- 进入风险类型-清单-->
+		<action name="doReadRistTypeListJSON" class="crRistDetailAction" method="doReadRistTypeListJSONAction">
+		</action>
+		<!-- 进入风险预警-查询列表-->
+		<action name="doEnWarningList" class="crRistDetailAction">
+			<result name="success">/jsp/server/biz/warning/warningList.jsp</result>
+		</action>
+		<!-- 进入风险预警-查询列表数据-->
+		<action name="doReadWarningListJSON" class="crRistDetailAction" method="doReadWarningListJSONAction">
+		</action>
+		<!-- 进入关注类风险预警-查询列表-->
+		<action name="doEnAttWarningList" class="crRistDetailAction">
+			<result name="success">/jsp/server/biz/warning/attWarningList.jsp</result>
+		</action>
+
+		<!-- 获取风险指数解读数据 -->
+		<action name="doGetRistIndexRecordsListJSON" class="crRistDetailAction" method="doGetRistIndexRecordsListJSONAction">
+			<result name="success">/jsp/server/biz/crristindex/ristindexrecords.jsp</result>
+		</action>
+		
+		<!-- 获取值得关注的风险类型 -->
+		<action name="doGetRistTypeJSON" class="crRistDetailAction" method="doGetRistTypeJSONAction">
+		</action>
+		
+		<!-- 获取风险提示信息 -->
+		<action name="doGetRistByCorpid" class="crRistDetailAction" method="doGetRistByCorpidAction">
+		</action>
+		
+		<!-- 获取企业风险提示信息 -->
+		<action name="doGetEntRistList" class="crRistDetailAction" method="doGetEntRistListAction">
+		</action>
+		
+
+	</package>
+	
+</struts>

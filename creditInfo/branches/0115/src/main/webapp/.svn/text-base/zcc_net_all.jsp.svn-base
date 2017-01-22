@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>汇信科技年会节目</title>
+<link rel="stylesheet" type="text/css" href="<s:url value='/css/base.css'/>" />
+<script type="text/javascript" src="<s:url value='/js/base/jquery-1.11.1.min.js'/>"></script>
+<script src="<s:url value='/js/echart/dist/echarts.js'/>" ></script>
+</head>
+<body>
+<div style="width: 100%;height: 120px;background-color:#4781D3; " >
+<div style="float: left;"><img src="<s:url value='/images/back_jpg.jpg'/> " alt="return" width="120" height="120" onclick="javascript:window.history.go(-1);" /> </div>
+<div style="padding-top: 30px;font-size: 60px;color: white;font-family:Microsoft Yahei; margin-left:30%;">汇信人物关系网</div>
+</div>
+<div id="main" style="height: 1100px; width: 100%;" ></div>
+<div style="width: 100%;height: 300px;text-align: center;padding-top: 100px;font-size:40px; font-family:Mirosoft Yahei; display: none;" id="error_msg">
+都说别点了！！！
+</div>
+<script type="text/javascript">
+// 路径配置
+require.config({
+  paths: {
+	  echarts: "/js/echart/dist"
+  }
+});
+// 使用
+require(
+  [
+      'echarts',
+      'echarts/chart/force',
+      'echarts/chart/chord'// 使用柱状图就加载bar模块，按需加载
+  ],
+  function (ec) {
+      // 基于准备好的dom，初始化echarts图表总体
+      var myChart = ec.init(document.getElementById('main')); 
+      myChart.showLoading({
+        	text : "数据加载中，请稍后..."
+      });
+      var option = {
+          title : {
+              text: '',
+              x:'center',
+              y:'top'
+          },
+          noDataEffect: 'none',
+          series :[{
+              type: 'force',
+          }],
+      };
+
+      var bigDataInit = getBigData();
+      option.series[0] = {
+          type: 'force',
+          center:['50%','50%'],
+          draggable: true,
+          size: '100%',
+          name: 'rist',
+          itemStyle: {
+              normal : {
+            	  label: {
+                      show: true,
+                      textStyle: {
+                          color: '#333'
+                      }
+                  },
+                  linkStyle : {
+                      opacity : 0.5,
+                      color:'#333'
+                  }
+              }
+          },
+          categories: [
+               {
+            	   name:'0',
+            	   symbol:'circle',
+            	   symbolSize:30,
+            	   itemStyle: {
+            		   normal: {
+                           color : '#FFCD32',
+                           label: {
+                               show: true,
+                               textStyle: {
+                               	fontSize:'22',
+                               	fontWeight:'bold',
+                                   color: '#333333'
+                               }
+                           },
+                           nodeStyle : {
+                               // brushType : 'both',
+                               // strokeColor : 'rgba(255,215,0,0.4)',
+                               // lineWidth : 8
+                           }
+                       }
+                   }
+               },
+               {
+            	   name:'1',
+            	   symbol:'star',
+            	   symbolSize:50,
+            	   itemStyle: {
+            		   normal: {
+                           color : '#7EC0EE',
+                           label: {
+                               show: true,
+                               textStyle: {
+                               	fontSize:'22',
+                               	fontWeight:'bold',
+                                   color: '#333333'
+                               }
+                           },
+                           nodeStyle : {
+                               // brushType : 'both',
+                               // strokeColor : 'rgba(255,215,0,0.4)',
+                               // lineWidth : 8
+                           }
+                       }
+                   }
+               }        
+          ],
+          nodes: bigDataInit.nodes,
+          links: bigDataInit.links,
+          gravity: 3,
+          scaling: 2,
+          steps: 20,
+          large: true,
+          ribbonType: false
+      };
+
+      myChart.setOption(option);
+      myChart.hideLoading();
+      
+      //模拟接口获取数据
+      function getBigData(){
+        var result = {};
+        result.type = 'force';
+//      result.nodes = [{"category":0,"mc":"浙江东港针织有限公司","name":"3306000090131522","value":1},{"category":1,"mc":"（维尔京群岛）亚洲袜业公司","name":"65449","value":1},{"category":2,"mc":"浙江舜力特塑料制品有限公司","name":"3306000090131146","value":1},{"category":0,"mc":"（香港）龙氏企业有限公司","name":"81281","value":1},{"category":0,"mc":"川崎春晖精密机械（浙江）有限公司","name":"3306006090150823","value":1},{"category":0,"mc":"*浩司","name":"TH6230038","value":1},{"category":0,"mc":"绍兴澳特彼电机有限公司","name":"3306006090180146","value":1},{"category":0,"mc":"ATB奥地利驱动技术股份公司","name":"82569","value":1},{"category":0,"mc":"绍兴欧力-卧龙振动机械有限公司","name":"3306000990129558","value":1},{"category":0,"mc":"GAVIOLI GIORGIO ","name":"Y426504","value":1},{"category":0,"mc":"上虞舜联化工有限公司","name":"3306000990129149","value":1},{"category":0,"mc":"LCD贸易公司","name":"58350","value":1},{"category":0,"mc":"MARCHESINI MARCELLO","name":"772572S","value":1},{"category":0,"mc":"ROBERTO MARCHESINI（罗伯托·马切西尼）","name":"AA3605554","value":1},{"category":0,"mc":"浙江阿克希龙舜华铝塑业有限公司","name":"3306000090133339","value":1},{"category":0,"mc":"阿克希龙金属有限公司","name":"75059","value":1},{"category":2,"mc":"埃里希·普罗塔斯","name":"P1611667","value":1}];
+// 		result.links = [{"source":"65449","target":"3306000090131522"},{"source":"81281","target":"3306000090131146"},{"source":"TH6230038","target":"3306006090150823"},{"source":"82569","target":"3306006090180146"},{"source":"Y426504","target":"3306000990129558"},{"source":"58350","target":"3306000990129149"},{"source":"772572S","target":"3306000990129558"},{"source":"AA3605554","target":"3306000990129558"},{"source":"75059","target":"3306000090133339"},{"source":"P1611667","target":"3306006090180146"}];
+        $.ajax({
+			type : 'post',
+			url : '/zcc/doGetZccNetAllJSON.do',
+			data : {"userName":"${userName}"},
+			datatype : 'json',
+			async:false,
+			success : function(json) {
+				if(json['nodeList']==null){
+					$("#main").hide();
+					$("#error_msg").show();
+				}
+				result.nodes = json['nodeList'];
+				result.links = json['linkList'];
+			}
+		});
+        return result;
+      }
+  }
+);
+
+
+
+
+
+</script>
+</body>
+</html>

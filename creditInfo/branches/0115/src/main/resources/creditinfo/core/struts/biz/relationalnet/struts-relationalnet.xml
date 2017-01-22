@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"       
+          "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="relationalnet" extends="icinfo-default" namespace="/relationalnet" >
+	
+		<!-- 进入力项关系网络页面 -->
+		<action name="doEnRelationalNetByForce" class="relationalNetAction" method="doSkipAction">
+			<result name="success">/jsp/server/biz/relationalnet/relationalNetByForce.jsp</result>
+		</action>
+		<!-- 关系网络页面iframe加载额charts图 -->
+		<action name="doGetNewEnRelationalNetByForce" class="relationalNetAction" method="doGetNewEnRelationalNetByForceAction">
+			<result name="success">/jsp/server/biz/relationalnet/relationnew.jsp</result>
+		</action>
+		
+		<!-- 获取关系网络关系echarts -->
+		<action name="doGetNodeAndLinkAjaxJson" class="relationalNetAction" method="doGetNodeAndLinkAjaxJsonAction">
+		</action>
+		
+		<!-- 获取关系网络 子节点 -->
+		<action name="doGetNextNodeAndLinkJsonAciton" class="relationalNetAction" method="doGetNextNodeAndLinkJson">
+		</action>
+		
+		<!-- 获取企业分析概要 -->
+		<action name="doGetEntAnalyDate" class="relationalNetAction" method="doGetEntAnalyDateAction">
+		</action>
+		
+		<!-- 获取展开关系网络数据 -->
+		<action name="doGetOpenRelationNetJson" class="relationalNetAction" method="doGetOpenRelationNetJsonAction">
+		</action>
+		
+	</package>
+	
+</struts>

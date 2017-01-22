@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd"> 
+
+<sqlMap namespace="ibatis-crsysdepart">
+
+	<typeAlias alias="CrSysDepart" type="com.icinfo.creditinfo.bean.sys.crsysdepart.CrSysDepart" />
+
+	<resultMap id="crsysdepartRlt" class="CrSysDepart">
+		<result property="id" column="id" />
+		<result property="depCode" column="dep_code" />
+		<result property="depPcode" column="dep_pcode" />
+		<result property="depName" column="dep_name" />
+		<result property="depType" column="dep_type" />
+		<result property="depRemark" column="dep_remark" />
+		<result property="depSetDate" column="dep_set_date" />
+		<result property="depSetName" column="dep_set_name" />
+		<result property="depOrderNo" column="dep_order_no"/>
+	</resultMap>
+	
+	<select id="selectCrSysDepartById" resultMap="crsysdepartRlt" parameterClass="java.lang.String">
+		select
+			id,dep_code,dep_pcode,dep_name,dep_type,dep_remark,dep_set_date,dep_set_name,dep_order_no 
+		from 
+			CR_SYS_DEPART
+		where 
+		    ID = #id#
+	</select>
+	
+	<sql id="crsysdepart_where">
+	    <dynamic prepend="where">
+			<isNotEmpty prepend="and" property="id">  
+				id = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="depCode">  
+				dep_code = #depCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="depPcode">  
+				dep_pcode = #depPcode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="depName">  
+				dep_name = #depName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="depType">  
+				dep_type = #depType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="depRemark">  
+				dep_remark = #depRemark#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="depSetDate">  
+				dep_set_date = #depSetDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="depSetName">  
+				dep_set_name = #depSetName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="depOrderNo">  
+				dep_order_no = #depOrderNo#
+			</isNotEmpty>
+	    </dynamic>
+	</sql>
+	
+	<select id="selectCrSysDepartList" resultMap="crsysdepartRlt" parameterClass="java.util.HashMap">
+		select
+			id,dep_code,dep_pcode,dep_name,dep_type,dep_remark,dep_set_date,dep_set_name,dep_order_no 
+		from 
+			CR_SYS_DEPART
+		<include refid="crsysdepart_where" />
+		order by dep_order_no 
+	</select>
+	
+	<select id="selectCrSysDepartTotal" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" >
+		select 
+		    count(ID) 
+		from 
+		    CR_SYS_DEPART
+	    <include refid="crsysdepart_where" />
+	</select>
+	
+	<insert id="insertCrSysDepart" parameterClass="CrSysDepart">
+       	INSERT INTO CR_SYS_DEPART 
+			(id,dep_code,dep_pcode,dep_name,dep_type,dep_remark,dep_set_date,dep_set_name,dep_order_no)
+		VALUES 
+			(#id#,#depCode#,#depPcode#,#depName#,#depType#,#depRemark#,#depSetDate#,#depSetName#,#depOrderNo#)
+	    <selectKey resultClass="java.lang.String" keyProperty="id" >
+          <![CDATA[ 
+            select #id# as id from dual 
+       	  ]]>    
+       	</selectKey> 
+    </insert> 
+	
+    <update id="updateCrSysDepart" parameterClass="CrSysDepart">
+     UPDATE CR_SYS_DEPART
+	     <dynamic prepend="set">
+			<isNotEmpty prepend="," property="id">  
+				id = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="depCode">  
+				dep_code = #depCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="depPcode">  
+				dep_pcode = #depPcode#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="depName">  
+				dep_name = #depName#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="depType">  
+				dep_type = #depType#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="depRemark">  
+				dep_remark = #depRemark#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="depSetDate">  
+				dep_set_date = #depSetDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="depSetName">  
+				dep_set_name = #depSetName#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="depOrderNo">  
+				dep_order_no = #depOrderNo#
+			</isNotEmpty>
+		</dynamic>
+	    where ID = #id# 
+    </update>
+    
+     <delete id="deleteCrSysDepart" parameterClass="java.lang.String">
+         DELETE FROM CR_SYS_DEPART WHERE ID = #id# 
+     </delete>
+     
+</sqlMap>

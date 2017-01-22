@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"       
+          "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="crwaterpay" extends="icinfo-default" namespace="/crwaterpay" >
+
+		<action name="doReadCrWaterPayList" class="crWaterPayAction" method="doReadCrWaterPayListAction">
+			<result name="success">/jsp/biz/crwaterpay/crwaterpayList.jsp</result>
+		</action>
+		
+		<action name="doReadCrWaterPayListJSON" class="crWaterPayAction" method="doReadCrWaterPayListJSONAction">
+		</action>
+	
+		<action name="doEnAddAndEditCrWaterPay" class="crWaterPayAction" method="doEnAddAndEditCrWaterPayAction">
+			<result name="success">/jsp/biz/crwaterpay/crwaterpayAddAndEdit.jsp</result>
+		</action>
+		
+		<action name="doAddAndEditCrWaterPay" class="crWaterPayAction" method="doAddAndEditCrWaterPayAction">
+		</action>
+		
+		<action name="doDelCrWaterPay" class="crWaterPayAction" method="doDelCrWaterPayAction">
+		</action>
+
+	</package>
+	
+</struts>

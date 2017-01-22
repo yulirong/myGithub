@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd"> 
+
+<sqlMap namespace="ibatis-crsequestrateall">
+
+	<typeAlias alias="CrSequestrateAll" type="com.icinfo.creditinfo.bean.biz.crsequestrateall.CrSequestrateAll" />
+
+	<resultMap id="crsequestrateallRlt" class="CrSequestrateAll">
+		<result property="propertyOwner" column="property_owner" />
+		<result property="corpid" column="corpid" />
+		<result property="certNo" column="cert_no" />
+		<result property="sequestrateNo" column="sequestrate_no" />
+		<result property="sequestrateLoc" column="sequestrate_loc" />
+		<result property="sequestrateApplyName" column="sequestrate_apply_name" />
+		<result property="sequestrateApplyDate" column="sequestrate_apply_date" />
+		<result property="state" column="state" />
+		<result property="cancelDate" column="cancel_date" />
+		<result property="importFrom" column="import_from" />
+	</resultMap>
+	
+	<sql id="crsequestrateall_where">
+	    <dynamic prepend="where">
+			<isNotEmpty prepend="and" property="propertyOwner">  
+				property_owner = #propertyOwner#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="corpid">  
+				corpid = #corpid#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="certNo">  
+				cert_no = #certNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="sequestrateNo">  
+				sequestrate_no = #sequestrateNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="sequestrateLoc">  
+				sequestrate_loc = #sequestrateLoc#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="sequestrateApplyName">  
+				sequestrate_apply_name = #sequestrateApplyName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="sequestrateApplyDate">  
+				sequestrate_apply_date = #sequestrateApplyDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="state">  
+				state = #state#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="cancelDate">  
+				cancel_date = #cancelDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="importFrom">  
+				import_from = #importFrom#
+			</isNotEmpty>
+			
+			<isNotEmpty prepend="and" property="sfzjhm">  
+				cert_no = #sfzjhm#
+			</isNotEmpty>
+	    </dynamic>
+	</sql>
+	
+	<select id="selectCrSequestrateAllList" resultMap="crsequestrateallRlt" parameterClass="java.util.HashMap">
+		select
+			property_owner,corpid,cert_no,sequestrate_no,sequestrate_loc,sequestrate_apply_name,sequestrate_apply_date,state,cancel_date,import_from
+		from 
+			CR_SEQUESTRATE_ALL
+		<include refid="crsequestrateall_where" />
+		<include refid="ibatis-global.mysql_page" />
+	</select>
+	
+	<select id="selectCrSequestrateAllTotal" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" >
+		select 
+		    count(*) 
+		from 
+		    CR_SEQUESTRATE_ALL
+	    <include refid="crsequestrateall_where" />
+	</select>
+     
+</sqlMap>

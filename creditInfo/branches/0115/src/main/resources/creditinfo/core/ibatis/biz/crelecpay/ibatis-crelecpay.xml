@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd"> 
+
+<sqlMap namespace="ibatis-crelecpay">
+
+	<typeAlias alias="CrElecPay" type="com.icinfo.creditinfo.bean.biz.crelecpay.CrElecPay" />
+
+	<resultMap id="crelecpayRlt" class="CrElecPay">
+		<result property="id" column="id" />
+		<result property="entName" column="ent_name" />
+		<result property="regNo" column="reg_no" />
+		<result property="entLoc" column="ent_loc" />
+		<result property="elecNo" column="elec_no" />
+		<result property="userType" column="user_type" />
+		<result property="recordDate" column="record_date" />
+		<result property="elecPeriod" column="elec_period" />
+		<result property="elecConsumption" column="elec_consumption" />
+		<result property="elecPayAmount" column="elec_pay_amount" />
+		<result property="payDate" column="pay_date" />
+		<result property="payAmount" column="pay_amount" />
+		<result property="importFrom" column="import_from" />
+		<result property="importDate" column="import_date" />
+		<result property="corpid" column="corpid" />
+	</resultMap>
+	
+	<resultMap id="crelecpayRlt2" class="CrElecPay">
+		<result property="analyElecConsumptionTotal" column="analy_elec_consumption_total" />
+		<result property="analyRecordDateStr" column="analy_record_date_str" />
+		<result property="entName" column="ent_name" />
+	</resultMap>
+	
+	<select id="selectCrElecPayById" resultMap="crelecpayRlt" parameterClass="java.lang.String">
+		select
+			id,ent_name,reg_no,ent_loc,elec_no,user_type,record_date,elec_period,elec_consumption,elec_pay_amount,pay_date,pay_amount,import_from,import_date,corpid
+		from 
+			CR_ELEC_PAY
+		where 
+		    ID = #id#
+	</select>
+	
+	<sql id="crelecpay_where">
+	    <dynamic prepend="where">
+			<isNotEmpty prepend="and" property="id">  
+				id = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="entName">  
+				ent_name = #entName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="regNo">  
+				reg_no = #regNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="entLoc">  
+				ent_loc = #entLoc#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="elecNo">  
+				elec_no = #elecNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="userType">  
+				user_type = #userType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="recordDate">  
+				record_date = #recordDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="elecPeriod">  
+				elec_period = #elecPeriod#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="elecConsumption">  
+				elec_consumption = #elecConsumption#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="elecPayAmount">  
+				elec_pay_amount = #elecPayAmount#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="payDate">  
+				pay_date = #payDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="payAmount">  
+				pay_amount = #payAmount#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="importFrom">  
+				import_from = #importFrom#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="importDate">  
+				import_date = #importDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="startDate">
+			   import_date >= STR_TO_DATE(#startDate#,'%Y-%m-%d')
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="corpid">  
+				corpid = #corpid#
+			</isNotEmpty>
+	    </dynamic>
+	</sql>
+	
+	<select id="selectCrElecPayList" resultMap="crelecpayRlt" parameterClass="java.util.HashMap">
+		select
+			id,ent_name,reg_no,ent_loc,elec_no,user_type,record_date,elec_period,elec_consumption,elec_pay_amount,pay_date,pay_amount,import_from,import_date,corpid
+		from 
+			CR_ELEC_PAY
+		<include refid="crelecpay_where" />
+		<include refid="ibatis-global.mysql_page" />
+	</select>
+	<select id="selectCrElecPayTotal" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" >
+		select 
+		    count(ID) 
+		from 
+		    CR_ELEC_PAY
+	    <include refid="crelecpay_where" />
+	</select>
+	<!-- 经信委用电接口用 -->
+	<resultMap class="CrElecPay" id="crElecPayMapByJxwService">
+		<result property="entName" column="ent_name" />
+		<result property="regNo" column="reg_no" />
+		<result property="elecNo" column="elec_no" />
+		<result property="elecPeriod" column="elec_period" />
+		<result property="elecConsumption" column="elec_consumption" />
+		<result property="importFrom" column="import_from" />
+		<result property="importDate" column="import_date" />
+		<result property="entOrgRegNo" column="ent_org_reg_no" />
+		<result property="arrearBalance" column="arrear_balance"/>
+	</resultMap>
+	
+	<select id="selectCrElecPayByJxwService" resultMap="crElecPayMapByJxwService" parameterClass="java.util.HashMap">
+		SELECT a.corpid,a.ent_name,a.reg_no,a.elec_no,a.elec_period,a.elec_consumption,a.import_from,a.import_date ,b.ent_org_reg_no,
+          (SELECT  IFNULL(SUM(arrear_balance),0)  FROM TEMP_ELEC_PAY_ARREAR WHERE corpid=a.corpid )  arrear_balance
+          FROM CR_ELEC_PAY a, CR_ENT_BASE_INFO b WHERE a.corpid=b.corpid 
+		    <isNotEmpty prepend="and" property="startDate">
+			   import_date >= STR_TO_DATE(#startDate#,'%Y-%m-%d')
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="orgNO">
+			   b.ent_org_reg_no IN($orgNO$)
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="entYear">
+			  b.ent_org_reg_no IN(SELECT ent_org_reg_no FROM CR_JXW_ENT_CONTROL WHERE ENT_YEAR=#entYear# )
+			</isNotEmpty>
+		ORDER BY a.elec_period DESC
+		<include refid="ibatis-global.mysql_page" />
+	</select>
+	
+	<select id="selectCrElecPayByJxwServiceTotal" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" >
+		select 
+		    count(ID) 
+		from 
+		    CR_ELEC_PAY
+	    <include refid="crelecpay_where" />
+	</select>
+	
+	<!-- 获得用电量统计集合 -->
+	<select id="selectAnalyElecPayList" resultMap="crelecpayRlt2" parameterClass="java.util.HashMap">
+		select
+			SUM(elec_consumption) analy_elec_consumption_total,DATE_FORMAT(STR_TO_DATE(elec_period,'%Y%m'),'%Y-%m') analy_record_date_str,ent_name
+		from 
+			CR_ELEC_PAY 
+		where elec_period IS NOT NULL and corpid is not null
+		<isNotEmpty prepend="and" property="corpid">  
+				corpid = #corpid#
+		</isNotEmpty>
+		GROUP BY elec_period
+		ORDER BY elec_period ASC
+	</select>
+	
+	<insert id="insertCrElecPay" parameterClass="CrElecPay">
+       	INSERT INTO CR_ELEC_PAY 
+			(id,ent_name,reg_no,ent_loc,elec_no,user_type,record_date,elec_period,elec_consumption,elec_pay_amount,pay_date,pay_amount,import_from,import_date,corpid)
+		VALUES 
+			(#id#,#entName#,#regNo#,#entLoc#,#elecNo#,#userType#,#recordDate#,#elecPeriod#,#elecConsumption#,#elecPayAmount#,#payDate#,#payAmount#,#importFrom#,#importDate#,#corpid#)
+	    <selectKey resultClass="java.lang.String" keyProperty="id" >
+          <![CDATA[ 
+            select #id# as id from dual 
+       	  ]]>    
+       	</selectKey> 
+    </insert> 
+	
+    <update id="updateCrElecPay" parameterClass="CrElecPay">
+     UPDATE CR_ELEC_PAY
+	     <dynamic prepend="set">
+			<isNotEmpty prepend="," property="id">  
+				id = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="entName">  
+				ent_name = #entName#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="regNo">  
+				reg_no = #regNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="entLoc">  
+				ent_loc = #entLoc#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="elecNo">  
+				elec_no = #elecNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="userType">  
+				user_type = #userType#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="recordDate">  
+				record_date = #recordDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="elecPeriod">  
+				elec_period = #elecPeriod#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="elecConsumption">  
+				elec_consumption = #elecConsumption#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="elecPayAmount">  
+				elec_pay_amount = #elecPayAmount#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="payDate">  
+				pay_date = #payDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="payAmount">  
+				pay_amount = #payAmount#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="importFrom">  
+				import_from = #importFrom#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="importDate">  
+				import_date = #importDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="corpid">  
+				corpid = #corpid#
+			</isNotEmpty>
+		</dynamic>
+	    where ID = #id# 
+    </update>
+    
+     <delete id="deleteCrElecPay" parameterClass="java.lang.String">
+         DELETE FROM CR_ELEC_PAY WHERE ID = #id# 
+     </delete>
+     
+</sqlMap>

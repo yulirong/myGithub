@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd"> 
+
+<sqlMap namespace="ibatis-crhistoryrecords">
+
+	<typeAlias alias="CrHistoryRecords" type="com.icinfo.creditinfo.bean.biz.crhistoryrecords.CrHistoryRecords" />
+
+	<resultMap id="crhistoryrecordsRlt" class="CrHistoryRecords">
+		<result property="id" column="id" />
+		<result property="hisCorpid" column="his_corpid" />
+		<result property="hisEntName" column="his_ent_name" />
+		<result property="hisRegNo" column="his_reg_no" />
+		<result property="hisLegRep" column="his_leg_rep" />
+		<result property="hisRegOrg" column="his_reg_org" />
+		<result property="hisUserId" column="his_user_id" />
+		<result property="hisViewTime" column="his_view_time" />
+		<result property="hisViewDate" column="his_view_date" />
+		<result property="hisOptTime" column="his_opt_time" />
+	</resultMap>
+	
+	<select id="selectCrHistoryRecordsById" resultMap="crhistoryrecordsRlt" parameterClass="java.lang.String">
+		select
+			id,his_corpid,his_ent_name,his_reg_no,his_leg_rep,his_reg_org,his_user_id,his_view_time,his_view_date,his_opt_time
+		from 
+			CR_HISTORY_RECORDS
+		where 
+		    ID = #id#
+	</select>
+	
+	<sql id="crhistoryrecords_where">
+	    <dynamic prepend="where">
+			<isNotEmpty prepend="and" property="id">  
+				id = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="hisCorpid">  
+				his_corpid = #hisCorpid#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="hisEntName">  
+				his_ent_name  like CONCAT('%', #hisEntName#, '%') 
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="hisRegNo">  
+				his_reg_no = #hisRegNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="hisLegRep">  
+				his_leg_rep = #hisLegRep#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="hisRegOrg">  
+				his_reg_org = #hisRegOrg#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="hisUserId">  
+				his_user_id = #hisUserId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="hisViewTime">  
+				his_view_time = #hisViewTime#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="hisViewDate">  
+				his_view_date = #hisViewDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="hisOptTime">  
+				his_opt_time = #hisOptTime#
+			</isNotEmpty>
+	    </dynamic>
+	</sql>
+	
+	<select id="selectCrHistoryRecordsList" resultMap="crhistoryrecordsRlt" parameterClass="java.util.HashMap">
+		select
+			id,his_corpid,his_ent_name,his_reg_no,his_leg_rep,his_reg_org,his_user_id,his_view_time,his_view_date,his_opt_time
+		from 
+			CR_HISTORY_RECORDS
+		<include refid="crhistoryrecords_where" />
+		ORDER BY his_opt_time DESC
+		<include refid="ibatis-global.mysql_page" />
+	</select>
+	
+	<select id="selectCrHistoryRecordsTotal" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" >
+		select 
+		    count(ID) 
+		from 
+		    CR_HISTORY_RECORDS
+	    <include refid="crhistoryrecords_where" />
+	</select>
+	
+	<insert id="insertCrHistoryRecords" parameterClass="CrHistoryRecords">
+       	INSERT INTO CR_HISTORY_RECORDS 
+			(id,his_corpid,his_ent_name,his_reg_no,his_leg_rep,his_reg_org,his_user_id,his_view_time,his_view_date,his_opt_time)
+		VALUES 
+			(#id#,#hisCorpid#,#hisEntName#,#hisRegNo#,#hisLegRep#,#hisRegOrg#,#hisUserId#,#hisViewTime#,#hisViewDate#,#hisOptTime#)
+	    <selectKey resultClass="java.lang.String" keyProperty="id" >
+          <![CDATA[ 
+            select #id# as id from dual 
+       	  ]]>    
+       	</selectKey> 
+    </insert> 
+	
+    <update id="updateCrHistoryRecords" parameterClass="CrHistoryRecords">
+     UPDATE CR_HISTORY_RECORDS
+	     <dynamic prepend="set">
+			<isNotEmpty prepend="," property="id">  
+				id = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="hisCorpid">  
+				his_corpid = #hisCorpid#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="hisEntName">  
+				his_ent_name = #hisEntName#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="hisRegNo">  
+				his_reg_no = #hisRegNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="hisLegRep">  
+				his_leg_rep = #hisLegRep#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="hisRegOrg">  
+				his_reg_org = #hisRegOrg#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="hisUserId">  
+				his_user_id = #hisUserId#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="hisViewTime">  
+				his_view_time = #hisViewTime#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="hisViewDate">  
+				his_view_date = #hisViewDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="hisOptTime">  
+				his_opt_time = #hisOptTime#
+			</isNotEmpty>
+		</dynamic>
+	    where ID = #id# 
+    </update>
+    
+     <delete id="deleteCrHistoryRecords" parameterClass="java.lang.String">
+         DELETE FROM CR_HISTORY_RECORDS WHERE his_user_id = #id# 
+     </delete>
+     
+     <delete id="deleteAllCrHistoryRecords" parameterClass="java.util.HashMap">
+         DELETE FROM CR_HISTORY_RECORDS 
+         <include refid="crhistoryrecords_where" />
+     </delete>
+     
+</sqlMap>

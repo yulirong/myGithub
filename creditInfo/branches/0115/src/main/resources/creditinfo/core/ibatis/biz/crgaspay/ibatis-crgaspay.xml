@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd"> 
+
+<sqlMap namespace="ibatis-crgaspay">
+
+	<typeAlias alias="CrGasPay" type="com.icinfo.creditinfo.bean.biz.crgaspay.CrGasPay" />
+
+	<resultMap id="crgaspayRlt" class="CrGasPay">
+		<result property="id" column="id" />
+		<result property="entName" column="ent_name" />
+		<result property="balanceDateStart" column="balance_date_start" />
+		<result property="balanceDateEnd" column="balance_date_end" />
+		<result property="supplyType" column="supply_type" />
+		<result property="meterReadingDate" column="meter_reading_date" />
+		<result property="previousDegree" column="previous_degree" />
+		<result property="presentDegree" column="present_degree" />
+		<result property="degree" column="degree" />
+		<result property="presentAmount" column="present_amount" />
+		<result property="gasPrice" column="gas_price" />
+		<result property="payable" column="payable" />
+		<result property="paid" column="paid" />
+		<result property="prepayments" column="prepayments" />
+		<result property="penalty" column="penalty" />
+		<result property="payableAmount" column="payable_amount" />
+		<result property="importFrom" column="import_from" />
+		<result property="importDate" column="import_date" />
+		<result property="corpid" column="corpid" />
+	</resultMap>
+	
+	<resultMap id="crgaspayRlt2" class="CrGasPay">
+		<result property="analyPresentAmountTotal" column="analy_present_amount_total"/>
+		<result property="analyMeterReadingDateStr" column="analy_meter_reading_date_str" />
+		<result property="entName" column="ent_name" />
+	</resultMap>
+	
+	<select id="selectCrGasPayById" resultMap="crgaspayRlt" parameterClass="java.lang.String">
+		select
+			id,ent_name,balance_date_start,balance_date_end,supply_type,meter_reading_date,previous_degree,present_degree,degree,present_amount,gas_price,payable,paid,prepayments,penalty,payable_amount,import_from,import_date,corpid
+		from 
+			CR_GAS_PAY
+		where 
+		    ID = #id#
+	</select>
+	
+	<sql id="crgaspay_where">
+	    <dynamic prepend="where">
+			<isNotEmpty prepend="and" property="id">  
+				id = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="entName">  
+				ent_name = #entName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="balanceDateStart">  
+				balance_date_start = #balanceDateStart#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="balanceDateEnd">  
+				balance_date_end = #balanceDateEnd#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="supplyType">  
+				supply_type = #supplyType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="meterReadingDate">  
+				meter_reading_date = #meterReadingDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="previousDegree">  
+				previous_degree = #previousDegree#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="presentDegree">  
+				present_degree = #presentDegree#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="degree">  
+				degree = #degree#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="presentAmount">  
+				present_amount = #presentAmount#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="gasPrice">  
+				gas_price = #gasPrice#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="payable">  
+				payable = #payable#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="paid">  
+				paid = #paid#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="prepayments">  
+				prepayments = #prepayments#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="penalty">  
+				penalty = #penalty#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="payableAmount">  
+				payable_amount = #payableAmount#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="importFrom">  
+				import_from = #importFrom#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="importDate">  
+				import_date = #importDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="corpid">  
+				corpid = #corpid#
+			</isNotEmpty>
+	    </dynamic>
+	</sql>
+	
+	<select id="selectCrGasPayList" resultMap="crgaspayRlt" parameterClass="java.util.HashMap">
+		select
+			id,ent_name,balance_date_start,balance_date_end,supply_type,meter_reading_date,previous_degree,present_degree,degree,present_amount,gas_price,payable,paid,prepayments,penalty,payable_amount,import_from,import_date,corpid
+		from 
+			CR_GAS_PAY
+		<include refid="crgaspay_where" />
+		<include refid="ibatis-global.mysql_page" />
+	</select>
+	
+	<select id="selectCrGasPayTotal" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" >
+		select 
+		    count(ID) 
+		from 
+		    CR_GAS_PAY
+	    <include refid="crgaspay_where" />
+	</select>
+	<!-- 获取用气统计信息 -->
+	<select id="selectAnalyGasPayList" resultMap="crgaspayRlt2" parameterClass="java.util.HashMap">
+		select
+			SUM(present_amount) analy_present_amount_total,DATE_FORMAT(balance_date_start,'%Y-%m') analy_meter_reading_date_str,ent_name
+		from 
+			CR_GAS_PAY
+		WHERE balance_date_start IS NOT NULL AND DATE_FORMAT(balance_date_start,'%Y-%m') IS NOT NULL AND corpid IS NOT NULL
+		<isNotEmpty prepend="and" property="corpid">  
+			corpid = #corpid#
+		</isNotEmpty>
+		GROUP BY DATE_FORMAT(balance_date_start,'%Y-%m') 
+		ORDER BY DATE_FORMAT(balance_date_start,'%Y-%m') ASC
+	</select>
+	
+	<insert id="insertCrGasPay" parameterClass="CrGasPay">
+       	INSERT INTO CR_GAS_PAY 
+			(id,ent_name,balance_date_start,balance_date_end,supply_type,meter_reading_date,previous_degree,present_degree,degree,present_amount,gas_price,payable,paid,prepayments,penalty,payable_amount,import_from,import_date,corpid)
+		VALUES 
+			(#id#,#entName#,#balanceDateStart#,#balanceDateEnd#,#supplyType#,#meterReadingDate#,#previousDegree#,#presentDegree#,#degree#,#presentAmount#,#gasPrice#,#payable#,#paid#,#prepayments#,#penalty#,#payableAmount#,#importFrom#,#importDate#,#corpid#)
+	    <selectKey resultClass="java.lang.String" keyProperty="id" >
+          <![CDATA[ 
+            select #id# as id from dual 
+       	  ]]>    
+       	</selectKey> 
+    </insert> 
+	
+    <update id="updateCrGasPay" parameterClass="CrGasPay">
+     UPDATE CR_GAS_PAY
+	     <dynamic prepend="set">
+			<isNotEmpty prepend="," property="id">  
+				id = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="entName">  
+				ent_name = #entName#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="balanceDateStart">  
+				balance_date_start = #balanceDateStart#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="balanceDateEnd">  
+				balance_date_end = #balanceDateEnd#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="supplyType">  
+				supply_type = #supplyType#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="meterReadingDate">  
+				meter_reading_date = #meterReadingDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="previousDegree">  
+				previous_degree = #previousDegree#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="presentDegree">  
+				present_degree = #presentDegree#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="degree">  
+				degree = #degree#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="presentAmount">  
+				present_amount = #presentAmount#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="gasPrice">  
+				gas_price = #gasPrice#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="payable">  
+				payable = #payable#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="paid">  
+				paid = #paid#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="prepayments">  
+				prepayments = #prepayments#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="penalty">  
+				penalty = #penalty#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="payableAmount">  
+				payable_amount = #payableAmount#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="importFrom">  
+				import_from = #importFrom#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="importDate">  
+				import_date = #importDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="corpid">  
+				corpid = #corpid#
+			</isNotEmpty>
+		</dynamic>
+	    where ID = #id# 
+    </update>
+    
+     <delete id="deleteCrGasPay" parameterClass="java.lang.String">
+         DELETE FROM CR_GAS_PAY WHERE ID = #id# 
+     </delete>
+     
+</sqlMap>

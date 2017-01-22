@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd"> 
+
+<sqlMap namespace="ibatis-crdcdyapplyinfo">
+
+	<typeAlias alias="CrDcdyApplyinfo" type="com.icinfo.creditinfo.bean.biz.crdcdyapplyinfo.CrDcdyApplyinfo" />
+
+	<resultMap id="crdcdyapplyinfoRlt" class="CrDcdyApplyinfo">
+		<result property="id" column="ID" />
+		<result property="orderNo" column="ORDER_NO" />
+		<result property="mortgagorName" column="MORTGAGOR_NAME" />
+		<result property="mortgagorCertType" column="MORTGAGOR_CERT_TYPE" />
+		<result property="mortgagorCertNo" column="MORTGAGOR_CERT_NO" />
+		<result property="mortgageeName" column="MORTGAGEE_NAME" />
+		<result property="mortgageeCertType" column="MORTGAGEE_CERT_TYPE" />
+		<result property="mortgageeCertNo" column="MORTGAGEE_CERT_NO" />
+		<result property="mortgageType" column="MORTGAGE_TYPE" />
+		<result property="mortgageAmount" column="MORTGAGE_AMOUNT" />
+		<result property="guaranteesRange" column="GUARANTEES_RANGE" />
+		<result property="startdate" column="STARTDATE" />
+		<result property="enddate" column="ENDDATE" />
+		<result property="remark" column="REMARK" />
+		<result property="filingNo" column="FILING_NO" />
+		<result property="checkStatus" column="CHECK_STATUS" />
+		<result property="departmentId" column="DEPARTMENT_ID" />
+		<result property="department" column="DEPARTMENT" />
+		<result property="checkdate" column="CHECKDATE" />
+		<result property="changeStatus" column="CHANGE_STATUS" />
+		<result property="cancelStatus" column="CANCEL_STATUS" />
+		<result property="corpid" column="corpid" />
+	</resultMap>
+	
+	<select id="selectCrDcdyApplyinfoById" resultMap="crdcdyapplyinfoRlt" parameterClass="java.lang.String">
+		select
+			ID,ORDER_NO,MORTGAGOR_NAME,MORTGAGOR_CERT_TYPE,MORTGAGOR_CERT_NO,MORTGAGEE_NAME,MORTGAGEE_CERT_TYPE,MORTGAGEE_CERT_NO,MORTGAGE_TYPE,MORTGAGE_AMOUNT,GUARANTEES_RANGE,STARTDATE,ENDDATE,REMARK,FILING_NO,CHECK_STATUS,DEPARTMENT_ID,DEPARTMENT,CHECKDATE,CHANGE_STATUS,CANCEL_STATUS,corpid
+		from 
+			CR_DCDY_APPLYINFO
+		where 
+		    ID = #id#
+	</select>
+	
+	<sql id="crdcdyapplyinfo_where">
+	    <dynamic prepend="where">
+			<isNotEmpty prepend="and" property="id">  
+				ID = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="orderNo">  
+				ORDER_NO = #orderNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="mortgagorName">  
+				MORTGAGOR_NAME = #mortgagorName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="mortgagorCertType">  
+				MORTGAGOR_CERT_TYPE = #mortgagorCertType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="mortgagorCertNo">  
+				MORTGAGOR_CERT_NO = #mortgagorCertNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="mortgageeName">  
+				MORTGAGEE_NAME = #mortgageeName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="mortgageeCertType">  
+				MORTGAGEE_CERT_TYPE = #mortgageeCertType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="mortgageeCertNo">  
+				MORTGAGEE_CERT_NO = #mortgageeCertNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="mortgageType">  
+				MORTGAGE_TYPE = #mortgageType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="mortgageAmount">  
+				MORTGAGE_AMOUNT = #mortgageAmount#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="guaranteesRange">  
+				GUARANTEES_RANGE = #guaranteesRange#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="startdate">  
+				STARTDATE = #startdate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="enddate">  
+				ENDDATE = #enddate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="remark">  
+				REMARK = #remark#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="filingNo">  
+				FILING_NO = #filingNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="checkStatus">  
+				CHECK_STATUS = #checkStatus#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="departmentId">  
+				DEPARTMENT_ID = #departmentId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="department">  
+				DEPARTMENT = #department#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="checkdate">  
+				CHECKDATE = #checkdate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="changeStatus">  
+				CHANGE_STATUS = #changeStatus#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="cancelStatus">  
+				CANCEL_STATUS = #cancelStatus#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="corpid">  
+				corpid = #corpid#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="sfzjhm">  
+				MORTGAGOR_CERT_NO = #sfzjhm#
+			</isNotEmpty>
+	    </dynamic>
+	</sql>
+	
+	<select id="selectCrDcdyApplyinfoList" resultMap="crdcdyapplyinfoRlt" parameterClass="java.util.HashMap">
+		select
+			ID,ORDER_NO,MORTGAGOR_NAME,MORTGAGOR_CERT_TYPE,MORTGAGOR_CERT_NO,MORTGAGEE_NAME,MORTGAGEE_CERT_TYPE,MORTGAGEE_CERT_NO,MORTGAGE_TYPE,MORTGAGE_AMOUNT,GUARANTEES_RANGE,STARTDATE,ENDDATE,REMARK,FILING_NO,CHECK_STATUS,DEPARTMENT_ID,DEPARTMENT,CHECKDATE,CHANGE_STATUS,CANCEL_STATUS,corpid
+		from 
+			CR_DCDY_APPLYINFO
+		<include refid="crdcdyapplyinfo_where" />
+		<include refid="ibatis-global.mysql_page" />
+	</select>
+	
+	<select id="selectCrDcdyApplyinfoTotal" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" >
+		select 
+		    count(ID) 
+		from 
+		    CR_DCDY_APPLYINFO
+	    <include refid="crdcdyapplyinfo_where" />
+	</select>
+	
+	<insert id="insertCrDcdyApplyinfo" parameterClass="CrDcdyApplyinfo">
+       	INSERT INTO CR_DCDY_APPLYINFO 
+			(ID,ORDER_NO,MORTGAGOR_NAME,MORTGAGOR_CERT_TYPE,MORTGAGOR_CERT_NO,MORTGAGEE_NAME,MORTGAGEE_CERT_TYPE,MORTGAGEE_CERT_NO,MORTGAGE_TYPE,MORTGAGE_AMOUNT,GUARANTEES_RANGE,STARTDATE,ENDDATE,REMARK,FILING_NO,CHECK_STATUS,DEPARTMENT_ID,DEPARTMENT,CHECKDATE,CHANGE_STATUS,CANCEL_STATUS,corpid)
+		VALUES 
+			(#id#,#orderNo#,#mortgagorName#,#mortgagorCertType#,#mortgagorCertNo#,#mortgageeName#,#mortgageeCertType#,#mortgageeCertNo#,#mortgageType#,#mortgageAmount#,#guaranteesRange#,#startdate#,#enddate#,#remark#,#filingNo#,#checkStatus#,#departmentId#,#department#,#checkdate#,#changeStatus#,#cancelStatus#,#corpid#)
+	    <selectKey resultClass="java.lang.String" keyProperty="id" >
+          <![CDATA[ 
+            select #id# as id from dual 
+       	  ]]>    
+       	</selectKey> 
+    </insert> 
+	
+    <update id="updateCrDcdyApplyinfo" parameterClass="CrDcdyApplyinfo">
+     UPDATE CR_DCDY_APPLYINFO
+	     <dynamic prepend="set">
+			<isNotEmpty prepend="," property="orderNo">  
+				ORDER_NO = #orderNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="mortgagorName">  
+				MORTGAGOR_NAME = #mortgagorName#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="mortgagorCertType">  
+				MORTGAGOR_CERT_TYPE = #mortgagorCertType#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="mortgagorCertNo">  
+				MORTGAGOR_CERT_NO = #mortgagorCertNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="mortgageeName">  
+				MORTGAGEE_NAME = #mortgageeName#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="mortgageeCertType">  
+				MORTGAGEE_CERT_TYPE = #mortgageeCertType#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="mortgageeCertNo">  
+				MORTGAGEE_CERT_NO = #mortgageeCertNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="mortgageType">  
+				MORTGAGE_TYPE = #mortgageType#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="mortgageAmount">  
+				MORTGAGE_AMOUNT = #mortgageAmount#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="guaranteesRange">  
+				GUARANTEES_RANGE = #guaranteesRange#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="startdate">  
+				STARTDATE = #startdate#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="enddate">  
+				ENDDATE = #enddate#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="remark">  
+				REMARK = #remark#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="filingNo">  
+				FILING_NO = #filingNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="checkStatus">  
+				CHECK_STATUS = #checkStatus#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="departmentId">  
+				DEPARTMENT_ID = #departmentId#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="department">  
+				DEPARTMENT = #department#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="checkdate">  
+				CHECKDATE = #checkdate#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="changeStatus">  
+				CHANGE_STATUS = #changeStatus#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="cancelStatus">  
+				CANCEL_STATUS = #cancelStatus#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="corpid">  
+				corpid = #corpid#
+			</isNotEmpty>
+		</dynamic>
+	    where ID = #id# 
+    </update>
+    
+     <delete id="deleteCrDcdyApplyinfo" parameterClass="java.lang.String">
+         DELETE FROM CR_DCDY_APPLYINFO WHERE ID = #id# 
+     </delete>
+     
+</sqlMap>

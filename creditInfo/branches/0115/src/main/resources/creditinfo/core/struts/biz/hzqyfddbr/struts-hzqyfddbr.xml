@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"       
+          "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="hzqyfddbr" extends="icinfo-default" namespace="/hzqyfddbr" >
+
+		<action name="doReadHzQyfddbrList" class="hzQyfddbrAction" method="doReadHzQyfddbrListAction">
+			<result name="success">/jsp/biz/hzqyfddbr/hzqyfddbrList.jsp</result>
+		</action>
+		
+		<action name="doReadHzQyfddbrListJSON" class="hzQyfddbrAction" method="doReadHzQyfddbrListJSONAction">
+		</action>
+	
+		<action name="doEnAddAndEditHzQyfddbr" class="hzQyfddbrAction" method="doEnAddAndEditHzQyfddbrAction">
+			<result name="success">/jsp/biz/hzqyfddbr/hzqyfddbrAddAndEdit.jsp</result>
+		</action>
+		
+		<action name="doAddAndEditHzQyfddbr" class="hzQyfddbrAction" method="doAddAndEditHzQyfddbrAction">
+		</action>
+		
+		<action name="doDelHzQyfddbr" class="hzQyfddbrAction" method="doDelHzQyfddbrAction">
+		</action>
+
+	</package>
+	
+</struts>

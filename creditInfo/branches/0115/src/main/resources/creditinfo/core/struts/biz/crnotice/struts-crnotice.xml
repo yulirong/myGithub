@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"       
+          "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="crnotice" extends="icinfo-default" namespace="/crnotice" >
+		
+		
+		<!-- 进入发布公告页面 -->
+		<action name="doEnCrNotice" class="crNoticeAction" method="doSkipAction">
+			<result name="success">/jsp/server/biz/crnotice/crnoticeList.jsp</result>
+		</action>
+		
+		<!-- 读取公告信息 -->
+		<action name="doReadCrNoticeList" class="crNoticeAction" method="doReadCrNoticeListAction">
+		</action>
+		<!-- 进入新增修改公告信息页面 -->
+		<action name="doEnAddAndEditCrNotice" class="crNoticeAction" method="doEnAddAndEditCrNoticeAction">
+			<result name="success">/jsp/server/biz/crnotice/crnoticeAddAndEdit.jsp</result>
+		</action>
+		<!-- 新增修改公告信息 -->
+		<action name="doAddAndEditCrNotice" class="crNoticeAction" method="doAddAndEditCrNoticeAction">
+		</action>
+		<!-- 删除公告信息 -->
+		<action name="doDelCrNotice" class="crNoticeAction" method="doDelCrNoticeAction">
+		</action>
+		<!-- 进入更多公告信息页 -->
+		<action name="doEnCrNoticeList" class="crNoticeAction" method="doEnCrNoticeListAction">
+			<result name="success">/jsp/server/biz/crnotice/crnoticemore.jsp</result>
+		</action>
+
+	</package>
+	
+</struts>

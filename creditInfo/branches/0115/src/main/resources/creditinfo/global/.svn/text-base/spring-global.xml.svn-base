@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+		http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"
+	default-lazy-init="false">
+
+	<bean id="mysqlDS" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+		<property name="driverClass" value="${driverClass}" />
+		<property name="jdbcUrl" value="${jdbcUrl}" />
+		<property name="user" value="${user}" />
+		<property name="password" value="${password}" />
+		<property name="testConnectionOnCheckin" value="true" />
+		<property name="minPoolSize" value="${minPoolSize}" />
+		<property name="maxPoolSize" value="${maxPoolSize}" />
+		<property name="maxIdleTime" value="${maxIdleTime}" />
+	</bean>
+	
+	<bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+		<property name="dataSource" ref="mysqlDS" />
+		<property name="configLocation" value="classpath:/creditinfo/global/ibatis.xml" /> 
+		<property name="mappingLocations" >
+		    <array>
+		       <value>classpath:/creditinfo/global/ibatis-global.xml</value>
+		       <value>classpath*:/creditinfo/core/ibatis/**/ibatis-*.xml</value>
+		       <value>classpath*:/com/icinfo/plugin/*/xml/ibatis-*.xml</value>
+               <value>classpath*:/com/icinfo/plugin/hxpermission/xml/ibatis-*.xml</value>
+		    </array>
+		</property>
+	</bean>
+	
+    
+	<bean id="proUtil" class="com.icinfo.plugin.common.ProUtil" >
+	    <property name="ROOTINDEX_PATH_ODD" value="${rootIndexPathodd}" />
+		<property name="ROOTINDEX_PATH_EVEN" value="${rootIndexPatheven}" />
+		<property name="ENTINDEX_PATH" value="${entIndexPath}" />
+        <property name="WEB_SERVER" value="${webServer}" />
+        <property name="SSL_SERVER" value="${sslServer}" />
+        <property name="SEAL_SERVER" value="${sealServer}" /> 
+        <property name="EXCEL_BACK_PATH" value="${excelBackPath}" /> 
+    </bean>
+    
+    <bean id="permissionInterceptor" class="com.icinfo.plugin.security.PermissionInterceptor" />
+    <bean id="sysUserSessionInterceptor" class="com.icinfo.plugin.interceptor.SysUserSessionInterceptor" />
+    <aop:aspectj-autoproxy proxy-target-class="true" />
+    
+    <bean id="logAdvice" class="com.icinfo.plugin.log.LogAdvice" />
+    <aop:config>      
+        <aop:pointcut id="logPointcut" expression="execution(* com.icinfo.creditinfo.action..*.*Action(..))" />   
+		<aop:aspect ref="logAdvice" >
+			<aop:after-throwing method="doExceptionLog" pointcut-ref="logPointcut"  throwing="throwable" />
+		</aop:aspect>
+	</aop:config>
+
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="mysqlDS" />
+	</bean>
+	<aop:config>
+		<aop:pointcut id="txPointCut" expression="(execution(* com.icinfo.creditinfo.action..*.*Action(..))) or (execution(* com.icinfo.creditinfo.service._impl.upload..*.*Info(..)))"  />
+		<aop:advisor pointcut-ref="txPointCut" advice-ref="txAdvice"  />
+	</aop:config>
+	
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="doAdd*" propagation="REQUIRED" isolation="READ_COMMITTED" rollback-for="java.lang.Exception" />
+			<tx:method name="doEdit*" propagation="REQUIRED" isolation="READ_COMMITTED" rollback-for="java.lang.Exception" />
+			<tx:method name="doDel*"  propagation="REQUIRED" isolation="READ_COMMITTED" rollback-for="java.lang.Exception" />
+			<tx:method name="doCheck*"  propagation="REQUIRED" isolation="READ_COMMITTED" rollback-for="java.lang.Exception" />
+			<tx:method name="doCommit*"  propagation="REQUIRED" isolation="READ_COMMITTED" rollback-for="java.lang.Exception" />
+			<tx:method name="doBatch*"  propagation="REQUIRED" isolation="READ_COMMITTED" rollback-for="java.lang.Exception" />
+		</tx:attributes>
+	</tx:advice>
+	
+</beans>
+

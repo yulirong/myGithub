@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd"> 
+
+<sqlMap namespace="ibatis-tempmortgagereg">
+
+	<typeAlias alias="TempMortgageReg" type="com.icinfo.creditinfo.bean.upload.tempmortgagereg.TempMortgageReg" />
+
+	<resultMap id="tempmortgageregRlt" class="TempMortgageReg">
+		<result property="id" column="id" />
+		<result property="mortgageRegOrg" column="mortgage_reg_org" />
+		<result property="mortgageRegDate" column="mortgage_reg_date" />
+		<result property="mortgageCertNo" column="mortgage_cert_no" />
+		<result property="mortgageContractNo" column="mortgage_contract_no" />
+		<result property="collateralType" column="collateral_type" />
+		<result property="mortgageGuarExtent" column="mortgage_guar_extent" />
+		<result property="debtPayFrom" column="debt_pay_from" />
+		<result property="debtPayTo" column="debt_pay_to" />
+		<result property="mortgagorName" column="mortgagor_name" />
+		<result property="mortgagorCertType" column="mortgagor_cert_type" />
+		<result property="mortgagorCertNo" column="mortgagor_cert_no" />
+		<result property="mortgagorAdd" column="mortgagor_add" />
+		<result property="mortgagorLegRep" column="mortgagor_leg_rep" />
+		<result property="mortgagorLegRepCertNo" column="mortgagor_leg_rep_cert_no" />
+		<result property="mortgageeName" column="mortgagee_name" />
+		<result property="mortgageeCertType" column="mortgagee_cert_type" />
+		<result property="mortgageeCertNo" column="mortgagee_cert_no" />
+		<result property="mortgageeAdd" column="mortgagee_add" />
+		<result property="mortgageeLegRep" column="mortgagee_leg_rep" />
+		<result property="mortgageeLegRepCertNo" column="mortgagee_leg_rep_cert_no" />
+		<result property="guaranteedCreditAmount" column="guaranteed_credit_amount" />
+		<result property="mortgageReason" column="mortgage_reason" />
+		<result property="guaranteedCreditType" column="guaranteed_credit_type" />
+		<result property="guaranteedContractType" column="guaranteed_contract_type" />
+		<result property="mortgageMoney" column="mortgage_money" />
+		<result property="landMoney" column="land_money" />
+		<result property="mortgageOrder" column="mortgage_order" />
+		<result property="importFrom" column="import_from" />
+		<result property="importDate" column="import_date" />
+		<result property="corpid" column="corpid" />
+	</resultMap>
+	
+	<select id="selectTempMortgageRegById" resultMap="tempmortgageregRlt" parameterClass="java.lang.String">
+		select
+			id,mortgage_reg_org,mortgage_reg_date,mortgage_cert_no,mortgage_contract_no,collateral_type,mortgage_guar_extent,debt_pay_from,debt_pay_to,mortgagor_name,mortgagor_cert_type,mortgagor_cert_no,mortgagor_add,mortgagor_leg_rep,mortgagor_leg_rep_cert_no,mortgagee_name,mortgagee_cert_type,mortgagee_cert_no,mortgagee_add,mortgagee_leg_rep,mortgagee_leg_rep_cert_no,guaranteed_credit_amount,mortgage_reason,guaranteed_credit_type,guaranteed_contract_type,mortgage_money,land_money,mortgage_order,import_from,import_date,corpid
+		from 
+			TEMP_MORTGAGE_REG
+		where 
+		    ID = #id#
+	</select>
+	
+	<sql id="tempmortgagereg_where">
+	    <dynamic prepend="where">
+			<isNotEmpty prepend="and" property="id">  
+				id = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="mortgageRegOrg">  
+				mortgage_reg_org = #mortgageRegOrg#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="mortgageRegDate">  
+				mortgage_reg_date = #mortgageRegDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="mortgageCertNo">  
+				mortgage_cert_no = #mortgageCertNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="mortgageContractNo">  
+				mortgage_contract_no = #mortgageContractNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="collateralType">  
+				collateral_type = #collateralType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="mortgageGuarExtent">  
+				mortgage_guar_extent = #mortgageGuarExtent#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="debtPayFrom">  
+				debt_pay_from = #debtPayFrom#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="debtPayTo">  
+				debt_pay_to = #debtPayTo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="mortgagorName">  
+				mortgagor_name = #mortgagorName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="mortgagorCertType">  
+				mortgagor_cert_type = #mortgagorCertType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="mortgagorCertNo">  
+				mortgagor_cert_no = #mortgagorCertNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="mortgagorAdd">  
+				mortgagor_add = #mortgagorAdd#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="mortgagorLegRep">  
+				mortgagor_leg_rep = #mortgagorLegRep#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="mortgagorLegRepCertNo">  
+				mortgagor_leg_rep_cert_no = #mortgagorLegRepCertNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="mortgageeName">  
+				mortgagee_name = #mortgageeName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="mortgageeCertType">  
+				mortgagee_cert_type = #mortgageeCertType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="mortgageeCertNo">  
+				mortgagee_cert_no = #mortgageeCertNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="mortgageeAdd">  
+				mortgagee_add = #mortgageeAdd#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="mortgageeLegRep">  
+				mortgagee_leg_rep = #mortgageeLegRep#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="mortgageeLegRepCertNo">  
+				mortgagee_leg_rep_cert_no = #mortgageeLegRepCertNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="guaranteedCreditAmount">  
+				guaranteed_credit_amount = #guaranteedCreditAmount#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="mortgageReason">  
+				mortgage_reason = #mortgageReason#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="guaranteedCreditType">  
+				guaranteed_credit_type = #guaranteedCreditType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="guaranteedContractType">  
+				guaranteed_contract_type = #guaranteedContractType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="mortgageMoney">  
+				mortgage_money = #mortgageMoney#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="landMoney">  
+				land_money = #landMoney#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="mortgageOrder">  
+				mortgage_order = #mortgageOrder#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="importFrom">  
+				import_from = #importFrom#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="importDate">  
+				import_date = #importDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="corpid">  
+				corpid = #corpid#
+			</isNotEmpty>
+	    </dynamic>
+	</sql>
+	
+	<select id="selectTempMortgageRegList" resultMap="tempmortgageregRlt" parameterClass="java.util.HashMap">
+		select
+			id,mortgage_reg_org,mortgage_reg_date,mortgage_cert_no,mortgage_contract_no,collateral_type,mortgage_guar_extent,debt_pay_from,debt_pay_to,mortgagor_name,mortgagor_cert_type,mortgagor_cert_no,mortgagor_add,mortgagor_leg_rep,mortgagor_leg_rep_cert_no,mortgagee_name,mortgagee_cert_type,mortgagee_cert_no,mortgagee_add,mortgagee_leg_rep,mortgagee_leg_rep_cert_no,guaranteed_credit_amount,mortgage_reason,guaranteed_credit_type,guaranteed_contract_type,mortgage_money,land_money,mortgage_order,import_from,import_date,corpid
+		from 
+			TEMP_MORTGAGE_REG
+		<include refid="tempmortgagereg_where" />
+		<include refid="ibatis-global.mysql_page" />
+	</select>
+	
+	<select id="selectTempMortgageRegTotal" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" >
+		select 
+		    count(ID) 
+		from 
+		    TEMP_MORTGAGE_REG
+	    <include refid="tempmortgagereg_where" />
+	</select>
+	
+	<insert id="insertTempMortgageReg" parameterClass="TempMortgageReg">
+       	INSERT INTO TEMP_MORTGAGE_REG 
+			(id,mortgage_reg_org,mortgage_reg_date,mortgage_cert_no,mortgage_contract_no,collateral_type,mortgage_guar_extent,debt_pay_from,debt_pay_to,mortgagor_name,mortgagor_cert_type,mortgagor_cert_no,mortgagor_add,mortgagor_leg_rep,mortgagor_leg_rep_cert_no,mortgagee_name,mortgagee_cert_type,mortgagee_cert_no,mortgagee_add,mortgagee_leg_rep,mortgagee_leg_rep_cert_no,guaranteed_credit_amount,mortgage_reason,guaranteed_credit_type,guaranteed_contract_type,mortgage_money,land_money,mortgage_order,import_from,import_date,corpid)
+		VALUES 
+			(#id#,#mortgageRegOrg#,#mortgageRegDate#,#mortgageCertNo#,#mortgageContractNo#,#collateralType#,#mortgageGuarExtent#,#debtPayFrom#,#debtPayTo#,#mortgagorName#,#mortgagorCertType#,#mortgagorCertNo#,#mortgagorAdd#,#mortgagorLegRep#,#mortgagorLegRepCertNo#,#mortgageeName#,#mortgageeCertType#,#mortgageeCertNo#,#mortgageeAdd#,#mortgageeLegRep#,#mortgageeLegRepCertNo#,#guaranteedCreditAmount#,#mortgageReason#,#guaranteedCreditType#,#guaranteedContractType#,#mortgageMoney#,#landMoney#,#mortgageOrder#,#importFrom#,#importDate#,#corpid#)
+	    <selectKey resultClass="java.lang.String" keyProperty="id" >
+          <![CDATA[ 
+            select #id# as id from dual 
+       	  ]]>    
+       	</selectKey> 
+    </insert> 
+	
+    <update id="updateTempMortgageReg" parameterClass="TempMortgageReg">
+     UPDATE TEMP_MORTGAGE_REG
+	     <dynamic prepend="set">
+			<isNotEmpty prepend="," property="id">  
+				id = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="mortgageRegOrg">  
+				mortgage_reg_org = #mortgageRegOrg#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="mortgageRegDate">  
+				mortgage_reg_date = #mortgageRegDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="mortgageCertNo">  
+				mortgage_cert_no = #mortgageCertNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="mortgageContractNo">  
+				mortgage_contract_no = #mortgageContractNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="collateralType">  
+				collateral_type = #collateralType#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="mortgageGuarExtent">  
+				mortgage_guar_extent = #mortgageGuarExtent#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="debtPayFrom">  
+				debt_pay_from = #debtPayFrom#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="debtPayTo">  
+				debt_pay_to = #debtPayTo#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="mortgagorName">  
+				mortgagor_name = #mortgagorName#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="mortgagorCertType">  
+				mortgagor_cert_type = #mortgagorCertType#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="mortgagorCertNo">  
+				mortgagor_cert_no = #mortgagorCertNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="mortgagorAdd">  
+				mortgagor_add = #mortgagorAdd#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="mortgagorLegRep">  
+				mortgagor_leg_rep = #mortgagorLegRep#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="mortgagorLegRepCertNo">  
+				mortgagor_leg_rep_cert_no = #mortgagorLegRepCertNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="mortgageeName">  
+				mortgagee_name = #mortgageeName#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="mortgageeCertType">  
+				mortgagee_cert_type = #mortgageeCertType#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="mortgageeCertNo">  
+				mortgagee_cert_no = #mortgageeCertNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="mortgageeAdd">  
+				mortgagee_add = #mortgageeAdd#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="mortgageeLegRep">  
+				mortgagee_leg_rep = #mortgageeLegRep#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="mortgageeLegRepCertNo">  
+				mortgagee_leg_rep_cert_no = #mortgageeLegRepCertNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="guaranteedCreditAmount">  
+				guaranteed_credit_amount = #guaranteedCreditAmount#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="mortgageReason">  
+				mortgage_reason = #mortgageReason#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="guaranteedCreditType">  
+				guaranteed_credit_type = #guaranteedCreditType#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="guaranteedContractType">  
+				guaranteed_contract_type = #guaranteedContractType#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="mortgageMoney">  
+				mortgage_money = #mortgageMoney#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="landMoney">  
+				land_money = #landMoney#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="mortgageOrder">  
+				mortgage_order = #mortgageOrder#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="importFrom">  
+				import_from = #importFrom#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="importDate">  
+				import_date = #importDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="corpid">  
+				corpid = #corpid#
+			</isNotEmpty>
+		</dynamic>
+	    where ID = #id# 
+    </update>
+    
+     <delete id="deleteTempMortgageReg" parameterClass="java.lang.String">
+         DELETE FROM TEMP_MORTGAGE_REG WHERE ID = #id# 
+     </delete>
+     
+</sqlMap>

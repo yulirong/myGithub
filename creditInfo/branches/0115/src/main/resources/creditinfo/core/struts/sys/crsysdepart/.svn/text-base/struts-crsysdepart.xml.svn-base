@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"       
+          "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="crsysdepart" extends="icinfo-default" namespace="/crsysdepart" >
+
+		<action name="doReadCrSysDepartList" class="crSysDepartAction" method="doReadCrSysDepartListAction">
+			<result name="success">/jsp/server/sys/crsysdepart/crsysdepartList.jsp</result>
+		</action>
+		
+		<action name="doReadCrSysDepartListJSON" class="crSysDepartAction" method="doReadCrSysDepartListJSONAction">
+		</action>
+	
+		<action name="doEnAddAndEditCrSysDepart" class="crSysDepartAction" method="doEnAddAndEditCrSysDepartAction">
+			<result name="success">/jsp/server/sys/crsysdepart/crsysdepartAddAndEdit.jsp</result>
+		</action>
+		
+		<action name="doAddAndEditCrSysDepart" class="crSysDepartAction" method="doAddAndEditCrSysDepartAction">
+		</action>
+		
+		<action name="doDelCrSysDepart" class="crSysDepartAction" method="doDelCrSysDepartAction">
+		</action>
+		
+		<action name="doGetCrSysDepartTree" class="crSysDepartAction" method="doGetCrSysDepartTreeAction">
+		</action>
+		
+		
+
+	</package>
+	
+</struts>

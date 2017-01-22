@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd"> 
+
+<sqlMap namespace="ibatis-crguaranteesuminfo">
+
+	<typeAlias alias="CrGuaranteeSumInfo" type="com.icinfo.creditinfo.bean.biz.crguaranteesuminfo.CrGuaranteeSumInfo" />
+
+	<resultMap id="crguaranteesuminfoRlt" class="CrGuaranteeSumInfo">
+		<result property="id" column="ID" />
+		<result property="guaEntName" column="GUA_ENT_NAME" />
+		<result property="guaRegNo" column="GUA_REG_NO" />
+		<result property="guaSum" column="GUA_SUM" />
+		<result property="guaCerInst" column="GUA_CER_INST" />
+		<result property="guaGradeType" column="GUA_GRADE_TYPE" />
+		<result property="guaCurrency" column="GUA_CURRENCY" />
+		<result property="guaType" column="GUA_TYPE" />
+		<result property="guaBondRatio" column="GUA_BOND_RATIO" />
+		<result property="guaAmount" column="GUA_AMOUNT" />
+		<result property="guaOpenDate" column="GUA_OPEN_DATE" />
+		<result property="guaGuarantee" column="GUA_GUARANTEE" />
+		<result property="guaBalance" column="GUA_BALANCE" />
+		<result property="guaDeadlineDate" column="GUA_DEADLINE_DATE" />
+		<result property="guaAdvance" column="GUA_ADVANCE" />
+		<result property="corpid" column="corpid" />
+		<result property="guaUserid" column="GUA_USERID" />
+		<result property="guaOptTime" column="GUA_OPT_TIME" />
+	</resultMap>
+	
+	<select id="selectCrGuaranteeSumInfoById" resultMap="crguaranteesuminfoRlt" parameterClass="java.lang.String">
+		select
+			ID,GUA_ENT_NAME,GUA_REG_NO,GUA_SUM,GUA_CER_INST,GUA_GRADE_TYPE,GUA_CURRENCY,GUA_TYPE,GUA_BOND_RATIO,GUA_AMOUNT,GUA_OPEN_DATE,GUA_GUARANTEE,GUA_BALANCE,GUA_DEADLINE_DATE,GUA_ADVANCE,corpid,GUA_USERID,GUA_OPT_TIME
+		from 
+			CR_GUARANTEE_SUM_INFO
+		where 
+		    ID = #id#
+	</select>
+	
+	<sql id="crguaranteesuminfo_where">
+	    <dynamic prepend="where">
+			<isNotEmpty prepend="and" property="id">  
+				ID = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="guaEntName">  
+				GUA_ENT_NAME = #guaEntName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="guaRegNo">  
+				GUA_REG_NO = #guaRegNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="guaSum">  
+				GUA_SUM = #guaSum#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="guaCerInst">  
+				GUA_CER_INST = #guaCerInst#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="guaGradeType">  
+				GUA_GRADE_TYPE = #guaGradeType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="guaCurrency">  
+				GUA_CURRENCY = #guaCurrency#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="guaType">  
+				GUA_TYPE = #guaType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="guaBondRatio">  
+				GUA_BOND_RATIO = #guaBondRatio#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="guaAmount">  
+				GUA_AMOUNT = #guaAmount#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="guaOpenDate">  
+				GUA_OPEN_DATE = #guaOpenDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="guaGuarantee">  
+				GUA_GUARANTEE = #guaGuarantee#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="guaBalance">  
+				GUA_BALANCE = #guaBalance#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="guaDeadlineDate">  
+				GUA_DEADLINE_DATE = #guaDeadlineDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="guaAdvance">  
+				GUA_ADVANCE = #guaAdvance#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="corpid">  
+				corpid = #corpid#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="guaUserid">  
+				GUA_USERID = #guaUserid#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="guaOptTime">  
+				GUA_OPT_TIME = #guaOptTime#
+			</isNotEmpty>
+	    </dynamic>
+	</sql>
+	
+	<select id="selectCrGuaranteeSumInfoList" resultMap="crguaranteesuminfoRlt" parameterClass="java.util.HashMap">
+		select
+			ID,GUA_ENT_NAME,GUA_REG_NO,GUA_SUM,GUA_CER_INST,GUA_GRADE_TYPE,GUA_CURRENCY,GUA_TYPE,GUA_BOND_RATIO,GUA_AMOUNT,GUA_OPEN_DATE,GUA_GUARANTEE,GUA_BALANCE,GUA_DEADLINE_DATE,GUA_ADVANCE,corpid,GUA_USERID,GUA_OPT_TIME
+		from 
+			CR_GUARANTEE_SUM_INFO
+		<include refid="crguaranteesuminfo_where" />
+		ORDER BY GUA_OPT_TIME DESC
+		<include refid="ibatis-global.mysql_page" />
+	</select>
+	
+	<select id="selectCrGuaranteeSumInfoTotal" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" >
+		select 
+		    count(ID) 
+		from 
+		    CR_GUARANTEE_SUM_INFO
+	    <include refid="crguaranteesuminfo_where" />
+	</select>
+	
+	<insert id="insertCrGuaranteeSumInfo" parameterClass="CrGuaranteeSumInfo">
+       	INSERT INTO CR_GUARANTEE_SUM_INFO 
+			(ID,GUA_ENT_NAME,GUA_REG_NO,GUA_SUM,GUA_CER_INST,GUA_GRADE_TYPE,GUA_CURRENCY,GUA_TYPE,GUA_BOND_RATIO,GUA_AMOUNT,GUA_OPEN_DATE,GUA_GUARANTEE,GUA_BALANCE,GUA_DEADLINE_DATE,GUA_ADVANCE,corpid,GUA_USERID,GUA_OPT_TIME)
+		VALUES 
+			(#id#,#guaEntName#,#guaRegNo#,#guaSum#,#guaCerInst#,#guaGradeType#,#guaCurrency#,#guaType#,#guaBondRatio#,#guaAmount#,#guaOpenDate#,#guaGuarantee#,#guaBalance#,#guaDeadlineDate#,#guaAdvance#,#corpid#,#guaUserid#,#guaOptTime#)
+	    <selectKey resultClass="java.lang.String" keyProperty="id" >
+          <![CDATA[ 
+            select #id# as id from dual 
+       	  ]]>    
+       	</selectKey> 
+    </insert> 
+	
+    <update id="updateCrGuaranteeSumInfo" parameterClass="CrGuaranteeSumInfo">
+     UPDATE CR_GUARANTEE_SUM_INFO
+	     <dynamic prepend="set">
+			<isNotEmpty prepend="," property="guaEntName">  
+				GUA_ENT_NAME = #guaEntName#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="guaRegNo">  
+				GUA_REG_NO = #guaRegNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="guaSum">  
+				GUA_SUM = #guaSum#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="guaCerInst">  
+				GUA_CER_INST = #guaCerInst#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="guaGradeType">  
+				GUA_GRADE_TYPE = #guaGradeType#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="guaCurrency">  
+				GUA_CURRENCY = #guaCurrency#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="guaType">  
+				GUA_TYPE = #guaType#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="guaBondRatio">  
+				GUA_BOND_RATIO = #guaBondRatio#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="guaAmount">  
+				GUA_AMOUNT = #guaAmount#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="guaOpenDate">  
+				GUA_OPEN_DATE = #guaOpenDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="guaGuarantee">  
+				GUA_GUARANTEE = #guaGuarantee#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="guaBalance">  
+				GUA_BALANCE = #guaBalance#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="guaDeadlineDate">  
+				GUA_DEADLINE_DATE = #guaDeadlineDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="guaAdvance">  
+				GUA_ADVANCE = #guaAdvance#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="corpid">  
+				corpid = #corpid#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="guaUserid">  
+				GUA_USERID = #guaUserid#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="guaOptTime">  
+				GUA_OPT_TIME = #guaOptTime#
+			</isNotEmpty>
+		</dynamic>
+	    where ID = #id# 
+    </update>
+    
+     <delete id="deleteCrGuaranteeSumInfo" parameterClass="java.lang.String">
+         DELETE FROM CR_GUARANTEE_SUM_INFO WHERE ID = #id# 
+     </delete>
+     
+</sqlMap>

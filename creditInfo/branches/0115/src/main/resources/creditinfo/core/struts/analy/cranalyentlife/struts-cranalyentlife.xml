@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"       
+          "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="cranalyentlife" extends="icinfo-default" namespace="/cranalyentlife" >
+
+		<action name="doReadCrAnalyEntLifeList" class="crAnalyEntLifeAction" method="doReadCrAnalyEntLifeListAction">
+			<result name="success">/jsp/server/analy/cranalyentlife/crAnalyEntLife.jsp</result>
+		</action>
+		
+		<action name="doReadCrAnalyEntLifeListJSON" class="crAnalyEntLifeAction" method="doReadCrAnalyEntLifeListJSONAction">
+		</action>
+	
+		<action name="doEnAddAndEditCrAnalyEntLife" class="crAnalyEntLifeAction" method="doEnAddAndEditCrAnalyEntLifeAction">
+			<result name="success">/jsp/analy/cranalyentlife/cranalyentlifeAddAndEdit.jsp</result>
+		</action>
+		
+		<action name="doAddAndEditCrAnalyEntLife" class="crAnalyEntLifeAction" method="doAddAndEditCrAnalyEntLifeAction">
+		</action>
+		
+		<action name="doDelCrAnalyEntLife" class="crAnalyEntLifeAction" method="doDelCrAnalyEntLifeAction">
+		</action>
+
+		<!-- 获得行业类型 -->
+		<action name="doGetIndustryTypeListJSON" class="crAnalyEntLifeAction" method="doGetIndustryTypeListJSONAction">
+		</action>
+		
+		<!-- 获得特定行业的新生消亡数据 -->
+		<action name="doGetCrAnalyEntLifeJSON" class="crAnalyEntLifeAction" method="doGetCrAnalyEntLifeJSONAction">
+		</action>
+		
+		<!-- 进入三大产业统计数据 页面-->
+		<action name="doEnBigEntLifeList" class="crAnalyEntLifeAction" >
+			<result name="success">/jsp/server/analy/cranalyentlife/cranalybigent.jsp</result>
+		</action>
+		
+		<!-- 获取三大产业统计数据 -->
+		<action name="doGetBigEntLifeListJSON" class="crAnalyEntLifeAction" method="doGetBigEntLifeListJSONAction">
+		</action>
+		
+	</package>
+	
+</struts>

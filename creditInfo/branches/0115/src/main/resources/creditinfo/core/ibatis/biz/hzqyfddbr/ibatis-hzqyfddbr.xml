@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd"> 
+
+<sqlMap namespace="ibatis-hzqyfddbr">
+
+	<typeAlias alias="HzQyfddbr" type="com.icinfo.creditinfo.bean.biz.hzqyfddbr.HzQyfddbr" />
+
+	<resultMap id="hzqyfddbrRlt" class="HzQyfddbr">
+		<result property="id" column="id" />
+		<result property="nbxh" column="nbxh" />
+		<result property="ryxh" column="ryxh" />
+		<result property="xm" column="xm" />
+		<result property="gj" column="gj" />
+		<result property="xb" column="xb" />
+		<result property="csny" column="csny" />
+		<result property="mz" column="mz" />
+		<result property="zzmm" column="zzmm" />
+		<result property="whcd" column="whcd" />
+		<result property="jszc" column="jszc" />
+		<result property="jstc" column="jstc" />
+		<result property="jkzk" column="jkzk" />
+		<result property="hjdz" column="hjdz" />
+		<result property="ssxzqh" column="ssxzqh" />
+		<result property="dh" column="dh" />
+		<result property="yzbm" column="yzbm" />
+		<result property="xzdz" column="xzdz" />
+		<result property="sfzjmc" column="sfzjmc" />
+		<result property="sfzjhm" column="sfzjhm" />
+		<result property="shzw" column="shzw" />
+		<result property="zw" column="zw" />
+		<result property="rylx" column="rylx" />
+		<result property="jl" column="jl" />
+		<result property="bzsm" column="bzsm" />
+		<result property="rmdw" column="rmdw" />
+		<result property="csfs" column="csfs" />
+		<result property="ryfl" column="ryfl" />
+		<result property="yddh" column="yddh" />
+		<result property="zjbh" column="zjbh" />
+		<result property="wpf" column="wpf" />
+		<result property="sqqzyzk" column="sqqzyzk" />
+		<result property="rzqsrq" column="rzqsrq" />
+		<result property="rzjzrq" column="rzjzrq" />
+		<result property="zjqfrq" column="zjqfrq" />
+		<result property="zjyxrq" column="zjyxrq" />
+		<result property="sfhzjg" column="sfhzjg" />
+		<result property="sfhzwj" column="sfhzwj" />
+	</resultMap>
+	
+	<select id="selectHzQyfddbrById" resultMap="hzqyfddbrRlt" parameterClass="java.lang.String">
+		select
+			id,nbxh,ryxh,xm,gj,xb,csny,mz,zzmm,whcd,jszc,jstc,jkzk,hjdz,ssxzqh,dh,yzbm,xzdz,sfzjmc,sfzjhm,shzw,zw,rylx,jl,bzsm,rmdw,csfs,ryfl,yddh,zjbh,wpf,sqqzyzk,rzqsrq,rzjzrq,zjqfrq,zjyxrq,sfhzjg,sfhzwj
+		from 
+			HZ_QYFDDBR
+		where 
+		    ID = #id#
+	</select>
+	
+	<sql id="hzqyfddbr_where">
+	    <dynamic prepend="where">
+			<isNotEmpty prepend="and" property="id">  
+				id = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="nbxh">  
+				nbxh = #nbxh#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ryxh">  
+				ryxh = #ryxh#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="xm">  
+				xm = #xm#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="gj">  
+				gj = #gj#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="xb">  
+				xb = #xb#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="csny">  
+				csny = #csny#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="mz">  
+				mz = #mz#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="zzmm">  
+				zzmm = #zzmm#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="whcd">  
+				whcd = #whcd#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="jszc">  
+				jszc = #jszc#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="jstc">  
+				jstc = #jstc#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="jkzk">  
+				jkzk = #jkzk#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="hjdz">  
+				hjdz = #hjdz#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ssxzqh">  
+				ssxzqh = #ssxzqh#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="dh">  
+				dh = #dh#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="yzbm">  
+				yzbm = #yzbm#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="xzdz">  
+				xzdz = #xzdz#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="sfzjmc">  
+				sfzjmc = #sfzjmc#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="sfzjhm">  
+				sfzjhm = #sfzjhm#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="shzw">  
+				shzw = #shzw#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="zw">  
+				zw = #zw#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="rylx">  
+				rylx = #rylx#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="jl">  
+				jl = #jl#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="bzsm">  
+				bzsm = #bzsm#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="rmdw">  
+				rmdw = #rmdw#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="csfs">  
+				csfs = #csfs#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ryfl">  
+				ryfl = #ryfl#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="yddh">  
+				yddh = #yddh#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="zjbh">  
+				zjbh = #zjbh#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="wpf">  
+				wpf = #wpf#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="sqqzyzk">  
+				sqqzyzk = #sqqzyzk#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="rzqsrq">  
+				rzqsrq = #rzqsrq#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="rzjzrq">  
+				rzjzrq = #rzjzrq#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="zjqfrq">  
+				zjqfrq = #zjqfrq#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="zjyxrq">  
+				zjyxrq = #zjyxrq#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="sfhzjg">  
+				sfhzjg = #sfhzjg#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="sfhzwj">  
+				sfhzwj = #sfhzwj#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="noCorpid">
+			<![CDATA[
+			  nbxh <> #noCorpid#
+			  	]]>
+			</isNotEmpty>
+	    </dynamic>
+	</sql>
+	
+	<select id="selectHzQyfddbrList" resultMap="hzqyfddbrRlt" parameterClass="java.util.HashMap">
+		select
+			id,nbxh,ryxh,xm,gj,xb,csny,mz,zzmm,whcd,jszc,jstc,jkzk,hjdz,ssxzqh,dh,yzbm,xzdz,sfzjmc,sfzjhm,shzw,zw,rylx,jl,bzsm,rmdw,csfs,ryfl,yddh,zjbh,wpf,sqqzyzk,rzqsrq,rzjzrq,zjqfrq,zjyxrq,sfhzjg,sfhzwj
+		from 
+			HZ_QYFDDBR
+		<include refid="hzqyfddbr_where" />
+		<include refid="ibatis-global.mysql_page" />
+	</select>
+	
+	<select id="selectHzQyfddbrTotal" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" >
+		select 
+		    count(ID) 
+		from 
+		    HZ_QYFDDBR
+	    <include refid="hzqyfddbr_where" />
+	</select>
+	
+	<insert id="insertHzQyfddbr" parameterClass="HzQyfddbr">
+       	INSERT INTO HZ_QYFDDBR 
+			(id,nbxh,ryxh,xm,gj,xb,csny,mz,zzmm,whcd,jszc,jstc,jkzk,hjdz,ssxzqh,dh,yzbm,xzdz,sfzjmc,sfzjhm,shzw,zw,rylx,jl,bzsm,rmdw,csfs,ryfl,yddh,zjbh,wpf,sqqzyzk,rzqsrq,rzjzrq,zjqfrq,zjyxrq,sfhzjg,sfhzwj)
+		VALUES 
+			(#id#,#nbxh#,#ryxh#,#xm#,#gj#,#xb#,#csny#,#mz#,#zzmm#,#whcd#,#jszc#,#jstc#,#jkzk#,#hjdz#,#ssxzqh#,#dh#,#yzbm#,#xzdz#,#sfzjmc#,#sfzjhm#,#shzw#,#zw#,#rylx#,#jl#,#bzsm#,#rmdw#,#csfs#,#ryfl#,#yddh#,#zjbh#,#wpf#,#sqqzyzk#,#rzqsrq#,#rzjzrq#,#zjqfrq#,#zjyxrq#,#sfhzjg#,#sfhzwj#)
+	    <selectKey resultClass="java.lang.String" keyProperty="id" >
+          <![CDATA[ 
+            select #id# as id from dual 
+       	  ]]>    
+       	</selectKey> 
+    </insert> 
+	
+    <update id="updateHzQyfddbr" parameterClass="HzQyfddbr">
+     UPDATE HZ_QYFDDBR
+	     <dynamic prepend="set">
+			<isNotEmpty prepend="," property="id">  
+				id = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="nbxh">  
+				nbxh = #nbxh#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="ryxh">  
+				ryxh = #ryxh#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="xm">  
+				xm = #xm#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="gj">  
+				gj = #gj#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="xb">  
+				xb = #xb#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="csny">  
+				csny = #csny#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="mz">  
+				mz = #mz#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="zzmm">  
+				zzmm = #zzmm#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="whcd">  
+				whcd = #whcd#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="jszc">  
+				jszc = #jszc#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="jstc">  
+				jstc = #jstc#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="jkzk">  
+				jkzk = #jkzk#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="hjdz">  
+				hjdz = #hjdz#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="ssxzqh">  
+				ssxzqh = #ssxzqh#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="dh">  
+				dh = #dh#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="yzbm">  
+				yzbm = #yzbm#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="xzdz">  
+				xzdz = #xzdz#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="sfzjmc">  
+				sfzjmc = #sfzjmc#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="sfzjhm">  
+				sfzjhm = #sfzjhm#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="shzw">  
+				shzw = #shzw#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="zw">  
+				zw = #zw#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="rylx">  
+				rylx = #rylx#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="jl">  
+				jl = #jl#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="bzsm">  
+				bzsm = #bzsm#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="rmdw">  
+				rmdw = #rmdw#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="csfs">  
+				csfs = #csfs#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="ryfl">  
+				ryfl = #ryfl#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="yddh">  
+				yddh = #yddh#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="zjbh">  
+				zjbh = #zjbh#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="wpf">  
+				wpf = #wpf#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="sqqzyzk">  
+				sqqzyzk = #sqqzyzk#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="rzqsrq">  
+				rzqsrq = #rzqsrq#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="rzjzrq">  
+				rzjzrq = #rzjzrq#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="zjqfrq">  
+				zjqfrq = #zjqfrq#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="zjyxrq">  
+				zjyxrq = #zjyxrq#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="sfhzjg">  
+				sfhzjg = #sfhzjg#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="sfhzwj">  
+				sfhzwj = #sfhzwj#
+			</isNotEmpty>
+		</dynamic>
+	    where ID = #id# 
+    </update>
+    
+     <delete id="deleteHzQyfddbr" parameterClass="java.lang.String">
+         DELETE FROM HZ_QYFDDBR WHERE ID = #id# 
+     </delete>
+     
+</sqlMap>

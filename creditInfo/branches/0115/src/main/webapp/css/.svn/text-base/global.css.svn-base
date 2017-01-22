@@ -1,0 +1,14 @@
+@charset "utf-8";
+/* grid 样式 */
+.gridPager ul{margin:0;}
+
+/* 伪链接 样式 */
+.link{text-decoration:underline;cursor:pointer;color:blue}
+.link:visited{color:#66FF33}
+.link:hover{color:#996666}
+
+/* 出错显红 */
+.warn {
+	background: #F00 !important;
+	color: #FFF !important
+}

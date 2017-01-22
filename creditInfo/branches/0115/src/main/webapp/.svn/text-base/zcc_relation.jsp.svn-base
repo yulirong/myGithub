@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>汇信科技年会节目</title>
+<link rel="stylesheet" type="text/css" href="<s:url value='/css/base.css'/>" />
+<link href="<s:url value='/css/bootstrap/bootstrap.min.css'/>" rel="stylesheet">
+<script src="<s:url value='/js/icinfo/jquery-1.11.1.min.js'/>" type="text/javascript"></script>
+<script src="<s:url value='/js/echart/dist/echarts.js'/>"  type="text/javascript"></script>
+<style type="text/css">
+.aa{margin-top:0px;}
+.clickme:HOVER{ 
+	cursor: pointer; 
+} 
+</style>
+ <script type="text/javascript">
+	$(function(){
+		var flag = true;
+		  var nodeDataJson =[];
+		  var corpid="${userName}";
+		  var entname="${userName}";
+		  var isFrgx="${isFrgx}";//法定代表人
+		  var isGdgx="${isGdgx}";//股东关系
+		  var isDbgx="${isDbgx}";//担保关系
+		  var isPougx="${isPougx}";//配偶关系
+		  var isGjglgx="${isGjglgx}";//高管关系
+		  var isGdgxSlt = "${isGdgxSlt}";//股东关系下拉
+		  var isGjglgxSlt = "${isGjglgxSlt}";//高管关系下拉
+		  var corpidArr = new Array();
+		  corpidArr.push(corpid);
+		  $("#clickme").bind("click",function(){
+			  window.location="<s:url value='/zcc/doEnZccNetAll.do'/>?userName=${userName}";
+		  });
+	       // 路径配置
+		  require.config({
+		      paths: {
+		    	  echarts: "/js/echart/dist"
+		      }
+		  });
+		   // 使用
+		  require(
+		      [
+		          'echarts',
+		          "echarts/chart/chord",
+		          'echarts/chart/force' // 使用柱状图就加载bar模块，按需加载
+		      ],
+		      function (ec) {
+		    	  var win_height=$(window).height();
+		    	  $("#main").height(win_height-150);
+		          // 基于准备好的dom，初始化echarts图表
+		          var myChart = ec.init(document.getElementById('main')); 
+		          
+		          var option = {
+		                title : {
+		                    text: '',
+		                    x:'right',
+		                    y:'bottom'
+		                },
+		                series : [
+		                    {
+		                        type:'force',
+		                        ribbonType: false,
+		                        name : "企业关系",
+		                        categories : [
+		                            {
+		                                name: '主企业',
+		                                symbol: 'rectangle',
+		                                symbolSize: [50,40],
+		                                itemStyle: {
+		                                    normal: {
+		                                        color : '#32CD32',
+		                                        label: {
+		                                            show: true,
+		                                            textStyle: {
+		                                            	fontSize:'30',
+		                                            	fontWeight:'bold',
+		                                                color: '#333333'
+		                                            }
+		                                        },
+		                                        nodeStyle : {
+		                                            // brushType : 'both',
+		                                            // strokeColor : 'rgba(255,215,0,0.4)',
+		                                            // lineWidth : 8
+		                                        }
+		                                    },
+		                                    emphasis: {
+		                                        label: {
+		                                            //show: false
+		                                            // textStyle: null      // 默认使用全局文本样式，详见TEXTSTYLE
+		                                        },
+		                                        nodeStyle : {
+		                                            //r: 30
+		                                        },
+		                                        linkStyle : {}
+		                                    }
+		                                }
+		                            },
+		                            {
+		                                name: '关联人员',
+		                                symbol: 'circle',
+		                                symbolSize: [40,40],
+		                                itemStyle: {
+		                                    normal: {
+		                                        color : '#996699',
+		                                        label: {
+		                                            show: true,
+		                                            textStyle: {
+		                                            	fontSize:'30',
+		                                            	fontWeight:'bold',
+		                                                color: '#ffffff'
+		                                            }
+		                                        },
+		                                        nodeStyle : {
+		                                            // brushType : 'both',
+		                                            // strokeColor : 'rgba(255,215,0,0.4)',
+		                                            // lineWidth : 8
+		                                        }
+		                                    },
+		                                    emphasis: {
+		                                        label: {
+		                                            //show: false
+		                                            // textStyle: null      // 默认使用全局文本样式，详见TEXTSTYLE
+		                                        },
+		                                        nodeStyle : {
+		                                            //r: 30
+		                                        },
+		                                        linkStyle : {}
+		                                    }
+		                                }
+		                            },
+		                            {
+		                                name: '关联企业',
+		                                symbol: 'circle',
+		                                symbolSize: [44, 44],
+		                                itemStyle: {
+		                                    normal: {
+		                                    	color : '#FFCD32',
+		                                        label: {
+		                                            show: true,
+		                                            textStyle: {
+		                                            	fontSize:'30',
+		                                            	fontWeight:'bold',
+		                                            	color: '#333333'
+		                                            }
+		                                        },
+		                                        nodeStyle : {
+		                                        }
+		                                    },
+		                                    emphasis: {
+		                                        label: {
+		                                            //show: false
+		                                            // textStyle: null      // 默认使用全局文本样式，详见TEXTSTYLE
+		                                        },
+		                                        nodeStyle : {
+		                                        },
+		                                        linkStyle : {}
+		                                    }
+		                                }
+		                            }
+		                        ],
+		                        symbolSize: 30,
+		                        linkSymbol: 'arrow',
+		                        minRadius : 10,
+		        	            maxRadius : 40,
+		        	            gravity: 1.5,
+		        	            scaling: 1.4,
+		        	            draggable: true,
+		        	            linkSymbol: 'arrow',
+		        	            steps: 10,
+		        	            coolDown: 0.9,
+		        	            roam:false,
+		                        nodes:[],
+		                        links:[]
+		                    }
+		                ]
+		            };
+
+		          // 为echarts对象加载数据 
+		          //myChart.setOption(option); 
+		          forceInit();
+                  var isdbclick ;
+		          var ecConfig = require('echarts/config');
+		          //鼠标单击事件定义
+		          function oneclick(param) {
+		        	  isdbclick = false;
+		        	  setTimeout(function(){
+		        		  if(!isdbclick){
+		        			  doOneClick(param);
+		        		  }
+		        		},500);
+		        	 
+		          };
+		          //单击执行方法
+		          function doOneClick(param){
+		        	  var data = param.data;
+		              var links = option.series[0].links;
+		              var nodes = option.series[0].nodes;
+		              var mc = param.data.mc;
+			             if(mc != null){
+			            	  return false;
+			              }
+			              if (
+			                  data.source != null
+			                  && data.target != null
+			              ) { //点击的是边
+			                  var sourceNode = nodes.filter(function (n) {return n.name == data.source})[0];
+			                  var targetNode = nodes.filter(function (n) {return n.name == data.target})[0];
+			              } else { // 点击的是点
+			            	  if(data.category != 0){
+			                      reloadSubNodes(data);
+			                    }
+			              }
+		          }
+		          //鼠标双击事件定义
+		          function twoclick(param) {
+		        	  isdbclick = true;
+		        	  var data = param.data;
+	                    var nodes = option.series[0].nodes;
+	                    if ( data.source != null&& data.target != null) { //
+	                        var sourceNode = nodes.filter(function (n) {return n.name == data.source})[0];
+	                        var targetNode = nodes.filter(function (n) {return n.name == data.target})[0];
+	                    } else { // 点击的是点
+	                       if($.trim(data.nodeType)=="1" && $.trim(data.corpid) != ""){
+	                    	   window.open("<s:url value='/appsearch/doShowEntBaseInfo.do?corpid='/>"+data.corpid,"_blank");
+	                       }
+	                       if($.trim(data.nodeType)=="2" && $.trim(data.certNo) != ""){
+	                    	   window.open("<s:url value='/crpeopleinfo/doEnCrPeopleInfo.do?sfzjhm='/>"+data.certNo,"_blank");
+	                       }
+	                    }
+		              
+		          };
+		          myChart.on(ecConfig.EVENT.CLICK, oneclick)
+// 		          myChart.on(ecConfig.EVENT.DBLCLICK, twoclick)
+
+		          myChart.on(ecConfig.EVENT.FORCE_LAYOUT_END, function () {
+		             // console.log(myChart.chart.force.getPosition());
+		          });
+		          
+
+		          //首次加载第一层
+		          function forceInit(){
+		        	myChart.clear();
+		        	var initData = {category:0, name: entname, value : 8,corpid:corpid,certNo:"",nodeType:'1'};
+		            option.series[0].nodes.push(initData);
+		            myChart.setOption(option); 
+		            reloadSubNodes(initData)
+		          };
+		        
+		          
+		          //根据节点获取到的子节点及关系数据，与现有数据比较后，重新加载图形（如果相同则收起，如果不同则重新加载）
+		          function reloadSubNodes(data){
+		            var currOption = myChart.getOption();
+		            var currSubNodes = getSubNodes(data)
+		            var currLinks = getLinks(data)
+		            var subNodesSingleName = getSubNodesSingle(data);
+		            $.ajax({ 
+		              url: '/zcc/doGetRelationNetJson.do', 
+		              type:"post",
+		              data:{"corpid":data.corpid,"corpidArr":corpidArr}, 
+		      		  datatype:'json',
+		              success: function(result){
+		            	// resultObj = result;
+		               if(equal(currSubNodes.sort(), result.nodes.sort()) && equal(currLinks.sort(), result.links.sort())){
+		                  removeSubNodes(data);
+		                }else{
+		                  addSubNodes(result);
+		                }
+		              }
+		            });
+		          }
+		          //加载子节点及关系
+		          function addSubNodes(data){
+		        	  var succFlag = false;
+		            var currOption = myChart.getOption();
+		            // currOption.series[0].nodes = currOption.series[0].nodes.concat(data.nodes);
+		            // currOption.series[0].links = currOption.series[0].links.concat(data.links);
+		            //alert(JSON.stringify(data.nodes));
+                   data.links = doGetWrapLinksJson(data.links);
+                   if(flag && data.nodes.length==1){
+                	   $("#error_msg").show();
+                   }
+		            for(i=0;i<data.nodes.length;i++){
+		              var temp1 = currOption.series[0].nodes.filter(function (n) {return n.name == data.nodes[i].name});
+		              if(temp1.length <= 0){
+		            	  if(typeof(data.nodes[i].corpid) != "undefined" && data.nodes[i].corpid!=''){
+		            		  if(data.nodes[i].corpid=='陈晶'){
+		            			  succFlag = true;
+		            		  }
+							corpidArr.push(data.nodes[i].corpid);
+		            	  }
+		                currOption.series[0].nodes.push(data.nodes[i]);
+		              }
+		            }
+
+		            for(j=0;j<data.links.length;j++){
+		              var temp2 = currOption.series[0].links.filter(function (n) {return n.source == data.links[j].source && n.target == data.links[j].target});
+		              if(temp2.length <= 0){
+
+		                currOption.series[0].links.push(data.links[j]);
+		              }
+		            }
+		            myChart.setOption(currOption); 
+		            if(succFlag){
+		            	$("#right_msg").show();
+		            }
+		            flag = false;
+		          }
+		          
+		        //合并 add by gqf 
+	                function doGetWrapLinksJson(links){
+	                	var tempLinks = [];
+	                	var flag =true;
+	                	$.each(links,function(i,n){
+	                		$.each(tempLinks,function(j,m){
+	                			if(n.source==m.source && n.target == m.target){
+	                				flag = false;
+	                				m.name = m.name+"_"+links[i].name;
+	                			}else{
+	                				flag =true;
+	                			}
+	                		});
+	                		if (flag && i>0) {
+	                			tempLinks.push(n);
+	                		}
+	                		if(i==0) tempLinks.push(links[i]);
+	                	});
+	                	return tempLinks;
+	                }
+		          //删除所有孤立子节点及关系
+		          function removeSubNodes(data){
+		            var currOption = myChart.getOption();
+		            var subNodesSingleName = getSubNodesSingle(data);
+		            currOption.series[0].nodes = currOption.series[0].nodes.filter(function (n) {return $.inArray(n.name, subNodesSingleName) < 0});
+		            currOption.series[0].links = currOption.series[0].links.filter(function (n) {return n.target != data.name});
+		            myChart.clear();
+		            myChart.setOption(currOption); 
+		            //myChart.refresh();
+		          }
+		          //获取某个节点的所有子节点
+		          function getSubNodes(data){
+		            var currOption = myChart.getOption();
+		            var exLinks = getLinks(data);
+		            
+		            var subNodesName = [];
+		            //遍历检查
+		            for(i=0;i<exLinks.length;i++){
+		              if(exLinks[i].source != data.name){
+		                subNodesName.push(exLinks[i].source);
+		              }
+		              if(exLinks[i].target != data.name){
+		                subNodesName.push(exLinks[i].target);
+		              }
+		            }
+		            var subNodesResult = currOption.series[0].nodes.filter(function (n) {return $.inArray(n.name, subNodesName) >= 0});
+		            return subNodesResult;
+		          }
+		          //获取某个节点的所有孤立子节点name数组
+		          function getSubNodesSingle(data){
+		            var currOption = myChart.getOption();
+		            var exLinks = getLinks(data);
+		            
+		            var subNodesName = [];
+		            //遍历检查
+		            for(i=0;i<exLinks.length;i++){
+		              if(exLinks[i].source != data.name && getLinks(getNodeById(exLinks[i].source)).length <= 1){
+		                subNodesName.push(exLinks[i].source);
+		              }
+		              if(exLinks[i].target != data.name && getLinks(getNodeById(exLinks[i].target)).length <= 1){
+		                subNodesName.push(exLinks[i].target);
+		              }
+		            }
+		            //alert(subNodesName);
+		            return subNodesName;
+		          }
+		          //获取某个节点的外部关系
+		          function getLinks(data){
+		            var currOption = myChart.getOption();
+		            var linksResult = currOption.series[0].links.filter(function (n) {return n.source == data.name || n.target == data.name});
+		            return linksResult;
+		          }
+		          //根据节点名称获取节点数据
+		          function getNodeById(strName){
+		            var currOption = myChart.getOption();
+		            var nodeResult = currOption.series[0].nodes.filter(function (n) {return n.name == strName});
+		            return nodeResult[0];
+		          }
+		          
+		          //判断两组子节点和关系数据是否相同
+		          function equal(objA, objB){
+
+		              if (typeof arguments[0] != typeof arguments[1])
+		                  return false;
+
+		              //数组
+		              if (arguments[0] instanceof Array)
+		              {
+		                  if (arguments[0].length != arguments[1].length)
+		                      return false;
+		                  
+		                  var allElementsEqual = true;
+		                  for (var i = 0; i < arguments[0].length; ++i)
+		                  {
+		                      if (typeof arguments[0][i] != typeof arguments[1][i])
+		                          return false;
+
+		                      if (typeof arguments[0][i] == 'number' && typeof arguments[1][i] == 'number')
+		                          allElementsEqual = (arguments[0][i] == arguments[1][i]);
+		                      else
+		                          allElementsEqual = arguments.callee(arguments[0][i], arguments[1][i]);            //递归判断对象是否相等                
+		                  }
+		                  return allElementsEqual;
+		              }
+		              
+		              //对象
+		              if (arguments[0] instanceof Object && arguments[1] instanceof Object)
+		              {
+		                  var result = true;
+		                  var attributeLengthA = 0, attributeLengthB = 0;
+		                  for (var o in arguments[0])
+		                  {
+		                      //判断两个对象的同名属性是否相同（数字或字符串）
+		                      if (typeof arguments[0][o] == 'number' || typeof arguments[0][o] == 'string')
+		                          result = eval("arguments[0]['" + o + "'] == arguments[1]['" + o + "']");
+		                      else {
+		                          //如果对象的属性也是对象，则递归判断两个对象的同名属性
+		                          //if (!arguments.callee(arguments[0][o], arguments[1][o]))
+		                          if (!arguments.callee(eval("arguments[0]['" + o + "']"), eval("arguments[1]['" + o + "']")))
+		                          {
+		                              result = false;
+		                              return result;
+		                          }
+		                      }
+		                      ++attributeLengthA;
+		                  }
+		                  
+		                  for (var o in arguments[1]) {
+		                      ++attributeLengthB;
+		                  }
+		                  
+		                  //如果两个对象的属性数目不等，则两个对象也不等
+		                  if (attributeLengthA != attributeLengthB)
+		                      result = false;
+		                  return result;
+		              }
+		              return arguments[0] == arguments[1];
+		          }
+
+		          function forceAllInit(){
+		          	var initData = {category:0, name: entname, value : 8,corpid:corpid,certNo:"",nodeType:'1'};
+		              option.series[0].nodes.push(initData);
+		              myChart.setOption(option); 
+		              reloadAllSubNodes(initData)
+		            };
+		          
+		          //根据节点获取到的子节点及关系数据，与现有数据比较后，重新加载图形（如果相同则收起，如果不同则重新加载）
+		          function reloadAllSubNodes(data){
+		            var currOption = myChart.getOption();
+		            var currSubNodes = getSubNodes(data)
+		            var currLinks = getLinks(data)
+		            $.ajax({ 
+		              url: '/relationalnet/doGetNodeAndLinkAjaxJson.do', 
+		              type:"post",
+		              data:{"corpid":data.corpid,"entname":data.name,"certNo":data.certNo,"nodeType":data.nodeType,"isFrgx":"1","isGdgx":"1","isGjglgx":"1","isDbgx":"1","isPougx":"1","isGdgxSlt":"1","isGjglgxSlt":""},
+		      		  datatype:'json',
+		              success: function(result){
+		            	// resultObj = result;
+		                if(equal(currSubNodes.sort(), result.nodes.sort()) && equal(currLinks.sort(), result.links.sort())){
+		                  removeSubNodes(data);
+		                }
+		                else{
+		                  addSubNodes(result);
+
+		                }
+		              }
+		            });
+		          }
+		          var risk = [
+		                      {
+		                               name:"上虞上海家化销售有限公司",
+		                	           text:"法人代表变更"
+		                	   },
+		                       {
+		                	           name:"沈辉",
+		                	           text:"企业异常名录"
+		                	   },
+		                	   { name:"浙江芳华日化集团有限公司",
+		                		 text:"注册资本变更" 
+		                	   }
+		                	 ];
+		          //企业高亮
+		          function highlightCompany(companyIds){
+		        	  var initData = {category:0, name: entname, value : 8,corpid:corpid,certNo:"",nodeType:'1'};
+		              option.series[0].nodes.push(initData);
+		        	  //遍历更新高亮样式
+		              var currOption = myChart.getOption();
+		              $.ajax({ 
+		                url: '/relationalnet/doGetNodeAndLinkAjaxJson.do', 
+		                type:"post",
+		                data:{"corpid":initData.corpid,"entname":initData.name,"certNo":initData.certNo,"nodeType":initData.nodeType,"isFrgx":"1","isGdgx":"1","isGjglgx":"1","isDbgx":"1","isPougx":"1","isGdgxSlt":"1","isGjglgxSlt":""},
+		        		datatype:'json',
+		                 success: function(data){
+		                    for(i=0;i<data.nodes.length;i++){
+		                      var temp1 = currOption.series[0].nodes.filter(function (n) {return n.name == data.nodes[i].name});
+		                      if(temp1.length <= 0){
+
+		                        currOption.series[0].nodes.push(data.nodes[i]);
+		                      }
+		                    }
+
+		                    for(j=0;j<data.links.length;j++){
+		                      var temp2 = currOption.series[0].links.filter(function (n) {return n.source == data.links[j].source && n.target == data.links[j].target});
+		                      if(temp2.length <= 0){
+		                        currOption.series[0].links.push(data.links[j]);
+		                      }
+		                    }
+		                    //遍历更新高亮样式
+		                    for(i=0;i<currOption.series[0].nodes.length;i++){
+		                      var riskContent = $.trim(doFilterRisk(currOption.series[0].nodes[i].name));
+		                      if(riskContent == ''){
+		                    	  currOption.series[0].nodes[i].category = 4;
+		                    	  currOption.series[0].nodes[i].tooltip = {show: false};
+		                      }else{
+		                    	  currOption.series[0].nodes[i].category = 5;
+		                          currOption.series[0].nodes[i].tooltip = {show: false};
+		                          //currOption.series[0].nodes[i].tooltip.formatter = function(currOption.series[0].nodes[i]){return "ff";};
+		                      }
+		                    	
+		                      
+		                    }
+		                    myChart.setOption(currOption); 
+		                }
+		              });
+		        	  
+		            
+		          }
+		        // 匹配绑定  
+		        $("#matchbtn").bind("click",function(){
+		      		doPathSearchMatchbtn();
+		      	});
+		        
+		        function doDbclick(){
+		        	
+		        }
+		        
+		          //路径查询匹配
+		          function doPathSearchMatchbtn(){
+		        	  var targetCorpid = $("#selectTargetCorpid").val();
+		        	  corpidArr = new Array();
+		        	  corpidArr.push(corpid);
+		        	  if($.trim(targetCorpid) == ""){
+		        		  alert("请选选中要匹配的企业！！");
+		        		  return false;
+		        	  }
+		        	  var currOption = myChart.getOption();
+		        	   $.ajax({ 
+			                url: '/cranalyentrelation/doGetSearchNodePathJSONAction.do', 
+			                type:"post",
+			                data:{"corpid":corpid,"targetCorpid":targetCorpid,"corpidArr":corpidArr},
+			        		datatype:'json',
+			                 success: function(json){
+			                	 if(json.matchflag=='error'){
+			                		 alert('无匹配结果！');
+			                		 return false;
+			                	 }
+			                	 myChart.clear();
+			                	 $("#relTip").html("");
+			                	 $("#relTip").append(json["rists"]);
+			                	 
+			                	 for(i=0;i<json.nodeList.length;i++){
+			   		            	  if(typeof(json.nodeList[i].name) != "undefined" && json.nodeList[i].name!=''){
+			   							corpidArr.push(json.nodeList[i].name);
+			   		            	  }
+			   		            }
+			                	 
+			                	 currOption.series[0].nodes = json["nodeList"];
+			                	 currOption.series[0].links = json["linkList"];
+			                	 currOption.tooltip.formatter = function(params){
+			                		 var data = params.data;
+			                		  return data.mc;
+			                	 };
+			                     myChart.setOption(currOption); 
+			                }
+			              });
+		          }
+		          
+		          
+		          //风险对比
+		          function doFilterRisk(nodeName){
+		        	  var newRisk = risk.filter(function (n){return n.name == nodeName});
+		        	  return newRisk.length > 0 ? newRisk[0].text:"";
+		          }
+		          var newsOption = [
+		            {
+		              id: 101,
+		              name: '更换法定代表人'
+		            },
+		            {
+		              id: 102,
+		              name: '增加对外担保关系'
+		            }
+		          ];
+		          //根据value获取企业动态信息
+		          function getNews(value){
+		            var newsResult = newsOption.filter(function (n) {return n.id == value});
+		            return newsResult[0].name;
+		          }
+
+		         
+		      }
+		  );
+		  
+
+
+	});	
+
+ </script>
+
+</head>
+<body>
+<div style="width: 100%;height: 120px;background-color:#4781D3;text-align: center;" >
+<div style="float: left;"><img src="<s:url value='/images/back_jpg.jpg'/> " alt="return" width="120" height="120" onclick="javascript:window.history.go(-1);" /> </div>
+<div style="float:left;margin-left:30%; margin-top:15px; font-size: 60px;color: white;font-family:Microsoft Yahei;">缘来是你</div>
+<div style="float: right; font-size: 40px; margin-top: 30px; margin-right: 20px;font-family: Microsoft Yahei; ">
+	<div style="border: 3px solid white;padding:2px;" class="refesh_div"><a style="color: white;" class="clickme" id="clickme">别点我</a></div>
+</div> 
+</div>
+<div id="error_msg" class="alert alert-danger" style="height: 100px;font-size: 40px; margin-top: 0px; font-family: Microsoft Yahei; display: none;">
+	未找到${userName}，点击<button type="button" class="btn btn-primary" style="height: 50px; font-size: 25px;" onclick="javascript:window.history.go(-1);"> 返 回 </button>
+</div>
+<div id="right_msg" class="alert alert-success" style="height: 100px;font-size: 40px; margin-top: 0px; font-family: Microsoft Yahei; display: none;">
+	恭喜你，找到目标！
+</div>
+<div id="main"></div>
+</body>
+</html>

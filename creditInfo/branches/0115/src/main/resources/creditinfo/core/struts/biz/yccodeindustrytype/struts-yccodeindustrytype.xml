@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"       
+          "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="yccodeindustrytype" extends="icinfo-default" namespace="/yccodeindustrytype" >
+
+		<action name="doReadYcCodeIndustryTypeList" class="ycCodeIndustryTypeAction" method="doReadYcCodeIndustryTypeListAction">
+			<result name="success">/jsp/biz/yccodeindustrytype/yccodeindustrytypeList.jsp</result>
+		</action>
+		
+		<action name="doReadYcCodeIndustryTypeListJSON" class="ycCodeIndustryTypeAction" method="doReadYcCodeIndustryTypeListJSONAction">
+		</action>
+	
+		<action name="doEnAddAndEditYcCodeIndustryType" class="ycCodeIndustryTypeAction" method="doEnAddAndEditYcCodeIndustryTypeAction">
+			<result name="success">/jsp/biz/yccodeindustrytype/yccodeindustrytypeAddAndEdit.jsp</result>
+		</action>
+		
+		<action name="doAddAndEditYcCodeIndustryType" class="ycCodeIndustryTypeAction" method="doAddAndEditYcCodeIndustryTypeAction">
+		</action>
+		
+		<action name="doDelYcCodeIndustryType" class="ycCodeIndustryTypeAction" method="doDelYcCodeIndustryTypeAction">
+		</action>
+		<!-- 获取产业下的行业 -->
+		<action name="doGetCodeIndustryTypeListJsonByMainIndustry" class="ycCodeIndustryTypeAction" method="doGetCodeIndustryTypeListJsonByMainIndustryAction">
+		</action>
+
+	</package>
+	
+</struts>

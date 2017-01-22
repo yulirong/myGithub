@@ -1,0 +1,3559 @@
+﻿<?xml version="1.0"?>
+
+<ruleset name="jplatformx-rulesets" xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pmd.sourceforge.net/ruleset_2_0_0.xsd">
+
+    <description>rulesets for 'jplatfromx' code review</description>
+
+
+	<rule ref="rulesets/java/basic.xml/JumbledIncrementer" message="[PMD:避免在内层循环中修改外层循环的递增变量]" />
+	<!--example:
+	Message:Avoid modifying an outer loop incrementer in an inner loop for update expression;
+	Description:Avoid jumbled loop incrementers - it's usually a mistake, and it's confusing even if it's what's intended.
+	public class JumbledIncrementerRule1 {
+	  public void foo() {
+	   for (int i = 0; i < 10; i++) {
+		for (int k = 0; k < 20; i++) {
+		 System.out.println("Hello");
+		}
+	   }
+	  }
+	}
+	-->
+	
+	
+	<rule ref="rulesets/java/basic.xml/ForLoopShouldBeWhileLoop" message="[PMD:这个循环可以简化成一个while循环]" />
+	<!--example:
+	Message:This for loop could be simplified to a while loop;
+	Description:Some for loops can be simplified to while loops - this makes them more concise.
+	public class Foo {
+	 void bar() {
+	  for (;true;) true; // No Init or Update part, may as well be: while (true)
+	 }
+	}
+	-->
+	
+	<rule ref="rulesets/java/basic.xml/UnnecessaryConversionTemporary" message="[PMD:避免在将基本数据类型的变量转化成String时候使用临时变量]" />
+	<!--
+	Message:Avoid unnecessary temporaries when converting primitives to Strings
+	Description:Avoid unnecessary temporaries when converting primitives to Strings
+	public String convert(int x) {
+	  // this wastes an object
+	  String foo = new Integer(x).toString();
+	  // this is better
+	  return Integer.toString(x);
+	}
+	-->
+	<rule ref="rulesets/java/basic.xml/OverrideBothEqualsAndHashcode" message="[PMD:请确保你覆盖了equals()和hashCode()方法]" />
+	<!--example:
+	Message:Ensure you override both equals() and hashCode()
+	Description:Override both public boolean Object.equals(Object other), 
+	and public int Object.hashCode(), or override neither.  
+	Even if you are inheriting a hashCode() from a parent class, consider implementing hashCode and explicitly delegating to your superclass.
+	// this is bad
+	public class Bar {
+	  public boolean equals(Object o) {
+		  // do some comparison
+	  }
+	}
+
+	// and so is this
+	public class Baz {
+	  public int hashCode() {
+		  // return some hash value
+	  }
+	}
+
+	// this is OK
+	public class Foo {
+	  public boolean equals(Object other) {
+		  // do some comparison
+	  }
+	  public int hashCode() {
+		  // return some hash value
+	  }
+	}
+	-->
+	<rule ref="rulesets/java/basic.xml/DoubleCheckedLocking" message="[PMD:带锁机制的双重检查在JAVA中是线程不安全的]" />
+	<!--
+	Message:Double checked locking is not thread safe in Java.
+	Description:Partially created objects can be returned by the Double Checked Locking pattern when used in Java.
+	An optimizing JRE may assign a reference to the baz variable before it creates the object the
+    reference is intended to point to.  For more details see 
+	example:
+		public class Foo {
+		Object baz;
+		Object bar() {
+		if(baz == null) { //baz may be non-null yet not fully created
+		  synchronized(this){
+			if(baz == null){
+			  baz = new Object();
+			}
+		  }
+		}
+		return baz;
+	  }
+	}
+	-->	
+	
+	<rule ref="rulesets/java/basic.xml/ReturnFromFinallyBlock" message="[PMD:请避免在finally块中使用return语句]" />
+	<!--
+	Message:Avoid returning from a finally block
+	Description:Avoid returning from a finally block - this can discard exceptions.
+	example:
+	public class Bar {
+	 public String foo() {
+	  try {
+	   throw new Exception( "My Exception" );
+	  } catch (Exception e) {
+	   throw e;
+	  } finally {
+	   return "A. O. K."; // Very bad.
+	  }
+	 }
+	}
+	-->
+	
+	
+		
+	<rule ref="rulesets/java/basic.xml/EmptySynchronizedBlock" message="[PMD:避免空的synchronized块]" />
+	<!--
+	Message:Avoid empty synchronized blocks
+	Description:Avoid empty synchronized blocks - they're useless.
+	example:
+	public class Foo {
+	 public void bar() {
+	  synchronized (this) {
+	   // empty!
+	  }
+	 }
+	}
+	-->
+	
+			
+	<rule ref="rulesets/java/basic.xml/UnnecessaryReturn" message="[PMD:避免不必要的返回语句]" />
+	<!--
+	Message:Avoid empty synchronized blocks
+	Description:Avoid unnecessary return statements
+	example:
+	public class Foo {
+	 public void bar() {
+	  int x = 42;
+	  return;
+	 }
+	}
+	-->
+	
+	<rule ref="rulesets/java/basic.xml/EmptyStaticInitializer" message="[PMD:发现鸟一个空的静态初始块]" />
+	<!--
+	Message:Empty static initializer was found
+	Description:An empty static initializer was found.
+	example:
+	public class Foo {
+	 static {
+	  // empty
+	 }
+	 }
+	-->
+	
+	<rule ref="rulesets/java/basic.xml/UnconditionalIfStatement" message="[PMD:当条件永远是true或者是false的时候，请不要使用if语句]" />
+	<!--
+	Message:Do not use 'if' statements that are always true or always false
+	Description:Do not use "if" statements that are always true or always false.
+	example:
+	public class Foo {
+	 public void close() {
+	  if (true) {
+		   // ...
+	   }
+	 }
+	}
+	-->
+	
+	<rule ref="rulesets/java/basic.xml/EmptyStatementNotInLoop" message="[PMD:空的语句块（包括分好）不是循环的一部分]" />
+	<!--
+	Message:An empty statement (semicolon) not part of a loop
+	Description:An empty statement (aka a semicolon by itself) that is not used
+	as the sole body of a for loop or while loop is probably a bug.  It
+	could also be a double semicolon, which is useless and should be
+	removed.
+	example:
+	public class MyClass {
+	   public void doit() {
+		  // this is probably not what you meant to do;
+		  // the extra semicolon here this is not necessary
+		  System.out.println("look at the extra semicolon");;
+	   }
+	}
+	-->
+	
+	<rule ref="rulesets/java/basic.xml/BooleanInstantiation" message="[PMD:避免实例化一个Boolean类型的变量，使用Boolean.TRUE或者Boolean.FALSE或者Boolean.valueOf()来代替]" />
+	<!--
+	Message:Avoid instantiating Boolean objects; reference Boolean.TRUE or Boolean.FALSE or call Boolean.valueOf() instead.
+	Description:Avoid instantiating Boolean objects; you can reference Boolean.TRUE, Boolean.FALSE, or call Boolean.valueOf() instead.
+	removed.
+	example:
+	public class Foo {
+	 Boolean bar = new Boolean("true"); // just do a Boolean bar = Boolean.TRUE;
+	 Boolean buz = Boolean.valueOf(false); // just do a Boolean buz = Boolean.FALSE;
+	}
+	-->
+	
+	<rule ref="rulesets/java/basic.xml/UnnecessaryFinalModifier" message="[PMD:在final类当中存在不必要的的final修饰符在]" />
+	<!--
+	Message:Unnecessary final modifier in final class
+	Description:When a class has the final modifier, all the methods are automatically final.
+	removed.
+	example:
+	public final class Foo {
+		// This final modifier is not necessary, since the class is final
+		// and thus, all methods are final
+		private final void foo() {
+		}
+	}
+	-->
+	
+	<rule ref="rulesets/java/basic.xml/CollapsibleIfStatements" message="[PMD: 这些if语句块可以合并使用]" />
+	<!--
+	Message:These nested if statements could be combined
+	Description:Sometimes two 'if' statements can be consolidated by separating their conditions with a boolean short-circuit operator.
+	removed.
+	example:
+	public final class Foo {
+    // This final modifier is not necessary, since the class is final
+    // and thus, all methods are final
+	public class Foo {
+	 void bar() {
+	  if (x) {
+	   if (y) {
+		// do stuff
+	   }
+	  }
+	 }
+	}
+	-->
+	
+	<rule ref="rulesets/java/basic.xml/UselessOverridingMethod" message="[PMD: 覆盖（Overriding）方法仅仅是调用了父类的方法]" />
+	<!--
+	Message:Overriding method merely calls super
+	Description:The overriding method merely calls the same method defined in a superclass
+	removed.
+	example:
+	public void foo(String bar) {
+		super.foo(bar);      //Why bother overriding?
+	}
+
+	public String foo() {
+		return super.foo();  //Why bother overriding?
+	}
+
+	@Id
+	public Long getId() {
+		return super.getId();  //OK if 'ignoreAnnotations' is false, which is the default behavior
+	}
+	-->
+	
+	
+	<rule ref="rulesets/java/basic.xml/ClassCastExceptionWithToArray" message="[PMD: 此处Collection.toArray()的用法会抛出ClassCastException强转异常]" />
+	<!--
+	Message:This usage of the Collection.toArray() method will throw a ClassCastException.
+	Description:if you need to get an array of a class from your Collection,
+	you should pass an array of the desidered class
+	as the parameter of the toArray method. Otherwise you will get a
+	ClassCastException.
+	example:
+	import java.util.ArrayList;
+	import java.util.Collection;
+
+	public class Test {
+
+		public static void main(String[] args) {
+			Collection c=new ArrayList();
+			Integer obj=new Integer(1);
+			c.add(obj);
+
+			// this would trigger the rule (and throw a ClassCastException if executed)
+			Integer[] a=(Integer [])c.toArray();
+
+			// this wouldn't trigger the rule
+			Integer[] b=(Integer [])c.toArray(new Integer[c.size()]);
+		}
+	}
+	-->
+	
+	<rule ref="rulesets/java/basic.xml/UselessOperationOnImmutable" message="[PMD: 对一个不可变对象（比如String,BigDecimal或者BigInteger）的操作不会改变对象本身，即如果忽视了对这类对象的调用函数的结果是一种错误]" />
+	<!--
+	Message:An operation on an Immutable object (String, BigDecimal or BigInteger) won't change the object itself
+	Description:An operation on an Immutable object (String, BigDecimal or BigInteger) won't change the object itself. The
+    result of the operation is a new object. Therefore, ignoring the operation result is an error.
+	example:
+	import java.math.*;
+	class Test {
+	 void method1() {
+	  BigDecimal bd=new BigDecimal(10);
+	  bd.add(new BigDecimal(5)); // this will trigger the rule
+	 }
+	 void method2() {
+	  BigDecimal bd=new BigDecimal(10);
+	  bd = bd.add(new BigDecimal(5)); // this won't trigger the rule
+	 }
+	}
+	-->
+
+	
+	 <rule ref="rulesets/java/basic.xml/MisplacedNullCheck" message="[PMD: 空判断在这是不合适的，如果这个变量是一个null，这将会是一个空指针异常]" />
+	<!--
+	Message:The null check here is misplaced; if the variable is null there'll be a NullPointerException
+	Description:The null check here is misplaced. if the variable is null you'll get a NullPointerException.
+    Either the check is useless (the variable will never be "null") or it's incorrect.
+	Example:
+	public class Foo {
+	 void bar() {
+	  if (a.equals(baz) && a != null) {}
+	 }
+	}
+
+	public class Foo {
+	 void bar() {
+	  if (a.equals(baz) || a == null) {}
+	 }
+	}
+	-->
+	
+	<rule ref="rulesets/java/basic.xml/UnusedNullCheckInEquals" message="[PMD: 执行对象的equals()方法时你已经确定它是非空的]" />
+	<!--
+	Message:Invoke equals() on the object you''ve already ensured is not null
+	Description:After checking an object reference for null, you should invoke equals() on that object rather than passing it to another object's equals() method.
+	Example:
+	public class Test {
+
+	public String method1() { return "ok";}
+	public String method2() { return null;}
+
+	public void method(String a) {
+	String b;
+	/*
+	I don't know it method1() can be "null"
+	but I know "a" is not null..
+	I'd better write a.equals(method1())
+	*/
+	if (a!=null && method1().equals(a)) { // will
+	trigger the rule
+	//whatever
+	}
+
+	if (method1().equals(a) && a != null) { //
+	won't trigger the rule
+	//whatever
+	}
+
+	if (a!=null && method1().equals(b)) { // won't
+	trigger the rule
+	//whatever
+	}
+
+	if (a!=null && "LITERAL".equals(a)) { // won't
+	trigger the rule
+	//whatever
+	}
+
+	if (a!=null && !a.equals("go")) { // won't
+	trigger the rule
+	a=method2();
+	if (method1().equals(a)) {
+	//whatever
+	}
+	}
+	}
+	}
+	-->
+	 <rule ref="rulesets/java/basic.xml/AvoidThreadGroup" message="[PMD: 避免使用ThreadGroup;这不是线程安全的！]" />
+	<!--
+	Message:Avoid using ThreadGroup; it is not thread safe
+	Description:Avoid using ThreadGroup; although it is intended to be used in a threaded environment
+	it contains methods that are not thread safe.
+	Example:
+	public class Bar {
+     void buz() {
+      ThreadGroup tg = new ThreadGroup("My threadgroup") ;
+      tg = new ThreadGroup(tg, "my thread group");
+      tg = Thread.currentThread().getThreadGroup();
+      tg = System.getSecurityManager().getThreadGroup();
+     }
+    }
+	-->
+	
+	<rule ref="rulesets/java/basic.xml/BrokenNullCheck" message="[PMD: 在一个可能为空的对象上调用了方法]" />
+	<!--
+	Message:Method call on object which may be null
+	Description:The null check is broken since it will throw a NullPointerException itself.
+				It is likely that you used || instead of && or vice versa.
+	Example:
+	class Foo {
+	 String bar(String string) {
+	  // should be &&
+	  if (string!=null || !string.equals(""))
+		return string;
+	  // should be ||
+	  if (string==null && string.equals(""))
+		return string;
+	 }
+	}
+	-->
+	
+
+	<rule ref="rulesets/java/basic.xml/AvoidUsingOctalValues" message="[PMD: 请勿声明一个以0开头的变量，除非他是一个八进制变量]" />
+	<!--
+	Message:Do not start a literal by 0 unless it's an octal value
+	Description:Integer literals should not start with zero.
+		    Zero means that the rest of literal will be interpreted as an octal value.
+	Example:
+	public class Foo {
+		  int i = 012; // set i with 10 not 12
+		  int j = 010; // set j with 8 not 10
+		  k = i * j; // set k with 80 not 120
+		}
+	-->
+	
+	
+	<rule ref="rulesets/java/basic.xml/CheckResultSet" message="[PMD: 请时常检查下ResultSet对象的导航方法返回的其中的一个对象（比如next,previous,first,last）]" />
+	<!--
+	Message:Always check the return of one of the navigation method (next,previous,first,last) of a ResultSet.
+	Description:Always check the return of one of the navigation method (next,previous,first,last) of a ResultSet. Indeed,
+	            if the value return is 'false', the developer should deal with it !
+	Example:
+	// This is NOT appropriate !
+            Statement stat = conn.createStatement();
+            ResultSet rst = stat.executeQuery("SELECT name FROM person");
+            rst.next(); // what if it returns a 'false' ?
+            String firstName = rst.getString(1);
+
+            // This is appropriate...
+            Statement stat = conn.createStatement();
+            ResultSet rst = stat.executeQuery("SELECT name FROM person");
+            if (rst.next())
+            {
+                String firstName = rst.getString(1);
+            }
+            else
+            {
+                // here you deal with the error ( at least log it)
+            }
+	-->
+	
+	
+    <rule ref="rulesets/java/basic.xml/AvoidMultipleUnaryOperators" message="[PMD: 使用这类多元运算符可能会是一个bug，或者说这是很混乱的·]" />
+	<!--
+	Message:Using multiple unary operators may be a bug, and/or is confusing.
+	Description:Using multiple unary operators may be a bug, and/or is confusing.
+					Check the usage is not a bug, or consider simplifying the expression.
+	Example:// These are typo bugs, or at best needlessly complex and confusing:
+            int i = - -1;
+            int j = + - +1;
+            int z = ~~2;
+            boolean b = !!true;
+            boolean c = !!!true;
+
+            // These are better:
+            int i = 1;
+            int j = -1;
+            int z = 2;
+            boolean b = true;
+            boolean c = false;
+
+            // And these just make your brain hurt:
+            int i = ~-2;
+            int j = -~7;
+	-->
+
+	<rule ref="rulesets/java/braces.xml/WhileLoopsMustUseBraces" message="[PMD: 避免使用while语句时不带花括号]" />
+	<!--
+	Message:Avoid using 'while' statements without curly braces
+	Description:Avoid using 'while' statements without using curly braces.
+	Example:
+	public void doSomething() {
+	  while (true)
+		  x++;
+	}
+	-->
+    <rule ref="rulesets/java/braces.xml/IfElseStmtsMustUseBraces" message="[PMD: 避免使用'if...else'语句时不带花括号]" />
+	<!--
+	Message:Avoid using 'if...else' statements without curly braces
+	Description:Avoid using if..else statements without using curly braces.
+	Example:
+	public void doSomething() {
+	   // this is OK
+	   if (foo) x++;
+	   // but this is not
+	   if (foo)
+		   x=x+1;
+	   else
+		   x=x-1;
+	 }
+	-->
+	
+	<rule ref="rulesets/java/braces.xml/ForLoopsMustUseBraces" message="[PMD: 避免使用'for'语句时不带花括号]" />
+	<!--
+	Message:Avoid using 'for' statements without curly braces
+	Description:Avoid using 'for' statements without using curly braces.
+	Example:
+	public void foo() {
+	 for (int i=0; i<42;i++)
+	   foo();
+	}
+	-->
+	
+    <rule ref="rulesets/java/clone.xml/ProperCloneImplementation" message="[PMD: 对象的克隆方法clone()应该实现父类的clone方法（super.clone）]" />
+	<!--
+	Message:Object clone() should be implemented with super.clone()
+	Description:Object clone() should be implemented with super.clone().
+	Example:
+	class Foo{
+    public Object clone(){
+        return new Foo(); // This is bad
+		}
+	}
+	-->
+	<rule ref="rulesets/java/clone.xml/CloneThrowsCloneNotSupportedException" message="[PMD: clone()方法会抛出一个CloneNotSupportedException异常]" />
+	<!--
+	Message:clone() method should throw CloneNotSupportedException
+	Description:The method clone() should throw a CloneNotSupportedException.
+	Example:
+	public class MyClass implements Cloneable{
+		 public Object clone() { // will cause an error
+			  MyClass clone = (MyClass)super.clone();
+			  return clone;
+		 }
+	 }
+	-->
+	<rule ref="rulesets/java/clone.xml/CloneMethodMustImplementCloneable" message="[PMD: clone()方法仅仅在当前类实现Cloneable接口才被实现]" />
+	<!--
+	Message:clone() method should be implemented only if implementing Cloneable interface
+	Description:The method clone() should only be implemented if the class implements the Cloneable interface with the exception of a final method that only throws CloneNotSupportedException.
+	Example:
+	public class MyClass {
+	 public Object clone() throws CloneNotSupportedException {
+	  return foo;
+	 }
+	}
+	-->
+	
+	
+	<rule ref="rulesets/java/codesize.xml/NPathComplexity" message="[PMD: xxxxxx]" />
+	<!--
+	Message:The method {0}() has an NPath complexity of {1}
+	Description:The NPath complexity of a method is the number of acyclic execution paths through that method.
+	A threshold of 200 is generally considered the point where measures should be taken to reduce complexity.
+	Example:
+	public class Foo {
+	  void bar() {
+	   // lots of complicated code
+	  }
+	 }
+	-->
+	<rule ref="rulesets/java/codesize.xml/ExcessiveMethodLength" message="[PMD: 避免使用太长的方法(体)]" />
+	<!--
+	Message:Avoid really long methods.
+	Description:Violations of this rule usually indicate that the method is doing
+	too much.  Try to reduce the method size by creating helper methods and removing any copy/pasted code.
+	Example:
+	public class Foo {
+	 public void doSomething() {
+	  System.out.println("Hello world!");
+	  System.out.println("Hello world!");
+	  // 98 copies omitted for brevity.
+	 }
+	}
+	-->
+	
+	<rule ref="rulesets/java/codesize.xml/ExcessiveParameterList" message="[PMD: 避免使用太多的参数]" />
+	<!--
+	Message:Avoid really long parameter lists.
+	Description:Long parameter lists can indicate that a new object should be created to
+	wrap the numerous parameters.  Basically, try to group the parameters together.
+	Example:
+	public class Foo {
+	 public void addData(
+	  int p0, int p1, int p2, int p3, int p4, int p5,
+	  int p5, int p6, int p7, int p8, int p9, int p10) {
+	  }
+	 }
+	}
+	-->
+	
+	<rule ref="rulesets/java/codesize.xml/ExcessiveClassLength" message="[PMD: 避免使用太长的类·]" />
+	<!--
+	Message:Avoid really long classes.
+	Description:Long Class files are indications that the class may be trying to
+	do too much.  Try to break it down, and reduce the size to something
+	manageable.
+	Example:
+	public class Foo {
+	  public void bar() {
+		// 1000 lines of code
+	  }
+	}
+	-->
+	<rule ref="rulesets/java/codesize.xml/CyclomaticComplexity" message="[PMD: 复杂度·]" />
+	<!--
+	Message:The {0} ''{1}'' has a Cyclomatic Complexity of {2}.
+	Description:Complexity is determined by the number of decision points in a method plus one for the
+	method entry.  The decision points are 'if', 'while', 'for', and 'case labels'.  Generally,
+	1-4 is low complexity, 5-7 indicates moderate complexity, 8-10 is high complexity,
+	 and 11+ is very high complexity.
+	Example:
+	// Cyclomatic Complexity = 12
+	public class Foo {
+	1   public void example()  {
+	2       if (a == b)  {
+	3           if (a1 == b1) {
+					fiddle();
+	4           } else if a2 == b2) {
+					fiddle();
+				}  else {
+					fiddle();
+				}
+	5       } else if (c == d) {
+	6           while (c == d) {
+					fiddle();
+				}
+	7        } else if (e == f) {
+	8           for (int n = 0; n < h; n++) {
+					fiddle();
+				}
+			} else{
+				switch (z) {
+	9               case 1:
+						fiddle();
+						break;
+	10              case 2:
+						fiddle();
+						break;
+	11              case 3:
+						fiddle();
+						break;
+	12              default:
+						fiddle();
+						break;
+				}
+			}
+		}
+	}
+	-->
+	
+	<rule ref="rulesets/java/codesize.xml/ExcessivePublicCount" message="[PMD: 这个类有过多的公共的方法和公共的属性]" />
+	<!--
+	Message:This class has a bunch of public methods and attributes
+	Description:A large number of public methods and attributes declared in a class can indicate the
+	class may need to be broken up as increased effort will be required to thoroughly test it.
+	Example:
+	public class Foo {
+	 public String value;
+	 public Bar something;
+	 public Variable var;
+	 // [... more more public attributes ...]
+	 public void doWork() {}
+	 public void doMoreWork() {}
+	 public void doWorkAgain() {}
+	 // [... more more public methods ...]
+	}
+	-->
+	
+	<rule ref="rulesets/java/codesize.xml/TooManyFields" message="[PMD: 存在过多的属性]" />
+	<!--
+	Message:Too many fields
+	Description:Classes that have too many fields could be redesigned to have fewer fields, possibly
+	 through some nested object grouping of some of the information.  For example, a class with
+	 city/state/zip fields could instead have one Address field.
+	Example:
+	public class Person {
+	   String one;
+	   int two;
+	   int three;
+	   [... many more public fields ...]
+	}
+	-->
+	
+	<rule ref="rulesets/java/codesize.xml/NcssMethodCount" message="[PMD:方法{0}有{1}行'没有注释、源码的语句']" />
+	<!--
+	Message:The method {0}() has an NCSS line count of {1}
+	Description:This rule uses the NCSS (Non Commenting Source Statements) algorithm to determine the number of lines
+	of code for a given method. NCSS ignores comments, and counts actual statements. Using this algorithm,
+	lines of code that are split are counted as one.
+	Example:
+	public class Foo extends Bar {
+	 public int methd() {
+		 super.methd();
+
+
+
+
+
+	 //this method only has 1 NCSS lines
+		  return 1;
+	 }
+	}
+	-->
+	
+	
+	
+	<rule ref="rulesets/java/codesize.xml/NcssTypeCount" message="[PMD:存在{0}'没有注释、源码的语句'行]" />
+	<!--
+	Message:The type has an NCSS line count of {0}
+	Description:This rule uses the NCSS (Non Commenting Source Statements) algorithm to determine the number of lines
+	of code for a given type. NCSS ignores comments, and counts actual statements. Using this algorithm,
+	lines of code that are split are counted as one.
+	Example:
+	public class Foo extends Bar {
+	 public Foo() {
+	 //this class only has 6 NCSS lines
+		 super();
+
+
+
+
+
+		  super.foo();
+	 }
+	}
+	-->
+	<rule ref="rulesets/java/codesize.xml/NcssConstructorCount" message="[PMD:构造方法{0}存在{1}行'没有注释、源码的语句'的语句]" />
+	<!--
+	Message:The constructor with {0} parameters has an NCSS line count of {1}
+	Description:This rule uses the NCSS (Non Commenting Source Statements) algorithm to determine the number of lines
+	of code for a given type. NCSS ignores comments, and counts actual statements. Using this algorithm,
+	lines of code that are split are counted as one.
+	Example:
+	public class Foo extends Bar {
+	 public Foo() {
+	 //this class only has 6 NCSS lines
+		 super();
+
+
+
+
+
+		 super.foo();
+	 }
+	}
+	-->
+	
+	
+	<rule ref="rulesets/java/codesize.xml/TooManyMethods" message="[PMD:这个类有太多的方法，可以考虑重构下]" />
+	<!--
+	Message:This class has too many methods, consider refactoring it.
+	Description:A class with too many methods is probably a good suspect for refactoring, in order to reduce its complexity and find a way to
+	have more fine grained objects.	
+	Example:NON
+	-->
+	
+	
+	<rule ref="rulesets/java/controversial.xml/UnnecessaryConstructor" message="[PM:非必要的构造函数，编译器会为你自动生成]"/>
+	<!--
+	Message:Avoid unnecessary constructors - the compiler will generate these for you
+	Description:This rule detects when a constructor is not necessary; i.e., when there's only one constructor,
+	it's public, has an empty body, and takes no arguments.
+	Example:
+	public class Foo {
+	 public Foo() {}
+	}
+	-->	
+	
+	<rule ref="rulesets/java/controversial.xml/NullAssignment" message="[PMD:将null赋值给变量(在声明之外)常常是不好的形式]"/>
+	<!--
+	Message:Assigning an Object to null is a code smell.  Consider refactoring.
+	Description:Assigning a "null" to a variable (outside of its declaration) is usually
+	 bad form.  Some times, the assignment is an indication that the programmer doesn't
+	 completely understand what is going on in the code.  NOTE: This sort of assignment
+	 may in rare cases be useful to encourage garbage collection.  If that's what you're using
+	 it for, by all means, disregard this rule :-)
+	Example:
+	public class Foo {
+	   public void bar() {
+		 Object x = null; // This is OK.
+		 x = new Object();
+		 // Big, complex piece of code here.
+		 x = null; // This is BAD.
+		 // Big, complex piece of code here.
+	   }
+	 }
+	-->	
+	
+	<rule ref="rulesets/java/controversial.xml/OnlyOneReturn" message="[PMD:一个方法应该有且只有一处返回点，且应该是方法的最后一条语句。]"/>
+	<!--
+	Message:A method should have only one exit point, and that should be the last statement in the method
+	Description:A method should have only one exit point, and that should be the last statement in the method.
+	Example:
+	public class OneReturnOnly1 {
+	  public void foo(int x) {
+	   if (x > 0) {
+		return "hey";   // oops, multiple exit points!
+	   }
+	   return "hi";
+	  }
+	 }
+	-->	
+	
+	
+	
+	<rule ref="rulesets/java/controversial.xml/AssignmentInOperand" message="[PMD:避免在操作中赋值；这会使代码复杂并且难以阅读]"/>
+	<!--
+	Message:Avoid assignments in operands
+	Description:Avoid assignments in operands; this can make code more complicated and harder to read.
+	Example:
+	public class Foo {
+	 public void bar() {
+	  int x = 2;
+	  if ((x = getX()) == 3) {
+	   System.out.println("3!");
+	  }
+	 }
+	 private int getX() {
+	  return 3;
+	 }
+	}
+	-->	
+	
+	<rule ref="rulesets/java/controversial.xml/AtLeastOneConstructor" message="[PMD:至少有一个构造器=>每个类应该至少声明一个构造器]"/>
+	<!--
+	Message:Each class should declare at least one constructor
+	Description:Each class should declare at least one constructor.
+	Example:
+	public class Foo {
+	 // no constructor!  not good!
+	}
+	-->	
+	
+	<rule ref="rulesets/java/controversial.xml/DontImportSun" message="[PMD:不要引入Sun包：避免从”sun.*”引入任何类，这些包不是轻便的而且可能更改]"/>
+	<!--
+	Message:Avoid importing anything from the 'sun.*' packages
+	Description:Avoid importing anything from the 'sun.*' packages.  These packages are not portable and are likely to change.
+	Example:
+	import sun.misc.foo;
+	public class Foo {}
+	-->
+	
+	
+	<rule ref="rulesets/java/controversial.xml/SuspiciousOctalEscape" message="[PMD:令人迷惑的八进制转义序列]"/>
+	<!--
+	Message:Suspicious decimal characters following octal escape in string literal
+	Description:A suspicious octal escape sequence was found inside a String literal.
+	The Java language specification (section 3.10.6) says an octal
+	escape sequence inside a literal String shall consist of a backslash
+	followed by:
+
+	   OctalDigit | OctalDigit OctalDigit | ZeroToThree OctalDigit OctalDigit
+
+	Any octal escape sequence followed by non-octal digits can be confusing,
+	e.g. "\038" is interpreted as the octal escape sequence "\03" followed by
+	the literal character "8".
+	Example:
+	public class Foo {
+	 public void foo() {
+	  // interpreted as octal 12, followed by character '8'
+	  System.out.println("suspicious: \128");
+	 }
+	}
+	-->
+	
+	
+	<rule ref="rulesets/java/controversial.xml/CallSuperInConstructor" message="[PMD:在构造器中调用super()方法是很好的做法]"/>
+	<!--
+	Message:It is a good practice to call super() in a constructor
+	Description:It is a good practice to call super() in a constructor. If super() is not called but
+	another constructor (such as an overloaded constructor) is called, this rule will not report it.
+	Example:
+	public class Foo extends Bar{
+	 public Foo() {
+	  // call the constructor of Bar
+	  super();
+	 }
+	 public Foo(int code) {
+	  // do something with code
+	  this();
+	  // no problem with this
+	 }
+	}
+	-->
+	
+	
+	<rule ref="rulesets/java/controversial.xml/UnnecessaryParentheses" message="[PMD:不必要的花括号：有时候表达式被包在一个不必要的圆括号中，使它们看起来像是一个函数调用]"/>
+	<!--
+	Message:This statement may have some unnecessary parentheses
+	Description:Sometimes expressions are wrapped in unnecessary parentheses,
+	making them look like a function call.
+	Example:
+	public class Foo {
+		  boolean bar() {
+			  return (true);
+		  }
+	  }
+	-->
+	<rule ref="rulesets/java/controversial.xml/DefaultPackage" message="[PMD:使用明确的范围代替默认的包私有的级别]"/>
+	<!--
+	Message:Use explicit scoping instead of the default package private level
+	Description:Use explicit scoping instead of the default package private level.
+	Example:NON
+	-->
+	<rule ref="rulesets/java/controversial.xml/BooleanInversion" message="[PMD:布尔转换-》使用按位转换来转换布尔值-这是最快的方法]"/>
+	<!--
+	Message:Use bitwise inversion to invert boolean values
+	Description:Use bitwise inversion to invert boolean values - it's the fastest way to do this.
+	See http://www.javaspecialists.co.za/archive/newsletter.do?issue=042&locale=en_US for specific details
+	Example:
+	public class Foo {
+	 public void main(bar) {
+	  boolean b = true;
+	  b = !b; // slow
+	  b ^= true; // fast
+	 }
+	}
+	-->
+	<rule ref="rulesets/java/controversial.xml/DataflowAnomalyAnalysis" message="[PMD:变量''{1}'' (lines ''{2}''-''{3}'')上出现异常]"/>
+	<!--
+	Message:Found ''{0}''-anomaly for variable ''{1}'' (lines ''{2}''-''{3}'').
+	Description:
+	The dataflow analysis tracks local definitions, undefinitions and references to variables on different paths on the data flow.
+	From those informations there can be found various problems.
+
+	1. UR - Anomaly: There is a reference to a variable that was not defined before. This is a bug and leads to an error.
+	2. DU - Anomaly: A recently defined variable is undefined. These anomalies may appear in normal source text.
+	3. DD - Anomaly: A recently defined variable is redefined. This is ominous but don't have to be a bug.
+	Example:
+	public class Foo {
+		public void foo() {
+		 int buz = 5;
+		 buz = 6; // redefinition of buz -> dd-anomaly
+		 foo(buz);
+		 buz = 2;
+		} // buz is undefined when leaving scope -> du-anomaly
+	}
+	-->	
+	
+	<rule ref="rulesets/java/controversial.xml/AvoidFinalLocalVariable" message="[PMD:避免Final类型的本地变量：避免使用final类型的本地变量，将它们转为全局属性]"/>
+	<!--
+	Message:Avoid using final local variables, turn them into fields
+	Description:Avoid using final local variables, turn them into fields.
+	Example:
+	public class MyClass {
+		public void foo() {
+			final String finalLocalVariable;
+		}
+	}
+	-->	
+	<rule ref="rulesets/java/controversial.xml/AvoidUsingShortType" message="[PMD:请勿使用short类型]"/>
+	<!--
+	Message:Do not use the short type
+	Description:Java uses the 'short' type to reduce memory usage, not to optimize calculation. In fact, the jvm does not have any
+            arithmetic capabilities for the short type: the jvm must convert the short into an int, do the proper caculation
+            and convert the int back to a short. So, the use of the 'short' type may have a greater impact than memory usage.
+	Example:public class UsingShort
+    {
+        private short doNotUseShort = 0;
+
+		public UsingShort() {
+			short shouldNotBeUsed = 1;
+			doNotUseShort += shouldNotBeUsed;
+		}
+ 	}
+	-->	
+	<rule ref="rulesets/java/controversial.xml/AvoidUsingVolatile" message="[PMD:不推荐使用volatile修饰符]"/>
+	<!--
+	Message:
+	Use of modifier volatile is not recommended.
+	Description:Use of the keyword 'volatile' is general used to fine tune a Java application, and therefore, requires
+	a good expertise of the Java Memory Model. Moreover, its range of action is somewhat misknown. Therefore,
+	the volatile keyword should not be used for maintenance purpose and portability.
+	Example:public class ThrDeux {
+					private volatile String var;
+
+				}
+	-->	
+	<rule ref="rulesets/java/controversial.xml/AvoidUsingNativeCode" message="[PMD:原生态的代码的使用是不推荐的！]"/>
+	<!--
+	Message:The use of native code is not recommended.
+	Description:As JVM and Java language offer already many help in creating application, it should be
+                very rare to have to rely on non-java code. Even though, it is rare to actually have to
+                use Java Native Interface (JNI). As the use of JNI make application less portable, and
+                harder to maintain, it is not recommended.
+	Example:
+	public class SomeJNIClass {
+                        public SomeJNIClass() {
+                                System.loadLibrary("nativelib");
+                        }
+
+                        static {
+                             System.loadLibrary("nativelib");
+                        }
+
+                        public void invalidCallsInMethod() throws SecurityException, NoSuchMethodException {
+                                System.loadLibrary("nativelib");
+                        }
+          }
+	-->	
+	<rule ref="rulesets/java/controversial.xml/AvoidAccessibilityAlteration" message="[PMD:避免改变访问控制：getDeclaredConstructors(), getDeclaredConstructor(Class[]) 和 setAccessible(),还有PrivilegedAction接口，允许在运行时改变变量、类和方法的可见性，甚至它们是私有的。显然，这是不应该的，因为这种动作违背了封装原则]"/>
+	<!--
+	Message:You should modify visibility of class or methods using getDeclaredConstructors(), getDeclaredConstructor(Class[]), setAccessible() or PrivilegedAction.
+	Description:Methods such as getDeclaredConstructors(), getDeclaredConstructor(Class[]) and setAccessible(),
+            as the interface PrivilegedAction, allow to alter, at runtime, the visilibilty of variable, classes, or
+            methods, even if they are private. Obviously, no one should do so, as such behavior is against everything
+            encapsulation principal stands for.
+	Example:import java.lang.reflect.AccessibleObject;
+			import java.lang.reflect.Method;
+			import java.security.PrivilegedAction;
+
+			public class Violation {
+				public void invalidCallsInMethod() throws SecurityException, NoSuchMethodException {
+					// Possible call to forbidden getDeclaredConstructors
+					Class[] arrayOfClass = new Class[1];
+					this.getClass().getDeclaredConstructors();
+					this.getClass().getDeclaredConstructor(arrayOfClass);
+					Class clazz = this.getClass();
+					clazz.getDeclaredConstructor(arrayOfClass);
+					clazz.getDeclaredConstructors();
+
+					// Possible call to forbidden setAccessible
+					clazz.getMethod("", arrayOfClass).setAccessible(false);
+					AccessibleObject.setAccessible(null, false);
+					Method.setAccessible(null, false);
+					Method[] methodsArray = clazz.getMethods();
+					int nbMethod;
+					for ( nbMethod = 0; nbMethod < methodsArray.length; nbMethod++ ) {
+						methodsArray[nbMethod].setAccessible(false);
+					}
+
+					// Possible call to forbidden PrivilegedAction
+					PrivilegedAction priv = (PrivilegedAction) new Object(); priv.run();
+				}
+			}
+	-->	
+	<rule ref="rulesets/java/controversial.xml/DoNotCallGarbageCollectionExplicitly" message="[PMD:请勿显式地调用垃圾回收方法]"/>
+	<!--
+	Message:Do not explicitly trigger a garbage collection.
+	Description:Calls to System.gc(), Runtime.getRuntime().gc(), and System.runFinalization() are not advised. Code should have the
+		        same behavior whether the garbage collection is disabled using the option -Xdisableexplicitgc or not.
+		        Moreover, "modern" jvms do a very good job handling garbage collections. If memory usage issues unrelated to memory
+			leaks develop within an application, it should be dealt with JVM options rather than within the code itself.
+	Example:
+	public class GCCall
+				{
+			public GCCall()
+						{
+							// Explicit gc call !
+							System.gc();
+						}
+		public void doSomething()
+		 {
+			// Explicit gc call !
+			Runtime.getRuntime().gc();
+		}
+
+	public explicitGCcall() { // Explicit gc call ! System.gc(); }
+
+	public void doSomething() { // Explicit gc call ! Runtime.getRuntime().gc(); } }
+		-->	
+
+
+
+
+	<rule ref="rulesets/java/design.xml/SimplifyBooleanReturns" message="[PMD:避免在返回布尔量时写不必要的if..then..else表达式。]"/>
+	<!--
+	Message:Avoid unnecessary if..then..else statements when returning a boolean
+	Description:Avoid unnecessary if..then..else statements when returning a boolean.
+	Example:public class Foo {
+	  private int bar =2;
+	  public boolean isBarEqualsTo(int x) {
+		// this bit of code
+		if (bar == x) {
+		 return true;
+		} else {
+		 return false;
+		}
+		// can be replaced with a simple
+		// return bar == x;
+	  }
+	}
+	-->	
+	
+	<rule ref="rulesets/java/design.xml/SimplifyBooleanExpressions" message="[PMD:避免布尔表达式之间无用的比较——这样只会使代码复杂化]"/>
+	<!--
+	Message:Avoid unnecessary comparisons in boolean expressions
+	Description:Avoid unnecessary comparisons in boolean expressions - this complicates simple code.
+	Example:
+	public class Bar {
+	 // can be simplified to
+	 // bar = isFoo();
+	 private boolean bar = (isFoo() == true);
+
+	 public isFoo() { return false;}
+	}
+	-->	
+	<rule ref="rulesets/java/design.xml/SwitchStmtsShouldHaveDefault" message="[PMD:Switch表达式应该有default块]"/>
+	<!--
+	Message:Switch statements should have a default label
+	Description:Switch statements should have a default label.
+	Example:public class Foo {
+	 public void bar() {
+	  int x = 2;
+	  switch (x) {
+	   case 2: int j = 8;
+	  }
+	 }
+	}
+	-->	
+	<rule ref="rulesets/java/design.xml/AvoidDeeplyNestedIfStmts" message="[PMD:深度嵌套的if..then表达式难以阅读]"/>
+	<!--
+	Message:Deeply nested if..then statements are hard to read
+	Description:Deeply nested if..then statements are hard to read.
+	Example:public class Foo {
+	 public void bar(int x, int y, int z) {
+	  if (x>y) {
+	   if (y>z) {
+		if (z==x) {
+		 // whew, too deep
+		}
+	   }
+	  }
+	 }
+	}
+	-->	
+	<rule ref="rulesets/java/design.xml/AvoidReassigningParameters" message="[PMD:给传入方法的参数重新赋值是一种需要商榷的行为。使用临时本地变量来代替。]"/>
+	<!--
+	Message:Avoid reassigning parameters such as ''{0}''
+	Description:Reassigning values to parameters is a questionable practice.  Use a temporary local variable instead.
+	Example:
+	public class Foo {
+	 private void foo(String bar) {
+	  bar = "something else";
+	 }
+	}
+	-->	
+	<rule ref="rulesets/java/design.xml/SwitchDensity" message="[PMD:给传入方法的参数重新赋值是一种需要商榷的行为。使用临时本地变量来代替。]"/>
+	<!--
+	Message:A high ratio of statements to labels in a switch statement.  Consider refactoring.
+	Description:A high ratio of statements to labels in a switch statement implies that the switch
+	 statement is doing too much work.  Consider moving the statements into new
+	 methods, or creating subclasses based on the switch variable.
+	Example:
+	public class Foo {
+	 public void bar(int x) {
+	   switch (x) {
+		 case 1: {
+		   // lots of statements
+		   break;
+		 } case 2: {
+		   // lots of statements
+		   break;
+		 }
+	   }
+	 }
+	}
+	-->	
+	
+	<rule ref="rulesets/java/design.xml/ConstructorCallsOverridableMethod" message="[PMD:在构造器中调用可被覆盖的方法可能引发在一个尚未构造完成的对象上调用方法的风险，而且是不易辨识的。]"/>
+	<!--
+	Message:Overridable {0} called during object construction
+	Description:Calling overridable methods during construction poses a risk of invoking methods on an
+	incompletely constructed object and can be difficult to discern.
+	It may leave the sub-class unable to construct its superclass or forced to
+	replicate the construction process completely within itself, losing the ability to call
+	super().  If the default constructor contains a call to an overridable method,
+	the subclass may be completely uninstantiable.   Note that this includes method calls
+	throughout the control flow graph - i.e., if a constructor Foo() calls a private method
+	bar() that calls a public method buz(), this denotes a problem.
+	Example:
+	public class SeniorClass {
+	  public SeniorClass(){
+		  toString(); //may throw NullPointerException if overridden
+	  }
+	  public String toString(){
+		return "IAmSeniorClass";
+	  }
+	}
+	public class JuniorClass extends SeniorClass {
+	  private String name;
+	  public JuniorClass(){
+		super(); //Automatic call leads to NullPointerException
+		name = "JuniorClass";
+	  }
+	  public String toString(){
+		return name.toUpperCase();
+	  }
+	}
+	-->	
+
+	<rule ref="rulesets/java/design.xml/AccessorClassGeneration" message="[PMD:避免通过一个具有私有构造器的外部实例化这个类]"/>
+	<!--
+	Message:Avoid instantiation through private constructors from outside of the constructor's class.
+	Description:Instantiation by way of private constructors from outside of the constructor's class often causes the generation of an accessor.
+	A factory method, or non-privitization of the constructor can eliminate this situation.
+	The generated class file is actually an interface.  It gives the accessing class the ability to invoke a new hidden package
+	scope constructor that takes the interface as a supplementary parameter.  This turns a private constructor effectively into
+	one with package scope, and is challenging to discern.
+	Example:public class Outer {
+	 void method(){
+	  Inner ic = new Inner();//Causes generation of accessor class
+	 }
+	 public class Inner {
+	  private Inner(){}
+	 }
+	}
+	-->	
+
+
+	<rule ref="rulesets/java/design.xml/CloseResource" message="[PMD:确保这些资源(譬如{0},又譬如：Connection,Statement,和ResultSet对象)总在使用后被关闭。]"/>
+	<!--
+	Message:Ensure that resources like this {0} object are closed after use
+	Description:Ensure that resources (like Connection, Statement, and ResultSet objects) are always closed after use.
+	Example:public class Bar {
+	 public void foo() {
+	  Connection c = pool.getConnection();
+	  try {
+		// do stuff
+	  } catch (SQLException ex) {
+		// handle exception
+	  } finally {
+		// oops, should close the connection using 'close'!
+		// c.close();
+	  }
+	 }
+	}
+	-->	
+	
+	
+	<rule ref="rulesets/java/design.xml/NonStaticInitializer" message="[PMD:非静态的构造器容易造成混淆]"/>
+	<!--
+	Message:Non-static initializers are confusing
+	Description:A nonstatic initializer block will be called any time a constructor
+	is invoked (just prior to invoking the constructor).  While this
+	is a valid language construct, it is rarely used and is confusing.
+	Example:
+	public class MyClass {
+	 // this block gets run before any call to a constructor
+	 {
+	  System.out.println("I am about to construct myself");
+	 }
+	}
+	-->	
+	
+
+	<rule ref="rulesets/java/design.xml/NonCaseLabelInSwitchStatement" message="[PMD:switch语句中不存在case标签]"/>
+	<!--
+	Message:A non-case label was present in a switch statement
+	Description:A non-case label (e.g. a named break/continue label) was present in a switch statement.
+	This legal, but confusing. It is easy to mix up the case labels and the non-case labels.
+	Example:public class Foo {
+	 void bar(int a) {
+	  switch (a) {
+	   case 1:
+		  // do something
+		  break;
+	   mylabel: // this is legal, but confusing!
+		  break;
+	   default:
+		  break;
+	  }
+	 }
+	}
+	-->	
+	
+	<rule ref="rulesets/java/design.xml/OptimizableToArrayCall" message="[PMD:这种Collection.toArray()用法还可以优化]"/>
+	<!--
+	Message:This call to Collection.toArray() may be optimizable
+	Description:A call to Collection.toArray can use the Collection's size vs an empty Array of the desired type.
+	Example:
+	class Foo {
+	 void bar(Collection x) {
+	   // A bit inefficient
+	   x.toArray(new Foo[0]);
+	   // Much better; this one sizes the destination array, avoiding
+	   // a reflection call in some Collection implementations
+	   x.toArray(new Foo[x.size()]);
+	 }
+	}
+	-->	
+	
+	<rule ref="rulesets/java/design.xml/BadComparison" message="[PMD:避免使用Double.NaN来做相等比较]"/>
+	<!--
+	Message:Avoid equality comparisons with Double.NaN
+	Description:Avoid equality comparisons with Double.NaN - these are likely to be logic errors.
+	Example:
+	public class Bar {
+	 boolean x = (y == Double.NaN);
+	}
+	-->	
+	
+	
+	<rule ref="rulesets/java/design.xml/EqualsNull" message="[PMD:避免使用equals()去做和null的比较]"/>
+	<!--
+	Message:Avoid using equals() to compare against null
+	Description:Inexperienced programmers sometimes confuse comparison concepts
+	and use equals() to compare to null.
+	Example:
+	class Bar {
+	   void foo() {
+		   String x = "foo";
+		   if (x.equals(null)) { // bad!
+			doSomething();
+		   }
+	   }
+	}
+	-->	
+	<rule ref="rulesets/java/design.xml/ConfusingTernary" message="[PMD:避免使用Avoid if (x != y) ..; else ..]"/>
+	<!--
+	Message:Avoid if (x != y) ..; else ..;
+	Description:
+	In an "if" expression with an "else" clause, avoid negation in
+	the test.  For example, rephrase:
+	if (x != y) diff(); else same();
+	as:
+	if (x == y) same(); else diff();
+	Most "if (x != y)" cases without an "else" are often return
+	cases, so consistent use of this rule makes the code easier
+	to read.  Also, this resolves trivial ordering problems, such
+	as "does the error case go first?" or "does the common case
+	go first?".
+	Example:
+	public class Foo {
+	 boolean bar(int x, int y) {
+	  return (x != y) ? diff : same;
+	 }
+	}
+	-->	
+	
+	<rule ref="rulesets/java/design.xml/InstantiationToGetClass" message="[PMD:避免通过访问getClass()实例化对象，使用.class这个公共属性代替]"/>
+	<!--
+	Message:Avoid instantiating an object just to call getClass() on it; use the .class public member instead
+	Description:Avoid instantiating an object just to call getClass() on it; use the .class public member instead.
+	Example:
+	public class Foo {
+	 // Replace this
+	 Class c = new String().getClass();
+	 // with this:
+	 Class c = String.class;
+	}
+	-->	
+
+	<rule ref="rulesets/java/design.xml/IdempotentOperations" message="[PMD:避免幂等性操作-它们不起任何作用]"/>
+	<!--
+	Message:Avoid idempotent operations (like assigning a variable to itself).
+	Description:Avoid idempotent operations - they are have no effect.
+	Example:
+	public class Foo {
+	 public void bar() {
+	  int x = 2;
+	  x = x;
+	 }
+	}
+	-->	
+	<rule ref="rulesets/java/design.xml/SimpleDateFormatNeedsLocale" message="[PMD:在创建SimleDateFormat的时候，指定一个Locale参数]"/>
+	<!--
+	Message:When instantiating a SimpleDateFormat object, specify a Locale
+	Description:Be sure to specify a Locale when creating a new instance of SimpleDateFormat.
+	Example:
+	public class Foo {
+	 // Should specify Locale.US (or whatever)
+	 private SimpleDateFormat sdf = new SimpleDateFormat("pattern");
+	}
+	-->	
+	
+	<rule ref="rulesets/java/design.xml/ImmutableField" message="[PMD:私有变量''{0}''可以是final的；它仅仅在声明或者构造器中实例化]"/>
+	<!--
+	Message:Private field ''{0}'' could be made final; it is only initialized in the declaration or constructor.
+	Description:
+	Identifies private fields whose values never change once they are initialized either in the declaration of the field or by
+	a constructor.  This aids in converting existing classes to immutable classes.
+	Example:
+	public class Foo {
+	  private int x; // could be final
+	  public Foo() {
+		  x = 7;
+	  }
+	  public void foo() {
+		 int a = x + 2;
+	  }
+	}
+	-->	
+
+
+	<rule ref="rulesets/java/design.xml/UseLocaleWithCaseConversions" message="[PMD: 大小写转换时使用Locale]"/>
+	<!--
+	Message:When doing a String.toLowerCase()/toUpperCase() call, use a Locale
+	Description:
+	When doing a String.toLowerCase()/toUpperCase() call, use a Locale.  This avoids
+	problems with certain locales, i.e. Turkish.
+	Example:
+	class Foo {
+	 // BAD
+	 if (x.toLowerCase().equals("list"))...
+	 /*
+	 This will not match "LIST" when in Turkish locale
+	 The above could be
+	 if (x.toLowerCase(Locale.US).equals("list")) ...
+	 or simply
+	 if (x.equalsIgnoreCase("list")) ...
+	 */
+	 // GOOD
+	 String z = a.toLowerCase(Locale.EN);
+	}
+	-->	
+	<rule ref="rulesets/java/design.xml/AvoidProtectedFieldInFinalClass" message="[PMD:避免在final类中使用protected域，改变成private或者能访问的]"/>
+	<!--
+	Message:Avoid protected fields in a final class.  Change to private or package access.
+	Description:
+	Do not use protected fields in final classes since they cannot be subclassed.
+	Clarify your intent by using private or package access modifiers instead.
+	Example:
+	public final class Bar {
+	 private int x;
+	 protected int y;  //  Bar cannot be subclassed, so is y really private or package visible???
+	 Bar() {}
+	}
+	-->	
+	<rule ref="rulesets/java/design.xml/AssignmentToNonFinalStatic" message="[PMD:给一个非final的static类型赋值：识别出一个非安全的static域使用]"/>
+	<!--
+	Message:Possible unsafe assignment to a non-final static field in a constructor.
+	Description:Identifies a possible unsafe usage of a static field.
+	Example:
+	public class StaticField {
+	   static int x;
+	   public FinalFields(int y) {
+		x = y; // unsafe
+	   }
+	}
+	-->	
+	<rule ref="rulesets/java/design.xml/MissingStaticMethodInNonInstantiatableClass" message="[PMD:一个具有私有构造器且没有任何静态方法或静态变量的类不能被使用]"/>
+	<!--
+	Message:Class cannot be instantiated and does not provide any static methods or fields
+	Description:A class that has private constructors and does not have any static methods or fields cannot be used.
+	Example:
+	/* This class is unusable, since it cannot be
+	 instantiated (private constructor),
+	 and no static method can be called.
+	 */
+	public class Foo {
+	 private Foo() {}
+	 void foo() {}
+	}
+	-->	
+	<rule ref="rulesets/java/design.xml/AvoidSynchronizedAtMethodLevel" message="[PMD:为一个同步的方法加入新代码时可能发生意外]"/>
+	<!--
+	Message:Use block level rather than method level synchronization
+	Description:Method level synchronization can backfire when new code is added to the method.  Block-level
+	synchronization helps to ensure that only the code that needs synchronization gets it.
+	Example:
+	public class Foo {
+	 // Try to avoid this
+	 synchronized void foo() {
+	 }
+	 // Prefer this:
+	 void bar() {
+	  synchronized(this) {
+	  }
+	 }
+	}
+	-->	
+	<rule ref="rulesets/java/design.xml/MissingBreakInSwitch" message="[PMD:switch表达式缺少内含的break块]"/>
+	<!--
+	Message:A switch statement does not contain a break
+	Description:A switch statement without an enclosed break statement may be a bug.
+	Example:
+	public class Foo {
+	 public void bar(int status) {
+	  switch(status) {
+	   case CANCELLED:
+		doCancelled();
+		// break; hm, should this be commented out?
+	   case NEW:
+		doNew();
+	   case REMOVED:
+		doRemoved();
+	   }
+	 }
+	}
+	-->	
+	
+	<rule ref="rulesets/java/design.xml/UseNotifyAllInsteadOfNotify" message="[PMD:使用notifyAll代替notify]"/>
+	<!--
+	Message:Call Thread.notifyAll() rather than Thread.notify()
+	Description:
+	Thread.notify() awakens a thread monitoring the object. If more than one thread is monitoring, then only
+	one is chosen.  The thread chosen is arbitrary; thus it's usually safer to call notifyAll() instead.
+	Example:
+	public class Foo {
+	 void bar() {
+	  x.notify();
+	  // If many threads are monitoring x, only one (and you won't know which) will be notified.
+	  // use instead:
+	  x.notifyAll();
+	 }
+	}
+	-->	
+	
+	<rule ref="rulesets/java/design.xml/AvoidInstanceofChecksInCatchClause" message="[PMD:避免在catch块中使用instanceof:每个产生的异常类型都应该在自己的catch块中被处理。]"/>
+	<!--
+	Message:An instanceof check is being performed on the caught exception.  Create a separate catch clause for this exception type.
+	Description:Each caught exception type should be handled in its own catch clause.
+	Example:
+	try { // Avoid this
+	 // do something
+	} catch (Exception ee) {
+	 if (ee instanceof IOException) {
+	  cleanup();
+	 }
+	}
+	try {  // Prefer this:
+	 // do something
+	} catch (IOException ee) {
+	 cleanup();
+	}
+	-->	
+	<rule ref="rulesets/java/design.xml/AbstractClassWithoutAbstractMethod" message="[PMD:抽象类没有包含抽象方法]"/>
+	<!--
+	Message:This abstract class does not have any abstract methods
+	Description:The abstract class does not contain any abstract methods. An abstract class suggests
+	an incomplete implementation, which is to be completed by subclasses implementing the
+	abstract methods. If the class is intended to be used as a base class only (not to be instantiated
+	direcly) a protected constructor can be provided prevent direct instantiation.
+	Example:
+	public abstract class Foo {
+	 void int method1() { ... }
+	 void int method2() { ... }
+	 // consider using abstract methods or removing
+	 // the abstract modifier and adding protected constructors
+	}
+	-->	
+	<rule ref="rulesets/java/design.xml/SimplifyConditional" message="[PMD:在使用instanceof之间不需要null校验，当给予一个null作为参数时，instanceof返回false]"/>
+	<!--
+	Message:No need to check for null before an instanceof
+	Description:No need to check for null before an instanceof; the instanceof keyword returns false when given a null argument.
+	Example:
+	class Foo {
+	 void bar(Object x) {
+	  if (x != null && x instanceof Bar) {
+	   // just drop the "x != null" check
+	  }
+	 }
+	}
+	-->	
+	<rule ref="rulesets/java/design.xml/CompareObjectsWithEquals" message="[PMD:对象相等性比较：使用equals()比较对象的引用，避免使用”==”来比较]"/>
+	<!--
+	Message:Use equals() to compare object references.
+	Description:Use equals() to compare object references; avoid comparing them with ==.
+	Example:
+	class Foo {
+	 boolean bar(String a, String b) {
+	  return a == b;
+	 }
+	}
+	-->	
+	<rule ref="rulesets/java/design.xml/PositionLiteralsFirstInComparisons" message="[PMD:在字符串比较时，将字面量放在前面-这种方法能够避免当字符串为空时的空指针异常，只是返回false]"/>
+	<!--
+	Message:Position literals first in String comparisons
+	Description:Position literals first in String comparisons - that way if the String is null you won't get a NullPointerException, it'll just return false.
+	Example:
+	class Foo {
+	 boolean bar(String x) {
+	  return x.equals("2"); // should be "2".equals(x)
+	 }
+	}
+		-->	
+
+	
+	
+	<rule ref="rulesets/java/design.xml/NonThreadSafeSingleton" message="[PMD:单例是线程不安全的]"/>
+	<!--
+	Message:Singleton is not thread safe
+	Description:
+	Non-thread safe singletons can result in bad state changes. Eliminate
+	static singletons if possible by instantiating the object directly. Static
+	singletons are usually not needed as only a single instance exists anyway.
+	Other possible fixes are to synchronize the entire method or to use an
+	initialize-on-demand holder class (do not use the double-check idiom).
+
+	See Effective Java, item 48.
+	Example:
+	private static Foo foo = null;
+
+	//multiple simultaneous callers may see partially initialized objects
+	public static Foo getFoo() {
+		if (foo==null)
+			foo = new Foo();
+		return foo;
+	}
+	-->	
+	
+	
+
+	
+
+	
+	<rule ref="rulesets/java/design.xml/AvoidConstantsInterface" message="[PMD:接口仅仅是应该用来建模类的行为的：使用接口作为常量的容器是一种劣质的用法。]"/>
+	<!--
+	Message:An Interface should be used only to model a behaviour; consider converting this to a class.
+	Description:An interface should be used only to model a behaviour of a
+    class: using an interface as a container of constants is a poor usage pattern.
+	Example:
+	public interface ConstantsInterface {
+     public static final int CONSTANT1=0;
+     public static final String CONSTANT2="1";
+    }
+	
+	-->	
+
+	
+	-->	
+	<rule ref="rulesets/java/design.xml/PreserveStackTrace" message="[PMD:在一个catch块中抛出一个新的异常却不把原始的异常传递给新的异常会导致真正的追踪信息栈丢失，而且导致难以有效的调试。]"/>
+	<!--
+	Message:New exception is thrown in catch block, original stack trace may be lost
+	Description:
+	Throwing a new exception from a catch block without passing the original exception into the
+	new exception will cause the true stack trace to be lost, and can make it difficult to
+	debug effectively.
+	Example:
+	public class Foo {
+		void good() {
+			try{
+				Integer.parseInt("a");
+			} catch(Exception e){
+				throw new Exception(e);
+			}
+		}
+		void bad() {
+			try{
+				Integer.parseInt("a");
+			} catch(Exception e){
+				throw new Exception(e.getMessage());
+			}
+		}
+	}
+	
+	-->	
+	
+	<rule ref="rulesets/java/design.xml/UseCollectionIsEmpty" message="[PMD:使用集合类的isEmpty方法：java.util.Collection类的isEmpty方法提供判断一个集合类是否包含元素。不要是使用size()和0比较来重复类库已经提供的方法。]"/>
+	<!--
+	Message:Substitute calls to size() == 0 (or size() != 0) with calls to isEmpty()
+	Description:
+	The isEmpty() method on java.util.Collection is provided to see if a collection has any elements.
+	Comparing the value of size() to 0 merely duplicates existing behavior.
+	Example:
+	public class Foo {
+		void good() {
+        	List foo = getList();
+			if (foo.isEmpty()) {
+				// blah
+			}
+    	}
+
+	    void bad() {
+    	    List foo = getList();
+				if (foo.size() == 0) {
+					// blah
+				}
+	    	}
+	}
+	
+	-->	
+	<rule ref="rulesets/java/design.xml/ClassWithOnlyPrivateConstructorsShouldBeFinal" message="[PMD:类只包含私有的构造器应该是final的：一个类只包含私有的构造器应该是final的，除非私有构造器被一个内部类访问。]"/>
+	<!--
+	Message:A class which only has private constructors should be final
+	Description:A class with only private constructors should be final, unless the private
+	constructor is called by a inner class.
+	Example:
+	public class Foo {  //Should be final
+		private Foo() { }
+	}
+	
+	-->	
+	
+	<rule ref="rulesets/java/design.xml/EmptyMethodInAbstractClassShouldBeAbstract" message="[PMD:个抽象类中的空方法也应该是抽象的：一个抽象类中的空方法也应该是抽象的，因为开发者有可能会信任这个空的实现而不去编写恰当的代码]"/>
+	<!--
+	Message:An empty method in an abstract class should be abstract instead
+	Description:
+	An empty method in an abstract class should be abstract instead, as developer may rely on this empty implementation
+	rather than code the appropriate one.
+	Example:
+	public abstract class ShouldBeAbstract
+				{
+				    public Object couldBeAbstract()
+				    {
+					// Should be abstract method ?
+					return null;
+				   	}
+
+				    public void couldBeAbstract()
+				    {
+				    }
+				}
+	-->	
+	<rule ref="rulesets/java/design.xml/SingularField" message="[PMD:单数的域：域变量只在一个方法中被使用并且第一次使用时对这个域赋值。这种域可以改写为本地变量。]"/>
+	<!--
+	Message:Perhaps ''{0}'' could be replaced by a local variable.
+	Description:
+	This field is used in only one method and the first usage is assigning a value
+	to the field. This probably means that the field can be changed to a local variable.
+	Example:
+	public class Foo {
+		private int x;  //Why bother saving this?
+		public void foo(int y) {
+		 x = y + 5;
+		 return x;
+		}
+	}
+	-->	
+	
+	<rule ref="rulesets/java/design.xml/ReturnEmptyArrayRatherThanNull" message="[PMD: 返回空的数组而不要返回null：对于任何返回数组的方法，返回一个空的数组是一个比返回null引用更好的做法。]"/>
+	<!--
+	Message:Return an empty array rather than 'null'.
+	Description:
+	For any method that returns an array, it's a better behavior to return an empty array rather than a null reference.
+	Example:
+	public class Example
+            {
+                // Not a good idea...
+                public int []badBehavior()
+                {
+                    // ...
+                    return null;
+                }
+
+                // Good behavior
+                public String[] bonnePratique()
+                {
+                    //...
+                    return new String[0];
+                }
+            }
+	-->	
+	
+	<rule ref="rulesets/java/design.xml/AbstractClassWithoutAnyMethod" message="[PMD: 没有任何方法的抽象类：如果抽象类没有提供任何的方法，它可能只是一个不可被实例化的数据容器，在这种状况下，更好的方法是使用私有的或受保护的构造器以阻止实例化可以让类避免带有欺骗性的抽象。]"/>
+	<!--
+	Message:No abstract method which means that the  keyword is most likely used to prevent instantiation. use a private or protected constructor instead.
+	Description:
+	If the abstract class does not provides any methods, it may be just a data container that is not to be instantiated. In this case, it's probably
+	better to use a private or a protected constructor in order to prevent instantiation than make the class misleadingly abstract.
+	Example:
+	public class abstract Example {
+		String field;
+		int otherField;
+	}
+	
+	-->	
+
+	<rule ref="rulesets/java/design.xml/TooFewBranchesForASwitchStatement" message="[PMD:switch表达式带有太少（少于3个）的分支：建议使用if语句来代替！]"/>
+	<!--
+	Message:A switch with less than 3 branches is inefficient, use a if statement instead.
+	Description:
+	Swith are designed complex branches, and allow branches to share treatement. Using a switch for only a few 
+	branches is ill advised, as switches are not as easy to understand as if. In this case, it's most likely
+	is a good idea to use a if statement instead, at least to increase code readability.
+	Example:
+		// With a minimumNumberCaseForASwitch of 3	    
+	public class Foo {
+		public void bar() {
+			switch (condition) {
+				case ONE:
+					instruction;
+					break;
+				default:
+					break; // not enough for a 'switch' stmt, a simple 'if' stmt would have been more appropriate
+			}
+		}
+	}
+	-->	
+
+	<rule ref="rulesets/java/design.xml/UncommentedEmptyConstructor" message="[PMD:不含注释的空构造器：不含注释的空构造器就是说一个构造器内部没有任何程序代码也没有注释。]"/>
+	<!--
+	Message:Document empty constructor
+	Description:
+	Uncommented Empty Constructor finds instances where a constructor does not
+	contain statements, but there is no comment. By explicitly commenting empty
+	constructors it is easier to distinguish between intentional (commented)
+	and unintentional empty constructors.
+	Example:
+	public Foo() {
+	  super();
+	}
+	-->		
+	<rule ref="rulesets/java/design.xml/UncommentedEmptyMethod" message="[PMD:不含注释的空方法：不含注释的空方法就是说一个方法内部没有任何程序代码也没有注释]"/>
+	<!--
+	Message:Document empty method
+	Description:
+	Uncommented Empty Method finds instances where a method does not contain
+	statements, but there is no comment. By explicitly commenting empty methods
+	it is easier to distinguish between intentional (commented) and unintentional
+	empty methods.
+	Example:
+	public void doSomething() {
+	}
+	
+	-->	
+	<rule ref="rulesets/java/design.xml/UnnecessaryLocalBeforeReturn" message="[PMD:在return之前不必要的本地变量：避免创建不必要的本地变量]"/>
+	<!--
+	Message:Consider simply returning the value vs storing it in local variable ''{0}''
+	Description:Avoid unnecessarily creating local variables
+	Example:
+	public class Foo {
+		public int foo() {
+		  int x = doSomething();
+		  return x;  // instead, just 'return doSomething();'
+		}
+	  }
+	-->	
+
+	<rule ref="rulesets/java/design.xml/UnsynchronizedStaticDateFormatter" message="[PMD:不要同步静态的DateFormat类，SimpleDateFormat是非同步的]"/>
+	<!--
+	Message:Static DateFormatter objects should be accessed in a synchronized manner
+	Description:
+	SimpleDateFormat is not synchronized. Sun recomends separate format instances
+	for each thread. If multiple threads must access a static formatter, the
+	formatter must be synchronized either on method or block level.
+	Example:
+	-->	
+
+	<rule ref="rulesets/java/design.xml/UseLocaleWithCaseConversions" message="[PMD:当访问String.toLowerCase()/toUpperCase()时使用Locale参数，这样可以避免某些特定的本地化问题]"/>
+	<!--
+	Message:When doing a String.toLowerCase()/toUpperCase() call, use a Locale
+	Description:When doing a String.toLowerCase()/toUpperCase() call, use a Locale.  This avoids
+	problems with certain locales, i.e. Turkish.
+	Example:
+	class Foo {
+	 // BAD
+	 if (x.toLowerCase().equals("list"))...
+	 /*
+	 This will not match "LIST" when in Turkish locale
+	 The above could be
+	 if (x.toLowerCase(Locale.US).equals("list")) ...
+	 or simply
+	 if (x.equalsIgnoreCase("list")) ...
+	 */
+	 // GOOD
+	 String z = a.toLowerCase(Locale.EN);
+	}
+	-->	
+	<rule ref="rulesets/java/design.xml/UseNotifyAllInsteadOfNotify" message="[PMD:使用notifyAll代替notify]"/>
+	<!--
+	Message:Call Thread.notifyAll() rather than Thread.notify()
+	Description:Thread.notify() awakens a thread monitoring the object. If more than one thread is monitoring, then only
+	one is chosen.  The thread chosen is arbitrary; thus it's usually safer to call notifyAll() instead.
+	Example:
+	public class Foo {
+	 void bar() {
+	  x.notify();
+	  // If many threads are monitoring x, only one (and you won't know which) will be notified.
+	  // use instead:
+	  x.notifyAll();
+	 }
+	}
+	-->	
+	<rule ref="rulesets/java/design.xml/UseSingleton" message="[PMD:如果有一个类包含的只有静态方法，可以考虑做成单例的]"/>
+	<!--
+	Message:All methods are static.  Consider using Singleton instead.  Alternatively, you could add a private constructor or make the class abstract to silence this warning.
+	Description:
+	If you have a class that has nothing but static methods, consider making it a Singleton.
+	Note that this doesn't apply to abstract classes, since their subclasses may
+	well include non-static methods.  Also, if you want this class to be a Singleton,
+	remember to add a private constructor to prevent instantiation.
+	Example:
+	public class MaybeASingleton {
+	 public static void foo() {}
+	 public static void bar() {}
+	}
+	-->	
+	
+	
+
+	
+
+	<rule ref="rulesets/java/imports.xml/DuplicateImports" message="[PMD:避免重复的导入语句]"/>
+	<!--
+	Message:Avoid duplicate imports such as ''{0}''
+	Description:
+	Avoid duplicate import statements.
+	Example:
+	import java.lang.String;
+	import java.lang.*;
+	public class Foo {}
+	-->	
+	
+	<rule ref="rulesets/java/imports.xml/DontImportJavaLang" message="[PMD:避免导入‘java.lang’包下的所有]"/>
+	<!--
+	Message:Avoid importing anything from the package 'java.lang'
+	Description:
+	Avoid importing anything from the package 'java.lang'.  These classes are automatically imported (JLS 7.5.3).
+	Avoid duplicate import statements.
+	Example:
+	// this is bad
+	import java.lang.String;
+	public class Foo {}
+
+	// this is bad
+	import java.lang.*;
+
+	public class Foo {}
+	-->	
+	
+	
+	<rule ref="rulesets/java/imports.xml/UnusedImports" message="[PMD:避免无用的导入语句]"/>
+	<!--
+	Message:Avoid unused imports such as ''{0}''
+	Description:
+	Avoid unused import statements.
+	Example:
+		// this is bad
+	import java.io.File;
+	public class Foo {}
+	-->	
+	<rule ref="rulesets/java/imports.xml/ImportFromSamePackage" message="[PMD:没有必要导入一个在同一个包下的类]"/>
+	<!--
+	Message:No need to import a type that lives in the same package
+	Description:
+	No need to import a type that lives in the same package.
+	Example:
+	package foo;
+	 import foo.Buz; // no need for this
+	 import foo.*; // or this
+	 public class Bar{}
+	-->	
+	<rule ref="rulesets/java/imports.xml/TooManyStaticImports" message="[PMD:过多的static imports会导致代码紊乱]"/>
+	<!--
+	Message:Too many static imports may lead to messy code
+	Description:
+	If you overuse the static import feature, it can make your program unreadable and 
+	unmaintainable, polluting its namespace with all the static members you import. 
+	Readers of your code (including you, a few months after you wrote it) will not know 
+	which class a static member comes from (Sun 1.5 Language Guide).
+	Example:
+	import static Lennon;
+	import static Ringo;
+	import static George;
+	import static Paul;
+	import static Yoko; // Too much !
+	-->	
+	
+	<!--<rule ref="rulesets/java/javabeans.xml/BeanMembersShouldSerialize" message="[PMD:]"/>-->
+	<!--
+	Message:Found non-transient, non-static member. Please mark as transient or provide accessors.
+	Description:
+	If a class is a bean, or is referenced by a bean directly or indirectly
+	it needs to be serializable. Member variables need to be marked as transient,
+	static, or have accessor methods in the class. Marking variables
+	as transient is the safest and easiest modification. Accessor methods should
+	follow the Java naming conventions, i.e.if you have a variable foo, you should
+	provide getFoo and setFoo methods.
+	Example:
+	private transient int someFoo;//good, it's transient
+	  private static int otherFoo;// also OK
+	  private int moreFoo;// OK, has proper accessors, see below
+	  private int badFoo;//bad, should be marked transient
+
+
+	  private void setMoreFoo(int moreFoo){
+			this.moreFoo = moreFoo;
+	  }
+
+	  private int getMoreFoo(){
+			return this.moreFoo;
+	  }
+	-->	
+	<rule ref="rulesets/java/javabeans.xml/MissingSerialVersionUID" message="[PMD:缺少序列化UID]"/>
+	<!--
+	Message:Classes implementing Serializable should set a serialVersionUID
+	Description:
+	Classes that are serializable should provide a serialVersionUID field.
+	Example:
+	public class Foo implements java.io.Serializable {
+	 String name;
+	 // Define serialization id to avoid serialization related bugs
+	 // i.e., public static final long serialVersionUID = 4328743;
+	}
+	-->	
+		
+	<rule ref="rulesets/java/j2ee.xml/UseProperClassLoader" message="[PMD:使用合适的类加载器：在J2EE中getClassLoader()方法可能不会按照期望工作。使用Thread.currentThread().getContextClassLoader()来代替。]"/>
+	<!--
+	Message:In J2EE, getClassLoader() might not work as expected.  Use Thread.currentThread().getContextClassLoader() instead.
+	Description:In J2EE getClassLoader() might not work as expected.  Use Thread.currentThread().getContextClassLoader() instead.
+	Example:
+	public class Foo {
+	 ClassLoader cl = Bar.class.getClassLoader();
+	}
+	-->	
+	<rule ref="rulesets/java/j2ee.xml/MDBAndSessionBeanNamingConvention" message="[PMD:消息驱动bean和会话bean命名规则：EJB规范表示任何消息驱动bean和会话bean的命名应该以’Bean’结尾。]"/>
+	<!--
+	Message:SessionBean or MessageBean should be suffixed by Bean
+	Description:The EJB Specification state that any MessageDrivenBean or SessionBean should be suffixed by Bean.
+	Example:
+	/* Proper name */
+	public class SomeBean implements SessionBean{}
+
+	/* Bad name */
+	public class MissingTheProperSuffix implements SessionBean {}
+	-->	
+	<rule ref="rulesets/java/j2ee.xml/RemoteSessionInterfaceNamingConvention" message="[PMD:远程会话接口命名规则：会话EJB的remote home接口命名应该以‘Home’结尾。]"/>
+	<!--
+	Message:Remote Home interface of a Session EJB should be suffixed by 'Home'
+	Description:Remote Home interface of a Session EJB should be suffixed by 'Home'.
+	Example:
+	/* Proper name */
+	public interface MyBeautifulHome extends javax.ejb.EJBHome {}
+
+	/* Bad name */
+	public interface MissingProperSuffix extends javax.ejb.EJBHome {}
+	-->	
+	<rule ref="rulesets/java/j2ee.xml/LocalInterfaceSessionNamingConvention" message="[PMD:本地接口会话命名规则：会话EJB的本地接口应该以‘Local’结尾。]"/>
+	<!--
+	Message:The Local Interface of a Session EJB should be suffixed by 'Local'
+	Description:The Local Interface of a Session EJB should be suffixed by 'Local'.
+	Example:
+	/* Proper name */
+	public interface MyLocal extends javax.ejb.EJBLocalObject {}
+
+	/* Bad name */
+	public interface MissingProperSuffix extends javax.ejb.EJBLocalObject {}
+	-->	
+	<rule ref="rulesets/java/j2ee.xml/LocalHomeNamingConvention" message="[PMD:本地Home命名规则：会话EJB的本地home接口应该以’LocalHome’结尾]"/>
+	<!--
+	Message:The Local Home interface of a Session EJB should be suffixed by 'LocalHome'
+	Description:The Local Home interface of a Session EJB should be suffixed by 'LocalHome'.
+	Example:
+	/* Proper name */
+	public interface MyBeautifulLocalHome extends javax.ejb.EJBLocalHome {}
+
+	/* Bad name */
+	public interface MissingProperSuffix extends javax.ejb.EJBLocalHome {}
+	-->	
+	<rule ref="rulesets/java/j2ee.xml/RemoteInterfaceNamingConvention" message="[PMD:远程接口命名规则：会话EJB的远程接口应该没有后缀。]"/>
+	<!--
+	Message:Remote Interface of a Session EJB should NOT be suffixed
+	Description:Remote Interface of a Session EJB should NOT be suffixed.
+	Example:
+	/* Bad Session suffix */
+	public interface BadSuffixSession extends javax.ejb.EJBObject {}
+
+	/* Bad EJB suffix */
+	public interface BadSuffixEJB extends javax.ejb.EJBObject {}
+
+	/* Bad Bean suffix */
+	public interface BadSuffixBean extends javax.ejb.EJBObject {}
+	-->	
+	<rule ref="rulesets/java/j2ee.xml/DoNotCallSystemExit" message="[PMD:不要调用System.exit:web应用不该调用System.exit(),因为只有web容器或应用服务器才能停止JVM.]"/>
+	<!--
+	Message:System.exit() should not be used in J2EE/JEE apps
+	Description:
+	Web applications should not call System.exit(), since only the web container or the
+	application server should stop the JVM.
+	Example:
+	public class Foo {
+		public void bar() {
+			// NEVER DO THIS IN A APP SERVER !!!
+			System.exit(0);
+		}
+	}
+	-->	
+	<rule ref="rulesets/java/j2ee.xml/StaticEJBFieldShouldBeFinal" message="[PMD: 静态EJB域应该是final的：根据J2EE规范(p.494),EJB不应该有任何具有写入访问权的静态域，然而，只读静态域是允许的。这样能够保证合适的行为，尤其当实例分布存在于多个JRE的容器中]"/>
+	<!--
+	Message:EJB's shouldn't have non-final static fields
+	Description:
+	According to the J2EE specification (p.494), an EJB should not have any static fields
+	with write access. However, static read only fields are allowed. This ensures proper
+	behavior especially when instances are distributed by the container on several JREs.
+	Example:
+	public class SomeEJB extends EJBObject implements EJBLocalHome {
+		private static int BAD_STATIC_FIELD;
+
+		private static final int GOOD_STATIC_FIELD;
+	}
+	-->	
+	<rule ref="rulesets/java/j2ee.xml/DoNotUseThreads" message="[PMD:不用使用线程：J2EE规范明确禁止使用线程。]"/>
+	<!--
+	Message:To be compliant to J2EE, a webapp should not use any thread.
+	Description:
+	The J2EE specification explicitly forbid use of threads.
+	Example:
+	// This is not allowed
+	public class UsingThread extends Thread {
+
+	}
+	// Neither this,
+	public class OtherThread implements Runnable {
+		// Nor this ...
+		public void methode() {
+			Runnable thread = new Thread(); thread.run();
+		}
+	}
+	-->	
+	
+   
+	<rule ref="rulesets/java/junit.xml/JUnitStaticSuite" message="[PMD:在Junit测试中suite()方法需要是公共的和静态的]"/>
+	<!--
+	Message:You have a suite() method that is not both public and static, so JUnit won't call it to get your TestSuite.  Is that what you wanted to do?
+	Description:
+	The suite() method in a JUnit test needs to be both public and static.
+	Example:
+	import junit.framework.*;
+	public class Foo extends TestCase {
+	 public void suite() {} // oops, should be static
+	 private static void suite() {} // oops, should be public
+	}
+	-->	
+	
+	<rule ref="rulesets/java/junit.xml/JUnitSpelling" message="[PMD:一些Junit框架方法容易拼写错误]"/>
+	<!--
+	Message:You may have misspelled a JUnit framework method (setUp or tearDown)
+	Description:
+	Some JUnit framework methods are easy to misspell.
+	Example:
+	import junit.framework.*;
+	public class Foo extends TestCase {
+	 public void setup() {} // oops, should be setUp
+	 public void TearDown() {} // oops, should be tearDown
+	}
+	-->	
+	
+	<rule ref="rulesets/java/junit.xml/JUnitAssertionsShouldIncludeMessage" message="[PMD:Junit断言应该包含提示信息：Junit断言应该包含提示信息-比如你应该使用三个参数的assertEquals()方法，而不使用两个参数的。]"/>
+	<!--
+	Message:JUnit assertions should include a message
+	Description:
+	JUnit assertions should include a message - i.e., use the three argument version of
+	assertEquals(), not the two argument version.
+	
+	Example:
+	public class Foo extends TestCase {
+	 public void testSomething() {
+	  assertEquals("foo", "bar");
+	  // Use the form:
+	  // assertEquals("Foo does not equals bar", "foo", "bar");
+	  // instead
+	 }
+	}
+	-->	
+	
+	<rule ref="rulesets/java/junit.xml/JUnitTestsShouldIncludeAssert" message="[PMD:Junit测试应该包含断言：Junit测试应该至少包含一个断言。这能让测试更健壮，而且使用附带提示信息的断言能让开发者清楚的了解测试到底做了什么。]"/>
+	<!--
+	Message:JUnit tests should include assert() or fail()
+	Description:
+	JUnit tests should include at least one assertion.  This makes the tests more robust, and
+	using assert with messages provide the developer a clearer idea of what the test does.
+	Example:
+	public class Foo extends TestCase {
+	  public void testSomething() {
+		  Bar b = findBar();
+	  // This is better than having a NullPointerException
+	  // assertNotNull("bar not found", b);
+	  b.work();
+	  }
+	}
+	-->	
+	
+	<rule ref="rulesets/java/junit.xml/TestClassWithoutTestCases" message="[PMD:测试类没有用例：测试类以Test作为后缀。非测试类的命名含有test作为后缀不是好的方式，因为大多数人会以为它是一个测试用例。测试类中的测试方法命名方式是testXXX。]"/>
+	<!--
+	Message:This class name ends with 'Test' but contains no test cases
+	Description:
+	Test classes end with the suffix Test. Having a non-test class with that name is
+	not a good practice, since most people will assume it is a test case. Test
+	classes have test methods named testXXX.
+	Example:
+	//Consider changing the name of the class if it is not a test
+	//Consider adding test methods if it is a test
+	public class CarTest {
+	   public static void main(String[] args) {
+		// do something
+	   }
+	   // code
+	}
+	-->	
+	
+	<rule ref="rulesets/java/junit.xml/UnnecessaryBooleanAssertion" message="[PMD:不必要的布尔断言：包含一个布尔字面量的测试断言是不必要的，因为它总是计算同样的值。如果考虑流程控制(一旦出现assertTrue(false)或类似字眼)或仅仅移除类似assertTrue(true)和assertFalse(false)等表达式。如果你只是打算测试挂起，可以使用fail方法。]"/>
+	<!--
+	Message:assertTrue(true) or similar statements are unnecessary
+	Description:
+	A JUnit test assertion with a boolean literal is unnecessary since it always will eval to the same thing.
+	Consider using flow control (in case of assertTrue(false) or similar) or simply removing
+	statements like assertTrue(true) and assertFalse(false).  If you just want a test to halt, use the fail method.
+	Example:
+	public class SimpleTest extends TestCase {
+	 public void testX() {
+	  // Why on earth would you write this?
+	  assertTrue(true);
+	 }
+	}
+	-->	
+	
+	<rule ref="rulesets/java/junit.xml/UseAssertEqualsInsteadOfAssertTrue" message="[PMD:使用assertEquals替代assertTrue：本规则检查Junit断言在对象值上的相等性。这些断言应该由更多特定的方法组成，例如assertEquals。]"/>
+	<!--
+	Message:Use assertEquals(x, y) instead of assertTrue(x.equals(y))
+	Description:
+	This rule detects JUnit assertions in object equality. These assertions
+	should be made by more specific methods, like assertEquals.
+	Example:
+	public class FooTest extends TestCase {
+	 void testCode() {
+	  Object a, b;
+	  assertTrue(a.equals(b)); // bad usage
+	  assertEquals(?a should equals b?, a, b); // good usage
+	 }
+	}
+	-->	
+	
+	<rule ref="rulesets/java/junit.xml/UseAssertSameInsteadOfAssertTrue" message="[PMD:使用assertSame替代assertTrue:本规则检查Junit断言在对象引用上的相等性。此类断言应该由更多特定方法组成，比如：assertSame，assertNotSame]"/>
+	<!--
+	Message:Use assertSame(x, y) instead of assertTrue(x==y), or assertNotSame(x,y) vs assertFalse(x==y)
+	Description:
+	This rule detects JUnit assertions in object references equality. These assertions
+	should be made by more specific methods, like assertSame, assertNotSame.
+	Example:
+	public class FooTest extends TestCase {
+	 void testCode() {
+	  Object a, b;
+	  assertTrue(a==b); // bad usage
+	  assertSame(a, b);  // good usage
+	 }
+	}
+	-->	
+	
+	<rule ref="rulesets/java/junit.xml/UseAssertNullInsteadOfAssertTrue" message="[PMD:使用assertNull替代assertTrue：本规则检查Junit断言对象引用的相等性，此类断言应该由更多特定方法组成，比如：assertNull，assertNotNull]"/>
+	<!--
+	Message:Use assertNull(x) instead of assertTrue(x==null), or assertNotNull(x) vs assertFalse(x==null)
+	Description:
+	This rule detects JUnit assertions in object references equality. These assertions
+	should be made by more specific methods, like assertNull, assertNotNull.
+	Example:
+	public class FooTest extends TestCase {
+	  void testCode() {
+	   Object a = doSomething();
+	   assertTrue(a==null); // bad usage
+	   assertNull(a);  // good usage
+	   assertTrue(a != null); // bad usage
+	   assertNotNull(a);  // good usage
+	  }
+	 }
+	-->	
+	
+	<rule ref="rulesets/java/junit.xml/SimplifyBooleanAssertion" message="[PMD:简化布尔断言：避免在assertTrue或assertFalse方法测试时使用反向表达，比如：将assertTrue(!expr)换成assertFalse(expr)来表达]"/>
+	<!--
+	Message:assertTrue(!expr) can be replaced by assertFalse(expr)
+	Description:
+	Avoid negation in an assertTrue or assertFalse test.
+	For example, rephrase:
+	assertTrue(!expr);
+	as:
+	assertFalse(expr);
+	Example:
+	public class SimpleTest extends TestCase {
+	 public void testX() {
+	  assertTrue("not empty", !r.isEmpty()); // replace with assertFalse("not empty", r.isEmpty())
+	  assertFalse(!r.isEmpty()); // replace with assertTrue(r.isEmpty())
+	 }
+	}
+	-->	
+	
+	<rule ref="rulesets/java/logging-jakarta-commons.xml/UseCorrectExceptionLogging" message="[PMD:使用正确的异常日志：保证打印出完全的异常堆栈，记录或抛出异常日志时使用包含两个参数的表达式：一个参数是字符串，一个是Throwable类型]"/>
+   <!--
+	Message:Use the correct logging statement for logging exceptions
+	Description:To make sure the full stacktrace is printed out, use the logging statement with 2 arguments: a String and a Throwable.
+	
+	Example:
+	public class Main {
+	 private static final Log _LOG = LogFactory.getLog( Main.class );
+	 void bar() {
+	  try {
+	  } catch( Exception e ) {
+	   _LOG.error( e ); //Wrong!
+	  } catch( OtherException oe ) {
+	   _LOG.error( oe.getMessage(), oe ); //Correct
+	  }
+	 }
+	}
+	-->	
+	
+   <rule ref="rulesets/java/logging-jakarta-commons.xml/ProperLogger" message="[PMD:合适的日志记录器：日志记录器一般应该被定义为private static final的，而且应该有正确的类]"/>
+   <!--
+	Message:Logger should be defined private static final and have the correct class
+	Description:
+	A logger should normally be defined private static final and have the correct class.
+	Private final Log log; is also allowed for rare cases where loggers need to be passed
+	around, with the restriction that the logger needs to be passed into the constructor.
+	Example:
+	public class Foo {
+	 // right
+	  private static final Log LOG = LogFactory.getLog(Foo.class);
+	 // wrong
+	 protected Log LOG = LogFactory.getLog(Testclass.class);
+	}
+	-->	
+	
+<rule ref="rulesets/java/typeresolution.xml/LooseCoupling" message="[PMD:避免使用实现类比如:''{0}'';请使用接口代替]"/>
+	<!--
+	Message:Avoid using implementation types like ''{0}''; use the interface instead
+	Description:
+	Avoid using implementation types (i.e., HashSet); use the interface (i.e, Set) instead
+	Example:
+	import java.util.ArrayList;
+	import java.util.HashSet;
+	public class Bar {
+	 // Use List instead
+	 private ArrayList list = new ArrayList();
+	 // Use Set instead
+	 public HashSet getFoo() {
+	  return new HashSet();
+	 }
+	}
+	-->	
+	<rule ref="rulesets/java/typeresolution.xml/CloneMethodMustImplementCloneable" message="[PMD:对象的clone()方法中应该包含super.clone()实现]"/>
+	<!--
+	Message:clone() method should be implemented only if implementing Cloneable interface
+	Description:
+	The method clone() should only be implemented if the class implements the 
+	Cloneable interface with the exception of a final method that only throws 
+	CloneNotSupportedException. This version uses PMD's type resolution facilities, 
+	and can detect if the class implements or extends a Cloneable class
+	Example:
+	public class MyClass {
+	 public Object clone() throws CloneNotSupportedException {
+	  return foo;
+	 }
+	}
+	-->	
+	<rule ref="rulesets/java/typeresolution.xml/UnusedImports" message="[PMD:避免未被使用的import，比如''{0}'']"/>
+	<!--
+	Message:Avoid unused imports such as ''{0}''
+	Description:
+	Avoid unused import statements. This rule will find unused on demand imports, i.e. import com.foo.*.
+	Example:
+	// this is bad
+	import java.io.*;
+	public class Foo {}
+	-->	
+	<rule ref="rulesets/java/typeresolution.xml/SignatureDeclareThrowsException" message="[PMD:方法/构造不应该明确地抛出 java.lang.Exception异常]"/>
+	<!--
+	Message:A method/constructor shouldn't explicitly throw java.lang.Exception
+	Description:
+	It is unclear which exceptions that can be thrown from the methods.
+	It might be difficult to document and understand the vague interfaces.
+	Use either a class derived from RuntimeException or a checked exception.
+
+	Junit classes are excluded.
+	Example:
+		public void methodThrowingException() throws Exception {
+	}
+	-->	
+	
+
+	<rule ref="rulesets/java/unusedcode.xml/UnusedPrivateField"  message="[PMD:避免未被使用的私有变量，比如''{0}'']"/>
+	<!--
+	Message:Avoid unused private fields such as ''{0}''.
+	Description:
+	Detects when a private field is declared and/or assigned a value, but not used.
+	Example:
+	public class Something {
+	  private static int FOO = 2; // Unused
+	  private int i = 5; // Unused
+	  private int j = 6;
+	  public int addOne() {
+		return j++;
+	  }
+	}
+	-->	
+	<rule ref="rulesets/java/unusedcode.xml/UnusedLocalVariable" message="[PMD:避免未被使用的本地变量，比如''{0}'']"/>
+	<!--
+	Message:Avoid unused local variables such as ''{0}''.
+	Description:
+	Detects when a local variable is declared and/or assigned, but not used.
+	Example:
+	public class Foo {
+	 public void doSomething() {
+	  int i = 5; // Unused
+	 }
+	}
+	-->	
+	<rule ref="rulesets/java/unusedcode.xml/UnusedPrivateMethod" message="[PMD:避免未被使用的私有方法，比如''{0}'']"/>
+	<!--
+	Message:Avoid unused private methods such as ''{0}''.
+	Description:
+	Unused Private Method detects when a private method is declared but is unused.
+	Example:
+	public class Something {
+	 private void foo() {} // unused
+	}
+	-->	
+	<rule ref="rulesets/java/unusedcode.xml/UnusedFormalParameter" message="[PMD:避免没有被用上的参数，比如''{1}'']"/>
+	<!--
+	Message:Avoid unused {0} parameters such as ''{1}''.
+	Description:
+	Avoid passing parameters to methods or constructors and then not using those parameters.
+	Example:
+	public class Foo {
+	 private void bar(String howdy) {
+	  // howdy is not used
+	 }
+	-->	
+	<rule ref="rulesets/java/finalizers.xml/EmptyFinalizer" message="[PMD:避免使用空的finalize方法]"/>
+	<!--
+	Message:Avoid empty finalize methods
+	Description:If the finalize() method is empty, then it does not need to exist.
+	Example:
+	public class Foo {
+	   protected void finalize() {}
+	}
+	-->	
+	
+	<rule ref="rulesets/java/finalizers.xml/FinalizeOverloaded" message="[PMD:finalize方法不应该被重载]"/>
+	<!--
+	Message:Finalize methods should not be overloaded
+	Description:
+	Methods named finalize() should not have parameters.  It is
+	confusing and probably a bug to overload finalize().  It will
+	not be called by the VM.
+	Example:
+	public class Foo {
+	   // this is confusing and probably a bug
+	   protected void finalize(int a) {
+	   }
+	}
+	-->	
+	
+	<rule ref="rulesets/java/finalizers.xml/FinalizeDoesNotCallSuperFinalize" message="[PMD:在finalize方法的最后一行语句应该是调用super.finalize()方法]"/>
+	<!--
+	Message:Last statement in finalize method should be a call to super.finalize()
+	Description:
+	If the finalize() is implemented, its last action should be to call super.finalize.
+	Example:
+	public class Foo {
+	   protected void finalize() {
+		   something();
+		   // neglected to call super.finalize()
+	   }
+	}
+	-->	
+	
+	<rule ref="rulesets/java/finalizers.xml/FinalizeShouldBeProtected" message="[PMD:如果你覆盖finalize()方法，请记得把该方法设置为protected]"/>
+	<!--
+	Message:If you override finalize(), make it protected
+	Description:
+	If you override finalize(), make it protected.  If you make
+	it public, other classes may call it.
+	Example:
+	public class Foo {
+	 public void finalize() {
+	  // do something
+	 }
+	}
+	-->	
+	<rule ref="rulesets/java/finalizers.xml/AvoidCallingFinalize" message="[PMD:避免显示地调用finalize()方法]"/>
+	<!--
+	Message:Avoid calling finalize() explicitly
+	Description:
+	Object.finalize() is called by the garbage collector on an object when garbage collection determines
+	that there are no more references to the object.
+	Example:
+	public class Foo {
+	 void foo() {
+	  Bar b = new Bar();
+	  b.finalize();
+	 }
+	}
+	-->	
+	
+		<rule ref="rulesets/java/logging-java.xml/MoreThanOneLogger" message="[PMD:多于一个日志记录器：一般而言一个日志记录器只用于一个类中。]"/>
+	<!--
+	Message:Class contains more than one logger.
+	Description:
+	Normally only one logger is used in each class.
+	Example:
+	class Foo{
+		Logger log = Logger.getLogger(Foo.class.getName());
+		// It is very rare to see two loggers on a class, normally
+		// log information is multiplexed by levels
+		Logger log2= Logger.getLogger(Foo.class.getName());
+	}
+	-->	
+	
+	<rule ref="rulesets/java/logging-java.xml/LoggerIsNotStaticFinal" message="[PMD:日志记录器不是static final的：大多数情况下，日志记录器应该被定义为static和final的]"/>
+	<!--
+	Message:The Logger variable declaration does not contain the static and final modifiers
+	Description:
+	In most cases, the Logger can be declared static and final.
+	Example:
+	class Foo{
+		Logger log = Logger.getLogger(Foo.class.getName());
+		// It is much better to declare the logger as follows 
+		// static final Logger log = Logger.getLogger(Foo.class.getName());
+	}
+	-->	
+	<rule ref="rulesets/java/logging-java.xml/SystemPrintln" message="[PMD:SystemPrintln：如果发现代码当中使用了System.(out|err).print,应考虑使用日志记录代替]"/>
+	<!--
+	Message:System.out.print is used
+	Description:
+	System.(out|err).print is used, consider using a logger.
+	Example:
+	class Foo{
+    Logger log = Logger.getLogger(Foo.class.getName());
+    public void testA () {
+			System.out.println("Entering test");
+			// Better use this
+			log.fine("Entering test");
+		}
+	}
+	-->	
+	<rule ref="rulesets/java/logging-java.xml/AvoidPrintStackTrace" message="[PMD:避免使用PrintStackTrace:避免使用printStackTrace();使用日志记录器代替。]"/>
+	<!--
+	Message:Avoid printStackTrace(); use a logger call instead.
+	Description:
+	Avoid printStackTrace(); use a logger call instead.
+	Example:
+	class Foo {
+	 void bar() {
+	  try {
+	   // do something
+	  } catch (Exception e) {
+	   e.printStackTrace();
+	  }
+	 }
+	}
+	-->	
+	
+		<rule ref="rulesets/java/naming.xml/ShortVariable" message="[PMD:短变量：检测出域或参数的名字命名非常短。]"/>
+	<!--
+	Message:Avoid variables with short names like {0}
+	Description:
+	Detects when a field, local, or parameter has a very short name.
+	Example:
+	public class Something {
+	  private int q = 15; // VIOLATION - Field
+	  public static void main( String as[] ) {  // VIOLATION - Formal
+		int r = 20 + q; // VIOLATION - Local
+		for (int i = 0; i < 10; i++) { // Not a Violation (inside FOR)
+		  r += q;
+		}
+	  }
+	}
+	-->	
+	<rule ref="rulesets/java/naming.xml/LongVariable" message="[PMD:长变量：检测出域或参数的名字命名非常长]"/>
+	<!--
+	Message:Avoid excessively long variable names like {0}
+	Description:
+	Detects when a field, formal or local variable is declared with a long name.
+	Example:
+	public class Something {
+	  int reallyLongIntName = -3;  // VIOLATION - Field
+	  public static void main( String argumentsList[] ) { // VIOLATION - Formal
+		int otherReallyLongName = -5; // VIOLATION - Local
+		for (int interestingIntIndex = 0;  // VIOLATION - For
+				 interestingIntIndex < 10;
+				 interestingIntIndex ++ ) {
+		}
+	}
+	-->	
+	<rule ref="rulesets/java/naming.xml/ShortMethodName" message="[PMD:短方法名：检测出方法命名太短。]"/>
+	<!--
+	Message:Avoid using short method names
+	Description:
+	Detects when very short method names are used.
+	Example:
+	public class ShortMethod {
+	  public void a( int i ) { // Violation
+	  }
+	}
+	-->	
+	<rule ref="rulesets/java/naming.xml/VariableNamingConventions" message="[PMD: 变量命名约定：变量命名规则-根据你的喜好调整。当前规则检查final类型变量应该全部大写而且非final变量应该不包含下划线。]"/>
+	<!--
+	Message:{0} variable {1} should begin with {2}
+	Description:
+	A variable naming conventions rule - customize this to your liking.  Currently, it
+	 checks for final variables that should be fully capitalized and non-final variables
+	 that should not include underscores.
+	Example:
+	public class Foo {
+	 public static final int MY_NUM = 0;
+	 public String myTest = "";
+	 DataModule dmTest = new DataModule();
+	}
+	-->	
+	<rule ref="rulesets/java/naming.xml/MethodNamingConventions" message="[PMD:方法命名约定：方法命名应该总是以小写字符开头，而且不应该包含下划线。]"/>
+	<!--
+	Message:Method name does not begin with a lower case character.
+	Description:
+	Method names should always begin with a lower case character, and should not contain underscores.
+	Example:
+	public class Foo {
+	 public void fooStuff() {
+	 }
+	}
+	-->	
+	<rule ref="rulesets/java/naming.xml/ClassNamingConventions" message="[PMD:类命名约定：类名应该总是以大写字符开头]"/>
+	<!--
+	Message:Class names should begin with an uppercase character
+	Description:
+	Class names should always begin with an upper case character.
+	Example:
+	public class Foo {}
+	-->	
+	<rule ref="rulesets/java/naming.xml/AbstractNaming" message="[PMD:抽象类命名：抽象类应该命名为‘AbstractXXX’]"/>
+	<!--
+	Message:Abstract classes should be named 'AbstractXXX'
+	Description:
+	Abstract classes should be named 'AbstractXXX'.
+	Example:
+	public abstract class Foo { // should be AbstractFoo
+	}
+	-->	
+	<rule ref="rulesets/java/naming.xml/AvoidDollarSigns" message="[PMD:避免美元符号：在变量/方法/类/接口中避免使用美元符号。]"/>
+	<!--
+	Message:Avoid using dollar signs in variable/method/class/interface names
+	Description:
+	Avoid using dollar signs in variable/method/class/interface names.
+	Example:
+	public class Fo$o {  // yikes!
+	}
+	-->	
+	<rule ref="rulesets/java/naming.xml/MethodWithSameNameAsEnclosingClass" message="[PMD: 方法和封装类同名：非构造方法不能和封装类同名]"/>
+	<!--
+	Message:Classes should not have non-constructor methods with the same name as the class
+	Description:
+	Non-constructor methods should not have the same name as the enclosing class.
+	Example:
+	public class MyClass {
+	 // this is bad because it is a method
+	 public void MyClass() {}
+	 // this is OK because it is a constructor
+	 public MyClass() {}
+	}
+	-->	
+	<rule ref="rulesets/java/naming.xml/SuspiciousHashcodeMethodName" message="[PMD: 令人疑惑的hashCode方法名：方法名和返回值类似于hashCode()，将令人误解为你试图覆盖hashCode()方法。]"/>
+	<!--
+	Message:The method name and return type are suspiciously close to hashCode()
+	Description:
+	The method name and return type are suspiciously close to hashCode(), which
+	may mean you are intending to override the hashCode() method.
+	Example:
+	public class Foo {
+	 public int hashcode() {
+	 // oops, this probably was supposed to be hashCode
+	 }
+	}
+	-->	
+	<rule ref="rulesets/java/naming.xml/SuspiciousConstantFieldName" message="[PMD:令人疑惑的常量字段名：一个字段的名称全部用大些字符表示是Sun的JAVA命名规则，表示这个是常量。然而，字段不是final的。]"/>
+	<!--
+	Message:The field name indicates a constant but its modifiers do not
+	Description:
+	A field name is all in uppercase characters, which in Sun's Java naming
+	conventions indicate a constant. However, the field is not final.
+	Example:
+	public class Foo {
+	 // this is bad, since someone could accidentally
+	 // do PI = 2.71828; which is actualy e
+	 // final double PI = 3.16; is ok
+	 double PI = 3.16;
+	}
+	-->	
+	<rule ref="rulesets/java/naming.xml/SuspiciousEqualsMethodName" message="[PMD:令人迷惑的equals方法名：方法名和参数近似于equals(Object)，可能让人迷惑为你想覆盖equals(Object)方法]"/>
+	<!--
+	Message:The method name and parameter number are suspiciously close to equals(Object)
+	Description:
+	The method name and parameter number are suspiciously close to
+	equals(Object), which may mean you are intending to override the equals(Object)
+	method.
+	Example:
+	public class Foo {
+	 public int equals(Object o) {
+	 // oops, this probably was supposed to be boolean equals
+	 }
+	 public boolean equals(String s) {
+	 // oops, this probably was supposed to be equals(Object)
+	 }
+	}
+	-->	
+	<rule ref="rulesets/java/naming.xml/AvoidFieldNameMatchingTypeName" message="[PMD:避免属性和类同名：属性和类同名易造成误解，这可能意味着类型或属性名可以命名的更精确]"/>
+	<!--
+	Message:It is somewhat confusing to have a field name matching the declaring class name
+	Description:
+	It is somewhat confusing to have a field name matching the declaring class name.
+	This probably means that type and or field names could be more precise.
+	Example:
+	public class Foo extends Bar {
+	 // There's probably a better name for foo
+	 int foo;
+	}
+	-->	
+	<rule ref="rulesets/java/naming.xml/AvoidFieldNameMatchingMethodName" message="[PMD:避免属性和方法同名：属性和方法同名易造成误解。即使这是完全合法的，但信息(属性)和动作(方法)都没有清晰地命名。]"/>
+	<!--
+	Message:It is somewhat confusing to have a field name with the same name as a method
+	Description:
+	It is somewhat confusing to have a field name with the same name as a method.
+	While this is totally legal, having information (field) and actions (method) is
+	not clear naming.
+	Example:
+	public class Foo {
+		Object bar;
+		// bar is data or an action or both?
+		void bar() {
+		}
+	}
+	-->	
+	<rule ref="rulesets/java/naming.xml/NoPackage" message="[PMD:没有包：检测到类或接口没有定义在包里面。]"/>
+	<!--
+	Message:All classes and interfaces must belong to a named package
+	Description:
+	Detects when a class or interface does not have a package definition.
+	Example:
+	// no package declaration
+	public class ClassInDefaultPackage {
+	}
+	-->	
+	<rule ref="rulesets/java/naming.xml/PackageCase" message="[PMD:包的大小写：检测到包的定义中包含大写字符]"/>
+	<!--
+	Message:Package name contains upper case characters
+	Description:
+	Detects when a package definition contains upper case characters.
+	Example:
+	package com.MyCompany;  // <- should be lower case name
+	public class SomeClass {
+	}
+	-->	
+	<rule ref="rulesets/java/naming.xml/MisleadingVariableName" message="[PMD: 令人迷惑的变量名：检测到非字段类型以m_开头，这通常表示这是一个字段所以这种做法让人迷惑。]"/>
+	<!--
+	Message:Avoid naming non-fields with the prefix 'm_'
+	Description:
+	Detects when a non-field has a name starting with 'm_'.  This usually
+	indicates a field and thus is confusing.
+	Example:
+	public class Foo {
+    private int m_foo; // OK
+    public void bar(String m_baz) {  // Bad
+      int m_boz = 42; // Bad
+    }
+  }
+	-->	
+	<rule ref="rulesets/java/naming.xml/BooleanGetMethodName" message="[PMD:返回布尔类型的方法命名：发现返回布尔类型的方法被命名为’getX()’,而惯例是命名为‘isX()’的形式。]"/>
+	<!--
+	Message:A 'getX()' method which returns a boolean should be named 'isX()'
+	Description:
+	Looks for methods named 'getX()' with 'boolean' as the return type. The convention
+	is to name these methods 'isX()'.
+	Example:
+	public boolean getFoo(); // bad
+	public boolean isFoo(); // ok
+	public boolean getFoo(boolean bar); // ok, unless checkParameterizedMethods=true
+	-->	
+		<rule ref="rulesets/java/optimizations.xml/LocalVariableCouldBeFinal" message="[PMD:本地变量可以是Final的：本地变量只被赋值一次可以声明为final的]"/>
+	<!--
+	Message:Local variable ''{0}'' could be declared final
+	Description:
+	A local variable assigned only once can be declared final.
+	Example:
+	public class Bar {
+	 public void foo () {
+	  String a = "a"; //if a will not be assigned again it is better to do this:
+	  final String b = "b";
+	 }
+	}
+	-->	
+	<rule ref="rulesets/java/optimizations.xml/MethodArgumentCouldBeFinal" message="[PMD:方法参数可以是Final的：传入方法的参数从不被赋值可以声明为final的]"/>
+	<!--
+	Message:Parameter ''{0}'' is not assigned and could be declared final
+	Description:
+	A method argument that is never assigned can be declared final.
+	Example:
+	public void foo (String param) {
+	  // do stuff with param never assigning it
+	  // better: public void foo (final String param) {
+	}
+	-->	
+	<rule ref="rulesets/java/optimizations.xml/AvoidInstantiatingObjectsInLoops" message="[PMD: 避免在循环中实例化对象：本规则检查在循环的内部用new创建对象]"/>
+	<!--
+	Message:Avoid instantiating new objects inside loops
+	Description:
+	Detects when a new object is created inside a loop
+	Example:
+	public class Something {
+	  public static void main( String as[] ) {  
+		for (int i = 0; i < 10; i++) {
+		  Foo f = new Foo(); //Avoid this whenever you can it's really expensive
+		}
+	  }
+	}
+	-->	
+	<rule ref="rulesets/java/optimizations.xml/UseArrayListInsteadOfVector" message="[PMD:使用ArrayList代替Vector：ArrayList是比Vector更好的集合类实现]"/>
+	<!--
+	Message:Use ArrayList instead of Vector
+	Description:ArrayList is a much better Collection implementation than Vector.
+	
+	Example:
+	public class SimpleTest extends TestCase {
+	 public void testX() {
+	  Collection c = new Vector();
+	  // This achieves the same with much better performance
+	  // Collection c = new ArrayList();
+	 }
+	}
+	-->	
+	<rule ref="rulesets/java/optimizations.xml/SimplifyStartsWith" message="[PMD:简化StartWith：字符串中截取长度为1的字串时，可以用高率一点的String.charAt()代替String.startsWith()]"/>
+	<!--
+	Message:This call to String.startsWith can be rewritten using String.charAt(0)
+	Description:
+	Since it passes in a literal of length 1, this call to String.startsWith can be rewritten using String.charAt(0) to save some time.
+	Example:
+	public class Foo {
+	  boolean checkIt(String x) {
+		  return x.startsWith("a");
+	  }
+	}
+	-->	
+	<rule ref="rulesets/java/optimizations.xml/UseStringBufferForStringAppends" message="[PMD:使用StringBuffer来进行字串append操作：查找使用+=来连接字串的不良方式]"/>
+	<!--
+	Message:Prefer StringBuffer over += for concatenating strings
+	Description:
+	Finds usages of += for appending strings.
+	Example:
+	public class Foo {
+	 void bar() {
+	  String a;
+	  a = "foo";
+	  a += " bar";
+	  // better would be:
+	  // StringBuffer a = new StringBuffer("foo");
+	  // a.append(" bar);
+	 }
+	}
+	-->	
+	<rule ref="rulesets/java/optimizations.xml/UseArraysAsList" message="[PMD:使用Arrays类的asList方法：java.util.Arrays类有一个asList方法，当你试图将一个对象数组转换为一个List时应该使用这个方法，这比循环从数据拷贝元素快得多。]"/>
+	<!--
+	Message:Use asList instead of tight loops
+	Description:
+	The java.util.Arrays class has a "asList" method that
+   should be used when you want to create a new List from
+   an array of objects. It is faster than executing a loop to
+   copy all the elements of the array one by one
+	Example:
+	public class Test {
+    public void foo(Integer[] ints) {
+    // could just use Arrays.asList(ints)
+     List l= new ArrayList(10);
+     for (int i=0; i< 100; i++) {
+      l.add(ints[i]);
+     }
+     for (int i=0; i< 100; i++) {
+      l.add(a[i].toString()); // won't trigger the rule
+     }
+    }
+   }
+	-->	
+	<rule ref="rulesets/java/optimizations.xml/AvoidArrayLoops" message="[PMD:避免数组循环：拷贝数组用System.arraycopy代替循环拷贝数组元素]"/>
+	<!--
+	Message:System.arraycopy is more efficient
+	Description:
+	Instead of copying data between two arrays, use
+    System.arraycopy method
+	Example:
+	public class Test {
+	 public void bar() {
+	  int[] a = new int[10];
+	  int[] b = new int[10];
+	  for (int i=0;i<10;i++) {
+	   b[i]=a[i];
+	  }
+	 }
+	}
+				// this will trigger the rule
+				for (int i=0;i<10;i++) {
+				 b[i]=a[c[i]];
+				}
+
+			}
+		}
+	-->	
+	<rule ref="rulesets/java/optimizations.xml/UnnecessaryWrapperObjectCreation" message="[PMD:不必要的包装对象创建：解析方法应该被直接调用]"/>
+	<!--
+	Message:Unnecessary wrapper object creation
+	Description:
+	Parsing method should be called directy instead.
+	Example:
+	public int convert(String s) {
+	  int i, i2;
+
+	  i = Integer.valueOf(s).intValue(); // this wastes an object
+	  i = Integer.parseInt(s); // this is better
+
+	  i2 = Integer.valueOf(i).intValue(); // this wastes an object
+	  i2 = i; // this is better
+
+	  String s3 = Integer.valueOf(i2).toString(); // this wastes an object
+	  s3 = Integer.toString(i2); // this is better
+
+	  return i2;
+	}
+	-->	
+	<rule ref="rulesets/java/optimizations.xml/AddEmptyString" message="[PMD: 加空字符串：发现+“”操作。这是将其他类型转换为字符串的低效的做法]"/>
+	<!--
+	Message:Do not add empty strings
+	Description:
+	Finds empty string literals which are being added. This is an inefficient way 
+	to convert any type to a String.
+	Example:
+	String s = "" + 123; // bad 
+        String t = Integer.toString(456); // ok
+	-->	
+	
+
+	<rule ref="rulesets/java/strictexception.xml/AvoidCatchingThrowable" message="[PMD:避免catch Throwable对象：这是危险的因为覆盖的范围太广，它能够catch类似于OutOfMemoryError这样的错误]"/>
+	<!--
+	Message:A catch statement should never catch throwable since it includes errors.
+	Description:
+	This is dangerous because it casts too wide a net; it can catch things like OutOfMemoryError.
+	Example:
+	public class Foo {
+	 public void bar() {
+	  try {
+	   // do something
+	  } catch (Throwable th) {  //Should not catch throwable
+	   th.printStackTrace();
+	  }
+	 }
+	}
+	-->	
+	<rule ref="rulesets/java/strictexception.xml/SignatureDeclareThrowsException" message="[PMD:具体声明抛出的异常：不确定方法中能够抛出什么样的具体异常。为模糊的接口提供证明并理解它是很困难的。抛出的异常类要么从RuntimeException中继承或者抛出一个被检查的异常。]"/>
+	<!--
+	Message:A method/constructor shouldn't explicitly throw java.lang.Exception
+	Description:
+	It is unclear which exceptions that can be thrown from the methods.
+	It might be difficult to document and understand the vague interfaces.
+	Use either a class derived from RuntimeException or a checked exception.
+	Example:
+	public void methodThrowingException() throws Exception {
+	}
+	-->	
+	<rule ref="rulesets/java/strictexception.xml/ExceptionAsFlowControl" message="[PMD: 异常用作流程控制：使用异常来做流程控制会导致goto类型的代码，且使得调试的时候发生的真正的异常含糊化。]"/>
+	<!--
+	Message:Avoid using exceptions as flow control.
+	Description:
+	Using Exceptions as flow control leads to GOTOish code and obscures true exceptions when debugging.
+	Example:
+	public class Foo {
+	 void bar() {
+	  try {
+	   try {
+	   } catch (Exception e) {
+		throw new WrapperException(e);
+		// this is essentially a GOTO to the WrapperException catch block
+	   }
+	  } catch (WrapperException e) {
+	   // do some more stuff
+	  }
+	 }
+	}
+	-->	
+	<rule ref="rulesets/java/strictexception.xml/AvoidCatchingNPE" message="[PMD:避免捕获空指针异常：在正常情形下代码不应该捕获NullPointException。否则Catch块可能隐藏原始错误，导致其他更多微妙的错误。]"/>
+	<!--
+	Message:Avoid catching NullPointerException; consider removing the cause of the NPE.
+	Description:
+	Code should never throw NPE under normal circumstances.  A catch block may hide the original error, causing other more subtle errors in its wake.
+	Example:
+	public class Foo {
+	 void bar() {
+	  try {
+	   // do something
+	   }  catch (NullPointerException npe) {
+	  }
+	 }
+	}
+	-->	
+	<rule ref="rulesets/java/strictexception.xml/AvoidThrowingRawExceptionTypes" message="[PMD: 避免抛出原始异常类型：避免抛出特定异常类型。与其抛出RuntimeException，Throwable，Exception，Error等原始类型，不如用他们的子异常或子错误类来替代。]"/>
+	<!--
+	Message:Avoid throwing raw exception types.
+	Description:
+	Avoid throwing certain exception types. Rather than throw a raw RuntimeException, Throwable,
+	Exception, or Error, use a subclassed exception or error instead.
+	Example:
+	public class Foo {
+	public void bar() throws Exception {
+	  throw new Exception();
+	 }
+	}
+	-->	
+	<rule ref="rulesets/java/strictexception.xml/AvoidThrowingNullPointerException" message="[PMD: 避免抛出空指针异常：避免抛出空指针异常——这会导致误解，因为大部分人认为这应该由虚拟机抛出。考虑用IllegalArgumentException代替，这对于开发者定义异常来说比较清晰。]"/>
+	<!--
+	Message:Avoid throwing null pointer exceptions.
+	Description:
+	Avoid throwing a NullPointerException - it's confusing because most people will assume that the
+	virtual machine threw it. Consider using an IllegalArgumentException instead; this will be
+	clearly seen as a programmer-initiated exception.
+	Example:
+	public class Foo {
+	 void bar() {
+	  throw new NullPointerException();
+	 }
+	}
+	-->	
+	<rule ref="rulesets/java/strictexception.xml/AvoidRethrowingException" message="[PMD: 避免重复抛出异常：catch块仅仅重新抛出一个已捕获的异常只会增加代码量和程序运行的复杂度。]"/>
+	<!--
+	Message:A catch statement that catches an exception only to rethrow it should be avoided.
+	Description:
+	Catch blocks that merely rethrow a caught exception only add to code size and runtime complexity.
+	Example:
+	public class Foo {
+	   void bar() {
+		try {
+		// do something
+		}  catch (SomeException se) {
+		   throw se;
+		}
+	   }
+	  }
+	-->	
+	<rule ref="rulesets/java/strictexception.xml/DoNotExtendJavaLangError" message="[PMD:不要继承java.lang.Error:Error是系统异常，不要继承它。]"/>
+	<!--
+	Message:Exceptions should not extend java.lang.Error
+	Description:
+	Errors are system exceptions. Do not extend them.
+	Example:
+	public class Foo extends Error { }
+	-->	
+	<rule ref="rulesets/java/strictexception.xml/DoNotThrowExceptionInFinally" message="[PMD:不要在finally块中抛出异常：在finally块中抛出异常易造成迷惑。它将掩盖代码异常或缺陷，也促使代码不稳定。备注：这是PMD从Lint4j原则衍生实现的]"/>
+	<!--
+	Message:A throw statement in a finally block makes the control flow hard to understand.
+	Description:
+	Throwing exception in a finally block is confusing. It may mask exception or a defect of the code,
+			      it also render code cleanup uninstable.
+			Note: This is a PMD implementation of the Lint4j rule "A throw in a finally block"
+	Example:
+	public class Foo 
+				{
+					public void bar()
+					{
+						try {
+							// Here do some stuff
+						}
+						catch( Exception e) {
+							// Handling the issue
+						}
+						finally 
+						{
+							// is this really a good idea ?
+							throw new Exception();
+						}
+					}
+				}
+	-->	
+	<rule ref="rulesets/java/strictexception.xml/AvoidThrowingNewInstanceOfSameException" message="[PMD: 避免抛出同类异常的新实例：catch块仅仅重新抛出一个同类型捕获异常的新的实例只会增加代码量和运行复杂度。]"/>
+	<!--
+	Message:A catch statement that catches an exception only to wrap it in a new instance of the same type of exception and throw it should be avoided
+	Description:
+	Catch blocks that merely rethrow a caught exception wrapped inside a new instance of the same type only add to code size and runtime complexity.
+	Example:
+	public class Foo {
+     void bar() {
+      try {
+       // do something
+      }  catch (SomeException se) {
+         // harmless comment      
+           throw new SomeException(se);
+      }
+     }
+    }
+	-->	
+
+	
+	<rule ref="rulesets/java/strings.xml/AvoidDuplicateLiterals" message="[PMD:避免重复的字面量：代码包含重复的字符串常常可以重构为将此字符串声明为常量]"/>
+	<!--
+	Message:The String literal {0} appears {1} times in this file; the first occurrence is on line {2}
+	Description:
+	Code containing duplicate String literals can usually be improved by declaring the String as a constant field.
+	Example:
+	public class Foo {
+	 private void bar() {
+		buz("Howdy");
+		buz("Howdy");
+		buz("Howdy");
+		buz("Howdy");
+	 }
+	 private void buz(String x) {}
+	}
+	-->	
+	<rule ref="rulesets/java/strings.xml/StringInstantiation" message="[PMD:字符串初始化：避免初始化字符串对象；这是不必要的。]"/>
+	<!--
+	Message:Avoid instantiating String objects; this is usually unnecessary.
+	Description:
+	Avoid instantiating String objects; this is usually unnecessary.
+	Example:
+	public class Foo {
+	 private String bar = new String("bar"); // just do a String bar = "bar";
+	}
+	-->	
+	<rule ref="rulesets/java/strings.xml/StringToString" message="[PMD:String.toString():避免对字符串对象调用toString()方法，这是不必要的]"/>
+	<!--
+	Message:Avoid calling toString() on String objects; this is unnecessary.
+	Description:
+	Avoid calling toString() on String objects; this is unnecessary.
+	Example:
+	public class Foo {
+	 private String baz() {
+	  String bar = "howdy";
+	  return bar.toString();
+	 }
+	}
+	-->	
+	
+	<rule ref="rulesets/java/strings.xml/InefficientStringBuffering" message="[PMD:低效的StringBuffering：避免在StringBuffer的构造器或append()方法中连接非字面量类型]"/>
+	<!--
+	Message:Avoid concatenating nonliterals in a StringBuffer constructor or append().
+	Description:
+	Avoid concatenating non literals in a StringBuffer constructor or append().
+	Example:
+	public class Foo {
+	 void bar() {
+	  // Avoid this
+	  StringBuffer sb=new StringBuffer("tmp = "+System.getProperty("java.io.tmpdir"));
+	  // use instead something like this
+	  StringBuffer sb = new StringBuffer("tmp = ");
+	  sb.append(System.getProperty("java.io.tmpdir"));
+	 }
+	}
+	-->	
+	<rule ref="rulesets/java/strings.xml/UnnecessaryCaseChange" message="[PMD:不必要的大小写转换：使用equalsIgnoreCase()比将字符串大小写转换一致后再比较要快。]"/>
+	<!--
+	Message:Using equalsIgnoreCase() is cleaner than using toUpperCase/toLowerCase().equals().
+	Description:
+	Using equalsIgnoreCase() is faster than using toUpperCase/toLowerCase().equals()
+	Example:
+	public class Foo {
+	  public boolean bar(String buz) {
+		// should be buz.equalsIgnoreCase("baz")
+		return buz.toUpperCase().equals("baz");
+		// another unnecessary toUpperCase()
+		// return buz.toUpperCase().equalsIgnoreCase("baz");
+	  }
+	 }
+	-->	
+	<rule ref="rulesets/java/strings.xml/UseStringBufferLength" message="[PMD:使用StringBuffer的length()方法：使用StringBuffer对象的length()方法来计算StringBuffer对象的长度，而不是使用StringBuffer.toString().equals('') or StringBuffer.toString().length() ==.等方法]"/>
+	<!--
+	Message:This is an inefficient use of StringBuffer.toString; call StringBuffer.length instead.
+	Description:
+	Use StringBuffer.length() to determine StringBuffer length rather than using StringBuffer.toString().equals("")
+          or StringBuffer.toString().length() ==.
+	Example:
+	public class Foo {
+	 void bar() {
+	  StringBuffer sb = new StringBuffer();
+	  // this is bad
+	  if(sb.toString().equals("")) {}
+	  // this is good
+	  if(sb.length() == 0) {}
+	 }
+	}
+	-->	
+	<rule ref="rulesets/java/strings.xml/AppendCharacterWithChar" message="[PMD:用char类型连接字符：在使用StringBuffer的append()方法连接字符时，避免使用string类型。]"/>
+	<!--
+	Message:Avoid appending characters as strings in StringBuffer.append.
+	Description:
+	Avoid concatenating characters as strings in StringBuffer.append.
+	Example:
+	public class Foo {
+	 void bar() {
+	  StringBuffer sb=new StringBuffer();
+	  // Avoid this
+	  sb.append("a");
+
+	  // use instead something like this
+	  StringBuffer sb=new StringBuffer();
+	  sb.append('a');
+	 }
+	}
+	-->	
+	<rule ref="rulesets/java/strings.xml/ConsecutiveLiteralAppends" message="[PMD:连续的字面量连接：连接字符串时连续的调用StringBuffer的append()方法]"/>
+	<!--
+	Message:StringBuffer.append is called {0} consecutive times with literal Strings. Use a single append with a single String.
+	Description:
+	Consecutively calling StringBuffer.append with String literals
+	Example:
+	public class Foo {
+	 private void bar() {
+	   StringBuffer buf = new StringBuffer();
+	   buf.append("Hello").append(" ").append("World"); //bad
+	   buf.append("Hello World");//good
+	 }
+	}
+	-->	
+	<rule ref="rulesets/java/strings.xml/UseIndexOfChar" message="[PMD:使用indexOf(字符)：当你检测单个字符的位置时使用String.indexOf(字符)，它执行的很快。不要使用indexOf(字符串)]"/>
+	<!--
+	Message:String.indexOf(char) is faster than String.indexOf(String).
+	Description:
+	Use String.indexOf(char) when checking for the index of a single character; it executes faster.
+	Example:
+	public class Foo {
+	 void bar() {
+	  String s = "hello world";
+	  // avoid this
+	  if (s.indexOf("d") {}
+	  // instead do this
+	  if (s.indexOf('d') {}
+	 }
+	}
+	-->	
+	<rule ref="rulesets/java/strings.xml/InefficientEmptyStringCheck" message="[PMD:低效的空字符串检查：用String.trim().length()来判断字符串是否空是低效的做法]"/>
+	<!--
+	Message:String.trim().length()==0 is an inefficient way to validate an empty String.
+	Description:
+	String.trim().length() is an inefficient way to check if a String is really empty, as it
+	creates a new String object just to check its size. Consider creating a static function that
+	loops through a string, checking Character.isWhitespace() on each character and returning
+	false if a non-whitespace character is found.
+	Example:
+	public class Foo {
+		void bar(String string) {
+			if (string != null && string.trim().size() > 0) {
+				doSomething();
+			}
+		}
+	}
+	-->	
+	<rule ref="rulesets/java/strings.xml/InsufficientStringBufferDeclaration" message="[PMD:不充分的StringBuffer声明：如果不能在事前声明合适大小的StringBuffer容量可能导致运行期不断地重新分配大小]"/>
+	<!--
+	Message:StringBuffer constructor is initialized with size {0}, but has at least {1} characters appended.
+	Description:
+	Failing to pre-size a StringBuffer properly could cause it to re-size many times
+	during runtime. This rule checks the characters that are actually passed into
+	StringBuffer.append(), but represents a best guess "worst case" scenario. An
+	empty StringBuffer constructor initializes the object to 16 characters. This default
+	is assumed if the length of the constructor can not be determined.
+	Example:
+	public class Foo {
+		void bar() {
+			StringBuffer bad = new StringBuffer();
+			bad.append("This is a long string, will exceed the default 16 characters");//bad
+			StringBuffer good = new StringBuffer(41);
+			good.append("This is a long string, which is pre-sized");//good
+		}
+	}
+	-->	
+	<rule ref="rulesets/java/strings.xml/UselessStringValueOf" message="[PMD:无用的valueOf方法：调用append()方法时不需要把参数用valueOf()转换一次，直接将非String类型的值作为参数放在append()里面。]"/>
+	<!--
+	Message:No need to call String.valueOf to append to a string.
+	Description:
+	No need to call String.valueOf to append to a string; just use the valueOf() argument directly.
+	Example:
+	public String convert(int i) {
+	  String s;
+	  s = "a" + String.valueOf(i); // Bad
+	  s = "a" + i; // Better
+	  return s;
+	}
+	-->	
+	<rule ref="rulesets/java/strings.xml/StringBufferInstantiationWithChar" message="[PMD:StringBuffer使用字符初始化：StringBuffer sb = new StringBuffer('c');字符c会转换为int值，作为StringBuffer的初始化大小参数]"/>
+	<!--
+	Message:Do not instantiate a StringBuffer with a char
+	Description:
+	StringBuffer sb = new StringBuffer('c'); The
+	char will be converted into int to intialize
+	StringBuffer size.
+	Example:
+	class Foo {
+	  StringBuffer sb1 = new StringBuffer('c'); //Bad
+	  StringBuffer sb2 = new StringBuffer("c"); //Better
+	}
+	-->	
+	<rule ref="rulesets/java/strings.xml/UseEqualsToCompareStrings" message="[PMD:使用equals方法比较字符串：使用‘==’或‘！=’比较字符串大小只是比较两边的常量池的引用。]"/>
+	<!--
+	Message:Use equals() to compare strings instead of ''=='' or ''!=''
+	Description:
+	Using '==' or '!=' to compare strings only works if intern version is used on both sides
+	Example:
+	class Foo {
+	  boolean test(String s) {
+		if (s == "one") return true; //Bad
+		if ("two".equals(s)) return true; //Better
+		return false;
+	  }
+	}
+	-->	
+	<rule ref="rulesets/java/strings.xml/AvoidStringBufferField" message="[PMD:避免在类中使用StringBuffer属性：StringBuffer类型变量可以变得非常庞大，所以可能造成内存泄漏]"/>
+	<!--
+	Message:StringBuffers can grow quite a lot, and so may become a source of memory leak (if the owning class has a long life time).
+	Description:
+	StringBuffers can grow quite a lot, and so may become a source of memory leak (if the owning class has a long life time).
+	Example:
+	class Foo {
+		private StringBuffer memoryLeak;
+	
+	-->	
+
+	<rule ref="rulesets/java/sunsecure.xml/ArrayIsStoredDirectly" message="[PMD:数组被直接存储：构造器和方法接收数组应该clone对象并保存副本，这会阻止用户将来的改变影响内部的功能。]"/>
+	<!--
+	Message:The user-supplied array ''{0}'' is stored directly.
+	Description:
+	Constructors and methods receiving arrays should clone objects and store the copy.
+	This prevents that future changes from the user affect the internal functionality.
+	Example:
+	public class Foo {
+	 private String [] x;
+	  public void foo (String [] param) {
+		  // Don't do this, make a copy of the array at least
+		  this.x=param;
+	  }
+	}
+	-->	
+	
+	<rule ref="rulesets/java/migrating.xml/ReplaceVectorWithList" message="[PMD:用List替换Vector：如果不是在必须线程安全的环境下，考虑使用List代替Vector]"/>
+	<!--
+	Message:Consider replacing this Vector with the newer java.util.List
+	Description:
+	Consider replacing Vector usages with the newer java.util.ArrayList if expensive threadsafe operation is not required.
+	Example:
+	public class Foo {
+	 void bar() {
+		Vector v = new Vector();
+	 }
+	}
+	-->	
+	<rule ref="rulesets/java/migrating.xml/ReplaceHashtableWithMap" message="[PMD:用Map替换Hashtable: 如果不是在必须线程安全的环境下，考虑使用Map替换Hashtable]"/>
+	<!--
+	Message:Consider replacing this Hashtable with the newer java.util.Map
+	Description:
+	Consider replacing this Hashtable with the newer java.util.Map
+	Example:
+	public class Foo {
+		 void bar() {
+			Hashtable h = new Hashtable();
+		 }
+		}
+	-->	
+	<rule ref="rulesets/java/migrating.xml/ReplaceEnumerationWithIterator" message="[PMD:用Iterator替换Enumeration:考虑用Iterator替换Enumeration]"/>
+	<!--
+	Message:Consider replacing this Enumeration with the newer java.util.Iterator
+	Description:Consider replacing this Enumeration with the newer java.util.Iterator
+	
+	Example:
+	public class Foo implements Enumeration {
+    private int x = 42;
+    public boolean hasMoreElements() {
+        return true;
+    }
+    public Object nextElement() {
+        return String.valueOf(i++);
+    }
+}
+	-->	
+
+	<rule ref="rulesets/java/migrating.xml/AvoidEnumAsIdentifier" message="[PMD:避免用enum作为标识符：找到所有使用enum作为标识符的地方]"/>
+	<!--
+	Message:Avoid using enum as an identifier; it's a reserved word in JDK 1.5
+	Description:
+	Finds all places where 'enum' is used as an identifier.
+	Example:
+	public class A {
+        public  class foo {
+            String enum = "foo";
+        }
+    }
+	-->	
+	
+	<rule ref="rulesets/java/migrating.xml/AvoidAssertAsIdentifier" message="[PMD:避免使用Assert作为标识符：找到所有使用assert作为标识符的地方]"/>
+	<!--
+	Message:Avoid using assert as an identifier; it's a reserved word in JDK 1.4
+	Description:
+	Finds all places where 'assert' is used as an identifier.
+	Example:
+	public class A {
+        public  class foo {
+            String assert = "foo";
+        }
+    }
+	-->	
+	<rule ref="rulesets/java/migrating.xml/IntegerInstantiation" message="[PMD:Integer类型实例化：对于JDK1.5,调用new Integer()会造成内存分配，而Integer.valueOf()具有更好的内存友好性。]"/>
+	<!--
+	Message:Avoid instantiating Integer objects. Call Integer.valueOf() instead.
+	Description:
+	In JDK 1.5, calling new Integer() causes memory allocation.  Integer.valueOf() is more memory friendly.
+	Example:
+	public class Foo {
+	 private Integer i = new Integer(0); // change to Integer i = Integer.valueOf(0);
+	}
+	-->	
+	<rule ref="rulesets/java/migrating.xml/ByteInstantiation" message="[PMD:Byte类型初始化：对于JDK1.5,调用new Byte()会造成内存分配，而Byte.valueOf()具有更好的内存友好性。]"/>
+	<!--
+	Message:Avoid instantiating Byte objects. Call Byte.valueOf() instead
+	Description:
+	In JDK 1.5, calling new Byte() causes memory allocation. Byte.valueOf() is more memory friendly.
+	Example:
+	public class Foo {
+	private Byte i = new Byte(0); // change to Byte i =
+	Byte.valueOf(0);
+	}
+	-->	
+	<rule ref="rulesets/java/migrating.xml/ShortInstantiation" message="[PMD: Short类型初始化：对于JDK1.5,调用new Short ()会造成内存分配，而Short.valueOf()具有更好的内存友好性。]"/>
+	<!--
+	Message:Avoid instantiating Short objects. Call Short.valueOf() instead
+	Description:
+	In JDK 1.5, calling new Short() causes memory allocation. Short.valueOf() is more memory friendly.
+	Example:
+	public class Foo {
+	private Short i = new Short(0); // change to Short i =
+	Short.valueOf(0);
+	}
+	-->	
+	<rule ref="rulesets/java/migrating.xml/LongInstantiation" message="[PMD: Long类型初始化：对于JDK1.5,调用new Long()会造成内存分配，而Long.valueOf()具有更好的内存友好性。]"/>
+	<!--
+	Message:Avoid instantiating Long objects.Call Long.valueOf() instead
+	Description:
+	In JDK 1.5, calling new Long() causes memory allocation. Long.valueOf() is more memory friendly.
+	Example:
+	public class Foo {
+	private Long i = new Long(0); // change to Long i =
+	Long.valueOf(0);
+	}
+	-->	
+	<rule ref="rulesets/java/migrating.xml/JUnit4TestShouldUseBeforeAnnotation" message="[PMD:Junit4测试时应该使用Before注解：在Junit3中，我们使用setUp()方法设置运行测试时需要的值，然而Junit4忽略setUp方法在所有测试前先执行被@Before标注过的方法。]"/>
+	<!--
+	Message:JUnit 4 tests that set up tests should use the @Before annotation
+	Description:
+	In JUnit 3, the setUp method was used to set up all data entities required in running tests. JUnit 4 skips the setUp method 
+	and executes all methods annotated with @Before before all tests
+	Example:
+	public class MyTest {
+		public void setUp() {
+			bad();
+		}
+	}
+	public class MyTest2 {
+		@Before public void setUp() {
+			good();
+		}
+	}
+	-->	
+	<rule ref="rulesets/java/migrating.xml/JUnit4TestShouldUseAfterAnnotation" message="[PMD:Junit4测试时应该使用After注解：对于Junit3,tearDown()方法被用来清除测试执行后的数据。Junit4忽略tearDown方法然后在执行每个测试方法后执行所有标记为@After的方法。]"/>
+	<!--
+	Message:JUnit 4 tests that clean up tests should use the @After annotation
+	Description:
+	In JUnit 3, the tearDown method was used to clean up all data entities required in running tests. JUnit 4 skips the tearDown method 
+	and executes all methods annotated with @After after running each test
+	Example:
+	public class MyTest {
+		public void tearDown() {
+			bad();
+		}
+	}
+	public class MyTest2 {
+		@After public void tearDown() {
+			good();
+		}
+	}
+	-->	
+	<rule ref="rulesets/java/migrating.xml/JUnit4TestShouldUseTestAnnotation" message="[PMD: Junit4测试应使用Test注解：对于Junit3，测试框架执行每个以test单词打头的方法作为单元测试。而对于Junit4，只有标记为@Test注解的方法才能被执行。]"/>
+	<!--
+	Message:JUnit 4 tests that execute tests should use the @Test annotation
+	Description:
+	In JUnit 3, the framework executed all methods which started with the word test as a unit test. In JUnit 4, only methods annotated
+	with the @Test annotation are executed.
+	Example:
+	public class MyTest {
+		public void testBad() {
+			doSomething();
+		}
+
+		@Test
+		public void testGood() {
+			doSomething();
+		}
+	}
+	-->	
+	<rule ref="rulesets/java/migrating.xml/JUnit4SuitesShouldUseSuiteAnnotation" message="[PMD: Junit4测试套件应使用Suite注解：对于Junit3，测试套件表现为suite()方法，而对于Junit4，测试套件表现为@RunWith(Suite.class)注解]"/>
+	<!--
+	Message:JUnit 4 indicates test suites via annotations, not the suite method.
+	Description:
+	In JUnit 3, test suites are indicated by the suite() method. In JUnit 4, suites are indicated
+	through the @RunWith(Suite.class) annotation.
+	Example:
+	public class BadExample extends TestCase{
+
+		public static Test suite(){
+			return new Suite();
+		}
+	}
+
+	@RunWith(Suite.class)
+	@SuiteClasses( { TestOne.class, TestTwo.class })
+	public class GoodTest {
+	}
+	-->	
+	<rule ref="rulesets/java/migrating.xml/JUnitUseExpected" message="[PMD:]"/>
+	<!--
+	Message:In JUnit4, use the @Test(expected) annotation to denote tests that should throw exceptions
+	Description:
+
+	Example:
+	public class MyTest {
+	@Test
+    public void testBad() {
+        try {
+            doSomething();
+            fail("should have thrown an exception");
+        } catch (Exception e) {
+        }
+    }
+
+	@Test(expected=Exception.class)
+    public void testGood() {
+        doSomething();
+    }
+}
+	-->	
+	
+	
+   <rule ref="rulesets/java/coupling.xml/CouplingBetweenObjects" message="[PMD:对象间的耦合：这个规则统计一个对象中单个的属性、本地变量和返回类型的数目。如果统计数目大于指定的上限值表示耦合度太高。]"/>
+	<!--
+	Message:High amount of different objects as members denotes a high coupling
+	Description:This rule counts unique attributes, local variables and return types within an object. A number
+ higher than specified threshold can indicate a high degree of coupling.
+
+	Example:
+	import com.Blah;
+	import org.Bar;
+	import org.Bardo;
+	public class Foo {
+	 private Blah var1;
+	 private Bar var2;
+	 //followed by many imports of unique objects
+	 void ObjectC doWork() {
+	  Bardo var55;
+	  ObjectA var44;
+	  ObjectZ var93;
+	  return something;
+	 }
+	}
+	-->	
+   <rule ref="rulesets/java/coupling.xml/ExcessiveImports" message="[PMD:过多的引入：大量的import表明对象有很高的耦合度。本规则统计单一的import数目，如果数目大于用户定义的上限则报告一个违例。]"/>
+	<!--
+	Message:A high number of imports can indicate a high degree of coupling within an object.
+	Description:
+	A high number of imports can indicate a high degree of coupling within
+	an object. Rule counts the number of unique imports and reports a violation
+	if the count is above the user defined threshold.
+	Example:
+		import blah.blah.Baz;
+	import blah.blah.Bif;
+	// 18 others from the same package elided
+	public class Foo {
+	 public void doWork() {}
+	}
+	-->	
+   <rule ref="rulesets/java/coupling.xml/LooseCoupling" message="[PMD:松耦合：避免使用具体实现类型(如：HashSet);用接口(如：Set)代替。]"/>
+	<!--
+	Message:Avoid using implementation types like ''{0}''; use the interface instead
+	Description:Avoid using implementation types (i.e., HashSet); use the interface (i.e, Set) instead
+
+	Example:
+	import java.util.*;
+	public class Bar {
+	 // Use List instead
+	 private ArrayList list = new ArrayList();
+	 // Use Set instead
+	 public HashSet getFoo() {
+	  return new HashSet();
+	 }
+	}
+	-->	
+	
+	
+	
+</ruleset>
+

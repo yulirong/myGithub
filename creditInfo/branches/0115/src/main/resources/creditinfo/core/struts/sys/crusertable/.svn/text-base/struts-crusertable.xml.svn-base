@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"       
+          "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="crusertable" extends="icinfo-default" namespace="/crusertable" >
+
+		<action name="doReadCrUserTableList" class="crUserTableAction" method="doReadCrUserTableListAction">
+			<result name="success">/jsp/sys/crusertable/crusertableList.jsp</result>
+		</action>
+		
+		<action name="doReadCrUserTableListJSON" class="crUserTableAction" method="doReadCrUserTableListJSONAction">
+		</action>
+	
+		<action name="doEnAddAndEditCrUserTable" class="crUserTableAction" method="doEnAddAndEditCrUserTableAction">
+			<result name="success">/jsp/sys/crusertable/crusertableAddAndEdit.jsp</result>
+		</action>
+		
+		<action name="doAddAndEditCrUserTable" class="crUserTableAction" method="doAddAndEditCrUserTableAction">
+		</action>
+		
+		<action name="doDelCrUserTable" class="crUserTableAction" method="doDelCrUserTableAction">
+		</action>
+
+	</package>
+	
+</struts>

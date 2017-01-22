@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"       
+          "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="crristindex" extends="icinfo-default" namespace="/crristindex" >
+		
+		<action name="doEnCrRistIndexSearch" class="crRistIndexAction">
+			<result name="success">/jsp/server/biz/crristindex/crristindexsearch.jsp</result>
+		</action>
+		
+		<action name="doEnCrRistIndexAnaly" class="crRistIndexAction" method="doEnCrRistIndexAnalyAction">
+			<result name="success">/jsp/server/biz/crristindex/crristindexanaly.jsp</result>
+		</action>
+		
+		<action name="doReadCrRistIndexAnalyJSON" class="crRistIndexAction" method="doReadCrRistIndexAnalyJSONAction">
+		</action>
+		
+		<!-- 获取值得关注的高风险企业（top10）数据 -->
+		<action name="doGetCrRistIndexTop" class="crRistIndexAction" method="doGetCrRistIndexTopAction">
+		</action>
+	
+	</package>
+	
+</struts>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+		http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"
+	default-lazy-init="false">
+
+    <bean id="appBasicInfoQuartzJob" class="com.icinfo.creditinfo.service._impl.backprocess.quartz.AppBasicInfoQuartzJob" >
+        <property name="appSearchService" ref="appSearchService" />
+    </bean>
+    
+    
+    <!-- 相关类注入以及定时方法的触发 -->
+	<bean id="jobDetail_appIncrement"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject">
+			<ref bean="appBasicInfoQuartzJob" />
+		</property>
+		<property name="targetMethod">
+			<value>doIncrementForAppbasicInfo</value>
+		</property>
+	</bean>
+	
+	<!-- 定时配置-->
+	<bean id="cronTrigger_appIncrement" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail">
+			<ref bean="jobDetail_appIncrement" />
+		</property>
+		<property name="cronExpression">
+			<value>0 0 2 * * ?</value>
+		</property>
+	</bean>
+	
+
+	<!-- 触发器触发-->
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="applicationContextSchedulerContextKey">
+			<value>applicationContext</value>
+		</property>
+		<property name="triggers">
+			<list>
+				 <ref local="cronTrigger_appIncrement" />
+			</list>
+		</property>
+	</bean>
+	
+</beans>
+

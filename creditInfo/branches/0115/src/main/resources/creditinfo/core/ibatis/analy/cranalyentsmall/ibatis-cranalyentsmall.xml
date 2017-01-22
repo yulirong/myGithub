@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd"> 
+
+<sqlMap namespace="ibatis-cranalyentsmall">
+
+	<typeAlias alias="CrAnalyEntSmall" type="com.icinfo.creditinfo.bean.analy.cranalyentsmall.CrAnalyEntSmall" />
+
+	<resultMap id="cranalyentsmallRlt" class="CrAnalyEntSmall">
+		<result property="id" column="id" />
+		<result property="entYear" column="ENT_YEAR" />
+		<result property="entMonth" column="ENT_MONTH" />
+		<result property="trade" column="trade" />
+		<result property="industry" column="industry" />
+		<result property="entZone" column="ent_zone" />
+		<result property="smallEnt" column="SMALL_ENT" />
+		<result property="entStatus" column="ent_status" />
+		<result property="openQyCount" column="open_qy_count" />
+		<result property="elecQyCount" column="elec_qy_count" />
+		<result property="waterQyCount" column="water_qy_count" />
+		<result property="qyCount" column="QY_COUNT" />
+		<result property="income" column="INCOME" />
+		<result property="elecNum" column="ELEC_NUM" />
+		<result property="waterNum" column="WATER_NUM" />
+		<result property="socialSecurityNum" column="SOCIAL_SECURITY_NUM" />
+		<result property="newbornEnt" column="NEWBORN_ENT" />
+		<result property="dieEnt" column="DIE_ENT" />
+		<result property="avgManNum" column="AVG_MAN_NUM" />
+		<result property="createDate" column="CREATE_DATE" />
+	</resultMap>
+	<resultMap id="cranalyentsmallRlt_LastMonth" class="CrAnalyEntSmall" >
+	     <result property="entYear" column="ENT_YEAR" />
+	      <result property="entMonth" column="ENT_MONTH" />
+	</resultMap>
+	<resultMap id="cranalyentsmallRlt_ByDate" class="CrAnalyEntSmall" >
+	    <result property="dateStr" column="dateStr" />
+	     <result property="entYear" column="ENT_YEAR" />
+	      <result property="entMonth" column="ENT_MONTH" />
+	       <result property="newbornEnt" column="NEWBORN_ENT" />
+	         <result property="dieEnt" column="DIE_ENT" />
+	</resultMap>
+	<resultMap id="cranalyentsmallRlt_ZoneNum" class="CrAnalyEntSmall">
+	    <result property="entZone" column="ent_zone" />
+	    <result property="zoneName" column="zone_name" />
+	    <result property="zoneEntCount" column="zoneEntCount" />
+	</resultMap>
+	<resultMap id="cranalyentsmallRlt_State" class="CrAnalyEntSmall">
+	    <result property="income" column="INCOME" />
+	    <result property="elecNum" column="ELEC_NUM" />
+	    <result property="waterNum" column="WATER_NUM" />
+	    <result property="openQyCount" column="open_qy_count" />
+	    <result property="elecQyCount" column="elec_qy_count" />
+	    <result property="waterQyCount" column="water_qy_count" />
+	    <result property="dateStr" column="dateStr" />
+	</resultMap>
+		<resultMap id="cranalyentsmallRlt_EmpStatus" class="CrAnalyEntSmall">
+	    <result property="socialSecurityNum" column="SOCIAL_SECURITY_NUM" />
+	    <result property="qyCount" column="QY_COUNT" />
+	    <result property="dateStr" column="dateStr" />
+	</resultMap>
+		<resultMap id="cranalyentsmallRlt_Grow" class="CrAnalyEntSmall">
+	    <result property="entIncomeYear" column="ent_year" />
+	    <result property="incomeType" column="income_type" />
+	    <result property="qyIncomeCount" column="qy_count" />
+	</resultMap>
+	<resultMap id="cranalyentsmallRlt_Last" class="CrAnalyEntSmall" >
+	     <result property="entYear" column="ENT_YEAR" />
+	      <result property="entMonth" column="ENT_MONTH" />
+	       <result property="qyCount" column="QY_COUNT" />
+	</resultMap>
+		<resultMap id="cranalyentsmallRlt_OpenTotaal" class="CrAnalyEntSmall" >
+	     <result property="entYear" column="ent_year" />
+	       <result property="qyCount" column="qy_count" />
+	</resultMap>
+	<select id="selectCrAnalyEntSmallById" resultMap="cranalyentsmallRlt" parameterClass="java.lang.String">
+		select
+			id,ENT_YEAR,ENT_MONTH,trade,industry,ent_zone,SMALL_ENT,ent_status,OPEN_ENT,QY_COUNT,INCOME,ELEC_NUM,WATER_NUM,SOCIAL_SECURITY_NUM,NEWBORN_ENT,DIE_ENT,AVG_MAN_NUM,NUM_0,NUM_50,NUM_100,NUM_500,NUM_DY500,CREATE_DATE
+		from 
+			CR_ANALY_ENT_SMALL
+		where 
+		    ID = #id#
+	</select>
+	<!--查询年份集合  -->
+	<select id="selectYearList" resultClass="java.math.BigDecimal">
+		select distinct ENT_YEAR  
+		from
+			CR_ANALY_ENT_SMALL
+		order by ENT_YEAR desc
+	</select>
+	<sql id="cranalyentsmall_where">
+	    <dynamic prepend="where">
+			<isNotEmpty prepend="and" property="id">  
+				id = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="entYear">  
+				ENT_YEAR = #entYear#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="entMonth">  
+				ENT_MONTH = #entMonth#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="trade">  
+				trade = #trade#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="industry">  
+				industry = #industry#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="entZone">  
+				ent_zone = #entZone#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="smallEnt">  
+				SMALL_ENT = #smallEnt#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="entStatus">  
+				ent_status = #entStatus#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="openQyCount">  
+				open_qy_count = #openQyCount#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="elecQyCount">  
+				elec_qy_count = #elecQyCount#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="waterQyCount">  
+				water_qy_count = #waterQyCount#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="qyCount">  
+				QY_COUNT = #qyCount#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="income">  
+				INCOME = #income#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="elecNum">  
+				ELEC_NUM = #elecNum#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="waterNum">  
+				WATER_NUM = #waterNum#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="socialSecurityNum">  
+				SOCIAL_SECURITY_NUM = #socialSecurityNum#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="newbornEnt">  
+				NEWBORN_ENT = #newbornEnt#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="dieEnt">  
+				DIE_ENT = #dieEnt#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="avgManNum">  
+				AVG_MAN_NUM = #avgManNum#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="createDate">  
+				CREATE_DATE = #createDate#
+			</isNotEmpty>
+	    </dynamic>
+	</sql>
+	
+	<select id="selectCrAnalyEntSmallList" resultMap="cranalyentsmallRlt" parameterClass="java.util.HashMap">
+		select
+			id,ENT_YEAR,ENT_MONTH,trade,industry,ent_zone,SMALL_ENT,ent_status,OPEN_ENT,QY_COUNT,INCOME,ELEC_NUM,WATER_NUM,SOCIAL_SECURITY_NUM,NEWBORN_ENT,DIE_ENT,AVG_MAN_NUM,NUM_0,NUM_50,NUM_100,NUM_500,NUM_DY500,CREATE_DATE
+		from 
+			CR_ANALY_ENT_SMALL
+		<include refid="cranalyentsmall_where" />
+		<include refid="ibatis-global.mysql_page" />
+	</select>
+	<!--新生消亡  -->
+	<select id="selectCrAnalyEntSmallListByDate" resultMap="cranalyentsmallRlt_ByDate" parameterClass="java.util.HashMap">
+		select
+		ENT_YEAR,ENT_MONTH,sum(NEWBORN_ENT) NEWBORN_ENT,sum(DIE_ENT) DIE_ENT
+		,DATE_FORMAT(STR_TO_DATE(CONCAT(ENT_YEAR,ENT_MONTH),'%Y%m'),'%Y-%m')dateStr from 
+			CR_ANALY_ENT_SMALL 
+		<include refid="cranalyentsmall_where" />
+		group by ENT_YEAR,ENT_MONTH order by dateStr asc
+	</select>
+	<select id="selectCrAnalyEntSmallLast" resultMap="cranalyentsmallRlt_LastMonth" parameterClass="java.util.HashMap">
+		select
+		ENT_YEAR,ENT_MONTH from
+			CR_ANALY_ENT_SMALL 
+		where 
+		<isNotEmpty prepend="" property="entYear"> 
+				ENT_YEAR = #entYear#
+		</isNotEmpty>
+		group by ENT_MONTH order by ENT_MONTH desc limit 0,1
+	</select>
+	<select id="selectCrAnalyEntSmallListByZone" resultMap="cranalyentsmallRlt_ZoneNum" parameterClass="java.util.HashMap">
+		select   a.ent_zone ent_zone,c.zone_name zone_name,SUM(QY_COUNT) zoneEntCount  FROM  CR_ANALY_ENT_SMALL a LEFT JOIN CR_CODE_ZONE c 
+		ON a.ent_zone=c.zone_code  
+		<include refid="cranalyentsmall_where" />
+		AND ent_status NOT in ('D','X')
+		GROUP BY  a.ent_zone
+	</select>
+	<!--经营  -->
+	<select id="selectOperateStateListAndDateList" resultMap="cranalyentsmallRlt_State" parameterClass="java.util.HashMap">
+		select
+		ENT_YEAR,ENT_MONTH,IFNULL(sum(INCOME),0) INCOME,IFNULL(sum(ELEC_NUM),0) ELEC_NUM,IFNULL(sum(WATER_NUM),0) WATER_NUM , SUM(open_qy_count) open_qy_count
+		,SUM(elec_qy_count) elec_qy_count,SUM(water_qy_count) water_qy_count,DATE_FORMAT(STR_TO_DATE(CONCAT(ENT_YEAR,ENT_MONTH),'%Y%m'),'%Y-%m')dateStr from 
+			CR_ANALY_ENT_SMALL 
+		<include refid="cranalyentsmall_where" />
+		AND ent_status NOT in ('D','X')  <!-- and open_ent=1 -->  
+		group by ENT_YEAR,ENT_MONTH order by dateStr asc
+	</select>
+	<!--就业情况  -->
+	<select id="selectEmpStatus" resultMap="cranalyentsmallRlt_EmpStatus" parameterClass="java.util.HashMap">
+		select
+		ENT_YEAR,ENT_MONTH,sum(SOCIAL_SECURITY_NUM) SOCIAL_SECURITY_NUM,SUM(QY_COUNT) QY_COUNT
+		,DATE_FORMAT(STR_TO_DATE(CONCAT(ENT_YEAR,ENT_MONTH),'%Y%m'),'%Y-%m')dateStr from 
+			CR_ANALY_ENT_SMALL 
+		<include refid="cranalyentsmall_where" />
+		AND ent_status NOT in ('D','X') and SOCIAL_SECURITY_NUM is not null
+		group by ENT_YEAR,ENT_MONTH  order by dateStr asc
+	</select>
+	
+	<!-- 从业人数平均值 -->
+		<select id="selectAvgEmpNum" resultClass="java.math.BigDecimal" parameterClass="java.util.HashMap">
+		select   SUM(SOCIAL_SECURITY_NUM)/SUM(QY_COUNT)  from CR_ANALY_ENT_SMALL 
+		<include refid="cranalyentsmall_where" />
+	</select>
+	
+	<select id="selectCrAnalyEntSmallTotal" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" >
+		select 
+		    count(ID) 
+		from 
+		    CR_ANALY_ENT_SMALL
+	    <include refid="cranalyentsmall_where" />
+	</select>
+	<select id="selectEntAllTotal" parameterClass="java.util.HashMap" resultMap="cranalyentsmallRlt_Last" >
+		select 
+		    ENT_YEAR,ENT_MONTH, IFNULL(sum(QY_COUNT),0) QY_COUNT
+		from 
+		    CR_ANALY_ENT_SMALL where QY_COUNT is not null
+	    <isNotEmpty prepend="and" property="trade">  
+				trade = #trade#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="industry">  
+				industry = #industry#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="entYear">  
+				ENT_YEAR = #entYear#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="entStatus">  
+				ent_status = #entStatus#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="smallEnt">  
+				SMALL_ENT = #smallEnt#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="openEnt">  
+				OPEN_ENT = #openEnt#
+			</isNotEmpty>
+			AND ent_status NOT in ('D','X') group by ENT_YEAR,ENT_MONTH ORDER BY  ENT_YEAR,ENT_MONTH desc LIMIT 0,1
+	</select>
+	<select id="selectEntOpenTotal" parameterClass="java.util.HashMap" resultMap="cranalyentsmallRlt_OpenTotaal" >
+		SELECT ent_year,SUM(qy_count) qy_count FROM CR_ANALY_ENT_INCOME_SMALL 
+		WHERE table_type=2 
+		    <isNotEmpty prepend="and" property="trade">  
+				trade = #trade#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="industry">  
+				industry = #industry#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="entYear">  
+				ENT_YEAR = #entYear#
+			</isNotEmpty>
+		    GROUP BY ent_year
+		</select>
+	
+	<!--三年成长轨迹 -->
+	<select id="selectThreeYearGrow" resultMap="cranalyentsmallRlt_Grow" parameterClass="java.util.HashMap">
+		select
+		ent_year,income_type, sum(qy_count) qy_count
+		from 
+			CR_ANALY_ENT_INCOME_SMALL 
+			where ent_year in (#entYear#,#secondYear#,#thirdYear#)
+			 <isNotEmpty prepend="and" property="trade">  
+				trade = #trade#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="industry">  
+				industry = #industry#
+			</isNotEmpty>
+			and table_type=1 and income_type is not null
+		GROUP BY ent_year,income_type
+		order by ent_year, income_type asc
+	</select>
+</sqlMap>

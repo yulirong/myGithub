@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd"> 
+
+<sqlMap namespace="ibatis-zcc">
+
+	<typeAlias alias="Zcc" type="com.icinfo.creditinfo.bean.meeting.Zcc" />
+
+	<resultMap id="zccRlt" class="Zcc">
+		<result property="id" column="id" />
+		<result property="relSource" column="rel_source" />
+		<result property="relTarget" column="rel_target" />
+		<result property="relQno" column="rel_qno" />
+	</resultMap>
+	
+	<sql id="zcc_where">
+	    <dynamic prepend="where">
+			<isNotEmpty prepend="and" property="id">  
+				id = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="relSource">  
+				rel_source = #relSource#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="relTarget">  
+				rel_target = #relTarget#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="relQno">  
+				rel_qno = #relQno#
+			</isNotEmpty>
+	    </dynamic>
+	</sql>
+	
+	<select id="selectZccList" resultMap="zccRlt" parameterClass="java.util.HashMap">
+		select
+			id,rel_source,rel_target,rel_qno 
+		from 
+			NH_RELATION
+		<include refid="zcc_where" />
+	</select>
+	
+</sqlMap>

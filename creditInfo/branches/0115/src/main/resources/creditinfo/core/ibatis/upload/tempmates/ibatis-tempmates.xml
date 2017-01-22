@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd"> 
+
+<sqlMap namespace="ibatis-tempmates">
+
+	<typeAlias alias="TempMates" type="com.icinfo.creditinfo.bean.upload.tempmates.TempMates" />
+
+	<resultMap id="tempmatesRlt" class="TempMates">
+		<result property="manName" column="man_name" />
+		<result property="manType" column="man_type" />
+		<result property="manNo" column="man_no" />
+		<result property="manTel" column="man_tel" />
+		<result property="manAddress" column="man_address" />
+		<result property="matesName" column="mates_name" />
+		<result property="matesType" column="mates_type" />
+		<result property="matesNo" column="mates_no" />
+		<result property="marriage" column="marriage" />
+		<result property="importFrom" column="import_from" />
+		<result property="importDate" column="import_date" />
+	</resultMap>
+	
+	<select id="selectTempMatesById" resultMap="tempmatesRlt" parameterClass="java.lang.String">
+		select
+			man_name,man_type,man_no,man_tel,man_address,mates_name,mates_type,mates_no,marriage,import_from,import_date
+		from 
+			TEMP_MATES
+		where 
+		    ID = #id#
+	</select>
+	
+	<sql id="tempmates_where">
+	    <dynamic prepend="where">
+			<isNotEmpty prepend="and" property="manName">  
+				man_name = #manName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="manType">  
+				man_type = #manType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="manNo">  
+				man_no = #manNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="manTel">  
+				man_tel = #manTel#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="manAddress">  
+				man_address = #manAddress#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="matesName">  
+				mates_name = #matesName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="matesType">  
+				mates_type = #matesType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="matesNo">  
+				mates_no = #matesNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="marriage">  
+				marriage = #marriage#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="importFrom">  
+				import_from = #importFrom#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="importDate">  
+				import_date = #importDate#
+			</isNotEmpty>
+	    </dynamic>
+	</sql>
+	
+	<select id="selectTempMatesList" resultMap="tempmatesRlt" parameterClass="java.util.HashMap">
+		select
+			man_name,man_type,man_no,man_tel,man_address,mates_name,mates_type,mates_no,marriage,import_from,import_date
+		from 
+			TEMP_MATES
+		<include refid="tempmates_where" />
+		<include refid="ibatis-global.mysql_page" />
+	</select>
+	
+	<select id="selectTempMatesTotal" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" >
+		select 
+		    count(ID) 
+		from 
+		    TEMP_MATES
+	    <include refid="tempmates_where" />
+	</select>
+	
+	<insert id="insertTempMates" parameterClass="TempMates">
+       	INSERT INTO TEMP_MATES 
+			(man_name,man_type,man_no,man_tel,man_address,mates_name,mates_type,mates_no,marriage,import_from,import_date)
+		VALUES 
+			(#manName#,#manType#,#manNo#,#manTel#,#manAddress#,#matesName#,#matesType#,#matesNo#,#marriage#,#importFrom#,#importDate#)
+	    <selectKey resultClass="java.lang.String" keyProperty="id" >
+          <![CDATA[ 
+            select #id# as id from dual 
+       	  ]]>    
+       	</selectKey> 
+    </insert> 
+	
+    <update id="updateTempMates" parameterClass="TempMates">
+     UPDATE TEMP_MATES
+	     <dynamic prepend="set">
+			<isNotEmpty prepend="," property="manName">  
+				man_name = #manName#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="manType">  
+				man_type = #manType#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="manNo">  
+				man_no = #manNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="manTel">  
+				man_tel = #manTel#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="manAddress">  
+				man_address = #manAddress#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="matesName">  
+				mates_name = #matesName#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="matesType">  
+				mates_type = #matesType#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="matesNo">  
+				mates_no = #matesNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="marriage">  
+				marriage = #marriage#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="importFrom">  
+				import_from = #importFrom#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="importDate">  
+				import_date = #importDate#
+			</isNotEmpty>
+		</dynamic>
+	    where ID = #id# 
+    </update>
+    
+     <delete id="deleteTempMates" parameterClass="java.lang.String">
+         DELETE FROM TEMP_MATES WHERE ID = #id# 
+     </delete>
+     
+</sqlMap>

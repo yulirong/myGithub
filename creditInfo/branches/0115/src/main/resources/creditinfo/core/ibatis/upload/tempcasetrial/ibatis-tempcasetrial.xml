@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd"> 
+
+<sqlMap namespace="ibatis-tempcasetrial">
+
+	<typeAlias alias="TempCaseTrial" type="com.icinfo.creditinfo.bean.upload.tempcasetrial.TempCaseTrial" />
+
+	<resultMap id="tempcasetrialRlt" class="TempCaseTrial">
+		<result property="id" column="id" />
+		<result property="caseNo" column="case_no" />
+		<result property="caseState" column="case_state" />
+		<result property="partyName" column="party_name" />
+		<result property="caseStartDate" column="case_start_date" />
+		<result property="orgName" column="org_name" />
+		<result property="undertaker" column="undertaker" />
+		<result property="caseCloseDate" column="case_close_date" />
+		<result property="caseCloseWay" column="case_close_way" />
+		<result property="caseResult" column="case_result" />
+		<result property="caseValidDate" column="case_valid_date" />
+		<result property="caseReason" column="case_reason" />
+		<result property="caseStartPeople" column="case_start_people" />
+		<result property="caseResultExplain" column="case_result_explain" />
+		<result property="importFrom" column="import_from" />
+		<result property="importDate" column="import_date" />
+		<result property="caseMoney" column="CASE_MONEY" />
+	</resultMap>
+	
+	<select id="selectTempCaseTrialById" resultMap="tempcasetrialRlt" parameterClass="java.lang.String">
+		select
+			id,case_no,case_state,party_name,case_start_date,org_name,undertaker,case_close_date,case_close_way,case_result,case_valid_date,case_reason,case_start_people,case_result_explain,import_from,import_date,CASE_MONEY
+		from 
+			TEMP_CASE_TRIAL
+		where 
+		    ID = #id#
+	</select>
+	
+	<sql id="tempcasetrial_where">
+	    <dynamic prepend="where">
+			<isNotEmpty prepend="and" property="id">  
+				id = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="caseNo">  
+				case_no = #caseNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="caseState">  
+				case_state = #caseState#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="partyName">  
+				party_name = #partyName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="caseStartDate">  
+				case_start_date = #caseStartDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="orgName">  
+				org_name = #orgName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="undertaker">  
+				undertaker = #undertaker#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="caseCloseDate">  
+				case_close_date = #caseCloseDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="caseCloseWay">  
+				case_close_way = #caseCloseWay#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="caseResult">  
+				case_result = #caseResult#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="caseValidDate">  
+				case_valid_date = #caseValidDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="caseReason">  
+				case_reason = #caseReason#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="caseStartPeople">  
+				case_start_people = #caseStartPeople#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="caseResultExplain">  
+				case_result_explain = #caseResultExplain#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="importFrom">  
+				import_from = #importFrom#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="importDate">  
+				import_date = #importDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="caseMoney">  
+				CASE_MONEY = #caseMoney#
+			</isNotEmpty>
+	    </dynamic>
+	</sql>
+	
+	<select id="selectTempCaseTrialList" resultMap="tempcasetrialRlt" parameterClass="java.util.HashMap">
+		select
+			id,case_no,case_state,party_name,case_start_date,org_name,undertaker,case_close_date,case_close_way,case_result,case_valid_date,case_reason,case_start_people,case_result_explain,import_from,import_date,CASE_MONEY
+		from 
+			TEMP_CASE_TRIAL
+		<include refid="tempcasetrial_where" />
+		<include refid="ibatis-global.mysql_page" />
+	</select>
+	
+	<select id="selectTempCaseTrialTotal" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" >
+		select 
+		    count(ID) 
+		from 
+		    TEMP_CASE_TRIAL
+	    <include refid="tempcasetrial_where" />
+	</select>
+	
+	<insert id="insertTempCaseTrial" parameterClass="TempCaseTrial">
+       	INSERT INTO TEMP_CASE_TRIAL 
+			(id,case_no,case_state,party_name,case_start_date,org_name,undertaker,case_close_date,case_close_way,case_result,case_valid_date,case_reason,case_start_people,case_result_explain,import_from,import_date,CASE_MONEY)
+		VALUES 
+			(#id#,#caseNo#,#caseState#,#partyName#,#caseStartDate#,#orgName#,#undertaker#,#caseCloseDate#,#caseCloseWay#,#caseResult#,#caseValidDate#,#caseReason#,#caseStartPeople#,#caseResultExplain#,#importFrom#,#importDate#,#caseMoney#)
+	    <selectKey resultClass="java.lang.String" keyProperty="id" >
+          <![CDATA[ 
+            select #id# as id from dual 
+       	  ]]>    
+       	</selectKey> 
+    </insert> 
+	
+    <update id="updateTempCaseTrial" parameterClass="TempCaseTrial">
+     UPDATE TEMP_CASE_TRIAL
+	     <dynamic prepend="set">
+			<isNotEmpty prepend="," property="id">  
+				id = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="caseNo">  
+				case_no = #caseNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="caseState">  
+				case_state = #caseState#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="partyName">  
+				party_name = #partyName#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="caseStartDate">  
+				case_start_date = #caseStartDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="orgName">  
+				org_name = #orgName#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="undertaker">  
+				undertaker = #undertaker#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="caseCloseDate">  
+				case_close_date = #caseCloseDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="caseCloseWay">  
+				case_close_way = #caseCloseWay#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="caseResult">  
+				case_result = #caseResult#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="caseValidDate">  
+				case_valid_date = #caseValidDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="caseReason">  
+				case_reason = #caseReason#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="caseStartPeople">  
+				case_start_people = #caseStartPeople#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="caseResultExplain">  
+				case_result_explain = #caseResultExplain#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="importFrom">  
+				import_from = #importFrom#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="importDate">  
+				import_date = #importDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="caseMoney">  
+				CASE_MONEY = #caseMoney#
+			</isNotEmpty>
+		</dynamic>
+	    where ID = #id# 
+    </update>
+    
+     <delete id="deleteTempCaseTrial" parameterClass="java.lang.String">
+         DELETE FROM TEMP_CASE_TRIAL WHERE ID = #id# 
+     </delete>
+     
+</sqlMap>

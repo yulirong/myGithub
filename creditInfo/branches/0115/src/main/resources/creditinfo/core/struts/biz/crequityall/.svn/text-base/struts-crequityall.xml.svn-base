@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"       
+          "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="crequityall" extends="icinfo-default" namespace="/crequityall" >
+
+		<action name="doReadCrEquityAllList" class="crEquityAllAction" method="doReadCrEquityAllListAction">
+			<result name="success">/jsp/biz/crequityall/crequityallList.jsp</result>
+		</action>
+		
+		<!-- 出质信息 -->
+		<action name="doReadCrEquityAllListJSON" class="crEquityAllAction" method="doReadPermissionCrEquityAllListJSON">
+		</action>
+	
+		<action name="doEnAddAndEditCrEquityAll" class="crEquityAllAction" method="doEnAddAndEditCrEquityAllAction">
+			<result name="success">/jsp/biz/crequityall/crequityallAddAndEdit.jsp</result>
+		</action>
+		
+		<action name="doAddAndEditCrEquityAll" class="crEquityAllAction" method="doAddAndEditCrEquityAllAction">
+		</action>
+		
+		<action name="doDelCrEquityAll" class="crEquityAllAction" method="doDelCrEquityAllAction">
+		</action>
+		<!-- 个人详情关联出质信息 -->
+	    <action name="doReadEquityAllListJSON" class="crEquityAllAction" method="doReadPermissionEquityAllListJSON">
+		</action> 
+	</package>
+	
+</struts>

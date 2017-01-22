@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd"> 
+
+<sqlMap namespace="ibatis-tempexpimpamount">
+
+	<typeAlias alias="TempExpImpAmount" type="com.icinfo.creditinfo.bean.upload.tempexpimpamount.TempExpImpAmount" />
+
+	<resultMap id="tempexpimpamountRlt" class="TempExpImpAmount">
+		<result property="id" column="id" />
+		<result property="entName" column="ent_name" />
+		<result property="customsRegNo" column="customs_reg_no" />
+		<result property="date" column="date" />
+		<result property="monthExpAmount" column="month_exp_amount" />
+		<result property="monthImpAmount" column="month_imp_amount" />
+		<result property="importFrom" column="import_from" />
+		<result property="importDate" column="import_date" />
+		<result property="corpid" column="corpid" />
+		<result property="orgCode" column="ORG_CODE" />
+		<result property="unscCode" column="UNSC_CODE" />
+	</resultMap>
+	
+	<select id="selectTempExpImpAmountById" resultMap="tempexpimpamountRlt" parameterClass="java.lang.String">
+		select
+			id,ent_name,customs_reg_no,date,month_exp_amount,month_imp_amount,import_from,import_date,corpid,ORG_CODE,UNSC_CODE
+		from 
+			TEMP_EXP_IMP_AMOUNT
+		where 
+		    ID = #id#
+	</select>
+	
+	<sql id="tempexpimpamount_where">
+	    <dynamic prepend="where">
+			<isNotEmpty prepend="and" property="id">  
+				id = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="entName">  
+				ent_name = #entName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="customsRegNo">  
+				customs_reg_no = #customsRegNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="date">  
+				date = #date#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="monthExpAmount">  
+				month_exp_amount = #monthExpAmount#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="monthImpAmount">  
+				month_imp_amount = #monthImpAmount#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="importFrom">  
+				import_from = #importFrom#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="importDate">  
+				import_date = #importDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="corpid">  
+				corpid = #corpid#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="orgCode">  
+				ORG_CODE = #orgCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="unscCode">  
+				UNSC_CODE = #unscCode#
+			</isNotEmpty>
+	    </dynamic>
+	</sql>
+	
+	<select id="selectTempExpImpAmountList" resultMap="tempexpimpamountRlt" parameterClass="java.util.HashMap">
+		select
+			id,ent_name,customs_reg_no,date,month_exp_amount,month_imp_amount,import_from,import_date,corpid,ORG_CODE,UNSC_CODE
+		from 
+			TEMP_EXP_IMP_AMOUNT
+		<include refid="tempexpimpamount_where" />
+		<include refid="ibatis-global.mysql_page" />
+	</select>
+	
+	<select id="selectTempExpImpAmountTotal" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" >
+		select 
+		    count(ID) 
+		from 
+		    TEMP_EXP_IMP_AMOUNT
+	    <include refid="tempexpimpamount_where" />
+	</select>
+	
+	<insert id="insertTempExpImpAmount" parameterClass="TempExpImpAmount">
+       	INSERT INTO TEMP_EXP_IMP_AMOUNT 
+			(id,ent_name,customs_reg_no,date,month_exp_amount,month_imp_amount,import_from,import_date,corpid,ORG_CODE,UNSC_CODE)
+		VALUES 
+			(#id#,#entName#,#customsRegNo#,#date#,#monthExpAmount#,#monthImpAmount#,#importFrom#,#importDate#,#corpid#,#orgCode#,#unscCode#)
+	    <selectKey resultClass="java.lang.String" keyProperty="id" >
+          <![CDATA[ 
+            select #id# as id from dual 
+       	  ]]>    
+       	</selectKey> 
+    </insert> 
+	
+    <update id="updateTempExpImpAmount" parameterClass="TempExpImpAmount">
+     UPDATE TEMP_EXP_IMP_AMOUNT
+	     <dynamic prepend="set">
+			<isNotEmpty prepend="," property="id">  
+				id = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="entName">  
+				ent_name = #entName#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="customsRegNo">  
+				customs_reg_no = #customsRegNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="date">  
+				date = #date#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="monthExpAmount">  
+				month_exp_amount = #monthExpAmount#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="monthImpAmount">  
+				month_imp_amount = #monthImpAmount#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="importFrom">  
+				import_from = #importFrom#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="importDate">  
+				import_date = #importDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="corpid">  
+				corpid = #corpid#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="orgCode">  
+				ORG_CODE = #orgCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="unscCode">  
+				UNSC_CODE = #unscCode#
+			</isNotEmpty>	
+		</dynamic>
+	    where ID = #id# 
+    </update>
+    
+     <delete id="deleteTempExpImpAmount" parameterClass="java.lang.String">
+         DELETE FROM TEMP_EXP_IMP_AMOUNT WHERE ID = #id# 
+     </delete>
+     
+</sqlMap>

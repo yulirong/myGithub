@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="OFF">
+  <Appenders>
+    <Console name="Console" target="SYSTEM_OUT">
+      <PatternLayout pattern="%d{yyyy.MM.dd 'at' HH:mm:ss z} %-5level %class{1} %L %M - %msg%xEx%n"/>
+    </Console>
+  
+    <RollingFile name="RollingFile-sqltiming" fileName="logs/datag/datag-sqltiming.log"    
+                 filePattern="../logs/$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.gz">    
+     <PatternLayout pattern="%d{yyyy.MM.dd 'at' HH:mm:ss z} %-5level %class{36} %L %M - %msg%xEx%n"/>    
+     <SizeBasedTriggeringPolicy size="100MB" />    
+    </RollingFile>  
+    <RollingFile name="RollingFile" fileName="logs/datag/datag.log"    
+                 filePattern="../logs/$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.gz">    
+     <PatternLayout pattern="%d{yyyy.MM.dd 'at' HH:mm:ss z} %-5level %class{36} %L %M - %msg%xEx%n"/>    
+     <SizeBasedTriggeringPolicy size="100MB" />    
+    </RollingFile>  
+  </Appenders>
+  <Loggers>
+	  <logger name="log4jdbc.log4j2" level="info" additivity="true">
+		  <MarkerFilter marker="LOG4JDBC_NON_STATEMENT" onMatch="DENY" onMismatch="NEUTRAL"/>
+		  <appender-ref ref="RollingFile-sqltiming"/>
+	  </logger>
+	<Root level="trace">
+      <AppenderRef ref="RollingFile-sqltiming" level="INFO"/>
+      <AppenderRef ref="RollingFile" level="warn"/>
+      <AppenderRef ref="Console" level="warn"/>
+    </Root>
+	  <!--
+     <root level="off">
+      <appender-ref ref="Console"/>
+     </root>
+     -->
+  </Loggers>
+</Configuration>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd"> 
+
+<sqlMap namespace="ibatis-crimporthis">
+
+	<typeAlias alias="CrImportHis" type="com.icinfo.creditinfo.bean.biz.crimporthis.CrImportHis" />
+
+	<resultMap id="crimporthisRlt" class="CrImportHis">
+		<result property="id" column="id" />
+		<result property="impUserid" column="imp_userid" />
+		<result property="impFileName" column="imp_file_name" />
+		<result property="impFileSize" column="imp_file_size" />
+		<result property="impStatus" column="imp_status" />
+		<result property="impDate" column="imp_date" />
+		<result property="impDepart" column="imp_depart" />
+		<result property="impRemark" column="imp_remark" />
+		<result property="impFileSheetName" column="imp_file_sheet_name" />
+		<result property="impDeptCode" column="imp_dept_code" />
+	</resultMap>
+	
+	<select id="selectCrImportHisById" resultMap="crimporthisRlt" parameterClass="java.lang.String">
+		select
+			id,imp_userid,imp_file_name,imp_file_size,imp_status,imp_date,imp_depart,imp_remark,imp_file_sheet_name,imp_dept_code
+		from 
+			CR_IMPORT_HIS
+		where 
+		    ID = #id#
+	</select>
+	
+	<sql id="crimporthis_where">
+	    <dynamic prepend="where">
+			<isNotEmpty prepend="and" property="id">  
+				id = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="impUserid">  
+				imp_userid = #impUserid#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="impFileName">  
+				imp_file_name = #impFileName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="impFileSize">  
+				imp_file_size = #impFileSize#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="impStatus">  
+				imp_status = #impStatus#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="impDate">  
+				imp_date = #impDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="impDepart">  
+				imp_depart = #impDepart#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="impRemark">  
+				imp_remark = #impRemark#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="impFileSheetName">  
+				imp_file_sheet_name = #impFileSheetName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="impDeptCode">  
+				imp_dept_code = #impDeptCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="importStartDate">
+			<![CDATA[
+			imp_date >= #importStartDate#
+			]]> 
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="importEndDate">
+			<![CDATA[
+			imp_date  <= #importEndDate#
+			]]>  
+		</isNotEmpty>
+	    </dynamic>
+	</sql>
+	
+	<select id="selectCrImportHisList" resultMap="crimporthisRlt" parameterClass="java.util.HashMap">
+		select
+			id,imp_userid,imp_file_name,imp_file_size,imp_status,imp_date,imp_depart,imp_remark,imp_file_sheet_name,imp_dept_code
+		from 
+			CR_IMPORT_HIS
+		<include refid="crimporthis_where" />
+		ORDER BY imp_date DESC
+		<include refid="ibatis-global.mysql_page" />
+	</select>
+	
+	<select id="selectCrImportHisTotal" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" >
+		select 
+		    count(ID) 
+		from 
+		    CR_IMPORT_HIS
+	    <include refid="crimporthis_where" />
+	</select>
+	
+	<insert id="insertCrImportHis" parameterClass="CrImportHis">
+       	INSERT INTO CR_IMPORT_HIS 
+			(id,imp_userid,imp_file_name,imp_file_size,imp_status,imp_date,imp_depart,imp_remark,imp_file_sheet_name,imp_dept_code)
+		VALUES 
+			(#id#,#impUserid#,#impFileName#,#impFileSize#,#impStatus#,#impDate#,#impDepart#,#impRemark#,#impFileSheetName#,#impDeptCode#)
+	    <selectKey resultClass="java.lang.String" keyProperty="id" >
+          <![CDATA[ 
+            select #id# as id from dual 
+       	  ]]>    
+       	</selectKey> 
+    </insert> 
+	
+</sqlMap>

@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd"> 
+
+<sqlMap namespace="ibatis-temppolicepunish">
+
+	<typeAlias alias="TempPolicePunish" type="com.icinfo.creditinfo.bean.upload.temppolicepunish.TempPolicePunish" />
+
+	<resultMap id="temppolicepunishRlt" class="TempPolicePunish">
+		<result property="id" column="id" />
+		<result property="sysNo" column="sys_no" />
+		<result property="name" column="name" />
+		<result property="certNo" column="cert_no" />
+		<result property="certType" column="cert_type" />
+		<result property="susName" column="sus_name" />
+		<result property="idNo" column="id_no" />
+		<result property="processName" column="process_name" />
+		<result property="reason" column="reason" />
+		<result property="jdswh" column="jdswh" />
+		<result property="executeDate" column="execute_date" />
+		<result property="executeEndDate" column="execute_end_date" />
+		<result property="executeAddr" column="execute_addr" />
+		<result property="caseNo" column="case_no" />
+		<result property="caseName" column="case_name" />
+		<result property="badw" column="badw" />
+		<result property="importFrom" column="import_from" />
+		<result property="importDate" column="import_date" />
+	</resultMap>
+	
+	<select id="selectTempPolicePunishById" resultMap="temppolicepunishRlt" parameterClass="java.lang.String">
+		select
+			id,sys_no,name,cert_no,cert_type,sus_name,id_no,process_name,reason,jdswh,execute_date,execute_end_date,execute_addr,case_no,case_name,badw,import_from,import_date
+		from 
+			TEMP_POLICE_PUNISH
+		where 
+		    ID = #id#
+	</select>
+	
+	<sql id="temppolicepunish_where">
+	    <dynamic prepend="where">
+			<isNotEmpty prepend="and" property="id">  
+				id = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="sysNo">  
+				sys_no = #sysNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="name">  
+				name = #name#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="certNo">  
+				cert_no = #certNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="certType">  
+				cert_type = #certType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="susName">  
+				sus_name = #susName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="idNo">  
+				id_no = #idNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="processName">  
+				process_name = #processName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="reason">  
+				reason = #reason#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="jdswh">  
+				jdswh = #jdswh#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="executeDate">  
+				execute_date = #executeDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="executeEndDate">  
+				execute_end_date = #executeEndDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="executeAddr">  
+				execute_addr = #executeAddr#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="caseNo">  
+				case_no = #caseNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="caseName">  
+				case_name = #caseName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="badw">  
+				badw = #badw#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="importFrom">  
+				import_from = #importFrom#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="importDate">  
+				import_date = #importDate#
+			</isNotEmpty>
+	    </dynamic>
+	</sql>
+	
+	<select id="selectTempPolicePunishList" resultMap="temppolicepunishRlt" parameterClass="java.util.HashMap">
+		select
+			id,sys_no,name,cert_no,cert_type,sus_name,id_no,process_name,reason,jdswh,execute_date,execute_end_date,execute_addr,case_no,case_name,badw,import_from,import_date
+		from 
+			TEMP_POLICE_PUNISH
+		<include refid="temppolicepunish_where" />
+		<include refid="ibatis-global.mysql_page" />
+	</select>
+	
+	<select id="selectTempPolicePunishTotal" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" >
+		select 
+		    count(ID) 
+		from 
+		    TEMP_POLICE_PUNISH
+	    <include refid="temppolicepunish_where" />
+	</select>
+	
+	<insert id="insertTempPolicePunish" parameterClass="TempPolicePunish">
+       	INSERT INTO TEMP_POLICE_PUNISH 
+			(sys_no,name,cert_no,cert_type,sus_name,id_no,process_name,reason,jdswh,execute_date,execute_end_date,execute_addr,case_no,case_name,badw,import_from,import_date)
+		VALUES 
+			(#sysNo#,#name#,#certNo#,#certType#,#susName#,#idNo#,#processName#,#reason#,#jdswh#,#executeDate#,#executeEndDate#,#executeAddr#,#caseNo#,#caseName#,#badw#,#importFrom#,#importDate#)
+    </insert> 
+	
+    <update id="updateTempPolicePunish" parameterClass="TempPolicePunish">
+     UPDATE TEMP_POLICE_PUNISH
+	     <dynamic prepend="set">
+			<isNotEmpty prepend="," property="id">  
+				id = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="sysNo">  
+				sys_no = #sysNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="name">  
+				name = #name#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="certNo">  
+				cert_no = #certNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="certType">  
+				cert_type = #certType#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="susName">  
+				sus_name = #susName#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="idNo">  
+				id_no = #idNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="processName">  
+				process_name = #processName#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="reason">  
+				reason = #reason#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="jdswh">  
+				jdswh = #jdswh#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="executeDate">  
+				execute_date = #executeDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="executeEndDate">  
+				execute_end_date = #executeEndDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="executeAddr">  
+				execute_addr = #executeAddr#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="caseNo">  
+				case_no = #caseNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="caseName">  
+				case_name = #caseName#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="badw">  
+				badw = #badw#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="importFrom">  
+				import_from = #importFrom#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="importDate">  
+				import_date = #importDate#
+			</isNotEmpty>
+		</dynamic>
+	    where ID = #id# 
+    </update>
+    
+     <delete id="deleteTempPolicePunish" parameterClass="java.lang.String">
+         DELETE FROM TEMP_POLICE_PUNISH WHERE ID = #id# 
+     </delete>
+     
+</sqlMap>

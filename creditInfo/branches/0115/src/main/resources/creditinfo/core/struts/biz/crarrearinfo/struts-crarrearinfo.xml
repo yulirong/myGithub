@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"       
+          "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="crarrearinfo" extends="icinfo-default" namespace="/crarrearinfo" >
+
+		<action name="doReadCrArrearInfoList" class="crArrearInfoAction" method="doReadCrArrearInfoListAction">
+			<result name="success">/jsp/biz/crarrearinfo/crarrearinfoList.jsp</result>
+		</action>
+		
+		<action name="doReadCrArrearInfoListJSON" class="crArrearInfoAction" method="doReadPermissionCrArrearInfoListJSONAction">
+		</action>
+		
+		<!-- 进入欠费逾期详情页 -->
+		<action name="doEnAllArrearList" class="crArrearInfoAction" method="doEnAllArrearListAction">
+			<result name="success">/jsp/server/entappcon/allarrearList.jsp</result>
+		</action>
+		
+		<!-- 进入银行欠费逾期详情页 -->
+		<action name="doEnAllBankArrearList" class="crArrearInfoAction">
+			<result name="success">/jsp/server/entappcon/allbankarrearList.jsp</result>
+		</action>
+		
+		<!-- 进入银行欠费逾期详情页 -->
+		<action name="doReadAllBankArrearList" class="crArrearInfoAction" method="doReadPermissionAllBankArrearListAction">
+		</action>
+		
+	</package>
+	
+</struts>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+		http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"
+	default-lazy-init="false">
+
+    <bean id="uploadAction" class="com.icinfo.creditinfo.action.upload.UploadAction" scope="prototype" >
+
+      <property name="crImportHisService" ref="crImportHisService" />
+      <property name="tempPunishService" ref="tempPunishService" />
+      <property name="tempBaseInfoTaxService" ref="tempBaseInfoTaxService" />
+      <property name="tempLicenseService" ref="tempLicenseService" />
+      <property name="tempHouseSequestrateService" ref="tempHouseSequestrateService" />
+      <property name="tempMatesService" ref="tempMatesService" />
+      <property name="tempExpImpAmountService" ref="tempExpImpAmountService" />
+      <property name="tempTaxPayArrearService" ref="tempTaxPayArrearService" />
+      <property name="tempTaxPayService" ref="tempTaxPayService" />
+      <property name="tempTaxReportLocalService" ref="tempTaxReportLocalService" />
+      <property name="tempLandSequestrateService" ref="tempLandSequestrateService" />
+
+      <property name="tempElecPayService" ref="tempElecPayService" />
+      <property name="tempElecPayArrearService" ref="tempElecPayArrearService" />
+
+      <property name="tempSocialSecurityService" ref="tempSocialSecurityService" />
+
+      <property name="tempBaseInfoCourtService" ref="tempBaseInfoCourtService" />
+      <property name="tempCaseTrialService" ref="tempCaseTrialService" />
+      <property name="tempExecuteCaseService" ref="tempExecuteCaseService" />
+      
+      <property name="tempMortgageRegService" ref="tempMortgageRegService" />
+      <property name="tempMortgageSewageDischargeRightService" ref="tempMortgageSewageDischargeRightService" />
+      <property name="tempWaterSewageDischargePayService" ref="tempWaterSewageDischargePayService" />
+      <property name="tempWaterSewageDischargePayArrearService" ref="tempWaterSewageDischargePayArrearService" />
+      <property name="tempWaterPayService" ref="tempWaterPayService" />
+      <property name="tempWaterPayArrearService" ref="tempWaterPayArrearService" />
+      <property name="tempGasPayService" ref="tempGasPayService" />
+      <property name="tempPolicePunishService" ref="tempPolicePunishService" />
+
+    </bean>
+
+</beans>
+

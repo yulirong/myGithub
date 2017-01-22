@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd"> 
+
+<sqlMap namespace="ibatis-crcreditsuminfo">
+
+	<typeAlias alias="CrCreditSumInfo" type="com.icinfo.creditinfo.bean.biz.crcreditsuminfo.CrCreditSumInfo" />
+
+	<resultMap id="crcreditsuminfoRlt" class="CrCreditSumInfo">
+		<result property="id" column="ID" />
+		<result property="creEntName" column="CRE_ENT_NAME" />
+		<result property="creRegNo" column="CRE_REG_NO" />
+		<result property="creSum" column="CRE_SUM" />
+		<result property="creCerInst" column="CRE_CER_INST" />
+		<result property="creGradeType" column="CRE_GRADE_TYPE" />
+		<result property="creCurrency" column="CRE_CURRENCY" />
+		<result property="creBondRatio" column="CRE_BOND_RATIO" />
+		<result property="creOpenAmount" column="CRE_OPEN_AMOUNT" />
+		<result property="creOpenDate" column="CRE_OPEN_DATE" />
+		<result property="creGuarantee" column="CRE_GUARANTEE" />
+		<result property="creUseBalance" column="CRE_USE_BALANCE" />
+		<result property="creDeadlineDate" column="CRE_DEADLINE_DATE" />
+		<result property="creAdvance" column="CRE_ADVANCE" />
+		<result property="corpid" column="corpid" />
+		<result property="creUserid" column="CRE_USERID" />
+		<result property="creOptTime" column="CRE_OPT_TIME" />
+	</resultMap>
+	
+	<select id="selectCrCreditSumInfoById" resultMap="crcreditsuminfoRlt" parameterClass="java.lang.String">
+		select
+			ID,CRE_ENT_NAME,CRE_REG_NO,CRE_SUM,CRE_CER_INST,CRE_GRADE_TYPE,CRE_CURRENCY,CRE_BOND_RATIO,CRE_OPEN_AMOUNT,CRE_OPEN_DATE,CRE_GUARANTEE,CRE_USE_BALANCE,CRE_DEADLINE_DATE,CRE_ADVANCE,corpid,CRE_USERID,CRE_OPT_TIME
+		from 
+			CR_CREDIT_SUM_INFO
+		where 
+		    ID = #id#
+	</select>
+	
+	<sql id="crcreditsuminfo_where">
+	    <dynamic prepend="where">
+			<isNotEmpty prepend="and" property="id">  
+				ID = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="creEntName">  
+				CRE_ENT_NAME = #creEntName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="creRegNo">  
+				CRE_REG_NO = #creRegNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="creSum">  
+				CRE_SUM = #creSum#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="creCerInst">  
+				CRE_CER_INST = #creCerInst#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="creGradeType">  
+				CRE_GRADE_TYPE = #creGradeType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="creCurrency">  
+				CRE_CURRENCY = #creCurrency#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="creBondRatio">  
+				CRE_BOND_RATIO = #creBondRatio#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="creOpenAmount">  
+				CRE_OPEN_AMOUNT = #creOpenAmount#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="creOpenDate">  
+				CRE_OPEN_DATE = #creOpenDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="creGuarantee">  
+				CRE_GUARANTEE = #creGuarantee#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="creUseBalance">  
+				CRE_USE_BALANCE = #creUseBalance#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="creDeadlineDate">  
+				CRE_DEADLINE_DATE = #creDeadlineDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="creAdvance">  
+				CRE_ADVANCE = #creAdvance#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="corpid">  
+				corpid = #corpid#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="creUserid">  
+				CRE_USERID = #creUserid#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="creOptTime">  
+				CRE_OPT_TIME = #creOptTime#
+			</isNotEmpty>
+	    </dynamic>
+	</sql>
+	
+	<select id="selectCrCreditSumInfoList" resultMap="crcreditsuminfoRlt" parameterClass="java.util.HashMap">
+		select
+			ID,CRE_ENT_NAME,CRE_REG_NO,CRE_SUM,CRE_CER_INST,CRE_GRADE_TYPE,CRE_CURRENCY,CRE_BOND_RATIO,CRE_OPEN_AMOUNT,CRE_OPEN_DATE,CRE_GUARANTEE,CRE_USE_BALANCE,CRE_DEADLINE_DATE,CRE_ADVANCE,corpid,CRE_USERID,CRE_OPT_TIME
+		from 
+			CR_CREDIT_SUM_INFO
+		<include refid="crcreditsuminfo_where" />
+		ORDER BY CRE_OPT_TIME DESC
+		<include refid="ibatis-global.mysql_page" />
+	</select>
+	
+	<select id="selectCrCreditSumInfoTotal" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" >
+		select 
+		    count(ID) 
+		from 
+		    CR_CREDIT_SUM_INFO
+	    <include refid="crcreditsuminfo_where" />
+	</select>
+	
+	<insert id="insertCrCreditSumInfo" parameterClass="CrCreditSumInfo">
+       	INSERT INTO CR_CREDIT_SUM_INFO 
+			(ID,CRE_ENT_NAME,CRE_REG_NO,CRE_SUM,CRE_CER_INST,CRE_GRADE_TYPE,CRE_CURRENCY,CRE_BOND_RATIO,CRE_OPEN_AMOUNT,CRE_OPEN_DATE,CRE_GUARANTEE,CRE_USE_BALANCE,CRE_DEADLINE_DATE,CRE_ADVANCE,corpid,CRE_USERID,CRE_OPT_TIME)
+		VALUES 
+			(#id#,#creEntName#,#creRegNo#,#creSum#,#creCerInst#,#creGradeType#,#creCurrency#,#creBondRatio#,#creOpenAmount#,#creOpenDate#,#creGuarantee#,#creUseBalance#,#creDeadlineDate#,#creAdvance#,#corpid#,#creUserid#,#creOptTime#)
+	    <selectKey resultClass="java.lang.String" keyProperty="id" >
+          <![CDATA[ 
+            select #id# as id from dual 
+       	  ]]>    
+       	</selectKey> 
+    </insert> 
+	
+    <update id="updateCrCreditSumInfo" parameterClass="CrCreditSumInfo">
+     UPDATE CR_CREDIT_SUM_INFO
+	     <dynamic prepend="set">
+			<isNotEmpty prepend="," property="creEntName">  
+				CRE_ENT_NAME = #creEntName#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="creRegNo">  
+				CRE_REG_NO = #creRegNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="creSum">  
+				CRE_SUM = #creSum#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="creCerInst">  
+				CRE_CER_INST = #creCerInst#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="creGradeType">  
+				CRE_GRADE_TYPE = #creGradeType#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="creCurrency">  
+				CRE_CURRENCY = #creCurrency#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="creBondRatio">  
+				CRE_BOND_RATIO = #creBondRatio#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="creOpenAmount">  
+				CRE_OPEN_AMOUNT = #creOpenAmount#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="creOpenDate">  
+				CRE_OPEN_DATE = #creOpenDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="creGuarantee">  
+				CRE_GUARANTEE = #creGuarantee#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="creUseBalance">  
+				CRE_USE_BALANCE = #creUseBalance#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="creDeadlineDate">  
+				CRE_DEADLINE_DATE = #creDeadlineDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="creAdvance">  
+				CRE_ADVANCE = #creAdvance#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="corpid">  
+				corpid = #corpid#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="creUserid">  
+				CRE_USERID = #creUserid#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="creOptTime">  
+				CRE_OPT_TIME = #creOptTime#
+			</isNotEmpty>
+		</dynamic>
+	    where ID = #id# 
+    </update>
+    
+     <delete id="deleteCrCreditSumInfo" parameterClass="java.lang.String">
+         DELETE FROM CR_CREDIT_SUM_INFO WHERE ID = #id# 
+     </delete>
+     
+</sqlMap>

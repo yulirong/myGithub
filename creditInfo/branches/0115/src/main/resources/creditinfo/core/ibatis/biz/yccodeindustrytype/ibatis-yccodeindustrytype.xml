@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd"> 
+
+<sqlMap namespace="ibatis-yccodeindustrytype">
+
+	<typeAlias alias="YcCodeIndustryType" type="com.icinfo.creditinfo.bean.biz.yccodeindustrytype.YcCodeIndustryType" />
+
+	<resultMap id="yccodeindustrytypeRlt" class="YcCodeIndustryType">
+		<result property="code" column="CODE" />
+		<result property="content" column="CONTENT" />
+	</resultMap>
+	
+	<select id="selectYcCodeIndustryTypeById" resultMap="yccodeindustrytypeRlt" parameterClass="java.lang.String">
+		select
+			CODE,CONTENT
+		from 
+			CR_CODE_INDUSTRY_TYPE
+		where 
+		    ID = #id#
+	</select>
+	
+	<sql id="yccodeindustrytype_where">
+	    <dynamic prepend="where">
+			<isNotEmpty prepend="and" property="code">  
+				CODE = #code#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="content">  
+				CONTENT = #content#
+			</isNotEmpty>
+	    </dynamic>
+	</sql>
+	
+	<select id="selectYcCodeIndustryTypeList" resultMap="yccodeindustrytypeRlt" parameterClass="java.util.HashMap">
+		select
+			CODE,CONTENT
+		from 
+			CR_CODE_INDUSTRY_TYPE
+		<include refid="yccodeindustrytype_where" />
+		<include refid="ibatis-global.mysql_page" />
+	</select>
+	
+	<!-- 获取三大产业的行业 -->
+	<select id="selectIndustryTypeByMainIndustry" resultMap="yccodeindustrytypeRlt" parameterClass="java.util.HashMap">
+		select
+			CODE,CONTENT
+		from 
+			CR_CODE_INDUSTRY_TYPE 
+		
+		<dynamic prepend="where code in">
+			<iterate property="industryTypeArr" open="(" close=")" conjunction=",">
+				#industryTypeArr[]#
+			</iterate>
+		</dynamic>
+	</select>
+	
+	
+	
+	<select id="selectYcCodeIndustryTypeTotal" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" >
+		select 
+		    count(ID) 
+		from 
+		    CR_CODE_INDUSTRY_TYPE
+	    <include refid="yccodeindustrytype_where" />
+	</select>
+	
+	<insert id="insertYcCodeIndustryType" parameterClass="YcCodeIndustryType">
+       	INSERT INTO CR_CODE_INDUSTRY_TYPE 
+			(CODE,CONTENT)
+		VALUES 
+			(#code#,#content#)
+	    <selectKey resultClass="java.lang.String" keyProperty="id" >
+          <![CDATA[ 
+            select #id# as id from dual 
+       	  ]]>    
+       	</selectKey> 
+    </insert> 
+	
+    <update id="updateYcCodeIndustryType" parameterClass="YcCodeIndustryType">
+     UPDATE CR_CODE_INDUSTRY_TYPE
+	     <dynamic prepend="set">
+			<isNotEmpty prepend="," property="code">  
+				CODE = #code#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="content">  
+				CONTENT = #content#
+			</isNotEmpty>
+		</dynamic>
+	    where ID = #id# 
+    </update>
+    
+     <delete id="deleteYcCodeIndustryType" parameterClass="java.lang.String">
+         DELETE FROM CR_CODE_INDUSTRY_TYPE WHERE ID = #id# 
+     </delete>
+     
+</sqlMap>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd"> 
+    
+<sqlMap namespace="ibatis-global">
+
+    <sql id="oral_page_top">
+		<isNotEmpty property="maxResult">
+			<isNotEmpty property="skipResult">
+			<![CDATA[
+			select t3_.* from (
+					select t2_.* from (
+						select t1_.*, rownum rownum_ from (
+			]]>
+			</isNotEmpty>
+		</isNotEmpty>
+	</sql>
+
+	<sql id="oral_page_bottom">
+		<isNotEmpty property="maxResult">
+			<isNotEmpty property="skipResult">
+			<![CDATA[						
+						) t1_ 
+					) t2_ where rownum <= #maxResult#
+			) t3_ where rownum_ > #skipResult#
+			]]>
+			</isNotEmpty>
+		</isNotEmpty>
+	</sql>
+	
+	<sql id="mysql_page">
+		<isNotEmpty property="skipResult">
+			<isNotEmpty property="pageSize">
+				LIMIT $skipResult$,$pageSize$
+			</isNotEmpty>
+		</isNotEmpty>
+	</sql>
+
+</sqlMap>

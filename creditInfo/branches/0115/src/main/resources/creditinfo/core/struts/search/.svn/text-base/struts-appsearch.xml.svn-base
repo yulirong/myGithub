@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"       
+          "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="appsearch" extends="icinfo-default" namespace="/appsearch" >
+
+		<!-- 进入企业名称查询页面 -->
+		<action name="doEnAppSearch" class="appSearchAction">
+			<result name="success">/jsp/server/search/appsearch.jsp</result>
+		</action>
+		
+		<action name="doGetAppSearchList" class="appSearchAction" method="doGetAppSearchListAction">
+			<result name="success">/jsp/server/search/appsearchList.jsp</result>
+		</action>
+		
+		<action name="doCreateIndexJsonAction" class="appSearchAction" method="doCreateIndexJSONAction">
+		</action>
+		
+		<action name="doGetAutoCompleteJson" class="appSearchAction" method="doGetAutoCompleteJsonAction">
+		</action>
+		
+		<!-- 关系网络 企业基本信息页 -->
+		<action name="doShowEntBaseInfo" class="appSearchAction" method="doShowEntBaseInfoAction">
+			<result name="success" type="redirect">/appsearch/doEnEntBaseInfo.do?corpid=${corpid}</result>
+		</action>
+		
+		<!-- 进入企业基本信息页面 -->
+		<action name="doEnEntBaseInfo" class="appSearchAction" method="doEnEntBaseInfoAction">
+			<result name="success">/jsp/server/entappcon/entbaseinfo.jsp</result>
+			<result name="error">/jsp/server/entappcon/errorEntbaseinfo.jsp</result>
+		</action>
+		
+		<!-- 进入关系网络筛查页面 -->
+		<action name="doEnRelationalSelect" class="appSearchAction" >
+			<result name="success">/jsp/server/biz/relationalnet/relationalNetSearch.jsp</result>
+		</action>
+		
+		<!-- 进入关系网络筛查结果页面 -->
+		<action name="doGetRelationalNetSearchList" class="appSearchAction" method="doGetRelationalNetSearchListAction">
+			<result name="success">/jsp/server/biz/relationalnet/relationalNetSearchList.jsp</result>
+		</action>
+		
+		<!-- 进入关系网络详情页面 -->
+        <action name="doEnRelationalNet" class="appSearchAction" method="doEnRelationalNetAction">
+            <result name="success">/jsp/server/biz/relationalnet/relationalNet.jsp</result>
+        </action>
+        
+        <!-- 进入水气电资源表 -->
+        <action name="doEnWaterGasElecRes" class="appSearchAction" method="doEnWaterGasElecResAction">
+            <result name="success">/jsp/server/analy/analyWaterGasElecRes/analywatergaselecres.jsp</result>
+        </action>
+        <action name="doReadWaterGasElecResJSON" class="appSearchAction" method="doReadWaterGasElecResJSONAction">
+        </action>
+		
+		<action name="doEnRegLocMap" class="appSearchAction" method="doEnRegLocMapAction">
+			<result name="success">/jsp/server/common/map/map.jsp</result>
+		</action>		
+		
+		<!-- 进入企业风险指数 -->
+		<action name="doGetRistIndexList" class="appSearchAction" method="doGetAppSearchListAction">
+			<result name="success">/jsp/server/biz/crristindex/crristindexsearchlist.jsp</result>
+		</action>
+	</package>
+	
+</struts>

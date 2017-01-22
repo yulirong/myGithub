@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd"> 
+
+<sqlMap namespace="ibatis-crbaddebtinfo">
+
+	<typeAlias alias="CrBadDebtInfo" type="com.icinfo.creditinfo.bean.biz.crbaddebtinfo.CrBadDebtInfo" />
+
+	<resultMap id="crbaddebtinfoRlt" class="CrBadDebtInfo">
+		<result property="id" column="ID" />
+		<result property="badEntName" column="BAD_ENT_NAME" />
+		<result property="badRegNo" column="BAD_REG_NO" />
+		<result property="badCreInst" column="BAD_CRE_INST" />
+		<result property="badLoanSum" column="BAD_LOAN_SUM" />
+		<result property="badGreadClass" column="BAD_GREAD_CLASS" />
+		<result property="badCurrency" column="BAD_CURRENCY" />
+		<result property="badIouAmount" column="BAD_IOU_AMOUNT" />
+		<result property="badLoanDate" column="BAD_LOAN_DATE" />
+		<result property="badBusinessType" column="BAD_BUSINESS_TYPE" />
+		<result property="badGuarantee" column="BAD_GUARANTEE" />
+		<result property="badIouBalance" column="BAD_IOU_BALANCE" />
+		<result property="badDueDate" column="BAD_DUE_DATE" />
+		<result property="badLoanForm" column="BAD_LOAN_FORM" />
+		<result property="badExtension" column="BAD_EXTENSION" />
+		<result property="badUserId" column="BAD_USERID" />
+		<result property="badOptTime" column="BAD_OPT_TIME" />
+	</resultMap>
+	
+	<select id="selectCrBadDebtInfoById" resultMap="crbaddebtinfoRlt" parameterClass="java.lang.String">
+		select
+			ID,BAD_ENT_NAME,BAD_REG_NO,BAD_CRE_INST,BAD_LOAN_SUM,BAD_GREAD_CLASS,BAD_CURRENCY,BAD_IOU_AMOUNT,BAD_LOAN_DATE,BAD_BUSINESS_TYPE,BAD_GUARANTEE,BAD_IOU_BALANCE,BAD_DUE_DATE,BAD_LOAN_FORM,BAD_EXTENSION,BAD_USERID,BAD_OPT_TIME
+		from 
+			CR_BAD_DEBT_INFO
+		where 
+		    ID = #id#
+	</select>
+	
+	<sql id="crbaddebtinfo_where">
+	    <dynamic prepend="where">
+			<isNotEmpty prepend="and" property="id">  
+				ID = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="badEntName">  
+				BAD_ENT_NAME = #badEntName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="badRegNo">  
+				BAD_REG_NO = #badRegNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="badCreInst">  
+				BAD_CRE_INST = #badCreInst#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="badLoanSum">  
+				BAD_LOAN_SUM = #badLoanSum#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="badGreadClass">  
+				BAD_GREAD_CLASS = #badGreadClass#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="badCurrency">  
+				BAD_CURRENCY = #badCurrency#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="badIouAmount">  
+				BAD_IOU_AMOUNT = #badIouAmount#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="badLoanDate">  
+				BAD_LOAN_DATE = #badLoanDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="badBusinessType">  
+				BAD_BUSINESS_TYPE = #badBusinessType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="badGuarantee">  
+				BAD_GUARANTEE = #badGuarantee#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="badIouBalance">  
+				BAD_IOU_BALANCE = #badIouBalance#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="badDueDate">  
+				BAD_DUE_DATE = #badDueDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="badLoanForm">  
+				BAD_LOAN_FORM = #badLoanForm#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="badExtension">  
+				BAD_EXTENSION = #badExtension#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="badUserId">  
+				BAD_USERID = #badUserId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="badOptTime">  
+				BAD_OPT_TIME = #badOptTime#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="corpid">  
+				corpid = #corpid#
+			</isNotEmpty>
+	    </dynamic>
+	</sql>
+	
+	<select id="selectCrBadDebtInfoList" resultMap="crbaddebtinfoRlt" parameterClass="java.util.HashMap">
+		select
+			ID,BAD_ENT_NAME,BAD_REG_NO,BAD_CRE_INST,BAD_LOAN_SUM,BAD_GREAD_CLASS,BAD_CURRENCY,BAD_IOU_AMOUNT,BAD_LOAN_DATE,BAD_BUSINESS_TYPE,BAD_GUARANTEE,BAD_IOU_BALANCE,BAD_DUE_DATE,BAD_LOAN_FORM,BAD_EXTENSION,BAD_USERID,BAD_OPT_TIME
+		from 
+			CR_BAD_DEBT_INFO
+		<include refid="crbaddebtinfo_where" />
+		ORDER BY BAD_OPT_TIME DESC
+		<include refid="ibatis-global.mysql_page" />
+	</select>
+	
+	<select id="selectCrBadDebtInfoTotal" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" >
+		select 
+		    count(ID) 
+		from 
+		    CR_BAD_DEBT_INFO
+	    <include refid="crbaddebtinfo_where" />
+	</select>
+	
+	<insert id="insertCrBadDebtInfo" parameterClass="CrBadDebtInfo">
+       	INSERT INTO CR_BAD_DEBT_INFO 
+			(ID,BAD_ENT_NAME,BAD_REG_NO,BAD_CRE_INST,BAD_LOAN_SUM,BAD_GREAD_CLASS,BAD_CURRENCY,BAD_IOU_AMOUNT,BAD_LOAN_DATE,BAD_BUSINESS_TYPE,BAD_GUARANTEE,BAD_IOU_BALANCE,BAD_DUE_DATE,BAD_LOAN_FORM,BAD_EXTENSION,BAD_USERID,BAD_OPT_TIME)
+		VALUES 
+			(#id#,#badEntName#,#badRegNo#,#badCreInst#,#badLoanSum#,#badGreadClass#,#badCurrency#,#badIouAmount#,#badLoanDate#,#badBusinessType#,#badGuarantee#,#badIouBalance#,#badDueDate#,#badLoanForm#,#badExtension#,#badUserId#,#badOptTime#)
+	    <selectKey resultClass="java.lang.String" keyProperty="id" >
+          <![CDATA[ 
+            select #id# as id from dual 
+       	  ]]>    
+       	</selectKey> 
+    </insert> 
+	
+    <update id="updateCrBadDebtInfo" parameterClass="CrBadDebtInfo">
+     UPDATE CR_BAD_DEBT_INFO
+	     <dynamic prepend="set">
+			<isNotEmpty prepend="," property="badEntName">  
+				BAD_ENT_NAME = #badEntName#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="badRegNo">  
+				BAD_REG_NO = #badRegNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="badCreInst">  
+				BAD_CRE_INST = #badCreInst#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="badLoanSum">  
+				BAD_LOAN_SUM = #badLoanSum#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="badGreadClass">  
+				BAD_GREAD_CLASS = #badGreadClass#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="badCurrency">  
+				BAD_CURRENCY = #badCurrency#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="badIouAmount">  
+				BAD_IOU_AMOUNT = #badIouAmount#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="badLoanDate">  
+				BAD_LOAN_DATE = #badLoanDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="badBusinessType">  
+				BAD_BUSINESS_TYPE = #badBusinessType#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="badGuarantee">  
+				BAD_GUARANTEE = #badGuarantee#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="badIouBalance">  
+				BAD_IOU_BALANCE = #badIouBalance#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="badDueDate">  
+				BAD_DUE_DATE = #badDueDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="badLoanForm">  
+				BAD_LOAN_FORM = #badLoanForm#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="badExtension">  
+				BAD_EXTENSION = #badExtension#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="badUserId">  
+				BAD_USERID = #badUserId#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="badOptTime">  
+				BAD_OPT_TIME = #badOptTime#
+			</isNotEmpty>
+		</dynamic>
+	    where ID = #id# 
+    </update>
+    
+     <delete id="deleteCrBadDebtInfo" parameterClass="java.lang.String">
+         DELETE FROM CR_BAD_DEBT_INFO WHERE ID = #id# 
+     </delete>
+     
+</sqlMap>

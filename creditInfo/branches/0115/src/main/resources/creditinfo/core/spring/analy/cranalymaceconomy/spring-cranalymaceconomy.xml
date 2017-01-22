@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+		http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"
+	default-lazy-init="false">
+
+    <bean id="crAnalyMacEconomyAction" class="com.icinfo.creditinfo.action.analy.cranalymaceconomy.CrAnalyMacEconomyAction" scope="prototype" >
+        <property name="crAnalyMacEconomyService" ref="crAnalyMacEconomyService" />
+        <property name="ycCodeIndustryTypeService" ref="ycCodeIndustryTypeService" />
+    </bean>
+
+    <bean id="crAnalyMacEconomyService" class="com.icinfo.creditinfo.service._impl.analy.cranalymaceconomy.CrAnalyMacEconomyServiceImpl" scope="prototype" >
+        <property name="hxBaseDao" ref="crAnalyMacEconomyDao" />
+    </bean>
+
+    <bean id="crAnalyMacEconomyDao" class="com.icinfo.creditinfo.dao._impl.analy.cranalymaceconomy.CrAnalyMacEconomyDaoImpl" scope="prototype" >
+        <property name="className"><value>CrAnalyMacEconomy</value></property>
+        <property name="sqlMapClient" ref="sqlMapClient"></property>
+    </bean>    
+
+</beans>
+

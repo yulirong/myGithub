@@ -1,0 +1,675 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd"> 
+
+<sqlMap namespace="presto-ibatis-hzqyhznr">
+
+	<typeAlias alias="Hzqyhznr" type="com.icinfo.creditinfo.bean.biz.hzqyhznr.Hzqyhznr" />
+
+	<resultMap id="hzqyhznrRlt" class="Hzqyhznr">
+		<result property="id" column="id" />
+		<result property="nbxh" column="nbxh" />
+		<result property="qymc" column="qymc" />
+		<result property="qydemc" column="qydemc" />
+		<result property="zs" column="zs" />
+		<result property="jycs" column="jycs" />
+		<result property="yzbm" column="yzbm" />
+		<result property="dh" column="dh" />
+		<result property="cz" column="cz" />
+		<result property="dzyjdz" column="dzyjdz" />
+		<result property="fddbr" column="fddbr" />
+		<result property="sfzjhm" column="sfzjhm" />
+		<result property="qylx" column="qylx" />
+		<result property="qylxdl" column="qylxdl" />
+		<result property="hy" column="hy" />
+		<result property="cyrs" column="cyrs" />
+		<result property="zczb" column="zczb" />
+		<result property="zczbmy" column="zczbmy" />
+		<result property="zjly" column="zjly" />
+		<result property="bz" column="bz" />
+		<result property="hl" column="hl" />
+		<result property="jyfw" column="jyfw" />
+		<result property="jy" column="jy" />
+		<result property="jyfs" column="jyfs" />
+		<result property="jycsmj" column="jycsmj" />
+		<result property="tslxbs" column="tslxbs" />
+		<result property="jtbz" column="jtbz" />
+		<result property="dawz" column="dawz" />
+		<result property="mgsmc" column="mgsmc" />
+		<result property="hsxs" column="hsxs" />
+		<result property="zch" column="zch" />
+		<result property="zzfbs" column="zzfbs" />
+		<result property="hzrq" column="hzrq" />
+		<result property="hzjg" column="hzjg" />
+		<result property="hztzswh" column="hztzswh" />
+		<result property="clrq" column="clrq" />
+		<result property="djjg" column="djjg" />
+		<result property="pzrq" column="pzrq" />
+		<result property="pzwh" column="pzwh" />
+		<result property="pzdw" column="pzdw" />
+		<result property="swdjzh" column="swdjzh" />
+		<result property="dwdjzh" column="dwdjzh" />
+		<result property="yzjg" column="yzjg" />
+		<result property="jyqsrq" column="jyqsrq" />
+		<result property="jyjzrq" column="jyjzrq" />
+		<result property="zzyxqxqsrq" column="zzyxqxqsrq" />
+		<result property="zzyxqxjzrq" column="zzyxqxjzrq" />
+		<result property="zzfbyxqxz" column="zzfbyxqxz" />
+		<result property="dah" column="dah" />
+		<result property="zykhyh" column="zykhyh" />
+		<result property="zykhyhzh" column="zykhyhzh" />
+		<result property="zgdw" column="zgdw" />
+		<result property="gxdw" column="gxdw" />
+		<result property="dw1" column="dw1" />
+		<result property="dw2" column="dw2" />
+		<result property="mj" column="mj" />
+		<result property="qytydm" column="qytydm" />
+		<result property="bzsm" column="bzsm" />
+		<result property="gbdq" column="gbdq" />
+		<result property="zt" column="zt" />
+		<result property="sjnbxh" column="sjnbxh" />
+		<result property="sxdbgj" column="sxdbgj" />
+		<result property="wjfzrys" column="wjfzrys" />
+		<result property="gatrys" column="gatrys" />
+		<result property="zfrys" column="zfrys" />
+		<result property="djglywlx" column="djglywlx" />
+		<result property="jddw" column="jddw" />
+		<result property="jddwdh" column="jddwdh" />
+		<result property="pzjgdszxm" column="pzjgdszxm" />
+		<result property="pzjgfdszxm" column="pzjgfdszxm" />
+		<result property="pzjgzjlxm" column="pzjgzjlxm" />
+		<result property="pzjgtjzjmc" column="pzjgtjzjmc" />
+		<result property="pzjgdz" column="pzjgdz" />
+		<result property="pzjgmc" column="pzjgmc" />
+		<result property="tzze" column="tzze" />
+		<result property="tzzesfcz" column="tzzesfcz" />
+		<result property="wfrjcze" column="wfrjcze" />
+		<result property="wfrjczemy" column="wfrjczemy" />
+		<result property="zfrjcze" column="zfrjcze" />
+		<result property="zfrjczemy" column="zfrjczemy" />
+		<result property="tzzemy" column="tzzemy" />
+		<result property="sjcze" column="sjcze" />
+		<result property="sjczemy" column="sjczemy" />
+		<result property="wfcyrs" column="wfcyrs" />
+		<result property="czdjzh" column="czdjzh" />
+		<result property="hgzcdjh" column="hgzcdjh" />
+		<result property="whdjzh" column="whdjzh" />
+		<result property="gwjyfw" column="gwjyfw" />
+		<result property="xmze" column="xmze" />
+		<result property="xmzemy" column="xmzemy" />
+		<result property="xmnr" column="xmnr" />
+		<result property="xmmc" column="xmmc" />
+		<result property="gwzczb" column="gwzczb" />
+		<result property="htqxq" column="htqxq" />
+		<result property="htqxz" column="htqxz" />
+		<result property="jsrys" column="jsrys" />
+		<result property="glrys" column="glrys" />
+		<result property="scywrys" column="scywrys" />
+		<result property="qtrys" column="qtrys" />
+		<result property="qygwdz" column="qygwdz" />
+		<result property="cxbz" column="cxbz" />
+		<result property="kylb" column="kylb" />
+		<result property="gpssggrs" column="gpssggrs" />
+		<result property="hhrs" column="hhrs" />
+		<result property="zxrs" column="zxrs" />
+		<result property="zchOld" column="zch_old" />
+		<result property="qymcOld" column="qymc_old" />
+		<result property="grdzczfs" column="grdzczfs" />
+		<result property="bgzxrq" column="bgzxrq" />
+		<result property="ldzj" column="ldzj" />
+		<result property="gdzj" column="gdzj" />
+		<result property="jycdcq" column="jycdcq" />
+		<result property="glph" column="glph" />
+		<result property="xzjd" column="xzjd" />
+		<result property="tsdm1" column="tsdm1" />
+		<result property="tsdm2" column="tsdm2" />
+		<result property="tsdm3" column="tsdm3" />
+		<result property="jtcys" column="jtcys" />
+		<result property="bgxts" column="bgxts" />
+		<result property="jfkh" column="jfkh" />
+		<result property="zysb" column="zysb" />
+		<result property="zcxs" column="zcxs" />
+		<result property="jyxs" column="jyxs" />
+		<result property="zzsx" column="zzsx" />
+		<result property="jwh" column="jwh" />
+		<result property="gswz" column="gswz" />
+		<result property="xydj" column="xydj" />
+		<result property="blxy" column="blxy" />
+		<result property="jgsd" column="jgsd" />
+		<result property="jgsddjjg" column="jgsddjjg" />
+		<result property="dzzzffzt" column="dzzzffzt" />
+		<result property="sltzswh" column="sltzswh" />
+		<result property="fpbz" column="fpbz" />
+		<result property="thly" column="thly" />
+		<result property="wzcy" column="wzcy" />
+		<result property="jjkfq" column="jjkfq" />
+		<result property="zsdjjg" column="zsdjjg" />
+		<result property="xmlx" column="xmlx" />
+		<result property="xkjyxm" column="xkjyxm" />
+		<result property="slfs" column="slfs" />
+		<result property="jyhd" column="jyhd" />
+		<result property="lsgx" column="lsgx" />
+		<result property="ybjyxm" column="ybjyxm" />
+		<result property="jwzczb" column="jwzczb" />
+		<result property="hhfs" column="hhfs" />
+		<result property="jylb" column="jylb" />
+		<result property="hyfl" column="hyfl" />
+		<result property="gxsyrs" column="gxsyrs" />
+		<result property="ywfw" column="ywfw" />
+		<result property="jyybjy" column="jyybjy" />
+		<result property="jyxkjy" column="jyxkjy" />
+	</resultMap>
+	
+	<select id="selectHzqyhznrById" resultMap="hzqyhznrRlt" parameterClass="java.lang.String">
+		select
+			id,nbxh,qymc,qydemc,zs,jycs,yzbm,dh,cz,dzyjdz,fddbr,sfzjhm,qylx,qylxdl,hy,cyrs,zczb,zczbmy,zjly,bz,hl,jyfw,jy,jyfs,jycsmj,tslxbs,jtbz,dawz,mgsmc,hsxs,zch,zzfbs,hzrq,hzjg,hztzswh,clrq,djjg,pzrq,pzwh,pzdw,swdjzh,dwdjzh,yzjg,jyqsrq,jyjzrq,zzyxqxqsrq,zzyxqxjzrq,zzfbyxqxz,dah,zykhyh,zykhyhzh,zgdw,gxdw,dw1,dw2,mj,qytydm,bzsm,gbdq,zt,sjnbxh,sxdbgj,wjfzrys,gatrys,zfrys,djglywlx,jddw,jddwdh,pzjgdszxm,pzjgfdszxm,pzjgzjlxm,pzjgtjzjmc,pzjgdz,pzjgmc,tzze,tzzesfcz,wfrjcze,wfrjczemy,zfrjcze,zfrjczemy,tzzemy,sjcze,sjczemy,wfcyrs,czdjzh,hgzcdjh,whdjzh,gwjyfw,xmze,xmzemy,xmnr,xmmc,gwzczb,htqxq,htqxz,jsrys,glrys,scywrys,qtrys,qygwdz,cxbz,kylb,gpssggrs,hhrs,zxrs,zch_old,qymc_old,grdzczfs,bgzxrq,ldzj,gdzj,jycdcq,glph,xzjd,tsdm1,tsdm2,tsdm3,jtcys,bgxts,jfkh,zysb,zcxs,jyxs,zzsx,jwh,gswz,xydj,blxy,jgsd,jgsddjjg,dzzzffzt,sltzswh,fpbz,thly,wzcy,jjkfq,zsdjjg,xmlx,xkjyxm,slfs,jyhd,lsgx,ybjyxm,jwzczb,hhfs,jylb,hyfl,gxsyrs,ywfw,jyybjy,jyxkjy
+		from 
+			HZ_QYHZNR
+		where 
+		    ID = #id#
+	</select>
+	
+	<sql id="hzqyhznr_where">
+	    <dynamic prepend="where">
+			<isNotEmpty prepend="and" property="id">  
+				id = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="nbxh">  
+				nbxh = #nbxh#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="qymc">  
+				qymc = #qymc#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="qydemc">  
+				qydemc = #qydemc#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="zs">  
+				zs = #zs#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="jycs">  
+				jycs = #jycs#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="yzbm">  
+				yzbm = #yzbm#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="dh">  
+				dh = #dh#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="cz">  
+				cz = #cz#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="dzyjdz">  
+				dzyjdz = #dzyjdz#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="fddbr">  
+				fddbr = #fddbr#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="sfzjhm">  
+				sfzjhm = #sfzjhm#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="qylx">  
+				qylx = #qylx#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="qylxdl">  
+				qylxdl = #qylxdl#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="hy">  
+				hy = #hy#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="cyrs">  
+				cyrs = #cyrs#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="zczb">  
+				zczb = #zczb#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="zczbmy">  
+				zczbmy = #zczbmy#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="zjly">  
+				zjly = #zjly#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="bz">  
+				bz = #bz#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="hl">  
+				hl = #hl#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="jyfw">  
+				jyfw = #jyfw#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="jy">  
+				jy = #jy#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="jyfs">  
+				jyfs = #jyfs#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="jycsmj">  
+				jycsmj = #jycsmj#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="tslxbs">  
+				tslxbs = #tslxbs#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="jtbz">  
+				jtbz = #jtbz#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="dawz">  
+				dawz = #dawz#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="mgsmc">  
+				mgsmc = #mgsmc#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="hsxs">  
+				hsxs = #hsxs#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="zch">  
+				zch = #zch#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="zzfbs">  
+				zzfbs = #zzfbs#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="hzrq">  
+				hzrq = #hzrq#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="hzjg">  
+				hzjg = #hzjg#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="hztzswh">  
+				hztzswh = #hztzswh#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="clrq">  
+				clrq = #clrq#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="djjg">  
+				djjg = #djjg#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="pzrq">  
+				pzrq = #pzrq#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="pzwh">  
+				pzwh = #pzwh#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="pzdw">  
+				pzdw = #pzdw#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="swdjzh">  
+				swdjzh = #swdjzh#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="dwdjzh">  
+				dwdjzh = #dwdjzh#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="yzjg">  
+				yzjg = #yzjg#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="jyqsrq">  
+				jyqsrq = #jyqsrq#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="jyjzrq">  
+				jyjzrq = #jyjzrq#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="zzyxqxqsrq">  
+				zzyxqxqsrq = #zzyxqxqsrq#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="zzyxqxjzrq">  
+				zzyxqxjzrq = #zzyxqxjzrq#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="zzfbyxqxz">  
+				zzfbyxqxz = #zzfbyxqxz#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="dah">  
+				dah = #dah#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="zykhyh">  
+				zykhyh = #zykhyh#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="zykhyhzh">  
+				zykhyhzh = #zykhyhzh#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="zgdw">  
+				zgdw = #zgdw#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="gxdw">  
+				gxdw = #gxdw#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="dw1">  
+				dw1 = #dw1#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="dw2">  
+				dw2 = #dw2#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="mj">  
+				mj = #mj#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="qytydm">  
+				qytydm = #qytydm#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="bzsm">  
+				bzsm = #bzsm#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="gbdq">  
+				gbdq = #gbdq#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="zt">  
+				zt = #zt#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="sjnbxh">  
+				sjnbxh = #sjnbxh#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="sxdbgj">  
+				sxdbgj = #sxdbgj#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="wjfzrys">  
+				wjfzrys = #wjfzrys#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="gatrys">  
+				gatrys = #gatrys#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="zfrys">  
+				zfrys = #zfrys#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="djglywlx">  
+				djglywlx = #djglywlx#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="jddw">  
+				jddw = #jddw#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="jddwdh">  
+				jddwdh = #jddwdh#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="pzjgdszxm">  
+				pzjgdszxm = #pzjgdszxm#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="pzjgfdszxm">  
+				pzjgfdszxm = #pzjgfdszxm#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="pzjgzjlxm">  
+				pzjgzjlxm = #pzjgzjlxm#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="pzjgtjzjmc">  
+				pzjgtjzjmc = #pzjgtjzjmc#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="pzjgdz">  
+				pzjgdz = #pzjgdz#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="pzjgmc">  
+				pzjgmc = #pzjgmc#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="tzze">  
+				tzze = #tzze#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="tzzesfcz">  
+				tzzesfcz = #tzzesfcz#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="wfrjcze">  
+				wfrjcze = #wfrjcze#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="wfrjczemy">  
+				wfrjczemy = #wfrjczemy#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="zfrjcze">  
+				zfrjcze = #zfrjcze#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="zfrjczemy">  
+				zfrjczemy = #zfrjczemy#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="tzzemy">  
+				tzzemy = #tzzemy#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="sjcze">  
+				sjcze = #sjcze#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="sjczemy">  
+				sjczemy = #sjczemy#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="wfcyrs">  
+				wfcyrs = #wfcyrs#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="czdjzh">  
+				czdjzh = #czdjzh#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="hgzcdjh">  
+				hgzcdjh = #hgzcdjh#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="whdjzh">  
+				whdjzh = #whdjzh#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="gwjyfw">  
+				gwjyfw = #gwjyfw#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="xmze">  
+				xmze = #xmze#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="xmzemy">  
+				xmzemy = #xmzemy#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="xmnr">  
+				xmnr = #xmnr#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="xmmc">  
+				xmmc = #xmmc#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="gwzczb">  
+				gwzczb = #gwzczb#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="htqxq">  
+				htqxq = #htqxq#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="htqxz">  
+				htqxz = #htqxz#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="jsrys">  
+				jsrys = #jsrys#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="glrys">  
+				glrys = #glrys#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="scywrys">  
+				scywrys = #scywrys#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="qtrys">  
+				qtrys = #qtrys#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="qygwdz">  
+				qygwdz = #qygwdz#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="cxbz">  
+				cxbz = #cxbz#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="kylb">  
+				kylb = #kylb#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="gpssggrs">  
+				gpssggrs = #gpssggrs#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="hhrs">  
+				hhrs = #hhrs#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="zxrs">  
+				zxrs = #zxrs#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="zchOld">  
+				zch_old = #zchOld#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="qymcOld">  
+				qymc_old = #qymcOld#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="grdzczfs">  
+				grdzczfs = #grdzczfs#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="bgzxrq">  
+				bgzxrq = #bgzxrq#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ldzj">  
+				ldzj = #ldzj#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="gdzj">  
+				gdzj = #gdzj#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="jycdcq">  
+				jycdcq = #jycdcq#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="glph">  
+				glph = #glph#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="xzjd">  
+				xzjd = #xzjd#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="tsdm1">  
+				tsdm1 = #tsdm1#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="tsdm2">  
+				tsdm2 = #tsdm2#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="tsdm3">  
+				tsdm3 = #tsdm3#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="jtcys">  
+				jtcys = #jtcys#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="bgxts">  
+				bgxts = #bgxts#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="jfkh">  
+				jfkh = #jfkh#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="zysb">  
+				zysb = #zysb#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="zcxs">  
+				zcxs = #zcxs#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="jyxs">  
+				jyxs = #jyxs#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="zzsx">  
+				zzsx = #zzsx#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="jwh">  
+				jwh = #jwh#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="gswz">  
+				gswz = #gswz#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="xydj">  
+				xydj = #xydj#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="blxy">  
+				blxy = #blxy#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="jgsd">  
+				jgsd = #jgsd#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="jgsddjjg">  
+				jgsddjjg = #jgsddjjg#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="dzzzffzt">  
+				dzzzffzt = #dzzzffzt#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="sltzswh">  
+				sltzswh = #sltzswh#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="fpbz">  
+				fpbz = #fpbz#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="thly">  
+				thly = #thly#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="wzcy">  
+				wzcy = #wzcy#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="jjkfq">  
+				jjkfq = #jjkfq#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="zsdjjg">  
+				zsdjjg = #zsdjjg#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="xmlx">  
+				xmlx = #xmlx#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="xkjyxm">  
+				xkjyxm = #xkjyxm#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="slfs">  
+				slfs = #slfs#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="jyhd">  
+				jyhd = #jyhd#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="lsgx">  
+				lsgx = #lsgx#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ybjyxm">  
+				ybjyxm = #ybjyxm#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="jwzczb">  
+				jwzczb = #jwzczb#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="hhfs">  
+				hhfs = #hhfs#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="jylb">  
+				jylb = #jylb#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="hyfl">  
+				hyfl = #hyfl#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="gxsyrs">  
+				gxsyrs = #gxsyrs#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ywfw">  
+				ywfw = #ywfw#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="jyybjy">  
+				jyybjy = #jyybjy#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="jyxkjy">  
+				jyxkjy = #jyxkjy#
+			</isNotEmpty>
+	    </dynamic>
+	</sql>
+	
+	<select id="selectHzqyhznrList" resultMap="hzqyhznrRlt" parameterClass="java.util.HashMap">
+		select
+			id,nbxh,qymc,qydemc,zs,jycs,yzbm,dh,cz,dzyjdz,fddbr,sfzjhm,qylx,qylxdl,hy,cyrs,zczb,zczbmy,zjly,bz,hl,jyfw,jy,jyfs,jycsmj,tslxbs,jtbz,dawz,mgsmc,hsxs,zch,zzfbs,hzrq,hzjg,hztzswh,clrq,djjg,pzrq,pzwh,pzdw,swdjzh,dwdjzh,yzjg,jyqsrq,jyjzrq,zzyxqxqsrq,zzyxqxjzrq,zzfbyxqxz,dah,zykhyh,zykhyhzh,zgdw,gxdw,dw1,dw2,mj,qytydm,bzsm,gbdq,zt,sjnbxh,sxdbgj,wjfzrys,gatrys,zfrys,djglywlx,jddw,jddwdh,pzjgdszxm,pzjgfdszxm,pzjgzjlxm,pzjgtjzjmc,pzjgdz,pzjgmc,tzze,tzzesfcz,wfrjcze,wfrjczemy,zfrjcze,zfrjczemy,tzzemy,sjcze,sjczemy,wfcyrs,czdjzh,hgzcdjh,whdjzh,gwjyfw,xmze,xmzemy,xmnr,xmmc,gwzczb,htqxq,htqxz,jsrys,glrys,scywrys,qtrys,qygwdz,cxbz,kylb,gpssggrs,hhrs,zxrs,zch_old,qymc_old,grdzczfs,bgzxrq,ldzj,gdzj,jycdcq,glph,xzjd,tsdm1,tsdm2,tsdm3,jtcys,bgxts,jfkh,zysb,zcxs,jyxs,zzsx,jwh,gswz,xydj,blxy,jgsd,jgsddjjg,dzzzffzt,sltzswh,fpbz,thly,wzcy,jjkfq,zsdjjg,xmlx,xkjyxm,slfs,jyhd,lsgx,ybjyxm,jwzczb,hhfs,jylb,hyfl,gxsyrs,ywfw,jyybjy,jyxkjy
+		from 
+			HZ_QYHZNR
+		<include refid="hzqyhznr_where" />
+	</select>
+	
+	<select id="selectHzqyhznrTotal" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" >
+		select 
+		    count(ID) 
+		from 
+		    HZ_QYHZNR
+	    <include refid="hzqyhznr_where" />
+	</select>
+	
+	<insert id="insertHzqyhznr" parameterClass="Hzqyhznr">
+       	INSERT INTO HZ_QYHZNR 
+			(id,nbxh,qymc,qydemc,zs,jycs,yzbm,dh,cz,dzyjdz,fddbr,sfzjhm,qylx,qylxdl,hy,cyrs,zczb,zczbmy,zjly,bz,hl,jyfw,jy,jyfs,jycsmj,tslxbs,jtbz,dawz,mgsmc,hsxs,zch,zzfbs,hzrq,hzjg,hztzswh,clrq,djjg,pzrq,pzwh,pzdw,swdjzh,dwdjzh,yzjg,jyqsrq,jyjzrq,zzyxqxqsrq,zzyxqxjzrq,zzfbyxqxz,dah,zykhyh,zykhyhzh,zgdw,gxdw,dw1,dw2,mj,qytydm,bzsm,gbdq,zt,sjnbxh,sxdbgj,wjfzrys,gatrys,zfrys,djglywlx,jddw,jddwdh,pzjgdszxm,pzjgfdszxm,pzjgzjlxm,pzjgtjzjmc,pzjgdz,pzjgmc,tzze,tzzesfcz,wfrjcze,wfrjczemy,zfrjcze,zfrjczemy,tzzemy,sjcze,sjczemy,wfcyrs,czdjzh,hgzcdjh,whdjzh,gwjyfw,xmze,xmzemy,xmnr,xmmc,gwzczb,htqxq,htqxz,jsrys,glrys,scywrys,qtrys,qygwdz,cxbz,kylb,gpssggrs,hhrs,zxrs,zch_old,qymc_old,grdzczfs,bgzxrq,ldzj,gdzj,jycdcq,glph,xzjd,tsdm1,tsdm2,tsdm3,jtcys,bgxts,jfkh,zysb,zcxs,jyxs,zzsx,jwh,gswz,xydj,blxy,jgsd,jgsddjjg,dzzzffzt,sltzswh,fpbz,thly,wzcy,jjkfq,zsdjjg,xmlx,xkjyxm,slfs,jyhd,lsgx,ybjyxm,jwzczb,hhfs,jylb,hyfl,gxsyrs,ywfw,jyybjy,jyxkjy)
+		VALUES 
+			(#id#,#nbxh#,#qymc#,#qydemc#,#zs#,#jycs#,#yzbm#,#dh#,#cz#,#dzyjdz#,#fddbr#,#sfzjhm#,#qylx#,#qylxdl#,#hy#,#cyrs#,#zczb#,#zczbmy#,#zjly#,#bz#,#hl#,#jyfw#,#jy#,#jyfs#,#jycsmj#,#tslxbs#,#jtbz#,#dawz#,#mgsmc#,#hsxs#,#zch#,#zzfbs#,#hzrq#,#hzjg#,#hztzswh#,#clrq#,#djjg#,#pzrq#,#pzwh#,#pzdw#,#swdjzh#,#dwdjzh#,#yzjg#,#jyqsrq#,#jyjzrq#,#zzyxqxqsrq#,#zzyxqxjzrq#,#zzfbyxqxz#,#dah#,#zykhyh#,#zykhyhzh#,#zgdw#,#gxdw#,#dw1#,#dw2#,#mj#,#qytydm#,#bzsm#,#gbdq#,#zt#,#sjnbxh#,#sxdbgj#,#wjfzrys#,#gatrys#,#zfrys#,#djglywlx#,#jddw#,#jddwdh#,#pzjgdszxm#,#pzjgfdszxm#,#pzjgzjlxm#,#pzjgtjzjmc#,#pzjgdz#,#pzjgmc#,#tzze#,#tzzesfcz#,#wfrjcze#,#wfrjczemy#,#zfrjcze#,#zfrjczemy#,#tzzemy#,#sjcze#,#sjczemy#,#wfcyrs#,#czdjzh#,#hgzcdjh#,#whdjzh#,#gwjyfw#,#xmze#,#xmzemy#,#xmnr#,#xmmc#,#gwzczb#,#htqxq#,#htqxz#,#jsrys#,#glrys#,#scywrys#,#qtrys#,#qygwdz#,#cxbz#,#kylb#,#gpssggrs#,#hhrs#,#zxrs#,#zchOld#,#qymcOld#,#grdzczfs#,#bgzxrq#,#ldzj#,#gdzj#,#jycdcq#,#glph#,#xzjd#,#tsdm1#,#tsdm2#,#tsdm3#,#jtcys#,#bgxts#,#jfkh#,#zysb#,#zcxs#,#jyxs#,#zzsx#,#jwh#,#gswz#,#xydj#,#blxy#,#jgsd#,#jgsddjjg#,#dzzzffzt#,#sltzswh#,#fpbz#,#thly#,#wzcy#,#jjkfq#,#zsdjjg#,#xmlx#,#xkjyxm#,#slfs#,#jyhd#,#lsgx#,#ybjyxm#,#jwzczb#,#hhfs#,#jylb#,#hyfl#,#gxsyrs#,#ywfw#,#jyybjy#,#jyxkjy#)
+	    <selectKey resultClass="java.lang.String" keyProperty="id" >
+          <![CDATA[ 
+            select #id# as id from dual 
+       	  ]]>    
+       	</selectKey> 
+    </insert> 
+	<!-- subresultMap -->
+    <resultMap id="hzqyhznrSubRlt" class="Hzqyhznr">
+		<result property="id" column="id" />
+		<result property="nbxh" column="nbxh" />
+		<result property="qymc" column="qymc" />
+		<result property="qydemc" column="qydemc" />
+		<result property="zs" column="zs" />
+		<result property="jycs" column="jycs" />
+   </resultMap>	
+   <select id="selectSubHzqyhznrList"  resultMap="hzqyhznrSubRlt" parameterClass="java.util.HashMap">
+   	select
+			id,nbxh,qymc,qydemc,zs,jycs
+		from 
+			HZ_QYHZNR2
+		<include refid="hzqyhznr_where" />
+   </select>	
+     
+</sqlMap>

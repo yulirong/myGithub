@@ -1,0 +1,47 @@
+#body{font-family:SimSun,"Microsoft YaHei";margin:0; padding:0; border:0; font-size:12px; line-height:18px;color:#5c5c5c;}
+body{font-family:"微软雅黑";margin:0; padding:0; border:0; font-size:12px; line-height:18px;color:#5c5c5c;}
+a{text-decoration:none; color:#999}
+a:hover{color:#F60;}
+input{font-family:SimSun; color:#333;}
+input[type="text"]{border:1px solid #d9d9d9; height:20px; line-height:19px;}
+.clr{clear:both;}
+
+
+.main{overflow:hidden; padding:10px 10px 0px 10px; _padding:10px 0 20px 10px;}
+.tablebox{font-size:12px;border-collapse: collapse;border-spacing: 0;background-color: #E7E7E7;border: 1px solid rgba(0,0,0,0.21);width:100%}
+.tablebox th{background: #f7f6f6;border: 1px solid #e3e3e3;padding: 4px;text-align: right;font-weight: normal;}
+.tablebox td{background: #FFF;border: 1px solid #e3e3e3;padding: 4px;font-weight: normal;}
+.btn{background:url(../../images/server/common/btn.png) no-repeat; width:72px; height:31px; cursor:hand; border:none; color:#fff; font-size:14px; font-weight:bold;}
+.btn:hover{background:url(../../images/server/common/btn.png) 0 -31px no-repeat;}
+.btnbox{ padding:10px 0 25px 0; text-align:center;}
+#menu_sh{ background:url(../../images/server/common/pic_bg.jpg) no-repeat; height:47px; width:900px;}
+#menu_sh ul{list-style:none; padding:0px; margin:0px; line-height:41px; padding-left:14px;}
+#menu_sh li{ float:left; height:47px;}
+#menu_sh a{text-decoration:none; color:#5c5c5c}
+#menu_sh a:hover{color:#fff;}
+.menu_sh1{width:70px; text-align:center;}
+.menu_sh1on{width:70px; text-align:center; background:url(../../images/server/common/menu_sh01.gif) no-repeat; color:#FFF;}
+.menu_sh2{ width:82px; text-align:center;}
+.menu_sh2on{width:82px; text-align:center; background:url(../../images/server/common/menu_sh02.gif) no-repeat; color:#FFF;}
+.menu_sh3{ width:96px; text-align:center;}
+.menu_sh3on{width:96px; text-align:center; background:url(../../images/server/common/menu_sh03.gif) no-repeat; color:#FFF;}
+.menu_sh4{ width:106px; text-align:center;}
+.menu_sh4on{width:106px; text-align:center; background:url(../../images/server/common/menu_sh04.gif) no-repeat; color:#FFF;}
+
+/* tree */
+.tree{border: 1px solid #e3e3e3;float:left;width:200px;max-height: 480px;overflow: auto;}
+.msgshow{float:left;width:660px;margin-left:10px;}
+.msgshow th{font-weight:bold;}
+.btnCenter{text-align: center;margin:10px auto}
+
+h1 {font-size: 13px;line-height: 16px;font-weight: normal;margin: 0px 0px 5px 0px;overflow: hidden;color: #F60;}
+
+.btn_choose{background:url(../../images/common/btn_choose.jpg);width:55px;height:24px;border:none;cursor:pointer;}
+.btn_choose:hover{background:url(../../images/common/btn_choose.jpg) 0 -24px no-repeat;}
+
+
+
+
+
+
+

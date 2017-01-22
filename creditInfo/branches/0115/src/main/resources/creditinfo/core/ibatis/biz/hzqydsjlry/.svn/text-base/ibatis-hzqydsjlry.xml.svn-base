@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd"> 
+
+<sqlMap namespace="ibatis-hzqydsjlry">
+
+	<typeAlias alias="HzQydsjlry" type="com.icinfo.creditinfo.bean.biz.hzqydsjlry.HzQydsjlry" />
+
+	<resultMap id="hzqydsjlryRlt" class="HzQydsjlry">
+		<result property="nbxh" column="nbxh" />
+		<result property="xm" column="qymc" />
+		
+	</resultMap>
+	
+	<resultMap id="hzqydsjlryRlt2" class="HzQydsjlry">
+		<result property="id" column="id" />
+		<result property="nbxh" column="nbxh" />
+		<result property="ryxh" column="ryxh" />
+		<result property="xm" column="xm" />
+		<result property="gj" column="gj" />
+		<result property="xb" column="xb" />
+		<result property="csny" column="csny" />
+		<result property="mz" column="mz" />
+		<result property="zzmm" column="zzmm" />
+		<result property="whcd" column="whcd" />
+		<result property="jszc" column="jszc" />
+		<result property="jstc" column="jstc" />
+		<result property="jkzk" column="jkzk" />
+		<result property="hjdz" column="hjdz" />
+		<result property="ssxzqh" column="ssxzqh" />
+		<result property="dh" column="dh" />
+		<result property="yzbm" column="yzbm" />
+		<result property="xzdz" column="xzdz" />
+		<result property="sfzjmc" column="sfzjmc" />
+		<result property="sfzjhm" column="sfzjhm" />
+		<result property="shzw" column="shzw" />
+		<result property="zw" column="zw" />
+		<result property="rylx" column="rylx" />
+		<result property="jl" column="jl" />
+		<result property="bzsm" column="bzsm" />
+		<result property="csfs" column="csfs" />
+		<result property="wpf" column="wpf" />
+		<result property="centralsoftArea" column="centralsoft_area" />
+		<result property="fddbrbz" column="fddbrbz" />
+		<result property="zjlxmc" column="zjlxmc"/>
+		<result property="zwmc" column="zwmc"/>
+	</resultMap>
+	
+	<resultMap id="hzqydsjlryForRelationRlt" class="HzQydsjlry">
+		<result property="nbxh" column="nbxh" />
+		<result property="xm" column="xm" />
+		<result property="sfzjmc" column="sfzjmc" />
+		<result property="sfzjhm" column="sfzjhm" />
+		<result property="zwmc" column="zwmc"/>
+		<result property="xb" column="xb" />
+	</resultMap>
+	<select id="selectHzQydsjlryById" resultMap="hzqydsjlryRlt2" parameterClass="java.lang.String">
+		select
+			id,nbxh,ryxh,xm,gj,xb,csny,mz,zzmm,whcd,jszc,jstc,jkzk,hjdz,ssxzqh,dh,yzbm,xzdz,sfzjmc,sfzjhm,shzw,
+			zw,rylx,jl,bzsm,csfs,wpf,centralsoft_area,fddbrbz,'' zjlxmc,'' zwmc
+		from 
+			HZ_QYDSJLRY
+		where 
+		    ID = #id#
+	</select>
+	
+	<sql id="hzqydsjlry_where">
+	    <dynamic prepend="where">
+			<isNotEmpty prepend="and" property="id">  
+				id = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="nbxh">  
+				nbxh = #nbxh#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ryxh">  
+				ryxh = #ryxh#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="xm">  
+				xm = #xm#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="gj">  
+				gj = #gj#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="xb">  
+				xb = #xb#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="csny">  
+				csny = #csny#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="mz">  
+				mz = #mz#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="zzmm">  
+				zzmm = #zzmm#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="whcd">  
+				whcd = #whcd#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="jszc">  
+				jszc = #jszc#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="jstc">  
+				jstc = #jstc#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="jkzk">  
+				jkzk = #jkzk#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="hjdz">  
+				hjdz = #hjdz#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ssxzqh">  
+				ssxzqh = #ssxzqh#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="dh">  
+				dh = #dh#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="yzbm">  
+				yzbm = #yzbm#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="xzdz">  
+				xzdz = #xzdz#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="sfzjmc">  
+				sfzjmc = #sfzjmc#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="sfzjhm">  
+				sfzjhm = #sfzjhm#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="shzw">  
+				shzw = #shzw#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="zw">  
+				zw = #zw#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="rylx">  
+				rylx = #rylx#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="jl">  
+				jl = #jl#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="bzsm">  
+				bzsm = #bzsm#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="csfs">  
+				csfs = #csfs#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="wpf">  
+				wpf = #wpf#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="centralsoftArea">  
+				centralsoft_area = #centralsoftArea#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="fddbrbz">  
+				fddbrbz = #fddbrbz#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="noCorpid">
+			<![CDATA[
+			  nbxh <> #noCorpid#
+			  	]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="zwrel">
+			    zw in  
+			    <iterate property="zwrel" open="(" close=")" conjunction=",">  
+			        #zwrel[]#  
+			    </iterate>
+   			</isNotEmpty>
+	    </dynamic>
+	</sql>
+	
+	
+	<select id="selectHzQydsjlryListForEntBaseInfo" resultMap="hzqydsjlryForRelationRlt" parameterClass="java.util.HashMap">
+		select
+			nbxh,xm,sfzjmc,sfzjhm,xb,(select content from CR_CODE_POSITION where code =a.zw) zwmc
+		from 
+			HZ_QYDSJLRY a
+		<include refid="hzqydsjlry_where" />
+		<include refid="ibatis-global.mysql_page" />
+	</select>
+	
+	<select id="selectHzQydsjlryList" resultMap="hzqydsjlryRlt2" parameterClass="java.util.HashMap">
+		select
+			id,nbxh,ryxh,xm,gj,xb,csny,mz,zzmm,whcd,jszc,jstc,jkzk,hjdz,ssxzqh,dh,yzbm,xzdz,sfzjmc,
+			sfzjhm,shzw,zw,rylx,jl,bzsm,csfs,wpf,centralsoft_area,fddbrbz,
+			(select content_type from CR_CODE_POSITION where code =a.zw) zwmc,
+            (select content from CR_CODE_ID where code=a.sfzjmc) zjlxmc
+		from 
+			HZ_QYDSJLRY a
+		<include refid="hzqydsjlry_where" />
+		ORDER BY LOCATE(a.zw,'408A,434Q,432K,432A,431A') DESC 
+	</select>
+	
+	<select id="selectAllHzQyDsjlrList" resultMap="hzqydsjlryRlt" parameterClass="java.util.HashMap">
+		select nbxh,qymc from hz_qyhznr   where djjg='330682' 
+	</select>
+	
+	
+	<select id="selectHzQydsjlryTotal" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" >
+		select 
+		    count(id) 
+		from 
+		    HZ_QYDSJLRY
+	    <include refid="hzqydsjlry_where" />
+	</select>
+	
+	<select id="selectHzQydsjlryTotalForRelation" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" >
+		select 
+		    count(DISTINCT xm) 
+		from 
+		    HZ_QYDSJLRY
+	    <include refid="hzqydsjlry_where" />
+	</select>
+	
+	<select id="selectHzQydsjlryListForRelation" resultMap="hzqydsjlryForRelationRlt" parameterClass="java.util.HashMap">
+		select
+			distinct nbxh,xm,sfzjmc,sfzjhm,xb,(select content_type from CR_CODE_POSITION where code =a.zw) zwmc
+		from 
+			HZ_QYDSJLRY a 
+		<include refid="hzqydsjlry_where" />
+	</select>
+     
+</sqlMap>

@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd"> 
+
+<sqlMap namespace="ibatis-cranalyenttown">
+
+	<typeAlias alias="CrAnalyEntTown" type="com.icinfo.creditinfo.bean.analy.cranalyenttown.CrAnalyEntTown" />
+
+	<resultMap id="cranalyenttownRlt" class="CrAnalyEntTown">
+		<result property="id" column="id" />
+		<result property="entYear" column="ENT_YEAR" />
+		<result property="entMonth" column="ENT_MONTH" />
+		<result property="trade" column="trade" />
+		<result property="qyScale" column="qy_scale" />
+		<result property="regUnit" column="REG_UNIT" />
+		<result property="qyCount" column="QY_COUNT" />
+		<result property="qyScaleCount" column="QY_SCALE_COUNT" />
+		<result property="totalAssets" column="TOTAL_ASSETS" />
+		<result property="income" column="INCOME" />
+		<result property="elecNum" column="ELEC_NUM" />
+		<result property="waterNum" column="WATER_NUM" />
+		<result property="netProfit" column="NET_PROFIT" />
+		<result property="tax" column="TAX" />
+		<result property="socialSecurityNum" column="SOCIAL_SECURITY_NUM" />
+		<result property="charactTownEy" column="CHARACT_TOWN_EY" />
+		<result property="charactTownHzwht" column="CHARACT_TOWN_HZWHT" />
+		<result property="charactTownSy" column="CHARACT_TOWN_SY" />
+		<result property="charactTownJnhbcx" column="CHARACT_TOWN_JNHBCX" />
+		<result property="charactTownQc" column="CHARACT_TOWN_QC" />
+		<result property="charactTownQngc" column="CHARACT_TOWN_QNGC" />
+		<result property="charactTownTz" column="CHARACT_TOWN_TZ" />
+		<result property="charactTownTlf" column="CHARACT_TOWN_TLF" />
+		<result property="charactTownXxys" column="CHARACT_TOWN_XXYS" />
+		<result property="createDate" column="CREATE_DATE" />
+	</resultMap>
+
+	<resultMap id="cranalyenttownRlt1" class="CrAnalyEntTown">
+		<result property="charactTownEy" column="CHARACT_TOWN_EY" />
+		<result property="charactTownHzwht" column="CHARACT_TOWN_HZWHT" />
+		<result property="charactTownSy" column="CHARACT_TOWN_SY" />
+		<result property="charactTownJnhbcx" column="CHARACT_TOWN_JNHBCX" />
+		<result property="charactTownQc" column="CHARACT_TOWN_QC" />
+		<result property="charactTownQngc" column="CHARACT_TOWN_QNGC" />
+		<result property="charactTownTz" column="CHARACT_TOWN_TZ" />
+		<result property="charactTownTlf" column="CHARACT_TOWN_TLF" />
+		<result property="charactTownXxys" column="CHARACT_TOWN_XXYS" />
+		<result property="time" column="time" />
+	</resultMap>
+	
+	<resultMap id="cranalyenttownRlt2" class="CrAnalyEntTown">
+		<result property="qyCount" column="QY_COUNT" />
+		<result property="trade" column="trade" />
+		<result property="time" column="time" />
+	</resultMap>
+	
+	<resultMap id="cranalyenttownRlt3" class="CrAnalyEntTown">
+		<result property="qyCount" column="QY_COUNT" />
+		<result property="qyScale" column="qyScale" />
+		<result property="time" column="time" />
+	</resultMap>
+	
+	<resultMap id="cranalyenttownRlt4" class="CrAnalyEntTown">
+		<result property="income" column="INCOME" />
+		<result property="time" column="time" />
+	</resultMap>
+	
+	<resultMap id="cranalyenttownRlt5" class="CrAnalyEntTown">
+		<result property="qyCount" column="QY_COUNT" />
+		<result property="time" column="time" />
+	</resultMap>
+	
+	<resultMap id="cranalyenttownRlt6" class="CrAnalyEntTown">
+		<result property="income" column="INCOME" />
+		<result property="time" column="time" />
+		<result property="regUnit" column="REG_UNIT" />
+		<result property="totalAssets" column="TOTAL_ASSETS" />
+	</resultMap>
+	<resultMap id="cranalyenttownRlt7" class="CrAnalyEntTown">
+		<result property="income" column="INCOME" />
+		<result property="totalAssets" column="TOTAL_ASSETS" />
+		<result property="trade" column="trade" />
+		<result property="myTrade" column="myTrade" />
+	</resultMap>
+	<resultMap id="cranalyenttownRlt8" class="CrAnalyEntTown">
+		<result property="socialSecurityNum" column="SOCIAL_SECURITY_NUM" />
+		<result property="tax" column="TAX" />
+		<result property="time" column="time" />
+	</resultMap>
+	<select id="selectCrAnalyEntTownById" resultMap="cranalyenttownRlt" parameterClass="java.lang.String">
+		select
+			id,ENT_YEAR,ENT_MONTH,trade,qy_scale,REG_UNIT,QY_COUNT,QY_SCALE_COUNT,TOTAL_ASSETS,INCOME,ELEC_NUM,WATER_NUM,NET_PROFIT,TAX,SOCIAL_SECURITY_NUM,CHARACT_TOWN_EY,CHARACT_TOWN_HZWHT,CHARACT_TOWN_SY,CHARACT_TOWN_JNHBCX,CHARACT_TOWN_QC,CHARACT_TOWN_QNGC,CHARACT_TOWN_TZ,CHARACT_TOWN_TLF,CHARACT_TOWN_XXYS,CREATE_DATE
+		from 
+			CR_ANALY_ENT_TOWN
+		where 
+		    ID = #id#
+	</select>
+	
+	<!-- 获取企业规模数据 -->
+	<select id="selectQyScaleDataList" resultMap="cranalyenttownRlt3" parameterClass="java.util.HashMap">
+	select
+		qy_scale qyScale,sum($charactType$) QY_COUNT,DATE_FORMAT(STR_TO_DATE(CONCAT(ENT_YEAR,ENT_MONTH),'%Y%m'),'%Y-%m') time 
+	from 
+		CR_ANALY_ENT_TOWN 
+	where $charactType$ > 0 and CONCAT(ent_year,'-',ent_month) = 
+	(SELECT 
+		MAX(CONCAT(ent_year,'-',ent_month)) 
+	FROM 
+		CR_ANALY_ENT_TOWN 
+	WHERE $charactType$ > 0)
+ 	GROUP BY qyScale,CONCAT(ent_year,'-',ent_month)
+	</select>
+	<!-- 获取企业规模数据 -->
+	
+	
+	<select id="selectCrAnalyEntTownForQyCount" resultMap="cranalyenttownRlt1">
+		SELECT SUM(CHARACT_TOWN_XXYS) CHARACT_TOWN_XXYS,SUM(CHARACT_TOWN_TZ) CHARACT_TOWN_TZ,SUM(CHARACT_TOWN_SY) CHARACT_TOWN_SY,SUM(CHARACT_TOWN_JNHBCX) CHARACT_TOWN_JNHBCX
+				,SUM(CHARACT_TOWN_TLF) CHARACT_TOWN_TLF,SUM(CHARACT_TOWN_HZWHT) CHARACT_TOWN_HZWHT,SUM(CHARACT_TOWN_QC) CHARACT_TOWN_QC,SUM(CHARACT_TOWN_QNGC) CHARACT_TOWN_QNGC
+				,SUM(CHARACT_TOWN_EY)  CHARACT_TOWN_EY,MAX(DATE_FORMAT(STR_TO_DATE(CONCAT(ENT_YEAR,ENT_MONTH),'%Y%m'),'%Y-%m')) time 
+		FROM 
+			CR_ANALY_ENT_TOWN 
+		WHERE 
+			DATE_FORMAT(STR_TO_DATE(CONCAT(ENT_YEAR,ENT_MONTH),'%Y%m'),'%Y-%m') 
+			=(SELECT MAX(DATE_FORMAT(STR_TO_DATE(CONCAT(ENT_YEAR,ENT_MONTH),'%Y%m'),'%Y-%m'))  FROM  CR_ANALY_ENT_TOWN)
+    </select>
+	
+	
+	
+	<sql id="cranalyenttown_where">
+	    <dynamic prepend="where">
+			<isNotEmpty prepend="and" property="id">  
+				id = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="entYear">  
+				ENT_YEAR = #entYear#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="entMonth">  
+				ENT_MONTH = #entMonth#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="trade">  
+				trade = #trade#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="qyScale">  
+				qy_scale = #qyScale#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="regUnit">  
+				REG_UNIT = #regUnit#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="qyCount">  
+				QY_COUNT = #qyCount#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="qyScaleCount">  
+				QY_SCALE_COUNT = #qyScaleCount#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="totalAssets">  
+				TOTAL_ASSETS = #totalAssets#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="income">  
+				INCOME = #income#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="elecNum">  
+				ELEC_NUM = #elecNum#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="waterNum">  
+				WATER_NUM = #waterNum#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="netProfit">  
+				NET_PROFIT = #netProfit#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="tax">  
+				TAX = #tax#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="socialSecurityNum">  
+				SOCIAL_SECURITY_NUM = #socialSecurityNum#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="charactTownEy">  
+				CHARACT_TOWN_EY = #charactTownEy#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="charactTownHzwht">  
+				CHARACT_TOWN_HZWHT = #charactTownHzwht#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="charactTownSy">  
+				CHARACT_TOWN_SY = #charactTownSy#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="charactTownJnhbcx">  
+				CHARACT_TOWN_JNHBCX = #charactTownJnhbcx#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="charactTownQc">  
+				CHARACT_TOWN_QC = #charactTownQc#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="charactTownQngc">  
+				CHARACT_TOWN_QNGC = #charactTownQngc#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="charactTownTz">  
+				CHARACT_TOWN_TZ = #charactTownTz#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="charactTownTlf">  
+				CHARACT_TOWN_TLF = #charactTownTlf#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="charactTownXxys">  
+				CHARACT_TOWN_XXYS = #charactTownXxys#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="createDate">  
+				CREATE_DATE = #createDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="industryTown">  
+			<![CDATA[
+				$industryTown$ > 0
+				]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="havaTrade">  
+				trade IS NOT NULL
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="profit">  
+			<![CDATA[
+				NET_PROFIT > 0
+				]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="intrade">
+	   				 trade in  
+	    		<iterate property="intrade" open="(" close=")" conjunction=",">  
+	       			 #intrade[]#  
+	   			 </iterate>
+   			 </isNotEmpty>
+	    </dynamic>
+	</sql>
+	
+	<!-- 资产总额 -->
+	<select id="selectTotalAsset" resultMap="cranalyenttownRlt4" parameterClass="java.util.HashMap">
+	select 
+		SUM(TOTAL_ASSETS) INCOME,DATE_FORMAT(STR_TO_DATE(CONCAT(ENT_YEAR,ENT_MONTH),'%Y%m'),'%Y-%m') time 
+	from 
+		CR_ANALY_ENT_TOWN 
+	<include refid="cranalyenttown_where" />
+	GROUP BY time
+	</select>
+	<!-- 运营状况 -->
+	<select id="selectOperationStatus" resultMap="cranalyenttownRlt4" parameterClass="java.util.HashMap">
+	 select 
+	 	SUM($operationStatus$) INCOME,DATE_FORMAT(STR_TO_DATE(CONCAT(ENT_YEAR,ENT_MONTH),'%Y%m'),'%Y-%m') time 
+	 from 
+	 	CR_ANALY_ENT_TOWN 
+	 <include refid="cranalyenttown_where" />
+	 GROUP BY time
+	</select>
+	
+	<!-- 盈利状况 -->
+	<select id="selectProfitStatus" resultMap="cranalyenttownRlt4" parameterClass="java.util.HashMap">
+	select 
+		SUM(NET_PROFIT) INCOME,DATE_FORMAT(STR_TO_DATE(CONCAT(ENT_YEAR,ENT_MONTH),'%Y%m'),'%Y-%m') time 
+	from 
+		CR_ANALY_ENT_TOWN 
+	<include refid="cranalyenttown_where" />
+		GROUP BY time
+	</select>
+	
+	<!-- 盈利企业数量 -->
+	<select id="selectProfitTotal" resultMap="cranalyenttownRlt5" parameterClass="java.util.HashMap">
+	select 
+		SUM($characterTown$) QY_COUNT,DATE_FORMAT(STR_TO_DATE(CONCAT(ENT_YEAR,ENT_MONTH),'%Y%m'),'%Y-%m') time 
+	from 
+		CR_ANALY_ENT_TOWN 
+	<include refid="cranalyenttown_where" />
+		GROUP BY time
+	</select>
+	
+	<!-- 对周边经济的影响程度 -->
+	<select id="selectLocalEconomy" resultMap="cranalyenttownRlt6" parameterClass="java.util.HashMap">
+	select 
+		SUM(INCOME) INCOME,SUM(TOTAL_ASSETS) TOTAL_ASSETS,REG_UNIT,DATE_FORMAT(STR_TO_DATE(CONCAT(ENT_YEAR,ENT_MONTH),'%Y%m'),'%Y-%m') time 
+	from 
+		CR_ANALY_ENT_TOWN 
+	<include refid="cranalyenttown_where" />
+		GROUP BY time
+	</select>
+	
+	<!-- 对行业的影响程度 -->
+	<select id="selectLocalIndustry" resultMap="cranalyenttownRlt7" parameterClass="java.util.HashMap">
+	select 
+		SUM(INCOME) INCOME,SUM(TOTAL_ASSETS) TOTAL_ASSETS,trade,B.CONTENT myTrade 
+	from 
+		CR_ANALY_ENT_TOWN A
+	LEFT JOIN CR_CODE_INDUSTRY_TYPE B ON A.trade = B.CODE
+	<include refid="cranalyenttown_where" />
+	GROUP BY trade
+	</select>
+	
+	<!-- 就业纳税贡献 -->
+	<select id="selectEmploymentContribution" resultMap="cranalyenttownRlt8" parameterClass="java.util.HashMap">
+	select 
+		SUM(SOCIAL_SECURITY_NUM) SOCIAL_SECURITY_NUM,SUM(TAX) TAX,DATE_FORMAT(STR_TO_DATE(CONCAT(ENT_YEAR,ENT_MONTH),'%Y%m'),'%Y-%m') time 
+	from 
+		CR_ANALY_ENT_TOWN
+	<include refid="cranalyenttown_where" />
+	GROUP BY time
+	</select>
+
+	<select id="selectCrAnalyEntTownForIndustryCharacter" resultMap="cranalyenttownRlt2" parameterClass="java.util.HashMap">
+		SELECT 
+			B.CONTENT trade ,DATE_FORMAT(STR_TO_DATE(CONCAT(ENT_YEAR,ENT_MONTH),'%Y%m'),'%Y-%m') time,SUM($industryTown$) QY_COUNT
+		FROM CR_ANALY_ENT_TOWN A 
+		LEFT JOIN CR_CODE_INDUSTRY_TYPE B ON A.trade = B.CODE
+		WHERE TRADE IS NOT NULL AND $industryTown$ > 0 AND  CONCAT(ent_year,'-',ent_month) = 
+ 		(SELECT 
+			MAX(CONCAT(ent_year,'-',ent_month)) 
+		FROM 
+			CR_ANALY_ENT_TOWN 
+		WHERE CHARACT_TOWN_QC > 0)
+ 		GROUP BY A.trade ,CONCAT(ent_year,'-',ent_month)
+	</select>
+	
+	<select id="selectCrAnalyEntTownList" resultMap="cranalyenttownRlt" parameterClass="java.util.HashMap">
+		select
+			id,ENT_YEAR,ENT_MONTH,trade,qy_scale,REG_UNIT,QY_COUNT,QY_SCALE_COUNT,TOTAL_ASSETS,INCOME,ELEC_NUM,WATER_NUM,NET_PROFIT,TAX,SOCIAL_SECURITY_NUM,CHARACT_TOWN_EY,CHARACT_TOWN_HZWHT,CHARACT_TOWN_SY,CHARACT_TOWN_JNHBCX,CHARACT_TOWN_QC,CHARACT_TOWN_QNGC,CHARACT_TOWN_TZ,CHARACT_TOWN_TLF,CHARACT_TOWN_XXYS,CREATE_DATE
+		from 
+			CR_ANALY_ENT_TOWN
+		<include refid="cranalyenttown_where" />
+		<include refid="ibatis-global.mysql_page" />
+	</select>
+	
+	<select id="selectCrAnalyEntTownTotal" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" >
+		select 
+		    count(ID) 
+		from 
+		    CR_ANALY_ENT_TOWN
+	    <include refid="cranalyenttown_where" />
+	</select>
+     
+</sqlMap>

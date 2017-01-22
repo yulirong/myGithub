@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"       
+          "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="mortgagereg" extends="icinfo-default" namespace="/mortgagereg" >
+
+		<action name="doReadMortgageRegList" class="mortgageRegAction" method="doReadMortgageRegListAction">
+			<result name="success">/jsp/biz/mortgagereg/mortgageregList.jsp</result>
+		</action>
+		
+		<action name="doReadMortgageRegListJSON" class="mortgageRegAction" method="doReadMortgageRegListJSONAction">
+		</action>
+	
+		<action name="doEnAddAndEditMortgageReg" class="mortgageRegAction" method="doEnAddAndEditMortgageRegAction">
+			<result name="success">/jsp/biz/mortgagereg/mortgageregAddAndEdit.jsp</result>
+		</action>
+		
+		<action name="doAddAndEditMortgageReg" class="mortgageRegAction" method="doAddAndEditMortgageRegAction">
+		</action>
+		
+		<action name="doDelMortgageReg" class="mortgageRegAction" method="doDelMortgageRegAction">
+		</action>
+		
+		<!-- 房产抵押 -->
+		<action name="doReadHomeMortgageListJSON" class="mortgageRegAction" method="doReadPermissionHomeMortgageListJSONAction">
+		</action>
+		
+		<!-- 土地抵押 -->
+		<action name="doReadLandMortgageListJSON" class="mortgageRegAction" method="doReadPermissionLandMortgageListJSON">
+		</action>
+		
+		<action name="doReadMortgageRegHouseListJSON" class="mortgageRegAction" method="doReadPermissionMortgageRegHouseListJSON">
+		</action>
+	    <action name="doReadMortgageRegLandListJSON" class="mortgageRegAction" method="doReadPermissionMortgageRegLandListJSON">
+		</action> 
+
+	</package>
+	
+</struts>

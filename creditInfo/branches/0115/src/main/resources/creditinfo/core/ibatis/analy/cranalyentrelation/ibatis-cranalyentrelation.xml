@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd"> 
+
+<sqlMap namespace="ibatis-cranalyentrelation">
+
+	<typeAlias alias="CrAnalyEntRelation" type="com.icinfo.creditinfo.bean.analy.cranalyentrelation.CrAnalyEntRelation" />
+
+	<resultMap id="cranalyentrelationRlt" class="CrAnalyEntRelation">
+		<result property="id" column="id" />
+		<result property="nbxh" column="nbxh" />
+		<result property="fromQymc" column="from_qymc" />
+		<result property="sfzjhm" column="sfzjhm" />
+		<result property="xm" column="xm" />
+		<result property="qno" column="qno" />
+		<result property="ristLevel" column="rist_level" />
+		<result property="relName" column="rel_name"/>
+	</resultMap>
+	
+	<resultMap id="cranalyentrelationRlt2" class="CrAnalyEntRelation">
+		<result property="ristLevel" column="rist_level" />
+		<result property="ristTotal" column="rist_total" />
+	</resultMap>
+	
+	<resultMap id="cranalyentrelationRlt3" class="CrAnalyEntRelation">
+		<result property="entNum" column="entNum" />
+		<result property="perNum" column="perNum" />
+		<result property="totalNum" column="totalNum" />
+	</resultMap>
+	
+	<sql id="cranalyentrelation_where">
+	    <dynamic prepend="where">
+			<isNotEmpty prepend="and" property="id">  
+				id = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="nbxh">  
+				nbxh = #nbxh#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="fromQymc">  
+				from_qymc = #fromQymc#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="sfzjhm">  
+				sfzjhm = #sfzjhm#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="xm">  
+				xm = #xm#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="qno">  
+				qno = #qno#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="qno2">
+			   qno2 = #qno2#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ristLevel">  
+				rist_level = #ristLevel#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="filterFlag">
+			<![CDATA[ 
+			   NOT EXISTS (
+				SELECT a.nbxh,from_qymc FROM (
+				 SELECT nbxh,from_qymc FROM CR_ANALY_ENT_RELATION WHERE qno=#qno#
+				UNION ALL 
+				 SELECT sfzjhm,xm FROM CR_ANALY_ENT_RELATION WHERE qno=#qno#
+				 ) a WHERE a.nbxh=t.sfzjhm  GROUP BY nbxh HAVING COUNT(nbxh)=1 )
+				   ]]>
+			</isNotEmpty>
+	    </dynamic>
+	</sql>
+	
+	<select id="selectCrAnalyEntRelationList" resultMap="cranalyentrelationRlt" parameterClass="java.util.HashMap">
+		select
+			id,nbxh,from_qymc,sfzjhm,xm,qno,rist_level,rel_name
+		from 
+			CR_ANALY_ENT_RELATION t
+		<include refid="cranalyentrelation_where" />
+	</select>
+	
+	<select id="selectEntTotal" resultMap="cranalyentrelationRlt3" parameterClass="java.util.HashMap">
+		<![CDATA[ 
+		SELECT COUNT(from_qymc) entNum,COUNT(sfzjhm) perNum,(COUNT(from_qymc)+COUNT(sfzjhm)) totalNum FROM (
+		SELECT DISTINCT from_qymc,sfzjhm FROM (
+		SELECT CASE WHEN CHARACTER_LENGTH(from_qymc)>4 THEN nbxh END  from_qymc ,CASE WHEN  CHARACTER_LENGTH(from_qymc)<=4 THEN sfzjhm END sfzjhm FROM CR_ANALY_ENT_RELATION WHERE qno =#qno# UNION ALL 
+		SELECT CASE WHEN CHARACTER_LENGTH(xm)>4 THEN sfzjhm END  from_qymc ,CASE WHEN  CHARACTER_LENGTH(xm)<=4 THEN sfzjhm END sfzjhm FROM CR_ANALY_ENT_RELATION  WHERE qno = #qno#
+		 ) T  ) a
+		  ]]>
+	</select>
+	
+	<select id="selectRistLevelTotal" resultMap="cranalyentrelationRlt2" parameterClass="java.util.HashMap">
+		SELECT COUNT(distinct(from_qymc)) rist_total,rist_level FROM CR_ANALY_ENT_RELATION 
+		<include refid="cranalyentrelation_where" />
+		GROUP BY rist_level
+	</select>
+	
+	
+</sqlMap>

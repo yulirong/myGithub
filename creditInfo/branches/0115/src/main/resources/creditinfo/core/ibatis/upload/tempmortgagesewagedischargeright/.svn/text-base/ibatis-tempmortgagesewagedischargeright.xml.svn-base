@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd"> 
+
+<sqlMap namespace="ibatis-tempmortgagesewagedischargeright">
+
+	<typeAlias alias="TempMortgageSewageDischargeRight" type="com.icinfo.creditinfo.bean.upload.tempmortgagesewagedischargeright.TempMortgageSewageDischargeRight" />
+
+	<resultMap id="tempmortgagesewagedischargerightRlt" class="TempMortgageSewageDischargeRight">
+		<result property="mortgagorName" column="mortgagor_name" />
+		<result property="mortgageeName" column="mortgagee_name" />
+		<result property="guaranty" column="guaranty" />
+		<result property="mortgageWastewaterAmount" column="mortgage_wastewater_amount" />
+		<result property="mortgageSo2Amount" column="mortgage_so2_amount" />
+		<result property="mortgageNoAmount" column="mortgage_no_amount" />
+		<result property="guarantyNo" column="guaranty_no" />
+		<result property="debtPayDate" column="debt_pay_date" />
+		<result property="regOrg" column="reg_org" />
+		<result property="regDate" column="reg_date" />
+		<result property="id" column="id" />
+		<result property="importFrom" column="import_from" />
+		<result property="importDate" column="import_date" />
+		<result property="corpid" column="corpid" />
+		<result property="orgCode" column="ORG_CODE" />
+		<result property="unscCode" column="UNSC_CODE" />
+	</resultMap>
+	
+	<select id="selectTempMortgageSewageDischargeRightById" resultMap="tempmortgagesewagedischargerightRlt" parameterClass="java.lang.String">
+		select
+			mortgagor_name,mortgagee_name,guaranty,mortgage_wastewater_amount,mortgage_so2_amount,mortgage_no_amount,guaranty_no,debt_pay_date,reg_org,reg_date,id,import_from,import_date,corpid,ORG_CODE,UNSC_CODE
+		from 
+			TEMP_MORTGAGE_SEWAGE_DISCHARGE_RIGHT
+		where 
+		    ID = #id#
+	</select>
+	
+	<sql id="tempmortgagesewagedischargeright_where">
+	    <dynamic prepend="where">
+			<isNotEmpty prepend="and" property="mortgagorName">  
+				mortgagor_name = #mortgagorName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="mortgageeName">  
+				mortgagee_name = #mortgageeName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="guaranty">  
+				guaranty = #guaranty#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="mortgageWastewaterAmount">  
+				mortgage_wastewater_amount = #mortgageWastewaterAmount#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="mortgageSo2Amount">  
+				mortgage_so2_amount = #mortgageSo2Amount#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="mortgageNoAmount">  
+				mortgage_no_amount = #mortgageNoAmount#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="guarantyNo">  
+				guaranty_no = #guarantyNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="debtPayDate">  
+				debt_pay_date = #debtPayDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="regOrg">  
+				reg_org = #regOrg#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="regDate">  
+				reg_date = #regDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="id">  
+				id = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="importFrom">  
+				import_from = #importFrom#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="importDate">  
+				import_date = #importDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="corpid">  
+				corpid = #corpid#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="orgCode">  
+				ORG_CODE = #orgCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="unscCode">  
+				UNSC_CODE = #unscCode#
+			</isNotEmpty>
+	    </dynamic>
+	</sql>
+	
+	<select id="selectTempMortgageSewageDischargeRightList" resultMap="tempmortgagesewagedischargerightRlt" parameterClass="java.util.HashMap">
+		select
+			mortgagor_name,mortgagee_name,guaranty,mortgage_wastewater_amount,mortgage_so2_amount,mortgage_no_amount,guaranty_no,debt_pay_date,reg_org,reg_date,id,import_from,import_date,corpid,ORG_CODE,UNSC_CODE
+		from 
+			TEMP_MORTGAGE_SEWAGE_DISCHARGE_RIGHT
+		<include refid="tempmortgagesewagedischargeright_where" />
+		<include refid="ibatis-global.mysql_page" />
+	</select>
+	
+	<select id="selectTempMortgageSewageDischargeRightTotal" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" >
+		select 
+		    count(ID) 
+		from 
+		    TEMP_MORTGAGE_SEWAGE_DISCHARGE_RIGHT
+	    <include refid="tempmortgagesewagedischargeright_where" />
+	</select>
+	
+	<insert id="insertTempMortgageSewageDischargeRight" parameterClass="TempMortgageSewageDischargeRight">
+       	INSERT INTO TEMP_MORTGAGE_SEWAGE_DISCHARGE_RIGHT 
+			(mortgagor_name,mortgagee_name,guaranty,mortgage_wastewater_amount,mortgage_so2_amount,mortgage_no_amount,guaranty_no,debt_pay_date,reg_org,reg_date,id,import_from,import_date,corpid,ORG_CODE,UNSC_CODE)
+		VALUES 
+			(#mortgagorName#,#mortgageeName#,#guaranty#,#mortgageWastewaterAmount#,#mortgageSo2Amount#,#mortgageNoAmount#,#guarantyNo#,#debtPayDate#,#regOrg#,#regDate#,#id#,#importFrom#,#importDate#,#corpid#,#orgCode#,#unscCode#)
+	    <selectKey resultClass="java.lang.String" keyProperty="id" >
+          <![CDATA[ 
+            select #id# as id from dual 
+       	  ]]>    
+       	</selectKey> 
+    </insert> 
+	
+    <update id="updateTempMortgageSewageDischargeRight" parameterClass="TempMortgageSewageDischargeRight">
+     UPDATE TEMP_MORTGAGE_SEWAGE_DISCHARGE_RIGHT
+	     <dynamic prepend="set">
+			<isNotEmpty prepend="," property="mortgagorName">  
+				mortgagor_name = #mortgagorName#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="mortgageeName">  
+				mortgagee_name = #mortgageeName#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="guaranty">  
+				guaranty = #guaranty#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="mortgageWastewaterAmount">  
+				mortgage_wastewater_amount = #mortgageWastewaterAmount#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="mortgageSo2Amount">  
+				mortgage_so2_amount = #mortgageSo2Amount#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="mortgageNoAmount">  
+				mortgage_no_amount = #mortgageNoAmount#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="guarantyNo">  
+				guaranty_no = #guarantyNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="debtPayDate">  
+				debt_pay_date = #debtPayDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="regOrg">  
+				reg_org = #regOrg#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="regDate">  
+				reg_date = #regDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="id">  
+				id = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="importFrom">  
+				import_from = #importFrom#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="importDate">  
+				import_date = #importDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="corpid">  
+				corpid = #corpid#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="orgCode">  
+				ORG_CODE = #orgCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="unscCode">  
+				UNSC_CODE = #unscCode#
+			</isNotEmpty>
+		</dynamic>
+	    where ID = #id# 
+    </update>
+    
+     <delete id="deleteTempMortgageSewageDischargeRight" parameterClass="java.lang.String">
+         DELETE FROM TEMP_MORTGAGE_SEWAGE_DISCHARGE_RIGHT WHERE ID = #id# 
+     </delete>
+     
+</sqlMap>

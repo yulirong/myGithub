@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"       
+          "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="zcc" extends="icinfo-default" namespace="/zcc" >
+
+		<!-- 进入页面 -->
+		<action name="doEnZccInput" class="zccAction">
+			<result name="success">/ylsn.jsp</result>
+		</action>
+		
+		<action name="doEnZccNetAll" class="zccAction">
+			<result name="success">/zcc_net_all.jsp</result>
+		</action>
+		
+		<action name="doEnRelation" class="zccAction" method="doEnRelationAction">
+			<result name="success">/zcc_relation.jsp</result>
+		</action>
+		
+		<action name="doGetZccNetAllJSON" class="zccAction" method="doGetZccNetAllJSONAction">
+		</action>
+		
+		<action name="doGetRelationNetJson" class="zccAction" method="doGetRelationNetJsonAction">
+		</action>		
+		
+	</package>
+	
+</struts>

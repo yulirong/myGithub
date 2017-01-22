@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"       
+          "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="cranalymacidxtrade" extends="icinfo-default" namespace="/cranalymacidxtrade" >
+
+		<!-- 获取行业经济景信贷风险气指数数据 -->		
+		<action name="doGetEconomicIndex" class="crAnalyMacIdxTradeAction" method="doGetEconomicIndexAction">
+		</action>
+		
+		<!-- 获取行业经济景信贷风险趋势指数数据 -->		
+		<action name="doGetEconomicTrendIndex" class="crAnalyMacIdxTradeAction" method="doGetEconomicTrendIndexAction">
+		</action>
+	
+	</package>
+	
+</struts>

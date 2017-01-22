@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd"> 
+
+<sqlMap namespace="ibatis-crcaseinfo">
+
+	<typeAlias alias="CrCaseInfo" type="com.icinfo.creditinfo.bean.biz.crcaseinfo.CrCaseInfo" />
+
+	<resultMap id="crcaseinfoRlt" class="CrCaseInfo">
+		<result property="partyName" column="party_name" />
+		<result property="certNo" column="cert_no" />
+		<result property="caseNo" column="case_no" />
+		<result property="tableFlag" column="table_flag" />
+		<result property="corpid" column="corpid" />
+	</resultMap>
+	
+	<select id="selectCrCaseInfoById" resultMap="crcaseinfoRlt" parameterClass="java.lang.String">
+		select
+			party_name,cert_no,case_no,table_flag,corpid
+		from 
+			CR_CASE_INFO
+		where 
+		    ID = #id#
+	</select>
+	
+	<sql id="crcaseinfo_where">
+	    <dynamic prepend="where">
+			<isNotEmpty prepend="and" property="partyName">  
+				party_name = #partyName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="certNo">  
+				cert_no = #certNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="caseNo">  
+				case_no = #caseNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="tableFlag">  
+				table_flag = #tableFlag#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="corpid">  
+				corpid = #corpid#
+			</isNotEmpty>
+	    </dynamic>
+	</sql>
+	
+	<select id="selectCrCaseInfoList" resultMap="crcaseinfoRlt" parameterClass="java.util.HashMap">
+		select
+			party_name,cert_no,case_no,table_flag,corpid
+		from 
+			CR_CASE_INFO
+		<include refid="crcaseinfo_where" />
+		<include refid="ibatis-global.mysql_page" />
+	</select>
+	
+	<select id="selectCrCaseInfoTotal" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" >
+		select 
+		    COUNT(case_no) 
+		from 
+		    CR_CASE_INFO
+	    <include refid="crcaseinfo_where" />
+	</select>
+	
+</sqlMap>

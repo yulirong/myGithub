@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd"> 
+
+<sqlMap namespace="ibatis-entappcon">
+
+	<typeAlias alias="EntAppConInfo" type="com.icinfo.creditinfo.bean.biz.entappcon.EntAppConInfo" />
+
+	<resultMap id="entappconinfoRlt" class="EntAppConInfo">
+		<result property="corpid" column="corpid"/>
+		<result property="appConEntName" column="ent_name"/>
+		<result property="appConRegNo" column="ent_reg_no"/>
+		<result property="appConLegRep" column="ent_lep_rep"/>
+		<result property="appConLoc" column="ent_reg_loc"/>
+		<result property="entEstDateStr" column="ent_est_date"/>
+		<result property="entUnscId" column="ent_unsc_id"/>
+		<result property="entTaxRegNo" column="ent_tax_reg_no"/>
+		<result property="entOrgRegNo" column="ent_org_reg_no"/>
+	</resultMap>
+	
+	<select id="selectEntAppConInfoListForIndex" resultMap="entappconinfoRlt" parameterClass="java.util.HashMap">
+		select
+			corpid,ent_name,ent_reg_no,ent_lep_rep,ent_est_date,ent_reg_loc,ent_unsc_id,ent_tax_reg_no,ent_org_reg_no 
+		from 
+			CR_ENT_BASE_INFO
+	</select>
+</sqlMap>

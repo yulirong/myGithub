@@ -1,0 +1,20 @@
+body{font-family:SimSun,"Microsoft YaHei";margin:0; padding:0; border:0; font-size:12px; line-height:20px; color:#666; background:#FFF;}
+a{text-decoration:none; color:#247c50; border:0;}
+a:hover{color:#f60;}
+input{font-family:SimSun; color:#000; font-size:14px;}
+input[type="text"]{border:1px solid #ccc; height:37px; line-height:37px; font-size:14px; padding-left:5px;}
+input[type="password"]{border:1px solid #ccc; height:37px; line-height:37px; font-size:14px; padding-left:5px;}
+.clr{clear:both;}
+
+
+.login{ background:#12478b url(../images/server/biz/login_bg01.jpg) top center no-repeat; height:640px;}
+.login_top{ background: url(../images/server/biz/logo_bg.png) repeat-x; height:90px;}
+.login_logo{ width:960px; margin:auto; height:90px; background: url(../images/server/biz/logo.png) left center no-repeat;}
+.login_bottom{ text-align:center; padding:40px; font-family:Arial, Helvetica, sans-serif;}
+.loginbox{ float:right; margin-top:180px; width:250px; height:250px; background: url(../images/server/biz/login_bg.png) no-repeat; padding:25px 40px;}
+.login_text{ color:#FFF; font-size:14px; font-family:"Î¢ÈíÑÅºÚ";}
+
+.btn_loginkey{background:url(../images/server/biz/btn_key.png) no-repeat; width:250px; height:38px; cursor:pointer; border:0;}
+.btn_loginkey:hover{background:url(../images/server/biz/btn_key.png) 0 -38px no-repeat; }
+.btn_login{background:url(../images/server/biz/btn_login.png) no-repeat; width:250px; height:38px; cursor:pointer; border:0;}
+.btn_login:hover{background:url(../images/server/biz/btn_login.png) 0 -38px no-repeat; }

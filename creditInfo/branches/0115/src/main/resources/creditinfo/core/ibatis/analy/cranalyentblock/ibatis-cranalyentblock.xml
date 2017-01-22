@@ -1,0 +1,487 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd"> 
+
+<sqlMap namespace="ibatis-cranalyentblock">
+
+	<typeAlias alias="CrAnalyEntBlock" type="com.icinfo.creditinfo.bean.analy.cranalyentblock.CrAnalyEntBlock" />
+
+	<resultMap id="cranalyentblockRlt" class="CrAnalyEntBlock">
+		<result property="id" column="id" />
+		<result property="entYear" column="ENT_YEAR" />
+		<result property="entMonth" column="ENT_MONTH" />
+		<result property="trade" column="trade" />
+		<result property="qyScale" column="qy_scale" />
+		<result property="industry" column="industry" />
+		<result property="qyCount" column="QY_COUNT" />
+		<result property="qyScaleCount" column="QY_SCALE_COUNT" />
+		<result property="totalAssets" column="TOTAL_ASSETS" />
+		<result property="income" column="INCOME" />
+		<result property="elecNum" column="ELEC_NUM" />
+		<result property="waterNum" column="WATER_NUM" />
+		<result property="impNum" column="IMP_NUM" />
+		<result property="expNum" column="EXP_NUM" />
+		<result property="netProfit" column="NET_PROFIT" />
+		<result property="tax" column="TAX" />
+		<result property="socialSecurityNum" column="SOCIAL_SECURITY_NUM" />
+		<result property="blockEcoJxyq" column="BLOCK_ECO_JXYQ" />
+		<result property="blockEcoSy" column="BLOCK_ECO_SY" />
+		<result property="blockEcoXfqc" column="BLOCK_ECO_XFQC" />
+		<result property="blockEcoTz" column="BLOCK_ECO_TZ" />
+		<result property="blockEcoFj" column="BLOCK_ECO_FJ" />
+		<result property="blockEcoQclbj" column="BLOCK_ECO_QCLBJ" />
+		<result property="blockEcoTg" column="BLOCK_ECO_TG" />
+		<result property="blockEcoLbwy" column="BLOCK_ECO_LBWY" />
+		<result property="createDate" column="CREATE_DATE" />
+	</resultMap>
+	
+	<resultMap id="cranalyentblockYearRlt" class="CrAnalyEntBlock">
+		<result property="entYear" column="ENT_YEAR" />
+	</resultMap>
+	
+	<resultMap id="cranalyentblockRlt2" class="CrAnalyEntBlock">
+		<result property="blockEcoJxyq" column="BLOCK_ECO_JXYQ" />
+		<result property="blockEcoSy" column="BLOCK_ECO_SY" />
+		<result property="blockEcoXfqc" column="BLOCK_ECO_XFQC" />
+		<result property="blockEcoTz" column="BLOCK_ECO_TZ" />
+		<result property="blockEcoFj" column="BLOCK_ECO_FJ" />
+		<result property="blockEcoQclbj" column="BLOCK_ECO_QCLBJ" />
+		<result property="blockEcoTg" column="BLOCK_ECO_TG" />
+		<result property="blockEcoLbwy" column="BLOCK_ECO_LBWY" />
+	</resultMap>
+	
+	<resultMap id="cranalyentblockRlt3" class="CrAnalyEntBlock">
+		<result property="entYear" column="ENT_YEAR" />
+		<result property="qyCount" column="QY_COUNT" />
+		<result property="entCatg" column="ENT_CATG" />
+		<result property="industryCount" column="industry_count" />
+	</resultMap>
+	
+	<resultMap id="cranalyentblockRlt4" class="CrAnalyEntBlock">
+		<result property="qyCount" column="QY_COUNT" />
+		<result property="qyScale" column="ent_scale" />
+		<result property="dateStr" column="ENT_YEAR" />
+	</resultMap>
+	
+	<resultMap id="cranalyentblockRlt5" class="CrAnalyEntBlock">
+		<result property="qyCount" column="QY_COUNT" />
+		<result property="tradeName" column="trade_name" />
+		<result property="dateStr" column="ENT_YEAR" />
+	</resultMap>
+	
+	<resultMap id="cranalyentblockRlt6" class="CrAnalyEntBlock">
+		<result property="totalAssets" column="TOTAL_ASSETS" />
+		<result property="dateStr" column="date_str" />
+	</resultMap>
+	<resultMap id="cranalyentblockRlt7" class="CrAnalyEntBlock">
+		<result property="qyCount" column="QY_COUNT" />
+		<result property="netProfit" column="NET_PROFIT" />
+		<result property="isProfit" column="is_profit" />
+		<result property="dateStr" column="date_str" />
+	</resultMap>
+	<resultMap id="cranalyentblockRlt8" class="CrAnalyEntBlock">
+		<result property="income" column="INCOME" />
+		<result property="totalAssets" column="TOTAL_ASSETS" />
+		<result property="socialSecurityNum" column="SOCIAL_SECURITY_NUM" />
+		<result property="tax" column="TAX" />
+		<result property="isLocal" column="is_local" />
+		<result property="dateStr" column="date_str" />
+	</resultMap>
+	
+	<!-- daiyong -->
+	<resultMap id="cranalyentblockRlt9" class="CrAnalyEntBlock">
+	
+		<result property="tradeName" column="trade_name" />
+		<result property="trade" column="trade" />
+		<result property="qyCount" column="QY_COUNT" />
+		<result property="entYear" column="ENT_YEAR" />
+	</resultMap>
+	
+	
+	<resultMap id="cranalyentblockRlt10" class="CrAnalyEntBlock">
+		<result property="resTotal" column="res_total"/>
+		<result property="dateStr" column="date_str" />
+	</resultMap>
+	
+	<resultMap id="cranalyentblockRlt11" class="CrAnalyEntBlock">
+		<result property="dateStr" column="date_str" />
+	</resultMap>
+	
+
+	
+	<select id="selectCrAnalyEntBlockById" resultMap="cranalyentblockRlt" parameterClass="java.lang.String">
+		select
+			id,ENT_YEAR,ENT_MONTH,trade,qy_scale,industry,QY_COUNT,QY_SCALE_COUNT,TOTAL_ASSETS,INCOME,ELEC_NUM,WATER_NUM,IMP_NUM,EXP_NUM,NET_PROFIT,TAX,SOCIAL_SECURITY_NUM,BLOCK_ECO_JXYQ,BLOCK_ECO_SY,BLOCK_ECO_XFQC,BLOCK_ECO_TZ,BLOCK_ECO_FJ,BLOCK_ECO_QCLBJ,BLOCK_ECO_TG,BLOCK_ECO_LBWY,CREATE_DATE
+		from 
+			CR_ANALY_ENT_BLOCK
+		where 
+		    ID = #id#
+	</select>
+	
+	<sql id="cranalyentblock_where">
+	    <dynamic prepend="where">
+			<isNotEmpty prepend="and" property="id">  
+				id = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="entYear">  
+				ENT_YEAR = #entYear#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="entMonth">  
+				ENT_MONTH = #entMonth#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="trade">  
+				trade = #trade#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="qyScale">  
+				qy_scale = #qyScale#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="industry">  
+				industry = #industry#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="qyCount">  
+				QY_COUNT = #qyCount#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="qyScaleCount">  
+				QY_SCALE_COUNT = #qyScaleCount#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="totalAssets">  
+				TOTAL_ASSETS = #totalAssets#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="income">  
+				INCOME = #income#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="elecNum">  
+				ELEC_NUM = #elecNum#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="waterNum">  
+				WATER_NUM = #waterNum#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="impNum">  
+				IMP_NUM = #impNum#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="expNum">  
+				EXP_NUM = #expNum#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="netProfit">  
+				NET_PROFIT = #netProfit#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="tax">  
+				TAX = #tax#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="socialSecurityNum">  
+				SOCIAL_SECURITY_NUM = #socialSecurityNum#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="blockEcoJxyq">  
+				BLOCK_ECO_JXYQ = #blockEcoJxyq#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="blockEcoSy">  
+				BLOCK_ECO_SY = #blockEcoSy#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="blockEcoXfqc">  
+				BLOCK_ECO_XFQC = #blockEcoXfqc#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="blockEcoTz">  
+				BLOCK_ECO_TZ = #blockEcoTz#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="blockEcoFj">  
+				BLOCK_ECO_FJ = #blockEcoFj#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="blockEcoQclbj">  
+				BLOCK_ECO_QCLBJ = #blockEcoQclbj#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="blockEcoTg">  
+				BLOCK_ECO_TG = #blockEcoTg#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="blockEcoLbwy">  
+				BLOCK_ECO_LBWY = #blockEcoLbwy#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="createDate">  
+				CREATE_DATE = #createDate#
+			</isNotEmpty>
+	    </dynamic>
+	</sql>
+	
+	<!-- 获取年份list集合 -->
+	<select id="selectEntBlockYearList" resultMap="cranalyentblockYearRlt">
+		SELECT DISTINCT(ENT_YEAR) FROM  CR_ANALY_ENT_TYPE_BLOCK WHERE ENT_YEAR IS NOT NULL ORDER BY ENT_YEAR ASC
+	</select>
+	
+	<!-- 获得chart1的数据行业个数 -->
+	<select id="selectEntBlockListForChart1" resultMap="cranalyentblockRlt2">
+
+		SELECT SUM(BLOCK_ECO_JXYQ) BLOCK_ECO_JXYQ, SUM(BLOCK_ECO_SY) BLOCK_ECO_SY,SUM(BLOCK_ECO_XFQC) BLOCK_ECO_XFQC,SUM(BLOCK_ECO_TZ) BLOCK_ECO_TZ,SUM(BLOCK_ECO_FJ) BLOCK_ECO_FJ,SUM(BLOCK_ECO_QCLBJ) BLOCK_ECO_QCLBJ,SUM(BLOCK_ECO_TG) BLOCK_ECO_TG,SUM(BLOCK_ECO_LBWY) BLOCK_ECO_LBWY
+		FROM CR_ANALY_ENT_TYPE_BLOCK
+		WHERE ENT_YEAR IS NOT NULL AND TRADE IS NOT NULL
+		GROUP BY ENT_YEAR
+		ORDER BY ENT_YEAR DESC
+		LIMIT 0,1
+	</select>
+	
+	<!-- 获得chart2的主体行业数据 -->
+	<select id="selectEntBlockListForChart2" resultMap="cranalyentblockRlt3" parameterClass="java.util.HashMap">
+		SELECT ENT_YEAR,SUM($tradeName$) QY_COUNT,'50' ENT_CATG,COUNT(DISTINCT(trade)) industry_count
+		FROM CR_ANALY_ENT_TYPE_BLOCK 
+		<![CDATA[
+		WHERE ENT_YEAR IS NOT NULL AND $tradeName$>0 AND ENT_CATG='50' AND TRADE IS NOT NULL
+		]]>
+		GROUP BY ENT_YEAR
+		UNION ALL
+		SELECT ENT_YEAR,SUM($tradeName$) QY_COUNT,'100' ENT_CATG,COUNT(DISTINCT(trade)) industry_count
+		FROM CR_ANALY_ENT_TYPE_BLOCK 
+		<![CDATA[
+		WHERE ENT_YEAR IS NOT NULL AND $tradeName$>0 AND ENT_CATG<>'50' AND TRADE IS NOT NULL
+		]]>
+		GROUP BY ENT_YEAR
+		UNION ALL
+		SELECT ENT_YEAR,SUM($tradeName$) QY_COUNT,'150' ENT_CATG,COUNT(DISTINCT(trade)) industry_count
+		FROM CR_ANALY_ENT_TYPE_BLOCK 
+		<![CDATA[
+		WHERE ENT_YEAR IS NOT NULL AND $tradeName$>0 AND TRADE IS NOT NULL
+		]]>
+		GROUP BY ENT_YEAR
+	</select>
+	
+	<!-- 获得chart2的主体行业数据时间 -->
+	<select id="selectTradeDateForChart2" resultMap="cranalyentblockYearRlt" parameterClass="java.util.HashMap">
+		SELECT ENT_YEAR
+		FROM CR_ANALY_ENT_TYPE_BLOCK 
+		<![CDATA[
+		WHERE ENT_YEAR IS NOT NULL AND $tradeName$>0
+		]]>
+		GROUP BY ENT_YEAR
+	</select>
+	
+	<!-- 获得chart2-2数据-->
+	<select id="selectTradeDateForChart22" resultMap="cranalyentblockRlt4" parameterClass="java.util.HashMap">
+		SELECT SUM($tradeName$) QY_COUNT,ent_scale,ENT_YEAR
+		FROM CR_ANALY_ENT_TYPE_BLOCK
+		<![CDATA[
+		WHERE $tradeName$>0 AND ent_scale IS NOT NULL
+		GROUP BY ENT_YEAR,ent_scale
+		]]>
+	</select>
+	
+	<!-- 获得chart2-3数据-->
+	<select id="selectTradeDateForChart23" resultMap="cranalyentblockRlt5" parameterClass="java.util.HashMap">
+		SELECT SUM($tradeName$) QY_COUNT,(SELECT content FROM CR_CODE_INDUSTRY_TYPE it WHERE it.CODE= eb.trade) trade_name,ENT_YEAR
+		FROM CR_ANALY_ENT_TYPE_BLOCK eb
+		<![CDATA[
+		WHERE $tradeName$>0 AND trade IS NOT NULL
+		]]>
+		GROUP BY ENT_YEAR,trade
+	</select>
+	
+	<!-- 获得chart3-1数据-->
+	<select id="selectTradeDateForChart31" resultMap="cranalyentblockRlt6" parameterClass="java.util.HashMap">
+		SELECT DATE_FORMAT(STR_TO_DATE(CONCAT(ENT_YEAR,ENT_MONTH),'%Y%m'),'%Y-%m') date_str,SUM(TOTAL_ASSETS) TOTAL_ASSETS
+		FROM CR_ANALY_ENT_BLOCK
+		<![CDATA[
+		WHERE $tradeName$>0 AND ENT_YEAR IS NOT NULL AND ENT_MONTH IS NOT NULL
+		]]>
+		GROUP BY ENT_YEAR,ENT_MONTH
+	</select>
+	
+	<!-- 获得chart3-3数据-->
+	<select id="selectTradeDateForChart33" resultMap="cranalyentblockRlt7" parameterClass="java.util.HashMap">
+		<![CDATA[
+		SELECT SUM($tradeName$) QY_COUNT,SUM(NET_PROFIT) NET_PROFIT,'1' is_profit,DATE_FORMAT(STR_TO_DATE(CONCAT(ENT_YEAR,ENT_MONTH),'%Y%m'),'%Y-%m') date_str
+		FROM CR_ANALY_ENT_BLOCK
+		WHERE $tradeName$>0 AND NET_PROFIT IS NOT NULL AND NET_PROFIT>0 AND ENT_YEAR IS NOT NULL AND ENT_MONTH IS NOT NULL 
+		GROUP BY ENT_YEAR,ENT_MONTH
+
+		UNION ALL
+
+		SELECT SUM($tradeName$) QY_COUNT,SUM(NET_PROFIT) NET_PROFIT,'0' is_profit,DATE_FORMAT(STR_TO_DATE(CONCAT(ENT_YEAR,ENT_MONTH),'%Y%m'),'%Y-%m') date_str
+		FROM CR_ANALY_ENT_BLOCK 
+		WHERE $tradeName$>0 AND NET_PROFIT IS NOT NULL AND ENT_YEAR IS NOT NULL AND ENT_MONTH IS NOT NULL 
+		GROUP BY ENT_YEAR,ENT_MONTH
+		]]>
+
+	</select>
+	
+	<!-- 获得chart4-1数据-->
+	<select id="selectTradeDateForChart41" resultMap="cranalyentblockRlt8" parameterClass="java.util.HashMap">
+		<![CDATA[
+		SELECT SUM(INCOME) INCOME,SUM(TOTAL_ASSETS) TOTAL_ASSETS,SUM(TAX) TAX,SUM(SOCIAL_SECURITY_NUM) SOCIAL_SECURITY_NUM,'1' is_local,DATE_FORMAT(STR_TO_DATE(CONCAT(ENT_YEAR,ENT_MONTH),'%Y%m'),'%Y-%m') date_str
+		FROM CR_ANALY_ENT_BLOCK
+		WHERE $tradeName$>0 AND ENT_YEAR IS NOT NULL AND ENT_MONTH IS NOT NULL AND SOCIAL_SECURITY_NUM IS NOT NULL 
+		GROUP BY ENT_YEAR,ENT_MONTH
+		
+		UNION ALL
+		
+		SELECT SUM(INCOME) INCOME,SUM(TOTAL_ASSETS) TOTAL_ASSETS,SUM(TAX) TAX,SUM(SOCIAL_SECURITY_NUM) SOCIAL_SECURITY_NUM,'0' is_local,DATE_FORMAT(STR_TO_DATE(CONCAT(ENT_YEAR,ENT_MONTH),'%Y%m'),'%Y-%m') date_str
+		FROM ANALY_BLOCK_FINANCE
+		WHERE ENT_YEAR IS NOT NULL AND ENT_MONTH IS NOT NULL AND SOCIAL_SECURITY_NUM IS NOT NULL 
+		GROUP BY ENT_YEAR,ENT_MONTH
+		]]>
+	</select>
+	
+	<!-- 获得chart4-2数据-->
+	<select id="selectTradeDateForChart42" resultMap="cranalyentblockRlt9" parameterClass="java.util.HashMap">
+		<![CDATA[
+		SELECT trade,(SELECT content FROM CR_CODE_INDUSTRY_TYPE it WHERE it.CODE= etb.trade) trade_name,SUM($tradeName$) QY_COUNT,ENT_YEAR
+		FROM CR_ANALY_ENT_TYPE_BLOCK etb
+		WHERE  ENT_YEAR IS NOT NULL AND trade IS NOT NULL AND $tradeName$>0
+		]]>
+		<isNotEmpty prepend="and" property="selectYear">  
+			ENT_YEAR = #selectYear#
+		</isNotEmpty>
+		GROUP BY ENT_YEAR,trade
+	</select>
+	
+	<!-- 获得chart4-2数据-->
+	<select id="selectTradeCodeForChart42" resultMap="cranalyentblockRlt9" parameterClass="java.util.HashMap">
+		<![CDATA[
+		SELECT trade,(SELECT content FROM CR_CODE_INDUSTRY_TYPE it WHERE it.CODE= etb.trade) trade_name,QY_COUNT,ENT_YEAR
+		FROM CR_ANALY_ENT_TYPE_BLOCK etb
+		WHERE  ENT_YEAR IS NOT NULL AND trade IS NOT NULL AND $tradeName$>0
+		]]>
+		GROUP BY trade
+	</select>
+	
+	<!-- 获得chart3-2数据-->
+	<select id="selectTradeDateForChart32" resultMap="cranalyentblockRlt10" parameterClass="java.util.HashMap">
+		<![CDATA[
+		SELECT SUM($resName$) res_total, DATE_FORMAT(STR_TO_DATE(CONCAT(ENT_YEAR,ENT_MONTH),'%Y%m'),'%Y-%m') date_str
+		FROM CR_ANALY_ENT_BLOCK
+		WHERE  ENT_YEAR IS NOT NULL AND ENT_MONTH IS NOT NULL AND $resName$>0 AND $tradeName$>0
+		GROUP BY ENT_YEAR,ENT_MONTH
+		]]>
+	</select>
+	
+	<!-- 获得chart3-2数据时间-->
+	<select id="selectTradeTimeJSONForChart32" resultMap="cranalyentblockRlt11" parameterClass="java.util.HashMap">
+		<![CDATA[
+		SELECT DATE_FORMAT(STR_TO_DATE(CONCAT(ENT_YEAR,ENT_MONTH),'%Y%m'),'%Y-%m') date_str
+		FROM CR_ANALY_ENT_BLOCK
+		WHERE  ENT_YEAR IS NOT NULL AND ENT_MONTH IS NOT NULL AND (IMP_NUM>0  OR EXP_NUM>0) AND $tradeName$>0
+		GROUP BY ENT_YEAR,ENT_MONTH
+		]]>
+	</select>
+	
+
+	
+	<select id="selectCrAnalyEntBlockList" resultMap="cranalyentblockRlt" parameterClass="java.util.HashMap">
+		select
+			id,ENT_YEAR,ENT_MONTH,trade,qy_scale,industry,ENT_CATG,QY_COUNT,QY_SCALE_COUNT,TOTAL_ASSETS,INCOME,ELEC_NUM,WATER_NUM,IMP_NUM,EXP_NUM,NET_PROFIT,TAX,SOCIAL_SECURITY_NUM,BLOCK_ECO_JXYQ,BLOCK_ECO_SY,BLOCK_ECO_XFQC,BLOCK_ECO_TZ,BLOCK_ECO_FJ,BLOCK_ECO_QCLBJ,BLOCK_ECO_TG,BLOCK_ECO_LBWY,CREATE_DATE
+		from 
+			CR_ANALY_ENT_BLOCK
+		<include refid="cranalyentblock_where" />
+		<include refid="ibatis-global.mysql_page" />
+	</select>
+	
+	<select id="selectCrAnalyEntBlockTotal" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" >
+		select 
+		    count(ID) 
+		from 
+		    CR_ANALY_ENT_BLOCK
+	    <include refid="cranalyentblock_where" />
+	</select>
+	
+	<insert id="insertCrAnalyEntBlock" parameterClass="CrAnalyEntBlock">
+       	INSERT INTO CR_ANALY_ENT_BLOCK 
+			(id,ENT_YEAR,ENT_MONTH,trade,qy_scale,industry,ENT_CATG,QY_COUNT,QY_SCALE_COUNT,TOTAL_ASSETS,INCOME,ELEC_NUM,WATER_NUM,IMP_NUM,EXP_NUM,NET_PROFIT,TAX,SOCIAL_SECURITY_NUM,BLOCK_ECO_JXYQ,BLOCK_ECO_SY,BLOCK_ECO_XFQC,BLOCK_ECO_TZ,BLOCK_ECO_FJ,BLOCK_ECO_QCLBJ,BLOCK_ECO_TG,BLOCK_ECO_LBWY,CREATE_DATE)
+		VALUES 
+			(#id#,#entYear#,#entMonth#,#trade#,#qyScale#,#industry#,#entCatg#,#qyCount#,#qyScaleCount#,#totalAssets#,#income#,#elecNum#,#waterNum#,#impNum#,#expNum#,#netProfit#,#tax#,#socialSecurityNum#,#blockEcoJxyq#,#blockEcoSy#,#blockEcoXfqc#,#blockEcoTz#,#blockEcoFj#,#blockEcoQclbj#,#blockEcoTg#,#blockEcoLbwy#,#createDate#)
+	    <selectKey resultClass="java.lang.String" keyProperty="id" >
+          <![CDATA[ 
+            select #id# as id from dual 
+       	  ]]>    
+       	</selectKey> 
+    </insert> 
+	
+    <update id="updateCrAnalyEntBlock" parameterClass="CrAnalyEntBlock">
+     UPDATE CR_ANALY_ENT_BLOCK
+	     <dynamic prepend="set">
+			<isNotEmpty prepend="," property="id">  
+				id = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="entYear">  
+				ENT_YEAR = #entYear#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="entMonth">  
+				ENT_MONTH = #entMonth#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="trade">  
+				trade = #trade#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="qyScale">  
+				qy_scale = #qyScale#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="industry">  
+				industry = #industry#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="entCatg">  
+				ENT_CATG = #entCatg#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="qyCount">  
+				QY_COUNT = #qyCount#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="qyScaleCount">  
+				QY_SCALE_COUNT = #qyScaleCount#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="totalAssets">  
+				TOTAL_ASSETS = #totalAssets#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="income">  
+				INCOME = #income#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="elecNum">  
+				ELEC_NUM = #elecNum#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="waterNum">  
+				WATER_NUM = #waterNum#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="impNum">  
+				IMP_NUM = #impNum#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="expNum">  
+				EXP_NUM = #expNum#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="netProfit">  
+				NET_PROFIT = #netProfit#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="tax">  
+				TAX = #tax#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="socialSecurityNum">  
+				SOCIAL_SECURITY_NUM = #socialSecurityNum#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="blockEcoJxyq">  
+				BLOCK_ECO_JXYQ = #blockEcoJxyq#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="blockEcoSy">  
+				BLOCK_ECO_SY = #blockEcoSy#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="blockEcoXfqc">  
+				BLOCK_ECO_XFQC = #blockEcoXfqc#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="blockEcoTz">  
+				BLOCK_ECO_TZ = #blockEcoTz#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="blockEcoFj">  
+				BLOCK_ECO_FJ = #blockEcoFj#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="blockEcoQclbj">  
+				BLOCK_ECO_QCLBJ = #blockEcoQclbj#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="blockEcoTg">  
+				BLOCK_ECO_TG = #blockEcoTg#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="blockEcoLbwy">  
+				BLOCK_ECO_LBWY = #blockEcoLbwy#
+			</isNotEmpty>
+
+			<isNotEmpty prepend="," property="createDate">  
+				CREATE_DATE = #createDate#
+			</isNotEmpty>
+		</dynamic>
+	    where ID = #id# 
+    </update>
+    
+     <delete id="deleteCrAnalyEntBlock" parameterClass="java.lang.String">
+         DELETE FROM CR_ANALY_ENT_BLOCK WHERE ID = #id# 
+     </delete>
+     
+</sqlMap>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"       
+          "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="crleprep" extends="icinfo-default" namespace="/crleprep" >
+
+		<action name="doReadCrLepRepList" class="crLepRepAction" method="doReadCrLepRepListAction">
+			<result name="success">/jsp/server/biz/crleprep/crleprepList.jsp</result>
+		</action>
+		
+		<action name="doReadCrLepRepListJSON" class="crLepRepAction" method="doReadCrLepRepListJSONAction">
+		</action>
+	
+		<action name="doEnAddAndEditCrLepRep" class="crLepRepAction" method="doEnAddAndEditCrLepRepAction">
+			<result name="success">/jsp/server/biz/crleprep/crleprepAddAndEdit.jsp</result>
+		</action>
+		
+		<action name="doAddAndEditCrLepRep" class="crLepRepAction" method="doAddAndEditCrLepRepAction">
+		</action>
+		
+		<action name="doDelCrLepRep" class="crLepRepAction" method="doDelCrLepRepAction">
+		</action>
+		
+		<!-- 跳转法人查询页面 -->
+		<action name="doEnCrLepRepSearch" class="crLepRepAction" method="doEnCrLepRepSearchAction">
+			<result name="success">/jsp/server/biz/crleprep/crleprepSearchList.jsp</result>
+		</action>
+		<action name="doGetCrLepRepSearchList" class="crLepRepAction" method="doGetCrLepRepSearchListAction">
+			<result name="success">/jsp/server/biz/crleprep/crleprepSearchList.jsp</result>
+		</action>
+		
+		
+	</package>
+	
+</struts>

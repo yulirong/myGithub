@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd"> 
+
+<sqlMap namespace="ibatis-cranalymaceconomy">
+
+	<typeAlias alias="CrAnalyMacEconomy" type="com.icinfo.creditinfo.bean.analy.cranalymaceconomy.CrAnalyMacEconomy" />
+
+	<resultMap id="cranalymaceconomyRlt" class="CrAnalyMacEconomy">
+		<result property="id" column="id" />
+		<result property="ecoMonth" column="eco_month" />
+		<result property="ecoTradeCode" column="eco_trade_code" />
+		<result property="ecoSupTradeCode" column="eco_sup_trade_code" />
+		<result property="ecoAssGro" column="eco_ass_gro" />
+		<result property="ecoVendInc" column="eco_vend_inc" />
+		<result property="ecoProGro" column="eco_pro_gro" />
+		<result property="ecoPartGro" column="eco_part_gro" />
+		<result property="ecoImpAmount" column="eco_imp_amount" />
+		<result property="ecoExpAmount" column="eco_exp_amount" />
+		<result property="ecoCreateDate" column="eco_create_date" />
+	</resultMap>
+		
+	<resultMap id="cranalymaceconomyRlt2" class="CrAnalyMacEconomy">
+		<result property="ecoMonth" column="eco_month" />
+		<result property="ecoImpAmount" column="eco_imp_amount" />
+		<result property="ecoExpAmount" column="eco_exp_amount" />
+	</resultMap>
+	
+	<select id="selectCrAnalyMacEconomyById" resultMap="cranalymaceconomyRlt" parameterClass="java.lang.String">
+		select
+			id,eco_month,eco_trade_code,eco_sup_trade_code,eco_ass_gro,eco_vend_inc,eco_pro_gro,eco_part_gro,eco_imp_amount,eco_exp_amount,eco_create_date
+		from 
+			CR_ANALY_MAC_ECONOMY
+		where 
+		    ID = #id#
+	</select>
+	
+	<sql id="cranalymaceconomy_where">
+	    <dynamic prepend="where">
+			<isNotEmpty prepend="and" property="id">  
+				id = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ecoMonth">  
+				eco_month = #ecoMonth#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ecoTradeCode">  
+				eco_trade_code = #ecoTradeCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ecoSupTradeCode">  
+				eco_sup_trade_code = #ecoSupTradeCode#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ecoAssGro">  
+				eco_ass_gro = #ecoAssGro#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ecoVendInc">  
+				eco_vend_inc = #ecoVendInc#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ecoProGro">  
+				eco_pro_gro = #ecoProGro#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ecoPartGro">  
+				eco_part_gro = #ecoPartGro#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ecoImpAmount">  
+				eco_imp_amount = #ecoImpAmount#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ecoExpAmount">  
+				eco_exp_amount = #ecoExpAmount#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ecoCreateDate">  
+				eco_create_date = #ecoCreateDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="entSupTrade">  
+				B.ml = #entSupTrade#
+			</isNotEmpty>
+	    </dynamic>
+	</sql>
+	
+	<select id="selectCrAnalyMacEconomyList" resultMap="cranalymaceconomyRlt" parameterClass="java.util.HashMap">
+		select
+			id,eco_month,eco_trade_code,eco_sup_trade_code,eco_ass_gro,eco_vend_inc,eco_pro_gro,eco_part_gro,eco_imp_amount,eco_exp_amount,eco_create_date
+		from 
+			CR_ANALY_MAC_ECONOMY
+		<include refid="cranalymaceconomy_where" />
+		<include refid="ibatis-global.mysql_page" />
+	</select>
+	
+	<select id="selectCrAnalyMacEconomyTrendList" resultMap="cranalymaceconomyRlt2" parameterClass="java.util.HashMap">
+		SELECT 
+			eco_month,SUM($selectVal$) eco_imp_amount,SUM(eco_exp_amount) eco_exp_amount 
+		FROM 
+			CR_ANALY_MAC_ECONOMY A 
+		LEFT JOIN CR_CODE_INDUSTRY B ON A.eco_trade_code = B.code
+		<include refid="cranalymaceconomy_where" />
+		GROUP BY eco_month
+	</select>
+	
+	<select id="selectCrAnalyMacEconomyTotal" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" >
+		select 
+		    count(ID) 
+		from 
+		    CR_ANALY_MAC_ECONOMY
+	    <include refid="cranalymaceconomy_where" />
+	</select>
+	
+	
+     
+</sqlMap>

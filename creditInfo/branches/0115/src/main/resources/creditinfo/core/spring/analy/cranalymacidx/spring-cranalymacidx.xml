@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+		http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"
+	default-lazy-init="false">
+
+    <bean id="crAnalyMacIdxAction" class="com.icinfo.creditinfo.action.analy.cranalymacidx.CrAnalyMacIdxAction" scope="prototype" >
+        <property name="crAnalyMacIdxService" ref="crAnalyMacIdxService" />
+    </bean>
+
+    <bean id="crAnalyMacIdxService" class="com.icinfo.creditinfo.service._impl.analy.cranalymacidx.CrAnalyMacIdxServiceImpl" scope="prototype" >
+        <property name="hxBaseDao" ref="crAnalyMacIdxDao" />
+    </bean>
+
+    <bean id="crAnalyMacIdxDao" class="com.icinfo.creditinfo.dao._impl.analy.cranalymacidx.CrAnalyMacIdxDaoImpl" scope="prototype" >
+        <property name="className"><value>CrAnalyMacIdx</value></property>
+        <property name="sqlMapClient" ref="sqlMapClient"></property>
+    </bean>    
+
+</beans>
+

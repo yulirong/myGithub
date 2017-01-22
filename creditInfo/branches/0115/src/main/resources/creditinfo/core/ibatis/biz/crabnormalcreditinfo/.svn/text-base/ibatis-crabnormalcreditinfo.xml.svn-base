@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd"> 
+
+<sqlMap namespace="ibatis-crabnormalcreditinfo">
+
+	<typeAlias alias="CrAbnormalCreditInfo" type="com.icinfo.creditinfo.bean.biz.crabnormalcreditinfo.CrAbnormalCreditInfo" />
+
+	<resultMap id="crabnormalcreditinfoRlt" class="CrAbnormalCreditInfo">
+		<result property="id" column="ID" />
+		<result property="abnEntName" column="ABN_ENT_NAME" />
+		<result property="abnRegNo" column="ABN_REG_NO" />
+		<result property="abnInterSum" column="ABN_INTER_SUM" />
+		<result property="abnCreditInst" column="ABN_CREDIT_INST" />
+		<result property="abnCurrency" column="ABN_CURRENCY" />
+		<result property="abnInterBalance" column="ABN_INTER_BALANCE" />
+		<result property="abnChangeDate" column="ABN_CHANGE_DATE" />
+		<result property="abnInterType" column="ABN_INTER_TYPE" />
+		<result property="abnUserId" column="ABN_USERID" />
+		<result property="abnOptTime" column="ABN_OPT_TIME" />
+	</resultMap>
+	
+	<select id="selectCrAbnormalCreditInfoById" resultMap="crabnormalcreditinfoRlt" parameterClass="java.lang.String">
+		select
+			ID,ABN_ENT_NAME,ABN_REG_NO,ABN_INTER_SUM,ABN_CREDIT_INST,ABN_CURRENCY,ABN_INTER_BALANCE,ABN_CHANGE_DATE,ABN_INTER_TYPE,ABN_USERID,ABN_OPT_TIME
+		from 
+			CR_ABNORMAL_CREDIT_INFO
+		where 
+		    ID = #id#
+	</select>
+	
+	<sql id="crabnormalcreditinfo_where">
+	    <dynamic prepend="where">
+			<isNotEmpty prepend="and" property="id">  
+				ID = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="abnEntName">  
+				ABN_ENT_NAME = #abnEntName#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="abnRegNo">  
+				ABN_REG_NO = #abnRegNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="abnInterSum">  
+				ABN_INTER_SUM = #abnInterSum#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="abnCreditInst">  
+				ABN_CREDIT_INST = #abnCreditInst#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="abnCurrency">  
+				ABN_CURRENCY = #abnCurrency#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="abnInterBalance">  
+				ABN_INTER_BALANCE = #abnInterBalance#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="abnChangeDate">  
+				ABN_CHANGE_DATE = #abnChangeDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="abnInterType">  
+				ABN_INTER_TYPE = #abnInterType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="abnUserId">  
+				ABN_USERID = #abnUserId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="abnOptTime">  
+				ABN_OPT_TIME = #abnOptTime#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="corpid">  
+				corpid = #corpid#
+			</isNotEmpty>
+	    </dynamic>
+	</sql>
+	
+	<select id="selectCrAbnormalCreditInfoList" resultMap="crabnormalcreditinfoRlt" parameterClass="java.util.HashMap">
+		select
+			ID,ABN_ENT_NAME,ABN_REG_NO,ABN_INTER_SUM,ABN_CREDIT_INST,ABN_CURRENCY,ABN_INTER_BALANCE,ABN_CHANGE_DATE,ABN_INTER_TYPE,ABN_USERID,ABN_OPT_TIME
+		from 
+			CR_ABNORMAL_CREDIT_INFO
+		<include refid="crabnormalcreditinfo_where" />
+		ORDER BY ABN_OPT_TIME DESC
+		<include refid="ibatis-global.mysql_page" />
+	</select>
+	
+	<select id="selectCrAbnormalCreditInfoTotal" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" >
+		select 
+		    count(ID) 
+		from 
+		    CR_ABNORMAL_CREDIT_INFO
+	    <include refid="crabnormalcreditinfo_where" />
+	</select>
+	
+	<insert id="insertCrAbnormalCreditInfo" parameterClass="CrAbnormalCreditInfo">
+       	INSERT INTO CR_ABNORMAL_CREDIT_INFO 
+			(ID,ABN_ENT_NAME,ABN_REG_NO,ABN_INTER_SUM,ABN_CREDIT_INST,ABN_CURRENCY,ABN_INTER_BALANCE,ABN_CHANGE_DATE,ABN_INTER_TYPE,ABN_USERID,ABN_OPT_TIME)
+		VALUES 
+			(#id#,#abnEntName#,#abnRegNo#,#abnInterSum#,#abnCreditInst#,#abnCurrency#,#abnInterBalance#,#abnChangeDate#,#abnInterType#,#abnUserId#,#abnOptTime#)
+	    <selectKey resultClass="java.lang.String" keyProperty="id" >
+          <![CDATA[ 
+            select #id# as id from dual 
+       	  ]]>    
+       	</selectKey> 
+    </insert> 
+	
+    <update id="updateCrAbnormalCreditInfo" parameterClass="CrAbnormalCreditInfo">
+     UPDATE CR_ABNORMAL_CREDIT_INFO
+	     <dynamic prepend="set">
+			<isNotEmpty prepend="," property="abnEntName">  
+				ABN_ENT_NAME = #abnEntName#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="abnRegNo">  
+				ABN_REG_NO = #abnRegNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="abnInterSum">  
+				ABN_INTER_SUM = #abnInterSum#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="abnCreditInst">  
+				ABN_CREDIT_INST = #abnCreditInst#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="abnCurrency">  
+				ABN_CURRENCY = #abnCurrency#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="abnInterBalance">  
+				ABN_INTER_BALANCE = #abnInterBalance#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="abnChangeDate">  
+				ABN_CHANGE_DATE = #abnChangeDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="abnInterType">  
+				ABN_INTER_TYPE = #abnInterType#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="abnUserId">  
+				ABN_USERID = #abnUserId#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="abnOptTime">  
+				ABN_OPT_TIME = #abnOptTime#
+			</isNotEmpty>
+		</dynamic>
+	    where ID = #id# 
+    </update>
+    
+     <delete id="deleteCrAbnormalCreditInfo" parameterClass="java.lang.String">
+         DELETE FROM CR_ABNORMAL_CREDIT_INFO WHERE ID = #id# 
+     </delete>
+     
+</sqlMap>

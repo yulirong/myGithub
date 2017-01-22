@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"       
+          "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="hxresource" extends="icinfo-default" namespace="/hxresource">
+		
+		<action name="doReadHxResourceList" class="hxResourceAction" method="doReadHxResourceListAction">
+			<result name="success">/jsp/server/sys/hxresource/hxresourceList.jsp</result>
+		</action>
+
+		<action name="doEnAddAndEditHxResource" class="hxResourceAction" method="doEnAddAndEditHxResourceAction">
+			<result name="success">/jsp/server/sys/hxresource/hxresourceAddAndEdit.jsp</result>
+		</action>
+		
+		<action name="doAddAndEditHxResource" class="hxResourceAction" method="doAddAndEditHxResourceAction">
+		
+		</action>
+		
+		<action name="doDelHxResource" class="hxResourceAction" method="doDelHxResourceAction">
+			<result name="success" type="redirect">doReadHxResourceList.do</result>
+		</action>
+		
+	</package>
+	
+</struts>

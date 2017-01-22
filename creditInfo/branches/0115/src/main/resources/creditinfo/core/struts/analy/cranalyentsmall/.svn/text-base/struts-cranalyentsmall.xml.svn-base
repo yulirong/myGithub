@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"       
+          "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="cranalyentsmall" extends="icinfo-default" namespace="/cranalyentsmall" >
+
+		<action name="doEnCrAnalyEntSmall" class="crAnalyEntSmallAction" method="doEnCrAnalyEntSmallAction">
+			<result name="success">/jsp/server/analy/cranalyentsmall/cranalyentsmall.jsp</result>
+		</action>
+		<!-- 企业分布 -->
+		<action name="doReadCrAnalyEntSmallNumByZoneJSON" class="crAnalyEntSmallAction" method="doReadCrAnalyEntSmallNumByZoneJSONAction">
+		</action>
+		<!-- 活跃度分析 -->
+		<action name="doReadCrAnalyEntSmallActiveJSON" class="crAnalyEntSmallAction" method="doReadCrAnalyEntSmallActiveJSONAction">
+		</action>
+		<!--新生消亡  -->
+		<action name="doReadCrAnalyEntSmallNewAndDieJSON" class="crAnalyEntSmallAction" method="doReadCrAnalyEntSmallNewAndDieJSONAction">
+		</action>
+		<!--经营状况趋势  -->
+		<action name="doReadOperateStateJSON" class="crAnalyEntSmallAction" method="doReadOperateStateJSONAction">
+		</action>
+		<!--平均就业人数 -->
+		<action name="doReadAvgEmpNumJSON" class="crAnalyEntSmallAction" method="doReadAvgEmpNumJSONAction">
+		</action>
+		<!--就业情况 -->
+		<action name="doReadEmpStatusJSON" class="crAnalyEntSmallAction" method="doReadEmpStatusJSONAction">
+		</action>
+		<!--三年成长轨迹 -->
+		<action name="doReadThreeYearGrowJSON" class="crAnalyEntSmallAction" method="doReadThreeYearGrowJSONAction">
+		</action>
+	</package>
+	
+</struts>

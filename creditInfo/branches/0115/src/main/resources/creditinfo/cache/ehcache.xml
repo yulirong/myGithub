@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache>
+	<diskStore path="java.io.tmpdir" />
+	<!--缓存最大数目  -->
+	<!--缓存是否持久  -->
+	<!--是否保存到磁盘，当系统当机时 -->
+	<!--当缓存闲置 n 秒后销毁  -->
+	<!--当缓存存活 n 秒后销毁  -->
+	<defaultCache maxElementsInMemory="10000" 
+		eternal="false" 
+		overflowToDisk="true" 
+		timeToIdleSeconds="300" 
+		timeToLiveSeconds="600" 
+		diskPersistent="false"
+		diskExpiryThreadIntervalSeconds= "120" />
+	
+	<cache  
+	    name="ibatis-global.dataCache"  
+	    maxElementsInMemory="500" 
+	    eternal="false"  
+	    timeToLiveSeconds="600"  
+	    overflowToDisk="false"  
+	    memoryStoreEvictionPolicy="LRU"/>  
+	    
+	 <cache name="creditCache" 
+        maxElementsInMemory="10000" 
+        eternal="false"
+        overflowToDisk="false" 
+        timeToIdleSeconds="900" 
+        timeToLiveSeconds="1800"
+        memoryStoreEvictionPolicy="LFU" />
+	    
+ 
+</ehcache>
